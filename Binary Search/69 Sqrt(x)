@@ -34,4 +34,4 @@ class Solution(object):
         return l
         #T(n) = n
         
-        #attention: result >= x, result < x can not be the check
+        #question: result >= x, result < x can not be the check????
