@@ -1,7 +1,7 @@
 Question:
 为什么不能是result >= x or result < x????
 
-code:
+Code:
 class Solution(object):
     def mySqrt(self, x):
         """
