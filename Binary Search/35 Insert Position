@@ -1,3 +1,10 @@
+题目：
+Given a sorted array and a target value, return the index if the target is found. 
+If not, return the index where it would be if it were inserted in order.
+You may assume no duplicates in the array.
+
+
+
 这道题思路简单，主要是情况较多，需要考虑完全
 
 Note:发现规律
