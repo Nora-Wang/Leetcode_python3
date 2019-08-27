@@ -14,7 +14,7 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-     
+     #version 1
         l = 0
         size = len(nums)
         r = size - 1
@@ -33,6 +33,19 @@ class Solution(object):
                     r = mid
             return r
         #T(n) = n
+        
+      #version 2(简化版，减去部分特殊判断)
+        size = len(nums)
+        l, r = 0, size - 1
+        if size == 0 or target > nums[-1]:
+            return size
+        while(l < r):
+            mid = (l + r) / 2
+            if nums[mid] >= target:
+                r = mid
+            else:
+                l = mid + 1
+        return r
         
 
 
