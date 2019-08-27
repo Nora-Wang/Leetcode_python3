@@ -1,0 +1,33 @@
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+     
+        l = 0
+        size = len(nums)
+        r = size - 1
+        if size == 0:
+            return 0
+        if target <= nums[0]:
+            return 0
+        elif target > nums[-1]:
+            return size
+        else:
+            while(l < r):
+                mid = (l + r) / 2
+                if target > nums[mid]:
+                    l = mid + 1
+                else:
+                    r = mid
+            return r
+        #T(n) = n
+        
+        #note:发现规律
+        target > nums[mid]
+        r > x
+        固定数据（传入数据/计算得出的数据） > 二分边界数据
+
+
