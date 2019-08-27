@@ -20,7 +20,7 @@ class Solution(object):
         r = size - 1
         #nums为空
         if size == 0:
-            return 0
+            return size
         #nums为单元素列表or target比第一个元素小
         if target <= nums[0]:
             return 0
