@@ -31,7 +31,8 @@ class Solution(object):
                 end = mid
             else:
                 start = mid
-        #start和end的顺序不能变，因为现在相当于还剩4、5两个version，需要先判断4，若4是false，再判断5是否为true；
+        #start和end的顺序要根据情况判断：求最小，先start；求最大，先end。
+        #此题因为现在相当于还剩4、5两个version，需要先判断4，若4是false，再判断5是否为true；
         #若先判断5，则4也为true的情况会发生错误
         if(isBadVersion(start)):
             return start
