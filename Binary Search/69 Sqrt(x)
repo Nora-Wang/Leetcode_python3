@@ -37,7 +37,7 @@ class Solution(object):
         #T(n) = n  
         
         #九章version
-                if x == 0:
+        if x == 0:
             return 0
         start = 1
         end = x
@@ -49,6 +49,7 @@ class Solution(object):
                 start = mid
             else:
                 end = mid
+        #根据题目判断end在前
         if end ** 2 <= x:
             return end
         else:
