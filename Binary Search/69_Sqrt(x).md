@@ -11,7 +11,6 @@ Question:
 为什么不能是result >= x or result < x????
 
 Code:
-```Python
 class Solution(object):
     def mySqrt(self, x):
         """
@@ -35,4 +34,3 @@ class Solution(object):
                 l = mid
         return l
         #T(n) = n    
-```
