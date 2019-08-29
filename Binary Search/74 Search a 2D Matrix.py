@@ -12,7 +12,7 @@ The first integer of each row is greater than the last integer of the previous r
 
 code:
 #方法1
-#T(n) = O(log(n) + log(m)) = O(log(n*m))
+#T(n) = O(log(n) + log(m)) = O(log(n*m)) = O(log(n))
 class Solution(object):
     def searchMatrix(self, matrix, target):
         """
@@ -63,7 +63,7 @@ class Solution(object):
         
         
 #方法2                
-#T(n) = n + log(n * m)
+#T(n) = n + log(n * m) = n + log(n)
        class Solution(object):
     def searchMatrix(self, matrix, target):
         """
