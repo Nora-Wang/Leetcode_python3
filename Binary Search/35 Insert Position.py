@@ -72,6 +72,7 @@ class Solution(object):
                 end = mid
         #分析当找不到target时的情况
         #target <= nums[start](最小) or target <= nums[end](介于start和end之间) or target > nums[end](最大)
+  #易错点：start与end的顺序，从小比到大
         if nums[start] >= target:
             return start
         elif nums[end] >= target:
