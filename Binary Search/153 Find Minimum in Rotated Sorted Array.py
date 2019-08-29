@@ -52,4 +52,5 @@ class Solution(object):
             else:
                 start = mid
         #需要考虑nums[0]的情况，即全部都是递增的；这时候再执行上述代码，得到的结果应为最大值
+  #错误点
         return min(nums[0], nums[end], nums[start])
