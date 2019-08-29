@@ -15,7 +15,7 @@ You may imagine that nums[-1] = nums[n] = -∞.
 2. 简易版
 因为题目要求any one of the peaks，因此可将整体看作一个坡，求其peak
 
-
+3.要求nums[i] ≠ nums[i+1]是因为会出现[1,2,3,3,3,2,1]的情况，不满足所分析的四种情况。若问[2,2,2,1,2,2,2],则直接用for循环,不需要二分
 
 
 
