@@ -11,6 +11,10 @@ Assume that there is only one duplicate number, find the duplicate one.
 若苹果树count<=抽屉数m，则说明1~m抽屉有空或每个都有一个苹果；即 m～n抽屉的苹果数 > 1~m抽屉的苹果数 ==>左边界left=m
 
 
+left__________________________________mid___________right
+    mid-left+1个抽屉  vs   count个苹果
+
+
 
 
 code:
