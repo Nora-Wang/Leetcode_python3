@@ -63,7 +63,7 @@ class Solution(object):
         
         
 #方法2                
-#T(n) = n + log(n * m) = n + log(n)
+#T(n) = O(n + log(n * m)) = O(n + log(n)) = O(n)
        class Solution(object):
     def searchMatrix(self, matrix, target):
         """
