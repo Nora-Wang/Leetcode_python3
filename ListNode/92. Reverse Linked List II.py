@@ -12,6 +12,8 @@ Output: 1->4->3->2->5->NULL
 
 
 思路：
+难点：需要理清prev，curt，temp代表的node位置，需要用start_prev，start记录，以便后续将反转链表与head链表的头尾链接
+
 翻转m和n之间的部分，分为三个步骤：
 1. 用while(m - 1)找到m-1和m的点，设为prev和curt，记录start_prev = prev；start = curt；
 
