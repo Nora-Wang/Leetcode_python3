@@ -9,9 +9,9 @@ Output: 1->1->2->3->4->4
 
 思路：
 以l1为标准，若l2<l1将l2插入
-有两点很奇怪：
-1.curt.next.next = None
-2.if(l1 == None)不能改为if(l1)
+有一点很奇怪：curt.next.next = None
+若有这一句，时间为20ms；若有，时间为12ms。即这句话节省了很多时间
+猜测原因：如果不赋值为none，那每次复制的时候都是l.next，即每次都把l1或者l2的剩下的值给赋值一遍
 
 
 
@@ -41,14 +41,14 @@ class Solution(object):
                 curt.next = l1
                 l1 = l1.next
                 
-            #若无下一语句，时间为20ms；若有，时间为16ms
+            #若无下一句，时间为20ms；若有，时间为12ms
             curt.next.next = None
             curt = curt.next
             
-        #若为if(l1)，则结果出错
-        if(l1 == None):
-            curt.next = l2
-        elif(l2 == None):
+
+        if(l1):
             curt.next = l1
+        elif(l2):
+            curt.next = l2
         
         return dummy.next
