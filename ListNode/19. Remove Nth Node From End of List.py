@@ -19,7 +19,6 @@ fast与slow之间相隔n个数
 注意：slow.next = slow.next.next
 此处成立是因为n的取值>=1（Given n will always be valid.），且head不为空
 
-注意while循环中，若有‘and slow.next’，时间快很多，由20ms变为12ms
 
 
 
@@ -45,8 +44,7 @@ class Solution(object):
         while(n and fast):
             fast = fast.next
             n -= 1
-        #注意下一句若有and slow.next，时间由20ms变为12ms
-        while(fast.next and slow.next):
+        while(fast.next):
             slow = slow.next
             fast = fast.next
         #Given n will always be valid.
