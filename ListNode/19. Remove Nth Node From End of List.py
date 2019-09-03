@@ -41,7 +41,7 @@ class Solution(object):
         dummy.next = head
         #fast和slow都由空指针开始，且相距n个node
         slow = fast = dummy
-        while(n and fast):
+        while(n and fast.next):
             fast = fast.next
             n -= 1
         while(fast.next):
