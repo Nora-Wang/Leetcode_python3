@@ -46,6 +46,7 @@ class Solution(object):
         dummy = ListNode(None)
         prev = dummy
         fast = slow = head
+  ###注意此处l=1
         l = 1
         while(fast.next):
             fast = fast.next
