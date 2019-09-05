@@ -30,13 +30,6 @@ prev.next=slow.next fast.next=head
 
 code:
 
-#################initial version
-
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
 
 class Solution(object):
     def rotateRight(self, head, k):
@@ -45,42 +38,7 @@ class Solution(object):
         :type k: int
         :rtype: ListNode
         """
-        if(head == None):
-            return head
-        dummy = ListNode(None)
-        prev = dummy
-        temp = slow = fast = head
-        l = 1
-        while(temp.next):
-            temp = temp.next
-            l += 1
-        k = k % l
-        
-        if(k == 0):
-            return head
-        
-        while(k and fast.next):
-            fast = fast.next
-            k -= 1
-        while(fast.next):
-            slow = slow.next
-            fast = fast.next
-        prev.next = slow.next
-        slow.next = None
-        fast.next = head
-        return dummy.next
-        
-        
-        
-#################better version
-
-class Solution(object):
-    def rotateRight(self, head, k):
-        """
-        :type head: ListNode
-        :type k: int
-        :rtype: ListNode
-        """
+######第二次做的时候没考虑到
         #特殊情况[] or [1]的判断方法
         if(head == None or head.next == None):
             return head
@@ -93,18 +51,21 @@ class Solution(object):
             fast = fast.next
             l += 1
             
+#######第二次做的时候没考虑k>size的情况       
         #为方便后续操作，可以把k改为l-k，这样就不用利用fast,slow双指针才能找到倒数第k个数，可直接找第l-k个数
         k = l - k % l
-        
+    
+#######第二次做的时候没考虑不用变的情况
         #考虑k=0 or k=nk的情况，即整个head不用改变
         if(k == l):
             return head
-        
+#######第二次做的时候写的是while(k)，但其实应该找的是3而不是4
         while(k - 1):
             slow = slow.next
             k -= 1
         
         prev.next = slow.next
+#######第二次做的时候没考虑到，如果不将3以后的node清零，则会出现Time Limit Exceeded的情况
         slow.next = None
         fast.next = head
         return dummy.next
