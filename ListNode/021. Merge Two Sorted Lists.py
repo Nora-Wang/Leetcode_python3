@@ -31,6 +31,11 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
+   #####第二次做画蛇添足的判断了一下l1和l2，时间复杂度变大
+        # if not (l1):
+        #     return l2
+        # if not (l2):
+        #     return l1
         dummy = ListNode(None)
         curt = dummy
         while(l1 and l2):
@@ -40,7 +45,7 @@ class Solution(object):
             else:
                 curt.next = l1
                 l1 = l1.next
-                
+    #####第二次做还是没写这句话。。。。。
             #若无下一句，时间为20ms；若有，时间为12ms
             curt.next.next = None
             curt = curt.next
