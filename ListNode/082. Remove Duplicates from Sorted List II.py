@@ -16,6 +16,8 @@ dummy = ListNode(-1)
 dummy.next = head
 用p代表当前指针，用curt作为测试指针；当curt发现重复数据，while循环到最后一个重复数据；用p.next = curt.next进行指针的重新链接，即将重复部分删除
 
+难点：if和while的循环条件
+
 #第二次做的思路，该思路的时间复杂度较高
 prev代表空指针，curt代表当前指针，若curt与下一个重复，将值赋给record，curt.next循环至不相等，若此时的curt.val!=curt.next.val则prev指向当前curt
 
@@ -40,8 +42,10 @@ class Solution(object):
         p = dummy
         
         while p.next:
+    ###这个条件记得加上p.next.next，并且写在前面
             if(p.next.next and p.next.val == p.next.next.val):
                 curt = p.next
+    ###这个条件记得加上curt.next，并且写在前面
                 while curt.next and curt.val == curt.next.val:
                     curt = curt.next
                 p.next = curt.next
