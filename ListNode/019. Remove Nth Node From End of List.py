@@ -41,12 +41,20 @@ class Solution(object):
         dummy.next = head
         #fast和slow都由空指针开始，且相距n个node
         slow = fast = dummy
+  ##第二次做的注意点：fast.next
         while(n and fast.next):
             fast = fast.next
             n -= 1
         while(fast.next):
             slow = slow.next
             fast = fast.next
+  ##第二次写的时候没有加上前面的fast.next,用的解决方案为
+        # if not (temp):
+        #     return head.next
+        
         #Given n will always be valid.
         slow.next = slow.next.next
         return dummy.next
+    
+    
+    第二次做，想到的办法是n = count - n，但这样的时间复杂度高
