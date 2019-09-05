@@ -47,3 +47,40 @@ class Solution(object):
                 p = p.next
                 
         return dummy.next
+    
+    
+ #######第二次做
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not (head and head.next):
+            return head
+        dummy = ListNode(None)
+        dummy.next = head
+        prev = dummy
+        curt = head
+        while(curt and curt.next):
+            if(curt.val == curt.next.val):
+                record = curt.val
+                while(curt.val == record):
+                    curt = curt.next
+                    if not (curt):
+                        break
+            else:
+                prev.next = curt
+                prev = curt
+                curt = curt.next
+        #这句话纠结了好久。。。。不管curt最后是最后一个node还是为None，prev都需要指向它，不然就会返回head
+        prev.next = curt
+        return dummy.next
+                
+                
