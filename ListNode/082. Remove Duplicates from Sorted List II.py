@@ -21,6 +21,8 @@ dummy.next = head
 #第二次做的思路，该思路的时间复杂度较高
 prev代表空指针，curt代表当前指针，若curt与下一个重复，将值赋给record，curt.next循环至不相等，若此时的curt.val!=curt.next.val则prev指向当前curt
 
+##最好不要用record。record记录一下curt.val，一直循环到!=curt.val，使得prev.next = curt
+##直接使用curt比较。当curt跟curt.next一样时，当curt.val == curt.next.val循环至最后一个重复数据，使得prev.next = curt.next
 
 
 code:
