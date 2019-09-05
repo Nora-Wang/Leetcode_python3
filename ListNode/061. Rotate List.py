@@ -59,7 +59,7 @@ class Solution(object):
         #考虑k=0 or k=nk的情况，即整个head不用改变
         if(k == l):
             return head
-#######第二次做的时候写的是while(k)，但其实应该找的是3而不是4
+#######第二次做的时候写的是while(k)，但其实应该找的是3而不是4。主要原因是3后面需要清零！
         while(k - 1):
             slow = slow.next
             k -= 1
