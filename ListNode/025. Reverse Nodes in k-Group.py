@@ -52,7 +52,8 @@ class Solution(object):
             n1 = nk = node.next
             #要为k-1，否则会循环至nk+1处
             
- ###########这段很迷。。。。需要两次判断if not (nk)，少一次都不行。。。。
+ ###########这段很迷。。。。需要两次判断if not (nk)，少一次都不行
+#######第二次做的时候也没写第二个判断
             while(k - 1):
                 nk = nk.next
             #第一次：当剩余node不足k个时，直接退出，不用reverse
@@ -71,6 +72,7 @@ class Solution(object):
             #注意：reverse的模板结束的结果为
             #prev = nk，curt = nk.next， temp = nk，next.next
             #因此while循环的判断依据为nextstart
+  #####第二次做的时候，将while循环的条件写成了k，但其实这时的k已经在寻找nk的时候变了
             while(curt != nextstart):
                 temp = curt.next
                 curt.next = prev
@@ -89,6 +91,7 @@ class Solution(object):
         #用while循环的方式将node分成每段为k个node的链表
         #注意：此处的node是每个n1...nk的前一个node，即n1前一个node；且每次reverseKNode函数返回的都是n1，即下一次循环的前一个node
         node = dummy
+ #####第二次写的时候纠结了好久while循环里写什么条件，原因是认为node=None，但其实node=None+head，所以第一次循环的时候是
         while(node):
             node = reverseKNode(node, k)
         return dummy.next
