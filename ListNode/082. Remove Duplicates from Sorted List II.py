@@ -16,6 +16,8 @@ dummy = ListNode(-1)
 dummy.next = head
 用p代表当前指针，用curt作为测试指针；当curt发现重复数据，while循环到最后一个重复数据；用p.next = curt.next进行指针的重新链接，即将重复部分删除
 
+#第二次做的思路，该思路的时间复杂度较高
+prev代表空指针，curt代表当前指针，若curt与下一个重复，将值赋给record，curt.next循环至不相等，若此时的curt.val!=curt.next.val则prev指向当前curt
 
 
 
