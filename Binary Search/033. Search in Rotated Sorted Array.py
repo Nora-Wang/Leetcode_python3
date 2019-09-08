@@ -49,7 +49,9 @@ Your algorithm's runtime complexity must be in the order of O(log n).
                                    e=m     s=m  不存在  e=m      s=m    不存在 e=m    s=m
          
 
+#######第二次做没有考虑清楚如果target在nums[0]的位置时，该怎么处理。
 
+#######有两种方法。个人比较接受的方法是在一开始判断一下nums[0] == target。因为。。。。第二种我是想不到的。。。。。
 
 code：
 
@@ -94,18 +96,25 @@ class Solution(object):
    # version 2简化版 96%
         if (len(nums) == 0):
             return -1
+########方法1
+	if(nums[0] == target):
+            return 0
+
+
         start = 0
         end = len(nums) - 1
         while (start + 1 < end):
             mid = start + (end - start) / 2
             if (target == nums[mid]):
                 return mid
+	
             if (nums[start] > nums[mid]):
                 if (nums[start] > target > nums[mid]):
                     start = mid
                 else:
                     end = mid
             else:
+#########方法2 加等号
                 # 等号原因：若target出现在nums的第一个或最后一个元素，没有等号则直接返回-1；例[1, 3, 5], 1
                 if (nums[start] <= target < nums[mid]):
                     end = mid
