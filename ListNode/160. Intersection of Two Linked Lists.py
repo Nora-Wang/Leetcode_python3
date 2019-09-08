@@ -20,7 +20,7 @@ pa与pb的定义方式需要注意。不要用ListNdoe pa/pb，然后用pa.val !
 
 
 
-
+####第二次做没考虑好while循环的条件
 
 
 
