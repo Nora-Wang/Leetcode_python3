@@ -25,7 +25,7 @@ if not(fast and fast.next):
 #若是circle，fast和fast.next一定在circle内无限循环，不应该出现None的情况
 #fast和fast.next两个都要判断（理由同上面的while循环）
         
-
+####第二次做也没想到可以先判断不是循环的情况。。。。。
 
 
 code:
