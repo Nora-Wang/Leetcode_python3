@@ -57,3 +57,21 @@ class Solution(object):
         prev_high.next = None
         return dummy_low.next
         
+######第二次做
+        dummy_low = ListNode(None)
+        low = dummy_low
+        dummy_high = ListNode(None)
+        dummy_high.next = head
+        curt = dummy_high
+        while(curt.next):
+            if(curt.next.val < x):
+                low.next = curt.next
+                low = low.next
+                curt.next = curt.next.next
+                #考虑到若前一个curt在倒数第二个node时，循环一次之后curt可能会=none，这时curt.next不成立，因此加一个特判
+                if not (curt):
+                    break
+            else:
+                curt = curt.next
+        low.next = dummy_high.next
+        return dummy_low.next
