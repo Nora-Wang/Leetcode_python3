@@ -18,7 +18,7 @@ Explanation: You are given the second node with value 5, the linked list should 
 
 时间复杂度分析：只有常数次操作，所以时间复杂度是 O(1)。
 
-
+##第二次做的时候加了一个判断句if not node.next:   node = None，但其实不用加，因为题目中说了(except the tail)，若无这句话就可加。
 
 
 code:
@@ -38,3 +38,15 @@ class Solution(object):
         node.val = node.next.val
         node.next = node.next.next
         
+###第二次做
+class Solution(object):
+    def deleteNode(self, node):
+        """
+        :type node: ListNode
+        :rtype: void Do not return anything, modify node in-place instead.
+        """
+        # if not node.next:
+        #     node = None 
+        # else:
+            node.val = node.next.val
+            node.next = node.next.next
