@@ -68,5 +68,46 @@ class Solution(object):
         start.next = curt
         return dummy.next
         
+
+####第二次做
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def reverseBetween(self, head, m, n):
+        """
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        """
+        dummy = ListNode(None)
+        dummy.next = head
+        start = dummy
+         
+######这个问题困扰了好久！！！以后一定要注意变量变了没！！！！
+      #because m will be changed in the next step, so k have to be account before the next step
+        k = n - m + 1
         
+        #to the point before reverse
+        while(m - 1):
+            start = start.next
+            m -= 1
         
+        #reverse
+        prev = start
+        curt = end = start.next
+        while(curt and k):
+            temp = curt.next
+            curt.next = prev
+            prev = curt
+            curt = temp
+            k -= 1
+            
+        #connect
+        start.next = prev
+        end.next = curt
+        return dummy.next
