@@ -50,6 +50,7 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+######第二次做的注意点！！！
         #注意不要用prev = ListNode(None)；因为这样prev就算一个node，最后的结果：5->4->3->2->1->None；正确结果：5->4->3->2->1
         prev = None
         curt = head
