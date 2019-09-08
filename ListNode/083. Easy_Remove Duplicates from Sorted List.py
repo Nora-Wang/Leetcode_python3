@@ -16,7 +16,7 @@ Output: 1->2->3
 若curt.val = curt.next.val则将curt的指针指向curt.next.next，即将curt.next这个node从head中删掉
 
 ###第二次做没考虑[]的情况。两种方法。
-
+当head = None，后面的curt.next不成立，所以必须提前判断head = None的情况
 
 code:
 
@@ -32,7 +32,7 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-   ###第一种方法
+###第一种方法
         if(head == None):
             return None
         curt = head
