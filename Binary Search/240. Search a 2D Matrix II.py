@@ -14,7 +14,9 @@ Integers in each column are sorted in ascending from top to bottom.
 元素 < target，下一步向右走，因为右边的元素都大于当前元素，上方元素小于当前元素
 元素 > target，下一步向上走，因为右边的元素都大于当前元素，上方元素小于当前元素
 
-
+####第二次做的时候知道应该从左下往右上走，但因为对题目的理解不深，不知道为什么可以如此判断。以下两句话要仔细理解！！
+####Integers in each row are sorted in ascending from left to right.
+####Integers in each column are sorted in ascending from top to bottom.
 
 code:
 
