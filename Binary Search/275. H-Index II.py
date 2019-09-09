@@ -12,8 +12,44 @@
 h = len(citations) - mid  (有h篇paper)
 citations[mid] >= h       (因为sorted in ascending order，最小值citations[mid]至少有h个citations，后面的都会满足)
 
+#####initial的code后面的if不太好理解，可以用第二次的code，好理解，时间复杂度也相同
+
+
 code:
 
+#######第二次做的code更易理解
+class Solution(object):
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        if(len(citations) == 0):
+            return 0
+        start = 0
+        size = len(citations)
+        end = size - 1
+        
+        while(start + 1 < end):
+            mid = start + (end - start) / 2
+            if(size - mid <= citations[mid]):
+                end = mid
+            else:
+                start = mid
+                
+        if(size - start <= citations[start]):
+            return size - start
+        elif(size - end <= citations[end]):
+            return size - end
+        return 0
+
+                
+  
+  
+  
+  
+  
+#initial
 class Solution(object):
     def hIndex(self, citations):
         """
