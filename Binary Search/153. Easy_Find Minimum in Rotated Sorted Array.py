@@ -8,7 +8,7 @@ Find the minimum element.
 You may assume no duplicate exists in the array.
 
 
-不清楚点可以画图：
+不清楚可以画图：
               ↗
             ↗
           ↗
@@ -30,6 +30,15 @@ You may assume no duplicate exists in the array.
       ↑     ↑        ↑
     start  mid      end
     
+    
+    
+    
+注意：可以利用min()函数简化程序
+
+
+
+
+
 
 code：
 
