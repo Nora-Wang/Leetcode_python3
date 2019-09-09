@@ -78,6 +78,9 @@ class Solution(object):
         i = 0
         list = []
         while(i < n):
+  #######第二次用这个方法的时候，写的是
+    ######list.append(matrix[i])
+    ######这样写不行！！
             list += matrix[i]
             i += 1
         start = 0
