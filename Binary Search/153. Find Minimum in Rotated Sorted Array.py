@@ -54,3 +54,32 @@ class Solution(object):
         #需要考虑nums[0]的情况，即全部都是递增的；这时候再执行上述代码，得到的结果应为最大值
   #错误点
         return min(nums[0], nums[end], nums[start])
+  
+  
+  
+######第二次做，方法没问题，就是太慢了
+  class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if(len(nums) == 0):
+            return -1
+        start = 0
+        end = len(nums) - 1
+        while(start + 1 < end):
+            mid = start + (end - start) - 1
+            if(nums[start] > nums[end]):
+                if(nums[mid] > nums[end]):
+                    start = mid
+                else:
+                    end = mid
+            else:
+                return nums[start]
+        if(nums[start] > nums[end]):
+            return nums[end]
+        else:
+            return nums[start]
+                    
+        
