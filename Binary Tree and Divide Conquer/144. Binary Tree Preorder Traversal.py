@@ -48,10 +48,10 @@ class Solution:
 #结束条件：本题为遇到空节点停止
         if root is None:
             return
+####顺序是根左右
 #定义：这道题就是先遍历父亲节点（将root加入到result[]中），然后左节点、右节点
         self.results.append(root.val)
 #拆分本题就是拆成左子树和右子树，对左子树和右字数分别做前序遍历
-####注意要先左后右，因为是preorder
         self.traverse(root.left)
         self.traverse(root.right)
 
