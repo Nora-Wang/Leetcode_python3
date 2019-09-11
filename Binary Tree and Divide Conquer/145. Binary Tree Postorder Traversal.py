@@ -35,6 +35,7 @@ class Solution(object):
         
         if not root:
             return
+###顺序是左右根
         self.traverse(root.left)
         self.traverse(root.right)
         self.result.append(root.val)
@@ -42,3 +43,4 @@ class Solution(object):
         
         
 2.Non-recursive
+
