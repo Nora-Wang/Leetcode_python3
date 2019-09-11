@@ -35,7 +35,7 @@ class Solution(object):
         self.result = self.traverse(root)
         return self.result
     def traverse(self, root):
-####顺序是根左右
+####顺序是左根右
          self.traverse(root.left)
         self.result.append(root.val)
         self.traverse(root.right)
