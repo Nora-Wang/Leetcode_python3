@@ -43,11 +43,11 @@ class Solution(object):
         rightPath = self.binaryTreePaths(root.right)
         
         #由于输出结果，需要注意写法，都是str
-        #这里的思想是当以root点为根的leftPath已经完成，当将整个path加入result中时，要从root开始，一个node一个node的顺下去
-        for node in leftPath:
-            result.append(str(root.val) + '->' + str(node))
-        for node in rightPath:
-            result.append(str(root.val) + '->' + str(node))
+        #这里的思想是当以root点为根的leftPath已经完成，当将左node的所有path加上root后，加入result中
+        for path in leftPath:
+            result.append(str(root.val) + '->' + str(path))
+        for path in rightPath:
+            result.append(str(root.val) + '->' + str(path))
             
         #这道题做完后再将单node的情况带入，会发现多了‘->’，因此需要单独写append的格式
         if root.left == None and root.right == None:
