@@ -55,4 +55,50 @@ class Solution(object):
             
         return result
 
+   
+2.Non-recursive(traversal)
+从上到下一个stark就可以，注意第一次传入的是空string
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
+      #判断root
+        if not root:
+            return []
+        result = []
+      #重点：stark的定义方式[(node, path)]
+        stark = [(root, '')]
+         
+        while stark:
+            node, path = stark.pop()
+            
+            #如果是第一个节点，其path为空，则不需要‘->’
+            if path:
+                path += '->' + str(node.val)
+            else:
+                path += str(node.val)
+            
+            #判断是否到叶节点，如果是则将path加入result；并结束此次循环
+            if node.left is None and node.right is None:
+                result.append(path)
+                continue
+               
+            #如果有右节点，则将其push进stark；如果有左节点，则同样push进stark
+            #下一次的循环就是先查找左节点的path，等左节点path已经全部找完，再寻找右节点的path
+            if node.right:
+                stark.append((node.right, path))
+            if node.left:
+                stark.append((node.left, path))
+            
+                
+        return result
                 
