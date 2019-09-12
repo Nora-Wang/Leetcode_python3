@@ -16,6 +16,69 @@ Explanation: The LCA of nodes 5 and 1 is 3.
 
 
 1.给出node.parent
-
+思路：
+如果二叉树中存储了父亲节点，则可以从两个点出发往上寻找至root:
+比如5和1：
+5:[5,3]
+1:[1,3]
+得到路径之后从后向前遍历，3,3一样，5,1不一样了，所以最近公共祖先是3
+再比如5和4：
+5:[5,3]
+4:[4,2,5,3]
+从后向前遍历，发现3,5之后不一样了，所以公共祖先是5
 
 2.给出root，不给parent（若两个都不给，无解）
+思路：
+如果没有存储父亲节的信息，给定root节点和两个点n1,n2:
+        _______3______
+       /              \
+    __5__           __1__
+   /     \         /     \
+  6      _2_       0      8
+        /   \
+       7     4
+n1和n2的分布情况有以下几种：
+1.root=p or root=q or root=None -> 返回root
+2.全在左子树 -> 返回root.left
+3.全在右子树 -> 返回root.right
+4.一个在左子树、一个在右子树 -> 返回root
+5.这两个点不在这棵树里 -> 返回null
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        #情况1
+        if (root == None or root == p or root == q):
+            return root
+        
+        #divide
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        
+        #conquer
+        #情况4
+        if left and right:
+            return root
+        
+        #情况2
+        if left and not right:
+            return left
+        
+        #情况3
+        if right and not left:
+            return right
+          
+        #情况5
+        return None
