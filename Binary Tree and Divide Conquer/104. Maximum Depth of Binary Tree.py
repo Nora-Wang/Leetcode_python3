@@ -42,8 +42,9 @@ class Solution(object):
         :rtype: int
         """
         if not root:
+          #此处返回值为0，因为叶节点的下一层的depth为0，叶节点为1
             return 0
-        
+        #因为调用自身函数，因此需要用self.
         leftDepth = self.maxDepth(root.left)
         rightDepth = self.maxDepth(root.right)
         result = max(leftDepth, rightDepth) + 1
