@@ -16,7 +16,43 @@ Note: The length of path between two nodes is represented by the number of edges
 
 
 思路：
-注意理解题意最长是4-2-1-3，所以应该是将求左右两边的高度相加
+理解题意最长是4-2-1-3，所以应该是将求左右两边的高度相加(设叶节点高度为1)，再与之前的值做比较，取最大值
+
+注意理解：
+之所以能直接将左右两边的高度相加，是因为其高度相当于边的个数，path的长度 = node的个数 - 1 = 边的个数
+如1的高度为3，而2的高度为2，3的高度为，4-2-1-3的长度为3
+
+
+#simple version
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def diameterOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        self.count_diameter(root)
+        return self.res
+        
+    def count_diameter(self, root):
+        
+        if not root:
+            return 0
+
+        left_count = self.count_diameter(root.left)
+        right_count = self.count_diameter(root.right)
+
+        #对于叶节点，没有left和right，return max(left_count, right_count) + 1，结果为1；即叶节点的高度为1
+        self.res = max(self.res, left_count + right_count)
+        
+        return max(left_count, right_count) + 1
 
 
 code：
@@ -60,37 +96,6 @@ class Solution(object):
         return max(left_count, right_count)
 
 
-#simple version
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
-class Solution(object):
-    def diameterOfBinaryTree(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        self.res = 0
-        self.count_diameter(root)
-        return self.res
-        
-    def count_diameter(self, root):
-        
-        if not root:
-            return 0
-
-        left_count = self.count_diameter(root.left)
-        right_count = self.count_diameter(root.right)
-
-        #不需要判断是否有左右节点是因为循环到叶节点.next时，为0；倒数第二层，即叶节点时，为1
-        #换句话说，对于root1，左子树left_count=1，
-        #此时右子树没有left和right，return max(left_count, right_count) + 1，可使得右子树right_count直接=1
-        self.res = max(self.res, left_count + right_count)
-        
-        return max(left_count, right_count) + 1
         
         
