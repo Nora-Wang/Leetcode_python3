@@ -58,4 +58,39 @@ class Solution(object):
         
         #返回当前node的高度
         return max(left_count, right_count)
+
+
+#simple version
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def diameterOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        self.count_diameter(root)
+        return self.res
+        
+    def count_diameter(self, root):
+        
+        if not root:
+            return 0
+
+        left_count = self.count_diameter(root.left)
+        right_count = self.count_diameter(root.right)
+
+        #不需要判断是否有左右节点是因为循环到叶节点.next时，为0；倒数第二层，即叶节点时，为1
+        #换句话说，对于root1，左子树left_count=1，
+        #此时右子树没有left和right，return max(left_count, right_count) + 1，可使得右子树right_count直接=1
+        self.res = max(self.res, left_count + right_count)
+        
+        return max(left_count, right_count) + 1
+        
         
