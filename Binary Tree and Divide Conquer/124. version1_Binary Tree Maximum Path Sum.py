@@ -4,8 +4,8 @@
 思路：
 1.如果是求从root到leaf的最大路径，就用分治法，从上到下，每个节点的最大路径是其左子树和右子树的最大路径的最大值:
   root.val + max(left, right)
-2.如果二叉树上的节点值有负数，那么最大路径就有可能不到leaf就结束了，所以在计算节点最大路径时，如果其左右子树最大路径的最大值为负数，
-  则该节点到leaf的最大路径长度应该为0：root.val + max(0, left, right)
+2.二叉树上的节点值可能有负数，所以在计算节点最大路径时，如果其左右子树最大路径的最大值为负数，则该节点的最大路径和应为自己root:
+  root.val + max(0, left, right)
 
 
 # Definition for a binary tree node.
