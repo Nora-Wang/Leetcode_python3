@@ -23,7 +23,7 @@ Note: The length of path between two nodes is represented by the number of edges
 如1的高度为3，而2的高度为2，3的高度为，4-2-1-3的长度为3
 
 
-#simple version
+#Simple Version
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -42,7 +42,6 @@ class Solution(object):
         return self.res
         
     def count_diameter(self, root):
-        
         if not root:
             return 0
 
@@ -80,10 +79,8 @@ class Solution(object):
 
         left_count = self.count_diameter(root.left)
         right_count = self.count_diameter(root.right)
-        
-          
-          
-#简单方法在删除下面两个if之后self.res的求解方法不变，是因为
+
+#简单方法在删除下面两个if之后self.res的求解方法不变，是因为？？？？？？？？？？
 
         #如果左侧有node，则高度+1
         if root.left:
@@ -92,8 +89,8 @@ class Solution(object):
         if root.right:
             right_count += 1
             
-        #这里要注意在求self.res时，还需要与self.res自己比较大小
-        #
+#这里要注意在求self.res时，还需要与self.res自己比较大小。因为？？？？？
+#(我个人觉得这道题不用跟自己做比较啊，因为这直径不肯定是从根的左边高度+右边高度嘛？难道还有其他比这还大的可能？？)
         self.res = max(self.res, left_count + right_count)
         
         #返回当前node的高度
