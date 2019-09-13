@@ -81,6 +81,10 @@ class Solution(object):
         left_count = self.count_diameter(root.left)
         right_count = self.count_diameter(root.right)
         
+          
+          
+#简单方法在删除下面两个if之后self.res的求解方法不变，是因为
+
         #如果左侧有node，则高度+1
         if root.left:
             left_count += 1
