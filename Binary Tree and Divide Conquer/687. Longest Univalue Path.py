@@ -19,7 +19,7 @@ Input:
 Output: 2     
 
 思路：
-
+可参考题目543
 判断当root.val == root.left.val时，此时从root左侧的longest path就是 root.left的最长路径+1；
    当root.val == root.right.val时，此时从root右侧的longest path就是 root.right的最长路径+1
    最后的longest path应为左侧+右侧
