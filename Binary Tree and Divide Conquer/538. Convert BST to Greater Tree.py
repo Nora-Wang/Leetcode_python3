@@ -36,7 +36,7 @@ class Solution(object):
         """
         if not root:
             return None
-        
+        ##注意写法，用的是root.right和root.left
         root.right = self.convertBST(root.right)
         
         self.sum += root.val
