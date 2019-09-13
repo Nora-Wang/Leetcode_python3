@@ -1,3 +1,4 @@
+题目：
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
 
 According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
@@ -73,7 +74,7 @@ class Solution(object):
         #divide
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
-        
+#version1
         #conquer
         #情况4
         if left and right:
@@ -89,3 +90,11 @@ class Solution(object):
           
         #情况5
         return None
+
+#version2
+        if not left:
+            return right
+        if not right:
+            return left
+        #if left and right:
+        return root
