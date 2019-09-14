@@ -13,8 +13,8 @@ Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
 Output: 3
 Explanation: The LCA of nodes 5 and 1 is 3.
 
-
-
+3.此题还有一种变形，需要用到traverse
+需要设定self.p_exist, self.q_exist, lca，用于判断pq是否出现并记录其lca的值
 
 1.给出node.parent
 思路：
