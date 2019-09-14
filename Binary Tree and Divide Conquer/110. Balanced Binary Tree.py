@@ -21,9 +21,10 @@ Return true.
 
 
 1. Version九章
+
 Class ResultType
 用ResultType类来记录depth和是否balanced
-主要运用的还是divide and conquer的思想
+主要运用=是divide and conquer + traverse的思想
 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -71,6 +72,7 @@ class Solution:
         
         
 2.Simple Version
+思想：divide and conquer
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -84,10 +86,11 @@ class Solution:
         if not root:
             return 0
             
-        #divide and conquer
+        #divide
         left = self.dfs(root.left)
         right = self.dfs(root.right)
         
+        #conquer
         #左子树或右子树不平衡时
         if left == -1 or right == -1:
             return -1
