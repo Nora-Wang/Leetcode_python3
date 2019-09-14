@@ -2,7 +2,7 @@
 Given a binary tree, find the subtree with minimum sum. Return the root of the subtree.
 
 
-Divide Conquer + Traversal
+Divide Conquer + Traverse
 
 class Solution:
     def findSubtree(self, root):
@@ -22,7 +22,7 @@ class Solution:
       right = findsum(root.right)
       cur_sum = left.val + right.val + root.val
       
-      #traversal(compare with global variable与全局变量做比较，self.min_sum，self.min_sum_root)
+      #traverse(compare with global variable与全局变量做比较，self.min_sum，self.min_sum_root)
       if(cur_sum < self.min_sum):
         self.min_sum = cur_sum
         self.min_sum_root = root
