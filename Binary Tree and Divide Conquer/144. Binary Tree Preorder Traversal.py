@@ -25,7 +25,13 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 拆分：差分成同样的问题，但规模变小。本题就是拆成左子树和右子树，对左子树和右字数分别做前序遍历
 结束条件：规模变为最小的情况。本题为遇到空节点停止
 
-# Version 0: Recursion 
+递归可分为两种：traversal遍历和divide and conquer分治
+区别：traversal的result是全局变量
+
+主要掌握traversal和Non-recursive的方法
+
+# Version 0: Traversal遍历 
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -55,13 +61,44 @@ class Solution:
         self.traverse(root.left)
         self.traverse(root.right)
 
+      
+#Version 1:divide and conquer分治
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        result = []
+        if not root:
+            return []
+        
+        left = self.preorderTraversal(root.left)
+        right = self.preorderTraversal(root.right)
+        
+##注意left和right加入进result的写法，以及root的写法
+        result.append(root.val)
+        result += left
+        result += right
+        
+        return result
+        
         
         
 2.非递归：迭代 Non-Recursive: Iteration
 
 利用stack实现树的前序遍历，每次弹出栈顶元素，先后压入其右孩子和左孩子
     
-# Version 1: Non-Recursion  
+# Version 2: Non-Recursion 
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -80,16 +117,18 @@ class Solution:
         #根入栈
         stack = [root]
         preorder = []
+      
         while stack:
             node = stack.pop()
             preorder.append(node.val)
+            
             #右节点入栈
             if node.right:
                 stack.append(node.right)
             #左节点入栈
-                stack.append(node.right)
             if node.left:
                 stack.append(node.left)
+                  
         return preorder
    
 ######注意：先让右节点入栈，再让左节点入栈。
