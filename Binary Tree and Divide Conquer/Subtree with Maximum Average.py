@@ -36,7 +36,7 @@ class Solution:
         right_avg, right_root, right_sum, right_size = self.dfs(root.right)
         
         size = left_size + right_size + 1
-        sum = left_sum + right_sum + 1
+        sum = left_sum + right_sum + root.val
         avg = sum / size
         
         max_avg = max(avg, left_avg, right_avg)
@@ -47,4 +47,4 @@ class Solution:
         if(right_avg == max_avg):
             return right_avg, right_root, right_sum, right_size
            
-        return max_avg, root, sum, size
+        return avg, root, sum, size
