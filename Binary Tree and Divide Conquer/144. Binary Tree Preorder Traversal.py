@@ -26,7 +26,7 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 结束条件：规模变为最小的情况。本题为遇到空节点停止
 
 递归可分为两种：traversal遍历和divide and conquer分治
-区别：traversal的result是return value全局变量，而divide and conquer的result是parameter变量
+区别：traversal的result是return value是global variable全局变量，而divide and conquer的result是parameter参数
 
 主要掌握traversal和Non-recursive的方法
 
