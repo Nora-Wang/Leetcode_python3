@@ -33,6 +33,7 @@ Explanation: The LCA of nodes 5 and 1 is 3.
 
 2.给出root，不给parent（若两个都不给，无解）
 整体思路：
+divide and conquer
 p和q一定在分布在最后的root的left和right中，即只有情况1和4整个程序才终止；
 否则对于情况2，3来说，其实就是把root改为left或right；即已经确定了LCA不在另一边中，而是在left或right中
 
