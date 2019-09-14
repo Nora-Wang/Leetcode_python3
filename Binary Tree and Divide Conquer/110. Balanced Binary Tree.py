@@ -17,7 +17,8 @@ Given the following tree [3,9,20,null,null,15,7]:
 Return true.
 
 
-
+推荐用version1，因为定义了IsBalanced，代码清晰，更好理解
+version2用-1做标记，容易出错
 
 
 1. Version九章
