@@ -78,12 +78,15 @@ class Solution(object):
         :rtype: List[int]
         """
         result = []
+         #停止条件
         if not root:
             return []
         
+         #divide
         left = self.preorderTraversal(root.left)
         right = self.preorderTraversal(root.right)
         
+         #conquer
 ##注意left和right加入进result的写法，以及root的写法
         result.append(root.val)
         result += left
