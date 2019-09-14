@@ -20,7 +20,7 @@ Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 
 
 
-1.Recursive
+1.Divide and Conquer
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
