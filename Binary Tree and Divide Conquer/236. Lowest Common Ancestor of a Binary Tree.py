@@ -13,10 +13,10 @@ Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
 Output: 3
 Explanation: The LCA of nodes 5 and 1 is 3.
 
-3.此题还有一种变形，需要用到traverse
-需要设定self.p_exist, self.q_exist, lca，用于判断pq是否出现并记录其lca的值
+3.此题还有一种变形，需要用到traverse，，且pq不一定存在在bt中
+需要设定self.p_exist, self.q_exist, lca，用于判断pq是否出现，若出现，则记录其lca的值；若不出现，则返回None
 
-1.给出node.parent
+1.给出node.parent，且pq一定存在在bt中
 思路：
 如果二叉树中存储了父亲节点，则可以从两个点出发往上寻找至root:
 比如5和1：
@@ -31,7 +31,7 @@ Explanation: The LCA of nodes 5 and 1 is 3.
 
 
 
-2.给出root，不给parent（若两个都不给，无解）
+2.给出root，不给parent（若两个都不给，无解），且pq一定存在在bt中
 整体思路：
 divide and conquer
 p和q一定在分布在最后的root的left和right中，即只有情况1和4整个程序才终止；
