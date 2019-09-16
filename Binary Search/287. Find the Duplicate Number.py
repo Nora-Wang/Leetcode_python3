@@ -16,7 +16,9 @@ left__________________________________mid___________right
 
 
 
-
+###这里要注意mid是指1～n值的mid，不是array的mid，因此对于mid存在的数组来说就是sorted的（这里的left和right都是用于计算mid的取值范围，不是用于定位）
+#在计算count的时候才是在真正给的array里计算
+##这道题本质上就是在比较array里面有多少个值(count)是比中位数(mid)大的，如果个数比中位数多，那就证明重复的值在1～中位数之间，反之则在中位数～n之间
 code:
 
 class Solution(object):
