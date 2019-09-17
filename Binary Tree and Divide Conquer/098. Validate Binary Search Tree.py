@@ -60,6 +60,31 @@ class Solution(object):
                 return False
             
         return True
-        
-若inorder用divide and conquer，则需要记录left.max和right.min，以此与root.val做比较
+
+       
+Version2:
+若用divide and conquer，则需要记录left_max和right_min，以此与root.val做比较,若出现left_max >= root.val or right_min <= root.val则为False
+
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root:
+            return True
+        self.left_max = -sys.maxsize
+        self.right_min = sys.maxsize
+        return self.traverse(root, self.left_max, self.right_min)
+    
+    def traverse(self, root, left_max, right_min):
+        if not root:
+            return True
+        if left_max >= root.val or right_min <= root.val:
+            return False
+    ##注意return的写法，即当左右两边都满足条件才是True
+        return self.traverse(root.left, left_max, root.val) and self.traverse(root.right, root.val, right_min)
+    
+
+
 
