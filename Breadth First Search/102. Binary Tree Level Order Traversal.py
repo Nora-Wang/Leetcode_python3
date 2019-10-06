@@ -27,8 +27,46 @@ queue(利用队列FIFO的定义，先将第一层的node全部放入queue里，�
 level(参考结果，需要讲每层的node分隔)
 
 
+version 0和version 1速度的快慢主要是循环的写法造成的，需使用for _ in range(len_level)
+
 
 code:
+Version 0: 94%
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+from collections import deque
+
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        result = []
+        if not root:
+            return result
+        queue = deque([root])
+        while queue:
+            level = []
+            len_level = len(queue)
+            for _ in range(len_level):
+                node = queue.popleft()
+                level.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            result.append(level)
+        return result
+            
+    
+    
+    
+Version 1
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -63,8 +101,7 @@ class Solution(object):
             result.append(level)
         return result
         
-        
-另一种写法
+Version 2
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
