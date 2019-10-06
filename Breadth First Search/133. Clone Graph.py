@@ -66,7 +66,7 @@ class Solution(object):
 #因此将new_neighbor加入new_node就直接能改变mapping
             new_node = mapping[node.val]
             for neighbor in node.neighbors:
-#！！！这里注意，neighbors也得是Node类型；就类似于左子树和右子树，得以树的形式与root相连
+#！！！这里注意，加入neighbors的new_neighbor也得是Node类型；就类似于左子树和右子树，得以树的形式与root相连
                 new_neighbor = mapping[neighbor.val]
                 new_node.neighbors.append(new_neighbor)
         
