@@ -50,6 +50,7 @@ class Solution(object):
         while queue:
             level = []
             i = 0
+#这里需要用len_level记录一下queue的长度，因为在循环里queue的长度是变化的
             len_level = len(queue)
             while i < len_level:
                 node = queue.popleft()
@@ -63,7 +64,7 @@ class Solution(object):
         return result
         
         
-        
+另一种写法
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
