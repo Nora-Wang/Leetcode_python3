@@ -74,7 +74,7 @@ class Solution(object):
 #new_neighbor = mapping[neighbor.val]不行，参考前面的mapping[node.val]
                 new_node.neighbors.append(new_neighbor)
         
-        return mapping[root.val]
+        return mapping[root]
     
     
 #思路：先把node放入result，然后判断其neighbor，若neighbor不在结果中，则加入queue，后续可pop出加入result
