@@ -18,7 +18,9 @@ return its bottom-up level order traversal as:
 ]
 
 思路：
-同
+同107，最后result.reverse()一下就行
+需要注意的是不能这样写：return result.reverse()，因为result.reverse()是一个使result翻转的函数调用，其本身是不返回值的，这样的结果是[]
+
 
 
 code:
