@@ -21,9 +21,43 @@ return its bottom-up level order traversal as:
 同107，最后result.reverse()一下就行
 需要注意的是不能这样写：return result.reverse()，因为result.reverse()是一个使result翻转的函数调用，其本身是不返回值的，这样的结果是[]
 
+注意循环使用for _ in range(len_level):
 
+code: 
+    
+Version 0
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-code:
+from collections import deque
+class Solution(object):
+    def levelOrderBottom(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if not root:
+            return []
+        result = []
+        queue = deque([root])
+        while queue:
+            result.append([item.val for item in queue])
+            len_level = len(queue)
+            for _ in range(len_level):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+        result.reverse()
+        return result
+    
+    
+Version 1
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
