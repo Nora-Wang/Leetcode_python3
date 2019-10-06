@@ -55,7 +55,10 @@ class Solution(object):
 #这里的copy若直接用mapping[node.val] = node,当node被改变时，mapping里的node也会改变
 #因此这里使用mapping[node.val] = Node(node.val, [])，相当于重新创建一个class为Node的变量，使它的.val值=node.val
         for node in nodes:
-            mapping[node.val] = Node(node.val, [])
+#注意，此处指copy了node.val，对于新node其node.neighbors是空的，因此需要step3
+            mapping[node] = Node(node.val, [])
+#注意此处用mapping[node]而不是node.val是因为可能存在一种情况：node.val相等但node.neighbors不等，这时的node是不同的
+            #mapping[node.val] = Node(node.val, [])
             
         #step3: copy edges(neighbors)
         for node in nodes:
@@ -67,7 +70,8 @@ class Solution(object):
             new_node = mapping[node.val]
             for neighbor in node.neighbors:
 #！！！这里注意，加入neighbors的new_neighbor也得是Node类型；就类似于左子树和右子树，得以树的形式与root相连
-                new_neighbor = mapping[neighbor.val]
+                new_neighbor = mapping[neighbor]
+#new_neighbor = mapping[neighbor.val]不行，参考前面的mapping[node.val]
                 new_node.neighbors.append(new_neighbor)
         
         return mapping[root.val]
