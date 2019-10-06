@@ -23,6 +23,46 @@ BFS模板，version1使用变量count记录level，偶数时用reverse翻转；v
 
 code:
 
+Version 0:
+    # Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+from collections import deque
+class Solution(object):
+    def zigzagLevelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if not root:
+            return []
+        result = []
+        queue = deque([root])
+        rev = False
+        while queue:
+            level = []
+            len_level = len(queue)
+#注意循环的写法
+            for _ in range(len_level):
+                node = queue.popleft()
+                level.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+#使用rev变量记录level
+            if rev:
+                level.reverse()
+            result.append(level)
+            rev = not rev
+        return result
+        
+        
+        
 Version 1:
 # Definition for a binary tree node.
 # class TreeNode(object):
