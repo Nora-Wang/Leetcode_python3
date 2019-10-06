@@ -49,10 +49,10 @@ class Solution(object):
         nodes = self.getNodes(node)
         
         #step2: copy nodes
-这里是将node给copy进mapping这个字典里，mapping的key是每个node的值，value是Node类型的node(即包括val和neighbors)
+#这里是将node给copy进mapping这个字典里，mapping的key是每个node的值，value是Node类型的node(即包括val和neighbors)
         mapping = {}
-这里的copy若直接用mapping[node.val] = node,当node被改变时，mapping里的node也会改变
-因此这里使用mapping[node.val] = Node(node.val, [])，相当于重新创建一个class为Node的变量，使它的.val值=node.val
+#这里的copy若直接用mapping[node.val] = node,当node被改变时，mapping里的node也会改变
+#因此这里使用mapping[node.val] = Node(node.val, [])，相当于重新创建一个class为Node的变量，使它的.val值=node.val
         for node in nodes:
             mapping[node.val] = Node(node.val, [])
             
@@ -60,17 +60,17 @@ class Solution(object):
         for node in nodes:
             new_node = mapping[node.val]
             for neighbor in node.neighbors:
-！！！这里注意，neighbors也得是Node类型
+#！！！这里注意，neighbors也得是Node类型
                 new_neighbor = mapping[neighbor.val]
                 new_node.neighbors.append(new_neighbor)
         
         return mapping[root.val]
     
     
-思路：先把node放入result，然后判断其neighbor，若neighbor不在结果中，则加入queue，后续可pop出加入result
-（这里之所以需要加入queue，而不是直接加入result，是因为neighbor可能还有neighbor，直接加入则无法判断）
+#思路：先把node放入result，然后判断其neighbor，若neighbor不在结果中，则加入queue，后续可pop出加入result
+#（这里之所以需要加入queue，而不是直接加入result，是因为neighbor可能还有neighbor，直接加入则无法判断）
     def getNodes(self, node):
-？？？为什么要用set
+#？？？为什么要用set
         result = set([])
         queue = deque([node])
         while queue:
