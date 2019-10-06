@@ -59,10 +59,14 @@ class Solution(object):
             
         #step3: copy edges(neighbors)
         for node in nodes:
-#这里需要设置一个new_node是为了便于
+#这里需要设置一个new_node是为了便于后续对mapping中的node加入neighbors。这里注意，neighbors也得是Node类型
+#mapping字典，它的键是node.val，value是new_node
+#new_node包含new_node.val和new_node.neighbors
+#即翻译一下：new_node.neighbors = mapping[node.val].neighbors
+#因此将new_neighbor加入new_node就直接能改变mapping
             new_node = mapping[node.val]
             for neighbor in node.neighbors:
-#！！！这里注意，neighbors也得是Node类型
+#！！！这里注意，neighbors也得是Node类型；就类似于左子树和右子树，得以树的形式与root相连
                 new_neighbor = mapping[neighbor.val]
                 new_node.neighbors.append(new_neighbor)
         
