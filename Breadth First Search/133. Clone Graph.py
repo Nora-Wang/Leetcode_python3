@@ -50,6 +50,7 @@ class Solution(object):
         
         #step2: copy nodes
 #这里是将node给copy进mapping这个字典里，mapping的key是每个node的值，value是Node类型的node(即包括val和neighbors)
+#之所以是mapping字典，可参考程序结果的数据结构
         mapping = {}
 #这里的copy若直接用mapping[node.val] = node,当node被改变时，mapping里的node也会改变
 #因此这里使用mapping[node.val] = Node(node.val, [])，相当于重新创建一个class为Node的变量，使它的.val值=node.val
@@ -58,6 +59,7 @@ class Solution(object):
             
         #step3: copy edges(neighbors)
         for node in nodes:
+#这里需要设置一个new_node是为了便于
             new_node = mapping[node.val]
             for neighbor in node.neighbors:
 #！！！这里注意，neighbors也得是Node类型
@@ -70,7 +72,7 @@ class Solution(object):
 #思路：先把node放入result，然后判断其neighbor，若neighbor不在结果中，则加入queue，后续可pop出加入result
 #（这里之所以需要加入queue，而不是直接加入result，是因为neighbor可能还有neighbor，直接加入则无法判断）
     def getNodes(self, node):
-#？？？为什么要用set
+#？？？为什么要用set：set的话判断一个node在不在set里，可以直接找到有没有这个node
         result = set([])
         queue = deque([node])
         while queue:
