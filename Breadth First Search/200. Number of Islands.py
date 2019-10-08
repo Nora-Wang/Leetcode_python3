@@ -21,7 +21,7 @@ return count
 
 注意点：
 bfs的时候需要判断一下这个node是否在矩阵范围内，且node的值为1 def node_valiable(self, grid, x, y)
-对于grid[i][j]的上下左右node，用set类型的dir与x,y加减得到
+坐标变换数组：对于grid[i][j]的上下左右node，用set类型的dir与x,y加减得到 dir = ([-1,0],[1,0],[0,-1],[0,1])
 
 code:
 class Solution(object):
