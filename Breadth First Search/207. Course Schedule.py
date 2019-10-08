@@ -25,7 +25,10 @@ topological sort：判读一个有向图，是无环的
 
 解题思路：
 这就是一个问图能否topological sort的问题，但是因为所给信息的形式是node + edges的形式，因此我们还需要先将其转换为graph字典
+
 数据类型设计：graph{'node':'neighbor'}, indegrees{'node':'indegree_count'}；其中neighbor的数据类型为set，indegree_count为int
+########这里要注意理解，后续的indegrees的设计是当发现node有一个neighbor时，它的入度+1
+
 
 step1:创建graph
 step2:计算每个node的indegree数量
@@ -74,7 +77,7 @@ class Solution(object):
         for node in range(numCourses):
             graph[node] = set()
         for edge in prerequisites:
-        #参考题目中数据的设计[[0,1]]
+        #参考题目中数据的设计[[0,1]]=take course 0 you have to first take course 1
             sub_course, course = edge[0], edge[1]
             graph[sub_course].add(course)
         return graph
