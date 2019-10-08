@@ -21,6 +21,7 @@ Explanation: There are a total of 2 courses to take.
              
 ############################################################
 topological sort：判读一个有向图，是无环的
+queue和list都是append，set是add
 ############################################################
 
 解题思路：
