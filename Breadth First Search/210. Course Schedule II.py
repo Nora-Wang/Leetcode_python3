@@ -25,7 +25,7 @@ Explanation: There are a total of 4 courses to take. To take course 3 you should
              
 主题思路跟207一模一样，只是最后的输出topological sorting的结果，若有环，则输出None
 
-此题有个注意点：在graph的创建上跟207一样，但这道题的输出结果是[node,neighbor]，因此需要result.reverse()
+此题有个注意点：在graph的创建上跟207一样，但这道题需要result.reverse()????????????????
 
 code:
 
