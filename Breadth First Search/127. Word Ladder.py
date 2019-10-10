@@ -36,13 +36,12 @@ class Solution(object):
         :type wordList: List[str]
         :rtype: int
         """
-        if endWord not in wordList:
-            return 0
         if beginWord == endWord:
             return 1
-        
+        if endWord not in wordList:
+            return 0
         step_level = 1
-        queue = collections.deque(beginWord)
+        queue = collections.deque([beginWord])
         while queue:
             step_level += 1
             level_size = len(queue)
@@ -58,9 +57,9 @@ class Solution(object):
     
     def get_neighbors(self, node, wordList):
         neighbors = []
-        for index in range(len(node)):
-            for letter in range(97,110):
-                letter_replaced_node = self.replace_letter(index, chr(letter), node)
+        for index in range(0, len(node)):
+            for letter in string.ascii_lowercase:
+                letter_replaced_node = self.replace_letter(index, letter, node)
                 if letter_replaced_node in wordList:
                     if letter_replaced_node not in self.visited:
                         neighbors.append(letter_replaced_node)
