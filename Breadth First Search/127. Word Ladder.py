@@ -23,7 +23,15 @@ Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" 
 return its length 5.
 
 
+思路：
+实现的基本思路就是每次考虑当前node改变一个letter后，若在wordlsit中且还没有visit过，则加入queue
+分层bfs，记录step数；每一层为上一层node在改变一个letter后，存在于wordlsit中所有的可能性
 
+注意：
+1.step的设计
+2.wordlist和neighbor都为set，因为list在for i in list时是从头遍历到尾的，会出现time limit exceeded的情况，而set则为O(1)
+3.26个字母的取值：string.lowercase
+4.将字符串node中的其中一个指定index的值改为letter：def change_letter(self, index, letter, node)
 
 code：
 class Solution(object):
@@ -36,39 +44,54 @@ class Solution(object):
         :type wordList: List[str]
         :rtype: int
         """
-        if beginWord == endWord:
-            return 1
+        #将list变为set（时间复杂度）
+        wordList = set(wordList)
         if endWord not in wordList:
             return 0
-        step_level = 1
+        if beginWord == endWord:
+            return1
+        
+        #bfs
+        #step初始化为1，因为beginword相当于step1（题目结果不是edge，而是node）
+        #以beginword->node->endword为例:
+        #beginword为step=1
+        #第一次for循环结束所得到的node被放入queue，step=2；
+        #然后for循环node，如果发现node.neighbor==endword，那就再加个1，即step=3
+        step = 1
         queue = collections.deque([beginWord])
         while queue:
-            step_level += 1
-            level_size = len(queue)
-            for _ in range(level_size):
+            #后续queue在不断append，因此需要提前记录该层的queue个数
+            size = len(queue)
+            for _ in range(size):
                 node = queue.popleft()
                 neighbors = self.get_neighbors(node, wordList)
                 for neighbor in neighbors:
+                    #若直接找到endWord
                     if neighbor == endWord:
-                        return step_level
-                    queue.append(neighbor)
-                    self.visited.add(neighbor)
+                        step += 1
+                        return step
+                    elif neighbor not in self.visited:
+                        self.visited.add(neighbor)
+                        queue.append(neighbor)
+            step += 1
         return 0
     
+    #find the neighbors
     def get_neighbors(self, node, wordList):
-        neighbors = []
-        for index in range(0, len(node)):
-            for letter in string.ascii_lowercase:
-                letter_replaced_node = self.replace_letter(index, letter, node)
-                if letter_replaced_node in wordList:
-                    if letter_replaced_node not in self.visited:
-                        neighbors.append(letter_replaced_node)
+        neighbors = set()
+        for index in range(len(node)):
+            for letter in string.lowercase:
+                new_node = self.change_letter(index, letter, node)
+                if (new_node in wordList) and (new_node not in self.visited):
+                    neighbors.add(new_node)
         return neighbors
     
-    
-    def replace_letter(self, index, letter, node):
+    #change a letter in node
+    def change_letter(self, index, letter, node):
         list_node = list(node)
         list_node[index] = letter
         return ''.join(list_node)
+                    
+            
                     
             
