@@ -49,7 +49,7 @@ class Solution(object):
         if endWord not in wordList:
             return 0
         if beginWord == endWord:
-            return1
+            return 1
         
         #bfs
         #step初始化为1，因为beginword相当于step1（题目结果不是edge，而是node）
