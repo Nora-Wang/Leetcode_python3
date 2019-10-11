@@ -42,8 +42,8 @@ true
 
 思路：
 这道题其实就是求是否有唯一的topological sort的结果。（3 steps）
-什么情况下会有不止一种结果呢？就是当某一时刻有不止一个indegree为0的node的时候。所以我们只需要监测queue.size() > 1即可。
-
+什么情况下会有不止一种结果呢？就是当某一时刻有不止一个indegree为0的node的时候。所以我们只需要监测queue.size() > 1即可
+也就是整个遍历完只有一个结果，即一条线；因此每一层的indegree为0的node只有一个，即每层queue只有一个
 
 
 code:
@@ -70,15 +70,18 @@ class Solution(object):
             if indegrees[node] == 0:
                 queue.append(node)
         while queue:
-        ###因为？？
+        ###因为只有唯一topological sort的结果，也就是整个遍历完只有一个结果，即一条线；因此每一层的indegree为0的node只有一个，即每层queue只有一个
             if len(queue) > 1:
                 return False
+            
             node = queue.popleft()
             for neighbor in graph[node]:
                 indegrees[neighbor] -= 1
                 if indegrees[neighbor] == 0:
                     queue.append(neighbor)
+                    
         ###特殊情况org = [1], seqs = [[1],[1]]
+        #node 1的indegree=1，其neighbor为node 1，因为没有indegree为0的node，因此不进入queue
         for node in graph:
             if indegrees[node] != 0:
                 return False
