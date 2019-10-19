@@ -27,6 +27,9 @@ One longest palindrome that can be built is "dccaccd", whose length is 7.
 如果是就直接加到counter里；如果不是，那就取出其最大偶数，即要减一后加到counter里。
 然后一定要判断所有的次数里有没有奇数，有的话最终的结果再加一。（即bool值hashodd的作用）
 
+注意：
+hashodd的设置是一个bool值，因为若为奇数，只有一个能被放在中间，其他的最多把偶数个放两边，剩余的单个的都不能用。因此最后的count只用加一就好。
+
 code:
 class Solution(object):
     def longestPalindrome(self, s):
