@@ -16,9 +16,11 @@ Output: -1
 当从i+0到i+len(needle)-1的值都相等时，则return i
 
 
-此处不能将while改为for循环。。。不懂为啥
 
 code:
+Version 0:
+use while loop
+
 class Solution(object):
     def strStr(self, haystack, needle):
         """
@@ -36,5 +38,29 @@ class Solution(object):
                 j += 1
             if j == len(needle):
                 return i
+        return -1
+            
+Version 1:
+use for loop
+
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if len(needle) == 0:
+            return 0
+        if haystack is None or needle is None:
+            return -1
+        for i in range(len(haystack) - len(needle) + 1):
+            j = 0
+            for j in range(len(needle)):
+                if haystack[i + j] != needle[j]:
+                    break
+                else:
+                    if j == len(needle) - 1:
+                        return i
         return -1
             
