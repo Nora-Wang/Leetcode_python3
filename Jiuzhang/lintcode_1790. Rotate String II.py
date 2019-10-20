@@ -21,6 +21,7 @@ Explanation：The left offset is 1, the right offset is 2, and the total offset 
 
 
 code:
+Version 0:
 class Solution:
     """
     @param str: An array of char
@@ -54,7 +55,7 @@ class Solution:
         return str
             
         
-        
+Version 1:
 class Solution:
     """
     @param str: An array of char
@@ -68,22 +69,31 @@ class Solution:
             return str
         offsite = left - right
         
-        if offsite == 0:
+        
+        if offsite > 0:
+            Flag = True
+        elif offsite < 0:
+            Flag = False
+        else:
             return str
             
-        elif offsite > 0:
-            self.revers_string(str, 0, offsite - 1)
-            self.revers_string(str, offsite, len(str) - 1)
+        offsite = abs(offsite) % len(str)
+            
+        if Flag:
+            str = self.revers_string(str, 0, offsite - 1)
+            str = self.revers_string(str, offsite, len(str) - 1)
             
         else:
-            self.revers_string(str, 0, len(str) + offsite - 1)
-            self.revers_string(str, len(str) + offsite, len(str) - 1)
+            str = self.revers_string(str, 0, len(str) - offsite - 1)
+            str = self.revers_string(str, len(str) - offsite, len(str) - 1)
             
-        self.revers_string(str, 0, len(str) - 1)
+        rotate_string = self.revers_string(str, 0, len(str))
+        return rotate_string
             
     def revers_string(self, str, start, end):
         while start < end:
             str[start], str[end] = str[end], str[start]
             start += 1
             end -= 1
+        return str
             
