@@ -41,12 +41,11 @@ class Solution(object):
         while left >= 0 and right < len(s) and s[left] == s[right]:
             left -= 1
             right += 1
-####为什么要这么写，不能后面加1？？？
-#"cbbd"结果为“b”
-        left += 1
-        if len(self.longest) < right - left:
-            self.longest = s[left:right]
-                
+#        left += 1
+#        if len(self.longest) < right - left:
+#            self.longest = s[left:right]
+        if len(self.longest) < right - left - 1:
+            self.longest = s[left + 1:right]        
                 
 Version 1:
 最常规的方法
