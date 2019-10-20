@@ -34,6 +34,40 @@ class Solution:
             return str
         offsite = left - right
         
+        if offsite > 0:
+            Flag = True
+        elif offsite < 0:
+            Flag = False
+        else:
+            return str
+        
+        offsite = abs(offsite) % len(str)
+        
+        if Flag:
+            str_left = str[0:offsite]
+            str_right = str[offsite:]
+        else:
+            str_left = str[0:len(str) - offsite]
+            str_right = str[len(str) - offsite:]
+            
+        str = str_right + str_left
+        return str
+            
+        
+        
+class Solution:
+    """
+    @param str: An array of char
+    @param left: a left offset
+    @param right: a right offset
+    @return: return a rotate string
+    """
+    def RotateString2(self, str, left, right):
+        # write your code here
+        if not str:
+            return str
+        offsite = left - right
+        
         if offsite == 0:
             return str
             
