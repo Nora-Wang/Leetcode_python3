@@ -67,10 +67,11 @@ class Solution:
         
         if offset == 0:
             return
-        
-        str_left = s[:len(s) - offset]
-        str_right = s[len(s) - offset:]
-        s = str_right + str_left
+###注意s的写法！！
+        # str_left = s[:len(s) - offset]
+        # str_right = s[len(s) - offset:]
+        # s[:] = str_right + str_left
+        s[:] = s[len(s) - offset:] + s[:len(s) - offset]
         
     
         
