@@ -52,7 +52,7 @@ class Solution:
         
 
 Version 1:
-    class Solution:
+class Solution:
     """
     @param str: An array of char
     @param offset: An integer
