@@ -24,6 +24,7 @@ example1:
 注意边界的取值
 
 code:
+Version 0:
 class Solution:
     """
     @param str: An array of char
@@ -48,4 +49,28 @@ class Solution:
             s[start], s[end] = s[end], s[start]
             start += 1
             end -= 1
+        
+
+Version 1:
+    class Solution:
+    """
+    @param str: An array of char
+    @param offset: An integer
+    @return: nothing
+    """
+    def rotateString(self, s, offset):
+        # write your code here
+        if not s:
+            return
+            
+        offset %= len(s)
+        
+        if offset == 0:
+            return
+        
+        str_left = s[:len(s) - offset]
+        str_right = s[len(s) - offset:]
+        s = str_right + str_left
+        
+    
         
