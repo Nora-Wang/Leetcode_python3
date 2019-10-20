@@ -55,6 +55,7 @@ class Solution:
         return str
             
         
+        
 Version 1:
 class Solution:
     """
@@ -64,36 +65,8 @@ class Solution:
     @return: return a rotate string
     """
     def RotateString2(self, str, left, right):
-        # write your code here
-        if not str:
-            return str
-        offsite = left - right
-        
-        
-        if offsite > 0:
-            Flag = True
-        elif offsite < 0:
-            Flag = False
-        else:
-            return str
-            
-        offsite = abs(offsite) % len(str)
-            
-        if Flag:
-            str = self.revers_string(str, 0, offsite - 1)
-            str = self.revers_string(str, offsite, len(str) - 1)
-            
-        else:
-            str = self.revers_string(str, 0, len(str) - offsite - 1)
-            str = self.revers_string(str, len(str) - offsite, len(str) - 1)
-            
-        rotate_string = self.revers_string(str, 0, len(str))
-        return rotate_string
-            
-    def revers_string(self, str, start, end):
-        while start < end:
-            str[start], str[end] = str[end], str[start]
-            start += 1
-            end -= 1
-        return str
-            
+###python里的负数取余结果是非负数
+###(-1) % 7 = 6
+#因此offset相当于表示offset_left，即需要将[0:offset]的值rotate至后半部
+        offset = (left - right) % len(str)
+        return str[offset:] + str[:offset]
