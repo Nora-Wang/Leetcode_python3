@@ -27,8 +27,7 @@ class Solution(object):
             return True
         
         for i in range(len(A)):
-            new = A[i:] + A[:i]
-            if new == B:
+            if A[i:] + A[:i] == B:
                 return True
         return False
         
