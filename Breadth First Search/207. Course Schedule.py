@@ -37,7 +37,64 @@ step1:创建graph
 step2:计算每个node的indegree数量
 step3:用bfs得到满足无环的node，然后与graph中的node个数做比较，若相等，则说明满足topological sort的条件(无环)
 
+  
 code:
+  
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        #step 1: create graph and count indegrees
+        graph, indegrees = self.create_grpah_indegrees(numCourses, prerequisites)
+        
+        #step 2: bfs
+        queue = collections.deque([])
+        #将最初的先修课放入队列
+        for node in range(numCourses):
+            if indegrees[node] == 0:
+                queue.append(node)
+        count = 0
+        while queue:
+            node = queue.popleft()
+            count += 1
+            for neighbor in graph[node]:
+                indegrees[neighbor] -= 1
+                #当课程neighbor已没有先修课时，将其放入队列
+                if indegrees[neighbor] == 0:
+                    queue.append(neighbor)
+        return count == numCourses
+            
+        
+    def create_grpah_indegrees(self, numCourses, prerequisites):
+        graph = {}
+        #这里用list，为降低空间复杂度
+        indegrees = []
+        for course in range(numCourses):
+            graph[course] = set()
+            indegrees.append(0)
+        for edge in prerequisites:
+          #根据题目的意思take course 0 you have to first take course 1, which is expressed as a pair: [0,1]，即1为0的先修课
+            sub_course = edge[0]#课程0
+            course = edge[1]#课程1
+            #if避免重复edge的情况
+            #10
+            #[[5,8],[3,5],[1,9],[4,5],[0,2],[1,9],[7,8],[4,9]]
+            #该情况对于sub_course 1来说，其indegrees为2，因为有两个[1,9]
+            if sub_course not in graph[course]:
+              #对于先修课来说，它包含一些sub_courses
+              #这样在一层一层的遍历的时候，即从先修课开始，逻辑合理
+                graph[course].add(sub_course)
+              #对于sub_course来说，当发现它的一个先修课时，其indegree+1；最后结果为对于sub_course来说，它有indegrees[sub_course]个先修课
+                indegrees[sub_course] += 1
+        return graph, indegrees
+        
+    
+                
+        
+  
+  
+  
+  
+Boss版本：个人觉得逻辑有点不清晰，因为整个逻辑是反着来的
+
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):
         """
