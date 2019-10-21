@@ -74,7 +74,7 @@ class Solution(object):
           #根据题目的意思take course 0 you have to first take course 1, which is expressed as a pair: [0,1]，即1为0的先修课
             sub_course = edge[0]#课程0
             course = edge[1]#课程1
-            #if避免重复edge的情况
+     ########if避免重复edge的情况
             #10
             #[[5,8],[3,5],[1,9],[4,5],[0,2],[1,9],[7,8],[4,9]]
             #该情况对于sub_course 1来说，其indegrees为2，因为有两个[1,9]
