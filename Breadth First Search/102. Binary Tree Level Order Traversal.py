@@ -55,6 +55,7 @@ class Solution(object):
             len_level = len(queue)
             for _ in range(len_level):
                 node = queue.popleft()
+                ###注意是node.val!!
                 level.append(node.val)
                 if node.left:
                     queue.append(node.left)
