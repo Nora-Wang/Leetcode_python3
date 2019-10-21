@@ -48,6 +48,7 @@ class Solution(object):
         #step 2: bfs
         queue = collections.deque([])
         #将最初的先修课放入队列
+        ##此处可用range(numCourses)，也可用graph
         for node in range(numCourses):
             if indegrees[node] == 0:
                 queue.append(node)
