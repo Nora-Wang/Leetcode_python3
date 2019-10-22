@@ -24,7 +24,13 @@ Notice
 You can assume that there is at least one topological order in the graph.
 
 
-就是topological sorting
+topological sorting
+在图论中，由一个有向无环图的顶点组成的序列，当且仅当满足下列条件时，称为该图的一个拓扑排序（英语：Topological sorting）。
+1.每个顶点出现且只出现一次；
+2.若A在序列中排在B的前面，则在图中不存在从B到A的路径。
+也可以定义为：拓扑排序是对有向无环图的顶点的一种排序，它使得如果存在一条从顶点A到顶点B的路径，那么在排序中B出现在A的后面。
+
+
 graph是现成的，所以只用count indegrees，然后bfs就行
 注意：
 1.这里的graph不是一个dirc，而是一个DirectedGraphNode类，所以在调用neighbors的时候不一样
