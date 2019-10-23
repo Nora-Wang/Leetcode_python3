@@ -86,10 +86,11 @@ class Codec:
         queue = collections.deque([root])
         index = 1
         
-        #个人认为这两个的逻辑都是一样的，一个是将所有的点都append进queue，当queue为空时，遍历结束
+        #个人认为这两个while的逻辑都是一样的，一个是将所有的点都append进queue，当queue为空时，遍历结束
         #一个是直接将index与list_data的长度做比较，当index所指的node超过list_data范围，则意味着所有node都遍历结束
-        while queue:
+        #如果最后剩余的只有#，是不会被append进queue的，而index还没到最大值，还会进入while循环，可这个时候queue为空，所有无法pop
         #while index < len(list_data):
+        while queue:
             node = queue.popleft()
             #因为二叉树的特性，除了第一个值，其后面跟的两个值一定是它的left和right
             if list_data[index] != 'null':
