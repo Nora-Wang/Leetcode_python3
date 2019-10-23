@@ -80,8 +80,7 @@ class Codec:
         #注意这里是data[1:-1]:因为split只会去掉',',而data"[1,2,3,null,null,4,5]"还包括一头一尾的[]，从1开始取，左闭右开，可避免[]
         list_data = data[1:-1].split(',')
         
-        #将
-        
+        #将data中第一个值，即树的root以TreeNode类型的格式加入root
         root = TreeNode(list_data[0])
         
         queue = collections.deque([root])
@@ -90,7 +89,9 @@ class Codec:
         while queue:
         #while index < len(list_data):
             node = queue.popleft()
+            #因为二叉树的特性，除了第一个值，其后面跟的两个值一定是它的left和right
             if list_data[index] != 'null':
+                #注意要以TreeNode的格式赋值
                 node.left = TreeNode(list_data[index])
                 queue.append(node.left)
             index += 1
