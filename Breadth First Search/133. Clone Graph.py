@@ -86,3 +86,54 @@ class Solution(object):
                 if neighbor not in result:
                     queue.append(neighbor)
         return result
+
+
+       
+lintcode版本
+两者的不同：Node类型定义的不同
+具体代码含义，可参照leetcode注释
+"""
+Definition for a undirected graph node
+class UndirectedGraphNode:
+    def __init__(self, x):
+        self.label = x
+        self.neighbors = []
+"""
+
+
+class Solution:
+    """
+    @param: node: A undirected graph node
+    @return: A undirected graph node
+    """
+    def cloneGraph(self, node):
+        if not node:
+            return None
+        root = node
+        #step 1: find nodes
+        nodes = self.find_nodes(node)
+        
+        #step 2: copy nodes
+        graph = {}
+        for node in nodes:
+            graph[node] = UndirectedGraphNode(node.label)
+            
+        #此时的graph：key为node，value为new_node，node与new_node都是UndirectedGraphNode类型的
+        #step 3: copy edges
+        for node in nodes:
+            for neighbor in node.neighbors:
+                graph[node].neighbors.append(graph[neighbor])
+        return graph[root]
+        
+    def find_nodes(self, node):
+        result = set()
+        queue = collections.deque([node])
+        while queue:
+            node = queue.popleft()
+            result.add(node)
+            for neighbor in node.neighbors:
+                if neighbor not in result:
+                    queue.append(neighbor)
+        return result
+        
+            
