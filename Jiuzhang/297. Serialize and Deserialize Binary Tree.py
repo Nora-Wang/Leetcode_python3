@@ -86,6 +86,8 @@ class Codec:
         queue = collections.deque([root])
         index = 1
         
+        #个人认为这两个的逻辑都是一样的，一个是将所有的点都append进queue，当queue为空时，遍历结束
+        #一个是直接将index与list_data的长度做比较，当index所指的node超过list_data范围，则意味着所有node都遍历结束
         while queue:
         #while index < len(list_data):
             node = queue.popleft()
