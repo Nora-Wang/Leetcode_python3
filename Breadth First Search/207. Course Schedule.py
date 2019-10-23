@@ -95,7 +95,7 @@ class Solution(object):
   
   
   
-Boss版本：个人觉得逻辑有点不清晰，因为整个逻辑是反着来的
+Boss版本：个人觉得逻辑有点不清晰，因为整个逻辑是反着来的，这也是为什么在follow up的题目中，最后结果需要reverse一下的原因
 
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):
