@@ -26,6 +26,7 @@ Node 4's value is 4, and it has two neighbors: Node 1 and 3.
 
 
 code:
+leetcode版本
 """
 # Definition for a Node.
 class Node(object):
@@ -33,7 +34,6 @@ class Node(object):
         self.val = val
         self.neighbors = neighbors
 """
-from collections import deque
 
 class Solution(object):
     def cloneGraph(self, node):
@@ -43,50 +43,46 @@ class Solution(object):
         """
         if not node:
             return None
+      
         root = node
         
         #step1: find all the nodes
         nodes = self.getNodes(node)
         
         #step2: copy nodes
-#这里是将node给copy进mapping这个字典里，mapping的key是每个node的值，value是Node类型的node(即包括val和neighbors)
-#之所以是mapping字典，可参考程序结果的数据结构
+#这里是将node给copy进mapping这个字典里，mapping的key是每个老node，value是新创建的Node类型的clone_node(即包括val和neighbors)
+#这里的copy若直接用mapping[node] = node,当node被改变时，mapping里的node也会改变
+#因此这里使用mapping[node] = Node(node.val, [])，相当于重新创建一个class为Node的变量，使它的.val值=node.val,.neighbors为[]
         mapping = {}
-#这里的copy若直接用mapping[node.val] = node,当node被改变时，mapping里的node也会改变
-#因此这里使用mapping[node.val] = Node(node.val, [])，相当于重新创建一个class为Node的变量，使它的.val值=node.val
         for node in nodes:
-#注意，此处指copy了node.val，对于新node其node.neighbors是空的，因此需要step3
+#注意，此处指copy了node.val，对于新node，其node.neighbors是空的，因此需要step3
             mapping[node] = Node(node.val, [])
 #注意此处用mapping[node]而不是node.val是因为可能存在一种情况：node.val相等但node.neighbors不等，这时的node是不同的
             #mapping[node.val] = Node(node.val, [])
             
         #step3: copy edges(neighbors)
         for node in nodes:
-#这里需要设置一个new_node是为了便于后续对mapping中的node加入neighbors。这里注意，neighbors也得是Node类型
-#mapping字典，它的键是node.val，value是new_node
-#new_node包含new_node.val和new_node.neighbors
-#即翻译一下：new_node.neighbors = mapping[node.val].neighbors
-#因此将new_neighbor加入new_node就直接能改变mapping
-            new_node = mapping[node.val]
+#对于mapping字典，它的key是node，value是clone_node,他们都是Node型数据
+#clone_node包含clone_node.val和clone_node.neighbors
             for neighbor in node.neighbors:
-#！！！这里注意，加入neighbors的new_neighbor也得是Node类型；就类似于左子树和右子树，得以树的形式与root相连
-                new_neighbor = mapping[neighbor]
-#new_neighbor = mapping[neighbor.val]不行，参考前面的mapping[node.val]
-                new_node.neighbors.append(new_neighbor)
-        
+#！！！这里注意，加入neighbors的clone_neighbor也得是Node类型；就类似于左子树和右子树，得以树的形式与root相连
+#mapping[node].neighbors.append(mapping[neighbor.val])不行，参考前面的mapping[node.val]
+                mapping[node].neighbors.append(mapping[neighbor])
+#此处要用root，是因为代码命名时多次用到node，此时的node不再是程序原本给的参数node了，因此在前面需要先将node赋值给root
         return mapping[root]
     
     
 #思路：先把node放入result，然后判断其neighbor，若neighbor不在结果中，则加入queue，后续可pop出加入result
-#（这里之所以需要加入queue，而不是直接加入result，是因为neighbor可能还有neighbor，直接加入则无法判断）
+#这里之所以需要加入queue，而不是直接加入result，是因为neighbor可能还有neighbor，直接加入则无法判断
     def getNodes(self, node):
-#？？？为什么要用set：set的话判断一个node在不在set里，可以直接找到有没有这个node
-        result = set([])
-        queue = deque([node])
+#为什么要用set：判断一个node在不在set里，可以直接找到有没有这个node；而list则需要一个一个的查找
+        result = set()
+        queue = collections.deque([node])
         while queue:
             node = queue.popleft()
             result.add(node)
             for neighbor in node.neighbors:
+        #这里一定要加if语句，虽然实质上是没差距的(因为set不会存储重复数据),但是加一句可以节省时间复杂度，否则容易Time Limit Exceeded
                 if neighbor not in result:
                     queue.append(neighbor)
         return result
