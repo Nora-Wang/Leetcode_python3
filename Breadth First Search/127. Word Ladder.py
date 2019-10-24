@@ -34,6 +34,7 @@ return its length 5.
 4.将字符串node中的其中一个指定index的值改为letter：def change_letter(self, index, letter, node)
 
 code：
+leetcode version
 class Solution(object):
     def __init__(self):
         self.visited = set()
@@ -46,6 +47,7 @@ class Solution(object):
         """
         #将list变为set（时间复杂度）
         wordList = set(wordList)
+        
         if endWord not in wordList:
             return 0
         if beginWord == endWord:
@@ -59,6 +61,8 @@ class Solution(object):
         #然后for循环node，如果发现node.neighbor==endword，那就再加个1，即step=3
         step = 1
         queue = collections.deque([beginWord])
+        self.visited.add(beginWord)
+        
         while queue:
             #后续queue在不断append，因此需要提前记录该层的queue个数
             size = len(queue)
@@ -70,7 +74,7 @@ class Solution(object):
                     if neighbor == endWord:
                         step += 1
                         return step
-                    elif neighbor not in self.visited:
+                    if neighbor not in self.visited:
                         self.visited.add(neighbor)
                         queue.append(neighbor)
             step += 1
@@ -94,4 +98,52 @@ class Solution(object):
                     
             
                     
-            
+lintcode version:
+class Solution:
+    """
+    @param: start: a string
+    @param: end: a string
+    @param: dict: a set of string
+    @return: An integer
+    """
+    def __init__(self):
+        self.visited = set()
+        
+    def ladderLength(self, start, end, dict):
+        if start == end:
+            return 1
+        dict.add(end)
+        queue = collections.deque([start])
+        self.visited.add(start)
+        step = 1
+        
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                node = queue.popleft()
+                neighbors = self.get_neighbors(node, dict)
+                for neighbor in neighbors:
+                    if neighbor == end:
+                        step += 1
+                        return step
+                    if neighbor not in self.visited:
+                        queue.append(neighbor)
+                        self.visited.add(neighbor)
+            step += 1
+        return 0
+        
+    def get_neighbors(self, node, dict):
+        neighbors = set()
+        for index in range(len(node)):
+            for letter in 'abcdefghijklmnopqrstuvwxyz':
+                new_node = self.get_new_node(node, index, letter)
+                if new_node in dict and new_node not in self.visited:
+                    neighbors.add(new_node)
+        return neighbors
+    
+    def get_new_node(self, node, index, letter):
+        list_node = list(node)
+        list_node[index] = letter
+        return ''.join(list_node)
+        
+
