@@ -20,7 +20,7 @@ return its level order traversal as:
 
 
 思路：
-直接就用BFS的模版
+直接就用BFS的模版,利用二叉树的特性（只有左右两个子树）
 主要需要设置：
 result(记录最后的结果)
 queue(利用队列FIFO的定义，先将第一层的node全部放入queue里，再将它们的left和right节点，即第二层的节点全部放入queue，这样pop的时候就是按层级pop的)
