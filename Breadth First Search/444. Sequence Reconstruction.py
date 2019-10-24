@@ -224,6 +224,8 @@ class Solution:
                 node = edge[i]
                 neighbor = edge[i + 1]
                 graph[node].add(neighbor)
+        #这里主要是排除leetcode特殊情况
+        ##org: [1,2,3], seqs: [[1,2]]
         if len(record) != len(org):
             return None
         return graph
