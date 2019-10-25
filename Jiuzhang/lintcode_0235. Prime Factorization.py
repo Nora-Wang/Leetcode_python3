@@ -25,6 +25,8 @@ You should sort the factors in ascending order.
 3.步骤2中，也判定n是否为1，这也是为了性能，当n已为1时，可早停。
 
 
+时间复杂度：最坏n为质数时，O(根号n)
+
 code:
 class Solution:
     """
