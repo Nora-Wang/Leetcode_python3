@@ -28,6 +28,7 @@ while循环中，判断start和end的值是否满足范围要求，若不满足�
 
 
 code:
+lintcode version
 class Solution:
     """
     @param A: an integer array
@@ -75,4 +76,47 @@ class Solution:
             
             
             
+            
+            
+leetcode version
+insert() 函数用于将指定对象插入列表的指定位置list.insert(index, obj)。当index=0时，可用于从头插入列表。
+append是从尾部插入列表
+class Solution(object):
+    def findClosestElements(self, arr, k, x):
+        """
+        :type arr: List[int]
+        :type k: int
+        :type x: int
+        :rtype: List[int]
+        """
+        if len(arr) == 0:
+            return []
         
+        start = 0
+        end = len(arr) - 1
+        
+        while start + 1 < end:
+            mid = start + (end - start) / 2
+            if arr[mid] <= x:
+                start = mid
+            else:
+                end = mid
+
+        result = []
+        while len(result) < k:
+            if start < 0:
+                result.append(arr[end])
+                end += 1
+            elif end > len(arr) - 1:
+                result.insert(0, arr[start])
+                start -= 1
+            else:
+                dif_start = x - arr[start]
+                dif_end = arr[end] - x
+                if dif_start <= dif_end:
+                    result.insert(0, arr[start])
+                    start -= 1
+                else:
+                    result.append(arr[end])
+                    end += 1
+        return result
