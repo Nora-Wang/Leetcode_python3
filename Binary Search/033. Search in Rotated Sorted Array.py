@@ -54,7 +54,49 @@ Your algorithm's runtime complexity must be in the order of O(log n).
 #######有两种方法。个人比较接受的方法是在一开始判断一下nums[0] == target。因为。。。。第二种我是想不到的。。。。。
 
 code：
+lintcode version
+1.记住先判断mid在哪一侧(A[start] < A[mid],即判断mid是在start那侧还是end那侧)
+!!!!!2.A[start] <= target < A[mid]和A[end] >= target > A[mid]的等号
+class Solution:
+    """
+    @param A: an integer rotated sorted array
+    @param target: an integer to be searched
+    @return: an integer
+    """
+    def search(self, A, target):
+        if len(A) == 0:
+            return -1
+        start = 0
+        end = len(A) - 1
+        while start + 1 < end:
+            mid = start + (end - start) / 2
+            if A[mid] == target:
+                return mid
+            if A[start] < A[mid]:
+		#只用判断target存在于单调性的一侧的情况
+	#########等号：因为已不存在A[mid] == target的情况，但当A[start]=target时，若不加=，则执行start = mid，新mid会变到另一侧，
+	#########这时target将不在取值范围[start,end]内
+                if A[start] <= target < A[mid]:
+                    end = mid
+                else:
+                    start = mid
+            else:
+                if A[end] >= target > A[mid]:
+                    start = mid
+                else:
+                    end = mid
+        print(start,end)
+        if A[start] == target:
+            return start
+        if A[end] == target:
+            return end
+        return -1
 
+
+
+
+
+leetcode version
 class Solution(object):
     def search(self, nums, target):
         """
