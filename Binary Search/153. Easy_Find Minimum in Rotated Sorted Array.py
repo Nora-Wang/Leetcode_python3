@@ -92,3 +92,29 @@ class Solution(object):
             return nums[start]
                     
         
+lintcode version
+class Solution:
+    """
+    @param nums: a rotated sorted array
+    @return: the minimum number in the array
+    """
+    def findMin(self, nums):
+        if len(nums) == 0:
+            return None
+        
+        start = 0
+        end = len(nums) - 1
+        
+        if nums[start] < nums[end]:
+            return nums[start]
+        
+        while start + 1 < end:
+            mid = start + (end - start) / 2
+            if nums[mid] <= nums[end] < nums[start]:
+                end = mid
+            else:
+                start = mid
+        if nums[start] < nums[end]:
+            return nums[start]
+        else:
+            return nums[end]
