@@ -36,7 +36,7 @@ class Solution:
     @return: an integer array
     """
     def kClosestNumbers(self, A, target, k):
-        # write your code here
+        #二分法模板，找到start和end的位置
         if len(A) == 0:
             return -1
         
@@ -51,7 +51,9 @@ class Solution:
             else:
                 end = mid
         
+        #用while循环找k个值
         while len(result) < k:
+            #一重判断：start和end是否在取值范围内，若否，则直接顺序取值即可
             if start < 0:
                 result.append(A[end])
                 end += 1
@@ -59,6 +61,7 @@ class Solution:
                 result.append(A[start])
                 start -= 1
             else:
+                #二重判断：在A[end]与A[start]中，取与target差值较小的值
                 dif_start = target - A[start]
                 dif_end = A[end] - target
                 if dif_end < dif_start:
