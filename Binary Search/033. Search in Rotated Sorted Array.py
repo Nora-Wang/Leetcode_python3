@@ -85,7 +85,6 @@ class Solution:
                     start = mid
                 else:
                     end = mid
-        print(start,end)
         if A[start] == target:
             return start
         if A[end] == target:
