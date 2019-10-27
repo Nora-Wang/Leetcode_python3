@@ -16,11 +16,15 @@ Node 2's value is 2, and it has two neighbors: Node 1 and 3.
 Node 3's value is 3, and it has two neighbors: Node 2 and 4.
 Node 4's value is 4, and it has two neighbors: Node 1 and 3.
 
-
-思路：分为3步
-1.找到所有的node
-2.用完全copy的办法copy所有的node
-3.copy edges
+四个知识点：
+1.如何bfs
+    思路：分为3步
+    1.找到所有的node
+    2.用完全copy的办法copy所有的node
+    3.copy edges
+2.result.add(neighbor)和result.add(node)
+3.coding style:代码结构,分开写,一个功能一个function
+4.计算step3的时间复杂度
 
 
 
