@@ -57,6 +57,7 @@ class Codec:
         while queue:
             node = queue.popleft()
          #注意这里的思路：当这个node存在时，直接将左右子树加进去。因为当循环到左右子树为node时，若不存在，则会执行else语句
+         #不要单独判断node.left和node.right，会出bug
             if node:
                 ser_result.append(str(node.val))
                 #ser_result += (str(node.val) + ',')
