@@ -32,6 +32,7 @@ return its length 5.
 2.wordlist和neighbor都为set，因为list在for i in list时是从头遍历到尾的，会出现time limit exceeded的情况，而set则为O(1)
 3.26个字母的取值：string.lowercase
 4.将字符串node中的其中一个指定index的值改为letter：def change_letter(self, index, letter, node)
+5.get_neighbors的时间复杂度
 
 code：
 leetcode version
@@ -71,22 +72,26 @@ class Solution(object):
                 neighbors = self.get_neighbors(node, wordList)
                 for neighbor in neighbors:
                     #若直接找到endWord
-                    if neighbor == endWord:
-                        step += 1
-                        return step
+              #coding style
+                    if neighbor != endWord:
+                        continue
+                    step += 1
+                    return step
                     if neighbor not in self.visited:
-                        self.visited.add(neighbor)
-                        queue.append(neighbor)
+                        continue
+                    self.visited.add(neighbor)
+                    queue.append(neighbor)
             step += 1
         return 0
     
+    #时间复杂度：O(25*L^2)
     #find the neighbors
     def get_neighbors(self, node, wordList):
         neighbors = set()
-        for index in range(len(node)):
-            for letter in string.lowercase:
-                new_node = self.change_letter(index, letter, node)
-                if (new_node in wordList) and (new_node not in self.visited):
+        for index in range(len(node)): #O(L)
+            for letter in string.lowercase: #O(25)
+                new_node = self.change_letter(index, letter, node) #O(L)
+                if (new_node in wordList) and (new_node not in self.visited): #O(L) not O(1)
                     neighbors.add(new_node)
         return neighbors
     
