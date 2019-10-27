@@ -42,6 +42,10 @@ Path length refers to the number of steps the knight takes.
 要注意一点，每遍历一个node，要将其赋值为1，否则会出现Memory limit exceeded的情况
 
 
+###########follow up#########
+speed up看课后补充，word ladder也可以用相同的方法解决（给出了起点和终点）
+
+
 
 code:
 """
