@@ -38,11 +38,14 @@ class Solution(object):
         len_c = len(grid[0])
         for i in range(len_r):
             for j in range(len_c):
-                if grid[i][j] == '1':
+                if grid[i][j] != '1':
                     self.bfs(grid, i, j)
                     count += 1
         return count
     
+    #判断是否访问过该点：
+    #1.可以创建一个visited = set()来记录，没有在visited里的node才能进入队列
+    #2.直接将该点的值赋值为0，只有值为1的node才能进入队列
     def bfs(self, grid, x, y):
         dir = ([-1,0],[1,0],[0,-1],[0,1])
         queue = collections.deque([(x, y)])
@@ -52,11 +55,20 @@ class Solution(object):
             for [move_x,move_y] in dir:
                 next_x = x + move_x
                 next_y = y + move_y
-                if self.node_valiable(grid, next_x, next_y):
-                    grid[next_x][next_y] = '0'
-                    queue.append((next_x, next_y))
+                if not self.node_valiable(grid, next_x, next_y):
+                    continue
+                grid[next_x][next_y] = '0'
+                queue.append((next_x, next_y))
 
     
     def node_valiable(self, grid, x, y):
-        return 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == '1'
+        #coding style：别一行直接写完，要拆开写
+        #return 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == '1'
+        if not (0 <= x < len(grid) and 0 <= y < len(grid[0])):
+            return False
+        
+        if grid[x][y] == 0:
+            return False
+            
+        return True
             
