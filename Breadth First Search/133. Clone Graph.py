@@ -67,6 +67,7 @@ class Solution(object):
 #时间复杂度最坏O(n^2)，每个点都与其他点相连，即当m是最坏情况下时n^2，O(n^2 + n)=O(n^2)
 #时间复杂度最好O(n), 当m = 0时
 #时间复杂度具体是O(n + 2m) = O(n + m)，因为每条边都会被左右两个node分别遍历一次，所有为2m
+#理解eg：for 每个班 for每个学生 = for全体学生 注意理解这里的每个学生和全体学生
 
         for node in nodes:
 #对于mapping字典，它的key是node，value是clone_node,他们都是Node型数据
