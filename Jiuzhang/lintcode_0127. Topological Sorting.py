@@ -72,6 +72,7 @@ class Solution:
         for node in graph:
             if indegrees[node] == 0:
                 queue.append(node)
+                
         while queue:
             node = queue.popleft()
             result.append(node)
@@ -80,6 +81,7 @@ class Solution:
                 indegrees[neighbor] -= 1
                 if indegrees[neighbor] == 0:
                     queue.append(neighbor)
+                    
         return result
         
     def count_indegrees(self, graph):
@@ -87,7 +89,9 @@ class Solution:
         indegrees = {}
         for node in graph:
             indegrees[node] = 0
+            
         for node in graph:
             for neighbor in node.neighbors:
                 indegrees[neighbor] += 1
+                
         return indegrees
