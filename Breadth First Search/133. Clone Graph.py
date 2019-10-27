@@ -89,6 +89,7 @@ class Solution(object):
         #不能写成result = set(),这样在同一层的时候，会重复访问node，找其neighbors
         #result = set()
         #reslut记录已进入过queue的nodes
+        #不是set(node)是因为set里必须是可迭代的对象，TreeNode类型的node不可iteration
         result = set([node])
     
         queue = collections.deque([node])
