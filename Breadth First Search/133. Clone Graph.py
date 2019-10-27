@@ -62,6 +62,12 @@ class Solution(object):
 
             
         #step3: copy edges(neighbors)
+    
+#step3的时间复杂度：n是图中所有的node，m是图中所有的edges。
+#时间复杂度最坏O(n^2)，每个点都与其他点相连，即当m是最坏情况下时n^2，O(n^2 + n)=O(n^2)
+#时间复杂度最好O(n), 当m = 0时
+#时间复杂度具体是O(n + 2m) = O(n + m)，因为每条边都会被左右两个node分别遍历一次，所有为2m
+
         for node in nodes:
 #对于mapping字典，它的key是node，value是clone_node,他们都是Node型数据
 #clone_node包含clone_node.val和clone_node.neighbors
