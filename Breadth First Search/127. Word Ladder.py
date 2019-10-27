@@ -63,6 +63,15 @@ class Solution(object):
         step = 1
         queue = collections.deque([beginWord])
         self.visited.add(beginWord)
+ 
+################follow up#############
+1.要求把最短路径输出：可直接在bfs中进行更改
+2.要求把所有最短路径输出：用dfs
+######################################
+
+#follow up 1更改：
+#到达key(node)的最短路径从哪来（pre node）,存任意一个
+        pre_to_node = {}
         
         while queue:
             #后续queue在不断append，因此需要提前记录该层的queue个数
@@ -72,16 +81,18 @@ class Solution(object):
                 neighbors = self.get_neighbors(node, wordList)
                 for neighbor in neighbors:
                     #若直接找到endWord
-              #coding style
+                    #注意coding style
                     if neighbor != endWord:
                         continue
                     step += 1
                     return step
+                
                     if neighbor not in self.visited:
                         continue
                     self.visited.add(neighbor)
                     queue.append(neighbor)
             step += 1
+            
         return 0
     
     #时间复杂度：O(25*L^2)
@@ -93,6 +104,7 @@ class Solution(object):
                 new_node = self.change_letter(index, letter, node) #O(L)
                 if (new_node in wordList) and (new_node not in self.visited): #O(L) not O(1)
                     neighbors.add(new_node)
+                    
         return neighbors
     
     #change a letter in node
