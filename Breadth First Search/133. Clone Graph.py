@@ -75,16 +75,31 @@ class Solution(object):
 #思路：先把node放入result，然后判断其neighbor，若neighbor不在结果中，则加入queue，后续可pop出加入result
 #这里之所以需要加入queue，而不是直接加入result，是因为neighbor可能还有neighbor，直接加入则无法判断
     def getNodes(self, node):
+  
 #为什么要用set：判断一个node在不在set里，可以直接找到有没有这个node；而list则需要一个一个的查找
-        result = set()
+        #不能写成result = set(),这样在同一层的时候，会重复访问node，找其neighbors
+        #result = set()
+        #reslut记录已进入过queue的nodes
+        result = set([node])
+    
         queue = collections.deque([node])
         while queue:
             node = queue.popleft()
-            result.add(node)
+        
+            #reslut.add(node)
+            #不能这样写，而应该在后续使用result.add(neighbor)
+            #原因是这样写与后续的定义不同
+            #reslut.add(node)的意思是已经进入队列，然后从里面pop出的nodes有哪些
+            #而result.add(neighbor)的意思是能够进入队列的nodes有哪些
+            #reslut.add(node)会造成同时属于不同root的node会重复进入队列
+            #eg：A.right = B.left = C, A与B属于同一层
+            #当在pop A、B时，会将其子树都遍历一遍，这样C将会被重复append进队列
+            
             for neighbor in node.neighbors:
         #这里一定要加if语句，虽然实质上是没差距的(因为set不会存储重复数据),但是加一句可以节省时间复杂度，否则容易Time Limit Exceeded
                 if neighbor not in result:
                     queue.append(neighbor)
+                    result.add(neighbor)
         return result
 
 
@@ -99,7 +114,6 @@ class UndirectedGraphNode:
         self.label = x
         self.neighbors = []
 """
-
 
 class Solution:
     """
@@ -126,14 +140,28 @@ class Solution:
         return graph[root]
         
     def find_nodes(self, node):
-        result = set()
+        #不能写成result = set(),这样在同一层的时候，会重复访问node，找其neighbors
+        #result = set()
+        #reslut记录已进入过queue的nodes
+        result = set([node])
         queue = collections.deque([node])
         while queue:
             node = queue.popleft()
-            result.add(node)
+            
+            #reslut.add(node)
+            #不能这样写，而应该在后续使用result.add(neighbor)
+            #原因是这样写与后续的定义不同
+            #reslut.add(node)的意思是已经进入队列，然后从里面pop出的nodes有哪些
+            #而result.add(neighbor)的意思是能够进入队列的nodes有哪些
+            #reslut.add(node)会造成同时属于不同root的node会重复进入队列
+            #eg：A.right = B.left = C, A与B属于同一层
+            #当在pop A、B时，会将其子树都遍历一遍，这样C将会被重复append进队列
             for neighbor in node.neighbors:
                 if neighbor not in result:
                     queue.append(neighbor)
+                    result.add(neighbor)
         return result
+        
+            
         
             
