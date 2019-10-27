@@ -49,21 +49,29 @@ class Codec:
         if not root:
             return ''
         
-        ser_result = ''
+!!#不能直接设置为string，空间占用太多，每次加的时候都相当于重新创建一个新string
+        ser_result = []
+        #ser_result = ''
+        
         queue = collections.deque([root])
         while queue:
             node = queue.popleft()
             if node:
-            #由于输出格式，每个值的后面都需要加一个逗号
-                ser_result += (str(node.val) + ',')
+                ser_result.append(str(node.val))
+                #ser_result += (str(node.val) + ',')
                 queue.append(node.left)
                 queue.append(node.right)
             else:
             #注意逗号
-                ser_result += 'null,'
+                ser_result.append('null')
+                #ser_result += 'null,'
                 
         #为了match结果，需要在头尾加[]
+        #ser_result = '[' + ser_result + ']'
+        #','.join():将list转换为string，每个元素间隔为','
+        ser_result = ','.join(ser_result)
         ser_result = '[' + ser_result + ']'
+        
         return ser_result
         
 
@@ -77,6 +85,7 @@ class Codec:
         if not data or data == '':
             return None
         
+        #split(','):以','为准分割字符串为列表
         #注意这里是data[1:-1]:因为split只会去掉',',而data"[1,2,3,null,null,4,5]"还包括一头一尾的[]，从1开始取，左闭右开，可避免[]
         list_data = data[1:-1].split(',')
         
@@ -88,7 +97,7 @@ class Codec:
         
         #个人认为这两个while的逻辑都是一样的，一个是将所有的点都append进queue，当queue为空时，遍历结束
         #一个是直接将index与list_data的长度做比较，当index所指的node超过list_data范围，则意味着所有node都遍历结束
-        #如果最后剩余的只有#，是不会被append进queue的，而index还没到最大值，还会进入while循环，可这个时候queue为空，所有无法pop
+        #但事实上，如果最后剩余的只有#，是不会被append进queue的，而index还没到最大值，还会进入while循环，可这个时候queue为空，所有无法pop
         #while index < len(list_data):
         while queue:
             node = queue.popleft()
@@ -136,17 +145,25 @@ class Solution:
         if not root:
             return '{}'
             
-        ser_result = ''
+        ser_result = []
+        #ser_result = ''
         queue = collections.deque([root])
         while queue:
             node = queue.popleft()
             if node:
-                ser_result += (str(node.val) + ',')
+                ser_result.append(str(node.val))
+                #ser_result += (str(node.val) + ',')
                 queue.append(node.left)
                 queue.append(node.right)
             else:
-                ser_result += '#,'
+                ser_result.append('#')
+                #ser_result += '#,'
+                
+        #将list转换为string，每个元素间隔为','        
+        ser_result = ','.join(ser_result)
         ser_result = '{' + ser_result + '}'
+        #ser_result = '{' + ser_result + '}'
+        
         return ser_result
 
     """
