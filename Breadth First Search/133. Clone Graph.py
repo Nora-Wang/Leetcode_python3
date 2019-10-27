@@ -56,9 +56,10 @@ class Solution(object):
         mapping = {}
         for node in nodes:
 #注意，此处指copy了node.val，对于新node，其node.neighbors是空的，因此需要step3
-            mapping[node] = Node(node.val, [])
 #注意此处用mapping[node]而不是node.val是因为可能存在一种情况：node.val相等但node.neighbors不等，这时的node是不同的
             #mapping[node.val] = Node(node.val, [])
+            mapping[node] = Node(node.val, [])
+
             
         #step3: copy edges(neighbors)
         for node in nodes:
@@ -68,14 +69,15 @@ class Solution(object):
 #！！！这里注意，加入neighbors的clone_neighbor也得是Node类型；就类似于左子树和右子树，得以树的形式与root相连
 #mapping[node].neighbors.append(mapping[neighbor.val])不行，参考前面的mapping[node.val]
                 mapping[node].neighbors.append(mapping[neighbor])
+ 
 #此处要用root，是因为代码命名时多次用到node，此时的node不再是程序原本给的参数node了，因此在前面需要先将node赋值给root
         return mapping[root]
     
     
 #思路：先把node放入result，然后判断其neighbor，若neighbor不在结果中，则加入queue，后续可pop出加入result
 #这里之所以需要加入queue，而不是直接加入result，是因为neighbor可能还有neighbor，直接加入则无法判断
+
     def getNodes(self, node):
-  
 #为什么要用set：判断一个node在不在set里，可以直接找到有没有这个node；而list则需要一个一个的查找
         #不能写成result = set(),这样在同一层的时候，会重复访问node，找其neighbors
         #result = set()
