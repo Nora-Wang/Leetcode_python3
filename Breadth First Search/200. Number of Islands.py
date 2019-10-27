@@ -55,6 +55,7 @@ class Solution(object):
             for [move_x,move_y] in dir:
                 next_x = x + move_x
                 next_y = y + move_y
+                #coding style
                 if not self.node_valiable(grid, next_x, next_y):
                     continue
                 grid[next_x][next_y] = '0'
