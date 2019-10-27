@@ -45,33 +45,36 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        #因为题中给的serialize的结果为"[1,2,3,null,null,4,5]"，是一个字符串，因此root为空时，直接返回空字符串即可
+        #因为题中给的serialize的结果为"[1,2,3,null,null,4,5]"，是一个字符串，因此root为空时，直接返回'{}'
+        #注意这里的结果要与deserialize的特判相对应
         if not root:
-            return ''
+            return '{}'
         
 !!#不能直接设置为string，空间占用太多，每次加的时候都相当于重新创建一个新string
+#用list，后续直接使用.join()转换
         ser_result = []
         #ser_result = ''
         
+        #deque要求参数为list
         queue = collections.deque([root])
         while queue:
             node = queue.popleft()
-         #注意这里的思路：当这个node存在时，直接将左右子树加进去。因为当循环到左右子树为node时，若不存在，则会执行else语句
+         #注意这里的思路：当这个node存在时，将值加入ser_result,并直接将左右子树加进去。因为当循环到左右子树为node时，若不存在，则会执行else语句
          #不要单独判断node.left和node.right，会出bug
             if node:
+                #node.val是int型数据，而结果要求string，因此要用str()
                 ser_result.append(str(node.val))
                 #ser_result += (str(node.val) + ',')
                 queue.append(node.left)
                 queue.append(node.right)
             else:
-            #注意逗号
                 ser_result.append('null')
                 #ser_result += 'null,'
                 
-        #为了match结果，需要在头尾加[]
         #ser_result = '[' + ser_result + ']'
         #','.join():将list转换为string，每个元素间隔为','
         ser_result = ','.join(ser_result)
+        #为了match结果，需要加‘[]’
         ser_result = '[' + ser_result + ']'
         
         return ser_result
@@ -83,8 +86,8 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        #特判{}和{''}
-        if not data or data == '':
+        #特判None和'{}'
+        if not data or data == '{}':
             return None
         
         #split(','):以','为准分割字符串为列表
@@ -92,8 +95,10 @@ class Codec:
         list_data = data[1:-1].split(',')
         
         #将data中第一个值，即树的root以TreeNode类型的格式加入root
+        #list_data[0]是int型
         root = TreeNode(list_data[0])
         
+        #deque要求参数为list，所以要加[]
         queue = collections.deque([root])
         index = 1
         
