@@ -87,7 +87,7 @@ class Solution:
             mid = start + (end - start) / 2
             if A[mid] <= A[mid + 1]:
                 start = mid
-            if A[mid] > A[mid + 1]:
+            else:
                 end = mid
             
         if A[start] > A[end]:
