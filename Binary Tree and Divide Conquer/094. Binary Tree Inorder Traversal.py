@@ -16,6 +16,8 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 
 1. Recursive
+
+1.1 traversal
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -40,6 +42,37 @@ class Solution(object):
         self.result.append(root.val)
         self.traverse(root.right)
         return self.result
+   
+1.2 divide and conquer
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: A Tree
+    @return: Inorder in ArrayList which contains node values.
+    """
+    def inorderTraversal(self, root):
+        if not root:
+            return []
+            
+        result = []
+        left = self.inorderTraversal(root.left)
+        right = self.inorderTraversal(root.right)
+        
+        #left, root, right
+        result += left
+        result.append(root.val)
+        result += right
+        
+        return result
+        
+
         
 2. Non-recursive
 思路：先把最左边全都加进stack，即此时的root就是inorder的first node。
