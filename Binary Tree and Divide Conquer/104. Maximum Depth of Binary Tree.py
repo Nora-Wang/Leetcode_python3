@@ -27,7 +27,7 @@ return its depth = 3.
 
 
 code:
-
+leetcode version
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -50,3 +50,58 @@ class Solution(object):
         result = max(leftDepth, rightDepth) + 1
         
         return result
+
+    
+lintcode version
+1. divide and conquer
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: An integer
+    """
+    def maxDepth(self, root):
+        if not root:
+            return 0
+            
+        left = self.maxDepth(root.left)
+        right = self.maxDepth(root.right)
+        
+        return max(left, right) + 1
+
+2.traversal
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: An integer
+    """
+    def __init__(self):
+        self.depth = 0
+        
+    def maxDepth(self, root):
+        self.traverse(root, 1)
+        return self.depth
+        
+    def traverse(self, root, cur_depth):
+        if not root:
+            return
+        
+        self.depth = max(self.depth, cur_depth)
+        self.traverse(root.left, cur_depth + 1)
+        self.traverse(root.right, cur_depth + 1)
+        
