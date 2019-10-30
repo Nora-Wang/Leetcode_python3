@@ -24,6 +24,7 @@ version2用-1做标记，容易出错
 1. Version九章
 divide and conquer
 用两个值分别代表深度和平衡性
+自下而上递归判断每个节点是否平衡。若平衡将当前节点高度返回，供父节点判断;否则该树一定不平衡。
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
