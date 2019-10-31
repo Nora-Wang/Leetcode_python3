@@ -39,16 +39,16 @@ class Solution(object):
         if not root:
             return []
     
-        leftPath = self.binaryTreePaths(root.left)
-        rightPath = self.binaryTreePaths(root.right)
+        leftPaths = self.binaryTreePaths(root.left)
+        rightPaths = self.binaryTreePaths(root.right)
         
         #由于输出结果，需要注意写法，都是str
         #这里的思想是当以root点为根的leftPath已经完成，当将左node的所有path加上root后，加入result中
 ###编程习惯tips：注意命名的单复数
-      for paths in leftPaths:
-            result.append(str(root.val) + '->' + str(paths))
-        for paths in rightPaths:
-            result.append(str(root.val) + '->' + str(paths))
+        for path in leftPaths:
+            result.append(str(root.val) + '->' + str(path))
+        for path in rightPaths:
+            result.append(str(root.val) + '->' + str(path))
             
         #这道题做完后再将单node的情况带入，会发现多了‘->’，因此需要单独写append的格式
         if root.left == None and root.right == None:
