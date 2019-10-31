@@ -23,6 +23,7 @@ Version1：
 仔细看题目，只存在比root大和比root小的情况，不存在等于的情况，因此可以直接利用BST的性质：若inorder traversal的结果是升序的，则为BST
 注意这里inorder的时候若用traversal，需要与前一个node.val比较，若发现更小，则不是升序
 
+1.1 traversal
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -60,6 +61,46 @@ class Solution(object):
                 return False
             
         return True
+
+1.2 divide and conquer
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: True if the binary tree is BST, or false
+    """
+    def isValidBST(self, root):
+        result = self.inorder(root)
+#range注意取左不取右
+        for i in range(len(result) - 1):
+            if result[i] >= result[i + 1]:
+                return False
+                
+        return True
+        
+    def inorder(self, root):
+        if not  root:
+            return []
+            
+        result = []
+        
+        left = self.inorder(root.left)
+        right = self.inorder(root.right)
+        
+        #inorder: left, root, right
+        result += left
+        result.append(root.val)
+        result += right
+        
+        return result
+            
 
        
 Version2:
