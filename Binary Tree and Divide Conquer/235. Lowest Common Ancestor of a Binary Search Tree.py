@@ -61,7 +61,8 @@ class Solution(object):
         
         
         
-Version 2：利用BST的特点，左节点<根<=右节点
+Version 2(更优)
+利用BST的特点，左节点<根<=右节点
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
