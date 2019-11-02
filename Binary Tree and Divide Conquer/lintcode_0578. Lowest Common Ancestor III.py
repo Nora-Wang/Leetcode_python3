@@ -44,9 +44,12 @@ node A or node B may not exist in tree.
 Each node has a different value
 
 
-
-
 divide and conquer
+两个given node，A, B
+helper函数在遇到A或B的时候即返回它;
+如果左右node的返回值都不为空，即说明当前node为LCA，返回当前node;这样可以解决两node其中之一是LCA的情况，直接返回left或right
+考虑到有可能LCA不存在(即A或B不存在于root中)，这里设定两个boolean分别表示A或B是否存在于root中，如果最终两者不全为true，则返回null。
+
 code:
 """
 Definition of TreeNode:
