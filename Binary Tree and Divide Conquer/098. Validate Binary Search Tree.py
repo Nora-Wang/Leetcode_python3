@@ -63,6 +63,71 @@ class Solution(object):
         return True
 
 1.2 divide and conquer
+1.2.1
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: True if the binary tree is BST, or false
+    """
+    def isValidBST(self, root):
+      #这里需要使用两个全局变量
+      #一个用于记录上一个node，另一个用于记录是否为BST的结果
+      #可以不用设置self.isBST,可将其作为inorder的结果，如1.2.2 version
+        self.lastnode = None
+        self.isBST = True
+        self.inorder(root)
+        return self.isBST
+        
+    def inorder(self, root):
+        if not  root:
+            return
+        
+        self.inorder(root.left)
+        
+        #需要先判断一下self.lastnode是否存在
+        if self.lastnode and self.lastnode.val >= root.val:
+            self.isBST = False
+            return
+        self.lastnode = root
+        
+        self.inorder(root.right)
+            
+1.2.2
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        self.lastnode = None
+        return self.inorder(root)
+    
+    def inorder(self, root):
+        if not root:
+            return True
+        
+        left = self.inorder(root.left)
+        
+        if self.lastnode and self.lastnode.val >= root.val:
+            return False
+        self.lastnode = root
+        
+        right = self.inorder(root.right)
+        
+        #只有当左右子树都为BST时，整棵树才为BST
+        if left and right:
+            return True
+         
+         
+1.2.3
 """
 Definition of TreeNode:
 class TreeNode:
