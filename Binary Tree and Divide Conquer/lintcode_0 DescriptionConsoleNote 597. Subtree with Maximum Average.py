@@ -1,6 +1,35 @@
 题目：
 Given a binary tree, find the subtree with maximum average. Return the root of the subtree.
 
+Example
+
+Example 1
+
+Input：
+{1,-5,11,1,2,4,-2}
+Output：11
+Explanation:
+The tree is look like this:
+     1
+   /   \
+ -5     11
+ / \   /  \
+1   2 4    -2 
+The average of subtree of 11 is 4.3333, is the maximun.
+Example 2
+
+Input：
+{1,-5,11}
+Output：11
+Explanation:
+     1
+   /   \
+ -5     11
+The average of subtree of 1,-5,11 is 2.333,-5,11. So the subtree of 11 is the maximun.
+Notice
+
+LintCode will print the subtree which root is your return node.
+It's guaranteed that there is only one subtree with maximum average.
 
 
 
