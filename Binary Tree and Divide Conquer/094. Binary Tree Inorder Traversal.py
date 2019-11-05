@@ -105,7 +105,7 @@ class Solution(object):
         result = []
             
         while root or stark:
-            while(root):
+            while root:
                 stark.append(root)
                 root = root.left
             root = stark.pop()
