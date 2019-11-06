@@ -26,7 +26,7 @@ Output: 3
 
 
 code:
-Version 1: divide and conquer
+Version 1: Traversal
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
