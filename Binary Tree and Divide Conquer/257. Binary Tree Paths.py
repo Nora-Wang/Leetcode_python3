@@ -57,7 +57,7 @@ class Solution(object):
         return result
 
    
-2.Non-recursive(traversal)
+2.Non-recursive
 从上到下一个stark就可以，注意第一次传入的是空string
 # Definition for a binary tree node.
 # class TreeNode(object):
