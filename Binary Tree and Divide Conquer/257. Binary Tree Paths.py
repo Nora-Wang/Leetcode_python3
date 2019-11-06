@@ -18,7 +18,9 @@ Output: ["1->2->5", "1->3"]
 Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 
 
-
+时间复杂度：
+O(nlogn)：满二叉树,高度logn，叶节点n/2
+O(n)：所有node都排在一条线上
 
 1.Divide and Conquer
 # Definition for a binary tree node.
@@ -56,8 +58,50 @@ class Solution(object):
             
         return result
 
-   
-2.Non-recursive
+2.Traversal
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: the root of the binary tree
+    @return: all root-to-leaf paths
+    """
+    def binaryTreePaths(self, root):
+        if not root:
+            return []
+            
+        self.result = []
+        self.dfs(root, [str(root.val)])
+        
+        return self.result
+        
+    def dfs(self, root, path):
+        if not root.left and not root.right:
+            #用join可节省空间复杂度，直接append每次都会创建一个新的list
+            self.result.append('->'.join(path))
+            return
+            
+        if root.left:
+            path.append(str(root.left.val))
+            self.dfs(root.left, path)
+            #相当于回到上一个点，backtracking
+            path.pop()
+            
+        if root.right:
+            path.append(str(root.right.val))
+            self.dfs(root.right, path)
+            path.pop()
+        
+
+
+
+3.Non-recursive
 从上到下一个stark就可以，注意第一次传入的是空string
 # Definition for a binary tree node.
 # class TreeNode(object):
