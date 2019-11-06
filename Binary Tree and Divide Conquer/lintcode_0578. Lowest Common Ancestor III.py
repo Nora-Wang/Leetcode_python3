@@ -101,6 +101,7 @@ class Solution:
 
 #易错点
 #这部分得写在‘记录A和B是否被遍历到’后面
+#与Lowest Common Ancestor I做比较能看出不同，Lowest Common Ancestor I中可直接将这部分与前面的if not root一起写，因为返回的都是root
         #当该点就是A或B时，返回root
         #要先写这部分 
         #eg:{2,-1},-1,2 若后写，则输出为-1
