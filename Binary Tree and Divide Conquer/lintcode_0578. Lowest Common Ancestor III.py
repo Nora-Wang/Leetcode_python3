@@ -83,8 +83,9 @@ class Solution:
         #分治出口
         if not root:
             return False, False, root
-            
-        #初始化，AB此时都不存在
+ 
+#易错点            
+#初始化，AB此时都不存在
         #用于记录A和B是否存在于root中
         is_exist_A = False
         is_exist_B = False
@@ -97,7 +98,9 @@ class Solution:
             is_exist_A = True
         if left_is_exist_B or right_is_exist_B or root == B:
             is_exist_B = True
-                            
+
+#易错点
+#这部分得写在‘记录A和B是否被遍历到’后面
         #当该点就是A或B时，返回root
         #要先写这部分 
         #eg:{2,-1},-1,2 若后写，则输出为-1
