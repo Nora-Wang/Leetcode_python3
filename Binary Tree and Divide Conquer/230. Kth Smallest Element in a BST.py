@@ -67,4 +67,7 @@ class Solution(object):
         
         
         
-Version 2: 
+Version 2: Iterator 
+参考173. Binary Search Tree Iterator
+时间复杂度：O(k)~O(n),因为最多把每个点都遍历一遍
+
