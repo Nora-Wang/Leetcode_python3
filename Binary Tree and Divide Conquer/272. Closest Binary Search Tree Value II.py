@@ -101,10 +101,20 @@ class Solution(object):
                 
             #比较前一个数和后一个数谁更接近target，将更接近的加入result
             if next_diff > prev_diff:
-                result.append(self.prev_stack[-1].val)
+                #lintcode
+                #result.append(prev_stack[-1].val)
+                
+                #leetcode
+                result.append(self.get_prev())
+                #leetcode若直接返回值(不用函数)，则会超时
+                
                 self.get_prev()
             else:
-                result.append(self.next_stack[-1].val)
+                #lintcode
+                #result.append(next_stack[-1].val)
+                
+                #leetcode
+                result.append(self.get_next())
                 self.get_next()
                 
         return result
@@ -124,15 +134,23 @@ class Solution(object):
     #这里需要将node.left的向右延伸的所有right nodes加入self.prev_stack，因为在def get_stacks(self, root, target)中只将node和node.right加进去了
     #由于right node已经全部被加入pre_stack,且已经被pop出,现在只剩下当前node.left的所有数;这时最接近target的应该为当前node.left一直向右走到底的node
     def get_prev(self): 
+        #leetcode
+        value = self.prev_stack[-1].val
+        
         node = self.prev_stack.pop().left
         
         while node:
             self.prev_stack.append(node)
             node = node.right
-    
+        #leetcode
+        return value
+        
     def get_next(self):
+        value = self.next_stack[-1].val
         node = self.next_stack.pop().right
         
         while node:
             self.next_stack.append(node)
             node = node.left
+            
+        return value
