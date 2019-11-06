@@ -44,6 +44,7 @@ class BSTIterator(object):
         :type root: TreeNode
         """
         self.stack = []
+     #将从root开始一直到最左边的node全都放入stack中
         while root:
             self.stack.append(root)
             root = root.left
@@ -53,12 +54,17 @@ class BSTIterator(object):
         @return the next smallest number
         :rtype: int
         """
+        #最左的node
         node = self.stack[-1]
+       
+        #若最左的node有right节点，则将node.right的一路向左的节点也都放入stack
         if node.right:
             n = node.right
             while n:
                 self.stack.append(n)
                 n = n.left
+              
+        #当没有右节点时，向外pop，直至current被pop出的node是下一个将要被pop出的node的left时，停止
         else:
             n = self.stack.pop()
             while self.stack and self.stack[-1].right == n:
@@ -71,6 +77,7 @@ class BSTIterator(object):
         @return whether we have a next smallest number
         :rtype: bool
         """
+        #当stack里还有node，则说明还有next
         return len(self.stack) > 0
 
 
