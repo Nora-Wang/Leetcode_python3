@@ -71,33 +71,25 @@ class Solution(object):
         :rtype: TreeNode
         """
         #情况1
-        if (root == None or root == p or root == q):
+        if not root or root == p or root == q:
             return root
         
         #divide
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
-#version1
+
         #conquer
         #情况4
         if left and right:
             return root
         
         #情况2
-        if left and not right:
+        if left:
             return left
         
         #情况3
-        if right and not left:
+        if right:
             return right
           
         #情况5
         return None
-
-#version2
-        if not left:
-            return right
-        if not right:
-            return left
-        #if left and right:
-        return root
