@@ -25,9 +25,21 @@ Note:
 next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
 You may assume that next() call will always be valid, that is, there will be at least a next smallest number in the BST when next() is called.
 
+思路：
+      5
+    /  \
+  3      7 
+ / \    / 
+2   4  6
 
-
-
+1.def __init__(self, root)将5，3，2放入stack
+2.def next(self)
+先将2pop出，然后将3pop出，因为2是3的left，因此需要判断3是否存在right，存在则将4放入stack，由于4没有左右子树，因此直接pop即可
+将5pop出，由于3是5的left，因此需要判断5的right，此时存在right=7，将7也加入stack，此时又要将7的左下节点(6)全部放入stack
+将6pop出，继续将7pop出，由于6是7的left，但7没有right
+#即当前节点为下一个节点的left时，先pop出下一个节点，然后需要对下一个节点的right进行判断，若存在，则需要无限向左下append；若不存在则继续pop
+将6pop出，继续将7pop出，由于6是7的left，但7没有right
+3.def hasNext(self)此时所有节点都被遍历过，stack为空
 
 code:
 # Definition for a binary tree node.
