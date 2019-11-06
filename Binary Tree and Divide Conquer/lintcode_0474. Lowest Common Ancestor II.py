@@ -38,6 +38,7 @@ LCA(5, 6) = 7
 
 
 code:
+Version 1 31%
 """
 Definition of ParentTreeNode:
 class ParentTreeNode:
@@ -67,4 +68,35 @@ class Solution:
         while B not in trail and B is not root:
             B = B.parent
         
+        return B
+
+       
+       
+Version 2 96%
+"""
+Definition of ParentTreeNode:
+class ParentTreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.parent, self.left, self.right = None, None, None
+"""
+
+
+class Solution:
+    """
+    @param: root: The root of the tree
+    @param: A: node in the tree
+    @param: B: node in the tree
+    @return: The lowest common ancestor of A and B
+    """
+    def lowestCommonAncestorII(self, root, A, B):
+        trail = [root]
+        
+        while A != root:
+            trail.append(A)
+            A = A.parent
+            
+        while B not in trail:
+            B = B.parent
+            
         return B
