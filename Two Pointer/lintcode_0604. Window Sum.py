@@ -16,6 +16,14 @@ Explanation：
 比如当前的 window 是 |1,2|,3,4。那么当 window 从左往右移动到 1,|2,3|,4 的时候，整个 window 内的整数和是增加了3，减少了1。
 因此只需要模拟整个窗口在滑动的过程中，整数一进一出的变化即可。这就是滑动窗口问题。
 
+
+知识点：python初始化指定长度的一维list
+1.方式一
+a = [None] * n
+2.方法二
+a = [None for i in range(n)]
+
+
 code:
 class Solution:
     """
