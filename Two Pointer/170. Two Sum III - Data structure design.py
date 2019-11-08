@@ -14,7 +14,7 @@ add(3); add(1); add(2);
 find(3) -> true
 find(6) -> false
 
-
+此题只能使用hash
 这道题的解法有3种情况
 
 1.要求add和find的时间复杂度较平均
