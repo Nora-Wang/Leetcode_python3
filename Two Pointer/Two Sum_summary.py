@@ -7,7 +7,8 @@ Two Sum有两种方法：two pointer或者hash
 
 两种算法的运用场景：
 没有被sorted的array，如果要求返回index，只能用hash
-如果返回的是值，或者是递增或者递减的array，two pointer和hash都能用，two pointer更优
+如果返回的是值，或者是递增或者递减的array，two pointer和hash都能用
+对于给定已经被sorted的array，two pointer更优
                 
                 
 当要求返回的两个数的值，而不是index时
