@@ -51,7 +51,7 @@ class Solution:
 #注意点2:pivot不能为首尾,不然quick sort的时间复杂度则为最差情况O(n^2)
 #注意点3:pivot是value而不是index，因为后面的比较是用的值比较的
         left, right = start, end
-        pivot = A[start + (right - left) / 2]
+        pivot = A[start + (end - start) / 2]
         
         #partition
 #注意点4:这里是<=,用<会出现stack overflow，因为后续recursion时可能会出现交集
