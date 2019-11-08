@@ -16,7 +16,7 @@ Explanation: There is a cycle in the linked list, where tail connects to the sec
 
 快慢指针模板:
 slow = fast = head
-while(fast and fast.next):
+while fast and fast.next:
   slow = slow.next
   fast = fast.next.next
 
@@ -36,10 +36,10 @@ class Solution(object):
         :rtype: bool
         """
         slow = fast = head
-        while(fast and fast.next):
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-            if(fast == slow):
+            if fast == slow:
                 return True
         return False
        
