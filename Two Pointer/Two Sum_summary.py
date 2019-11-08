@@ -42,7 +42,7 @@ class Solution(object):
     
 Version 2 hash
 由于只需要返回value，不用记录index，所以直接使用set就足够了，不需要dict
-#使用hash = {}的情况，可参考1. Two Sum
+#使用hash = {}的情况，可参考1. Two Sum和167. Two Sum II - Input array is sorted，即需要返回index时
 
 使用一个HashSet，来记录每个值是否存在。每次查找 target - numbers[i] 是否存在，存在即说明找到了，返回两个数即可。
 def twoSum(numbers, target):
