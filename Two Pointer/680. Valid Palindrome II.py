@@ -30,6 +30,7 @@ class Solution(object):
         start = 0
         end = len(s) - 1
         
+        #这里不需要用start + 1 < end,因为不存在mid或者pivot等stack overflow的情况
         while start < end:
             if s[start] != s[end]:
                 return self.isPalindrome(s, start + 1, end) or self.isPalindrome(s, start, end - 1)
