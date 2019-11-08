@@ -34,6 +34,7 @@ class Solution(object):
         """
         start = 0
         end = len(s) - 1
+        #这个循环中要多次写到start < end，因为每一步都可能存在越界的情况
         #这里不需要用start + 1 < end,因为不存在mid或者pivot等stack overflow的情况
         while start < end:
             while start < end and not s[start].isalnum():
