@@ -1,0 +1,20 @@
+双指针题目的判断方法：
+要求时间复杂度为O(n),尤其是要求从O(n^2)降为O(n)的题目
+
+
+背向双指针
+005. Longest Palindromic Substring 的中心线枚举算法
+658. Find K Closest Elements 
+
+相向双指针
+Two Sum 的一大类题(两位数的相关变形题)
+Partition 的一大类题(两位数相关变形题) 
+相向双指针的问题主要可以分为下面三类:
+1. Reverse 类(较少) 回文串125. Valid Palindrome, 680. Valid Palindrome II
+2. Two Sum 类(最多) 
+3. Partition 类(较多)
+
+同向双指针
+滑动窗口类 Sliding Window 
+快慢指针类 Fast & Slow Pointers 
+等等
