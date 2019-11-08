@@ -110,6 +110,7 @@ class Solution:
         rightIndex = middle + 1
         index = start
         
+        #两边比较后将小一点的值放入temp
         while leftIndex <= middle and rightIndex <= end:
             if A[leftIndex] < A[rightIndex]:
                 temp[index] = A[leftIndex]
@@ -119,12 +120,11 @@ class Solution:
                 rightIndex += 1
             index += 1
             
-        #当还有余时，将剩余部分添加进temp
+        #当一边已经遍历完，而另一边还有余时，将其剩余部分全部添加进temp
         while leftIndex <= middle:
             temp[index] = A[leftIndex]
             index += 1
             leftIndex += 1
-            
         while rightIndex <= end:
             temp[index] = A[rightIndex]
             index += 1
