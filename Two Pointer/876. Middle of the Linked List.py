@@ -16,7 +16,7 @@ If there are two middle nodes, return the second middle node.
 
 
 code:
-
+leetcode version
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, x):
@@ -31,8 +31,37 @@ class Solution(object):
         """
         slow = fast = head
         
-        while fast and fast.next :
+#由于leetcode是return the second middle node，因此判断条件不同
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
+            
+        return slow
+
+    
+lintcode version:
+"""
+Definition of ListNode
+class ListNode(object):
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+
+class Solution:
+    """
+    @param head: the head of linked list.
+    @return: a middle node of the linked list
+    """
+    def middleNode(self, head):
+        if not head:
+            return None
+            
+        slow, quick = head, head
+        
+#lintcode是return the first middle node
+        while quick and quick.next and quick.next.next:
+            slow = slow.next
+            quick = quick.next.next
             
         return slow
