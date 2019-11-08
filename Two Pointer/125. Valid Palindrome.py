@@ -19,12 +19,13 @@ Output: false
 比较二者对应的字符串内的字符是否相同, 不相同则原字符串不是回文串.
 如果全部的比较都相同, 说明是回文串.
 
-str.isalnum():检测字符串是否由字母和数字组成 = str.isalpha() and str.isdigit()
+str.isalnum():检测字符串是否由字母和数字组成 == str.isalpha() and str.isdigit()
 str.lower():转换字符串中所有大写字符为小写。
 
 
 
 code:
+时间复杂度O(n)
 class Solution(object):
     def isPalindrome(self, s):
         """
@@ -33,6 +34,7 @@ class Solution(object):
         """
         start = 0
         end = len(s) - 1
+        #这里不需要用start + 1 < end,因为不存在mid或者pivot等stack overflow的情况
         while start < end:
             while start < end and not s[start].isalnum():
                 start += 1
