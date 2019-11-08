@@ -42,30 +42,31 @@ class Solution:
     #left和right比较时，用<=
     #与pivot比较时，不要=
     def quicksort(self, A, start, end):
+#注意点1:一定要写停止条件
         if start >= end:
             return
         
-        #pivot不能为收尾
-        #pivot是value而不是index
+#注意点2:pivot不能为首尾,不然quick sort的时间复杂度则为最差情况O(n^2)
+#注意点3:pivot是value而不是index，因为后面的比较是用的值比较的
         left, right = start, end
         pivot = A[start + (right - left) / 2]
         
         #partition
-        #注意这里是<=
-        #用<会stack overflow，因为后续recursion时可能会出现交集
+#注意点4:这里是<=,用<会出现stack overflow，因为后续recursion时可能会出现交集
         while left <= right:
-            #A[left] <= pivot会出现不均匀的情况stack overflow，当全部都等于pivot时，会直接循环到end
+#注意点5:若A[left] <= pivot会出现不均匀的情况stack overflow，当全部都等于pivot时，会直接循环到end
             while left <= right and A[left] < pivot:
                 left += 1
             while left <= right and A[end] > pivot:
                 right -= 1
                 
+#注意点6:需要判断一下此时是否满足left <= right，因为可能存在left > right而跳出前面两个while循环的情况
             if left <= right:
                 A[left], A[right] = A[right], A[left]
                 left += 1
                 right -= 1
                 
-        #注意这里是start与right，left与end配对，因为前面while循环结束时的情况为left>right
+#注意点7:这里是start与right，left与end配对，因为前面while循环结束时的情况为left>right
         #此时的A被分为3个部分[start, right],pivot,[left,end]
         self.quicksort(A, start, right)
         self.quicksort(A, left, end)
@@ -89,14 +90,18 @@ class Solution:
         if not A:
             return None
         
+  #注意点1:temp在初始化的时候不能写成temp = [] * len(A)，会出bug:list assignment index out of range
         #用temp来记录每次的排序，最后再将temp赋值给A，因此merge sort会比quick sort多耗费O(n)的extra space
         temp = [0] * len(A)
         self.mergeSort(A, 0, len(A) - 1, temp)
         
     def mergeSort(self, A, start, end, temp):
+        
+  #注意点2:记得一定要加上这部分，不然会maximum recursion depth exceeded
         if start >= end:
             return
         
+  #注意点3:middle要去整，因为后续会当作index用
         middle = start + (end - start) // 2
         
         self.mergeSort(A, start, middle, temp)
@@ -105,12 +110,16 @@ class Solution:
         self.merge(A, start, end, temp)
         
     def merge(self, A, start, end, temp):
+  #同注意点3
         middle = start + (end - start) // 2
         leftIndex = start
         rightIndex = middle + 1
+        
+  #注意点4:index要赋值为start或者leftIndex，因为temp要从头开始赋值
         index = start
         
         #两边比较后将小一点的值放入temp
+  #注意点5:注意<=,每个值都需要被遍历到
         while leftIndex <= middle and rightIndex <= end:
             if A[leftIndex] < A[rightIndex]:
                 temp[index] = A[leftIndex]
@@ -131,6 +140,7 @@ class Solution:
             rightIndex += 1
         
         #将temp再赋值给A
+  #注意点6:range一定要是[start, end + 1],python左闭右开原则；另外不能用len(temp)或者len(A),取值不对
         for index in range(start, end + 1):
             A[index] = temp[index]
  
