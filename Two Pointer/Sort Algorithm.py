@@ -1,10 +1,23 @@
-1. Quick Sort
-不稳定Unstable
-时间复杂度：O(nlogn) ~ O(n^2)
-空间复杂度：O(logn)~O(n)
-O(nlogn) 空间复杂度O（logn） 不稳定
+Quick Sort与Merge Sort比较：
 
-主体思路：
+1.Quick Sort
+不稳定Unstable（同样的value时，value1和value2不会按照原数组的顺序被排序，可能排完序的结果为value2，value1）
+时间复杂度：O(n) ~ O(n^2) （每次划分都选的头或尾时，为O(n^2)；每次都是中间时，为O(n)）
+平均时间复杂度：O(nlogn)
+空间复杂度：O(1) (原地排序)
+先整体有序，再局部有序：T(n) = 2T(n/2) + O(n)先做O(n),即先partition
+
+2.Merge Sort
+稳定Stable（同样的value时，value1和value2会按照原数组的顺序被排序）
+时间复杂度：O(nlogn)
+空间复杂度：O(n)
+先局部有序，再整体有序：T(n) = 2T(n/2) + O(n)先做2T(n/2)，再做O(n),即后merge
+
+
+
+
+1. Quick Sort
+
 参考链接：https://www.jianshu.com/p/655db46e161d
 1.首先选择一个中间元素pivot = A[start + (right - left) / 2]
 2.分别获取除中间元素外的左右两端的索引
@@ -37,6 +50,7 @@ class Solution:
         left, right = start, end
         pivot = A[start + (right - left) / 2]
         
+        #partition
         #注意这里是<=
         #用<会stack overflow，因为后续recursion时可能会出现交集
         while left <= right:
@@ -59,3 +73,64 @@ class Solution:
 
 
 2.Merge Sort
+
+参考链接：https://www.jianshu.com/p/655db46e161d
+实现归并排序的另一种方式是从小数组开始归并：
+首先我们将数组的每一个元素都当做一个只有一个元素的数组，然后将其两两归并。
+然后我们将整个数组的每两个元素都当做一个小数组，然后将其两两归并，然后四个四个归并，依次类推，直到最后归并成一个大数组，排序就完成了。
+
+
+class Solution:
+    """
+    @param A: an integer array
+    @return: nothing
+    """
+    def sortIntegers(self, A):
+        if not A:
+            return None
+        
+        #用temp来记录每次的排序，最后再将temp赋值给A，因此merge sort会比quick sort多耗费O(n)的extra space
+        temp = [0] * len(A)
+        self.mergeSort(A, 0, len(A) - 1, temp)
+        
+    def mergeSort(self, A, start, end, temp):
+        if start >= end:
+            return
+        
+        middle = start + (end - start) // 2
+        
+        self.mergeSort(A, start, middle, temp)
+        self.mergeSort(A, middle + 1, end, temp)
+        
+        self.merge(A, start, end, temp)
+        
+    def merge(self, A, start, end, temp):
+        middle = start + (end - start) // 2
+        leftIndex = start
+        rightIndex = middle + 1
+        index = start
+        
+        while leftIndex <= middle and rightIndex <= end:
+            if A[leftIndex] < A[rightIndex]:
+                temp[index] = A[leftIndex]
+                leftIndex += 1
+            else:
+                temp[index] = A[rightIndex]
+                rightIndex += 1
+            index += 1
+            
+        #当还有余时，将剩余部分添加进temp
+        while leftIndex <= middle:
+            temp[index] = A[leftIndex]
+            index += 1
+            leftIndex += 1
+            
+        while rightIndex <= end:
+            temp[index] = A[rightIndex]
+            index += 1
+            rightIndex += 1
+        
+        #将temp再赋值给A
+        for index in range(start, end + 1):
+            A[index] = temp[index]
+ 
