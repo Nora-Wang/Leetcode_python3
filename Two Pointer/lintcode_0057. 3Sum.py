@@ -56,6 +56,7 @@ class Solution:
         for i in range(size - 2):
             #去重：对a的值去重
             if i and numbers[i] == numbers[i - 1]:
+#注意这里是continue！！！
                 continue
             #注意这里的start = i + 1,此时的numbers[i]即a,即find_two_sum中numbers的取值范围是a～最后一个值
             #这是因为two sum是要在a的右侧找到b和c,避免重复
@@ -69,13 +70,15 @@ class Solution:
             if numbers[start] + numbers[end] == target:
                 #注意这里的返回值，由小到大排序
                 self.results.append([-target, numbers[start], numbers[end]])
+#注意这里要先对start和end进行处理，不然后续的去重可能不满足条件，例如不存在start - 1和end + 1
                 start += 1
                 end -= 1
-                #去重
+#注意这里一定要去重
                 while start < end and numbers[start] == numbers[start - 1]:
                     start += 1
                 while start < end and numbers[end] == numbers[end + 1]:
                     end -= 1
+#注意这里是elif
             elif numbers[start] + numbers[end] < target:
                 start += 1
             else:
