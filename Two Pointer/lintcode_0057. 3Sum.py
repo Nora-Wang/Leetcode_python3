@@ -26,6 +26,7 @@ The solution set must not contain duplicate triplets.
 使用有序数列的好处是，在枚举和移动指针时值相等的数可以跳过，省去去重部分
 
 注意：对于two pointer的array的取值范围，应该是a之后的范围？？？？
+因为若能够取到前面的值，相当于也是重复了，只是把a和b/c换一下而已 eg:之前得到abc,换个顺序变为bac等等情况，重复了
 
 具体步骤：
 假设升序数列a，对于一组解ai,aj, 另一组解ak,al,其必然满足 i<k + j>l 或 i>k + j<l
@@ -57,7 +58,7 @@ class Solution:
             if i and numbers[i] == numbers[i - 1]:
                 continue
             #注意这里的start = i + 1,此时的numbers[i]即a,即find_two_sum中numbers的取值范围是a～最后一个值
-            #这是因为two sum是要在a的右侧找到b和c
+            #这是因为two sum是要在a的右侧找到b和c,避免重复
             self.find_two_sum(numbers, i + 1, size - 1, -numbers[i])
         
         return self.results
