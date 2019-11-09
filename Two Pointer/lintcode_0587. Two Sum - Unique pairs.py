@@ -42,6 +42,7 @@ class Solution:
         while start < end:
             if nums[start] + nums[end] == target:
                 result.add(nums[start])
+                start += 1
             if nums[start] + nums[end] < target:
                 start += 1
             else:
