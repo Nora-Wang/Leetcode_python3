@@ -59,7 +59,7 @@ class TwoSum:
         return False
       
 2.add调用的很多，而find调用的很少；即要求add的时间复杂度到最低
-这种解法的add只要O(1)
+这种解法:find为O(n),add为O(1)
 class TwoSum:
     """
     @param number: An integer
@@ -86,7 +86,7 @@ class TwoSum:
         return False
 
 3.find调用的很多，而add调用的很少；即要求find的时间复杂度到最低
-这种解法的find只要O(1)
+这种解法:add为O(n),find为O(1)
 class TwoSum:
     """
     @param number: An integer
