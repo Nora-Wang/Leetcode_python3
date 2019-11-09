@@ -46,3 +46,38 @@ class Solution:
                 end -= 1
                 
         return len(result)
+
+    
+    
+Version 2
+用count来记录有多少个结果，当nums[start]和nums[end]发生重复时，跳过当前值
+class Solution:
+    """
+    @param nums: an array of integer
+    @param target: An integer
+    @return: An integer
+    """
+    def twoSum6(self, nums, target):
+        if not nums:
+            return 0
+            
+        nums.sort()
+        start, end = 0, len(nums) - 1
+        count = 0
+        
+        while start < end:
+            #发现一组能得到target的值时，将后续的相等的值直接跳过
+            if nums[start] + nums[end] == target:
+                count += 1
+                start += 1
+                end -= 1
+                while start < end and nums[start] == nums[start - 1]:
+                    start += 1
+                while start < end and nums[end] == nums[end + 1]:
+                    end -= 1
+            elif nums[start] + nums[end] < target:
+                start += 1
+            else:
+                end -= 1
+                
+        return count
