@@ -72,17 +72,22 @@ class Solution(object):
         
         while index <= right:
             if nums[index] == 2:
-            #将right为2的情况去重
-            #注意这里的条件是index < right，不是index <= right. eg:[0,2],若有等号，结果为[2,0]????????
-                while index < right and nums[right] == 2:
-                    right -= 1
                 nums[right], nums[index] = nums[index], nums[right]
                 right -= 1
+                #将right为2的情况去重
+                while index <= right and nums[right] == 2:
+                    right -= 1
+                
                 
             elif nums[index] == 0:
                 nums[left], nums[index] = nums[index], nums[left]
                 left += 1
                 index += 1
+                #将left为0的情况去重
+                #注意这里index也要挪动
+                while index <= right and nums[left] == 0:
+                    left += 1
+                    index += 1
             else:
                 index += 1
                 
