@@ -55,6 +55,8 @@ class Solution:
         if colors_start >= colors_end or index_start >= index_end:
             return
         
+        #注意这里的pivot是取得k different colors的中间值
+        #不是colors这个array的中间值:pivot = colors[index_start + (index_end - index_start) // 2]
         pivot = colors_start + (colors_end - colors_start) // 2
         #快排模板,注意这里要另设一个left和right
         left, right = index_start, index_end
