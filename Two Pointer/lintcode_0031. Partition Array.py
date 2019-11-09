@@ -64,6 +64,7 @@ class Solution:
             while start <= end and nums[end] >= k:
                 end -= 1
             
+            #找到一个不应该在左侧和一个不应该在右侧的值，swap them
             if start <= end:
                 nums[start], nums[end] = nums[end], n[start]
                 start += 1
