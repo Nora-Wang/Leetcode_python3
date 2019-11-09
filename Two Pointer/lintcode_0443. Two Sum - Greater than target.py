@@ -18,12 +18,6 @@ Do it in O(1) extra space and O(nlogn) time.
 
 
 
-类似题目：
-611. Valid Triangle Number
-lintcode_0609. Two Sum - Less than or equal to target
-lintcode_0443. Two Sum - Greater than target
-
-
 思路直接参考611. Valid Triangle Number
 
 
