@@ -15,6 +15,12 @@ First, iterate the array counting number of 0's, 1's, and 2's, then overwrite ar
 Could you come up with a one-pass algorithm using only constant space?
 
 
+思路：
+三个指针，left和right用于设置阵营，index用于遍历所有数值
+当index为0时,与left交换,即将0放到左侧;
+当index为2时,与right交换,即将2放到右侧;
+当index为1时,skip
+这样可以满足左侧是0,右侧是2,中间是1
 
 
 code:
