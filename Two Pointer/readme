@@ -8,6 +8,13 @@
 
 相向双指针
 Two Sum 的一大类题(两位数的相关变形题)
+
+有一部分题目很类似都可参照611. Valid Triangle Number(lintcode_0382. Triangle Count):
+lintcode_0609. Two Sum - Less than or equal to target
+lintcode_0443. Two Sum - Greater than target
+lintcode_0533. Two Sum - Closest to target
+
+
 Partition 的一大类题(两位数相关变形题) 
 相向双指针的问题主要可以分为下面三类:
 1. Reverse 类(较少) 回文串125. Valid Palindrome, 680. Valid Palindrome II
