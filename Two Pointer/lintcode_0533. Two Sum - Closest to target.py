@@ -20,6 +20,8 @@ Challenge
 
 Do it in O(nlogn) time complexity.
 
+参照611. Valid Triangle Number
+
 
 class Solution:
     """
