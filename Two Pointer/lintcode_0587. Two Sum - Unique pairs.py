@@ -21,6 +21,8 @@ Explanation:
 
 
 code:
+Version 1
+将result放入set，这样可以直接避免重复
 class Solution:
     """
     @param nums: an array of integer
