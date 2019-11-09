@@ -13,6 +13,14 @@ Note:
 The length of the given array won't exceed 1000.
 The integers in the given array are in the range of [0, 1000].
 
+
+类似题目：
+611. Valid Triangle Number
+lintcode_0609. Two Sum - Less than or equal to target
+lintcode_0443. Two Sum - Greater than target
+
+
+
 思路：
 使用Two Pointer
 先sort，然后for循环最大边的位置 i，接下来的任务就是在 0~i-1 之间用Two Sum的方法找到 > S[i]的组合(因为另外两个边的值都必须要小于i的值)
