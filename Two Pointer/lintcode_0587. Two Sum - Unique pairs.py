@@ -18,7 +18,9 @@ Output: 1
 Explanation:
 1 + 1 = 2
 
-
+Follow Up:
+Q: Can we deduplicate the array?
+A: Yes, but we have to consider one situation, like the example 2, 1+1 = target
 
 code:
 Version 1
