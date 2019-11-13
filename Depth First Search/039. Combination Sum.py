@@ -124,7 +124,7 @@ if i > startIndex and nums[i] == nums[i - 1]:
 [1,2',2'']
 第一种:去除选取数据index的重复
 在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被重复加入[1,2'',2'']or[1,2',2']
-permutations的visited是
+permutations的方法是设置一个visited
 但Combination Sum中由于数据选取可以重复,因此在后续dfs调用的时候为i;但Combination Sum II的数据不能重复选取,因此每次dfs时是i+1
 
 第二种:去除选取数据值的重复
