@@ -37,13 +37,16 @@ class Solution(object):
         combinations.append(list(temp))
         
         for i in range(start_index, len(nums)):
-            #去重
+      #去重
+      #解释:
             #对于2'和2''来说
             #第一步:当i = start_index时，访问nums[i] = 2'
             #第二步:然后i++
             #第三步:当i = start_index + 1 > start_index时,访问nums[i] = 2'';此时nums[i - 1] = 2'
             #因此当判断出i > start_index并且nums[i] == nums[i - 1]时应当跳过
-            if nums[i] == nums[i - 1] and i > start_index:
+      #nums[i - 1]一定存在,不需要特殊判断i > 0
+            #因为start_index最小值为0,而i > start_index,因此i的最小值为1
+            if i > start_index and nums[i] == nums[i - 1]:
                 continue
             
             temp.append(nums[i])
