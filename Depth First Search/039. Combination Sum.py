@@ -131,4 +131,7 @@ Combination Sum中同理情况
 
 5.去重
 [1,2',2'']
+#Combination Sum和Combination Sum II
 i > start_index and nums[i] == nums[i - 1]是防止重复情况的出现:[1,2']被分析后,[1,2'']就不用分析了,因为结果是一样的
+#Permutations II
+if i and nums[i] == nums[i - 1] and not visited[i - 1],即当访问到nums[i] = 2''时,nums[i - 1] = 2'不在temp中,即不是[1,2',2'']情况
