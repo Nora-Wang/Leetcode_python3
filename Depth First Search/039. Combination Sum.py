@@ -69,6 +69,7 @@ class Solution(object):
             temp.append(candidates[i])
             cur_target -= candidates[i]
             #这里要是i,而不是i+1,因为在得到target的过程中,数据可以重复;eg example 2中的[2,2,2,2]
+            #题目中的:The same repeated number may be chosen from candidates unlimited number of times.
             self.dfs(candidates, i, temp, results, cur_target)
             cur_target += candidates[i]
             temp.pop()
