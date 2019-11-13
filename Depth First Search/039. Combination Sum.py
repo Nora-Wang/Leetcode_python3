@@ -120,6 +120,7 @@ if i > startIndex and nums[i] == nums[i - 1]:
 3.4 无效的答案是否提前进行了剪枝？(建议在每个确定无效或有效的solution都添加return)
 
 
+注意4和5的区别！！！！
 4.permutations设置一个visited
 [1,2',2'']
 visited的作用是规定每个存在于nums的值只能被取一次:在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被重复加入[1,2'',2'']or[1,2',2']
