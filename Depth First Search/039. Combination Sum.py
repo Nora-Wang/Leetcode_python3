@@ -102,7 +102,8 @@ Summary:
 2.1 起始索引i在递归函数dfs中怎么变化？ 
 i=i，一个元素可以被多次使用 
 i=i+1;一个元素只能被用一次 
-dfs(candidates, temp, remainder - candidates[i], 1+1)
+self.dfs(candidates, i, temp, results, cur_target)
+self.dfs(candidates, i + 1, temp, results, cur_target)
 2.2 dfs如何移除最后一个元素？ 
 temp.pop()
 2.3 假如数组中包含多个相同的元素，但是这些元素每个只能选一次，并且结果中不能出现相同的组合，怎么办？ 
