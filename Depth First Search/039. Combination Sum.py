@@ -120,12 +120,14 @@ if i > startIndex and nums[i] == nums[i - 1]:
 3.4 无效的答案是否提前进行了剪枝？(建议在每个确定无效或有效的solution都添加return)
 
 
-4.去重summary
+4.permutations设置一个visited
 [1,2',2'']
-第一种:去除选取数据index的重复
-在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被重复加入[1,2'',2'']or[1,2',2']
-permutations的方法是设置一个visited
-但Combination Sum中由于数据选取可以重复,因此在后续dfs调用的时候为i;但Combination Sum II的数据不能重复选取,因此每次dfs时是i+1
+visited的作用是规定每个存在于nums的值只能被取一次:在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被重复加入[1,2'',2'']or[1,2',2']
+当要求nums的每个值都需要加入temp的时候,则需要用一个visited来限制,使得每个值不会被重复放入temp
 
-第二种:去除选取数据值的重复
+Combination Sum中同理情况
+由于数据选取可以重复,因此在后续dfs调用的时候为i;但Combination Sum II的数据不能重复选取,因此每次dfs时是i+1
+
+5.去重
+[1,2',2'']
 i > start_index and nums[i] == nums[i - 1]是防止重复情况的出现:[1,2']被分析后,[1,2'']就不用分析了,因为结果是一样的
