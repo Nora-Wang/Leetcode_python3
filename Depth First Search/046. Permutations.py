@@ -34,13 +34,17 @@ class Solution(object):
         self.dfs(nums, visited, [], results)
         
         return results
-    
+   
+    #1. 递归的定义
+    #找到所有temp开头的排列,加到results里
     def dfs(self, nums, visited, temp, results):
-        #递归出口:temp的长度
+      
+    #2. 递归出口:temp的长度
         #因为需要将所有的nums都排序
         if len(nums) == len(temp):
             results.append(list(temp))
-        
+    
+    #3. 递归的拆解
         for i in range(len(nums)):
             #去重
             #用过了(当前temp里正在用)就跳过
@@ -51,9 +55,9 @@ class Solution(object):
                 
             #后面的这些部分呈镜像对称
             temp.append(nums[i])
-            #用的时候设置为True
+            #用的时候设置为True:[]->[1]
             visited[i] = True
             self.dfs(nums, visited, temp, results)
-            #用完了需要返回False
+            #用完了需要返回False:[1]->[]
             visited[i] = False
             temp.pop()
