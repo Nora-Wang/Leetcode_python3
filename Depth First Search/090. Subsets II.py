@@ -25,6 +25,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        #！！！要记得sort！
         nums.sort()
         combinations = []
         self.dfs(nums, 0, [], combinations)
