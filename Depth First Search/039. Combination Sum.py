@@ -106,8 +106,7 @@ i=i，一个元素可以被多次使用
 i=i+1;一个元素只能被用一次 
 self.dfs(candidates, i, temp, results, cur_target)
 self.dfs(candidates, i + 1, temp, results, cur_target)
-2.2 dfs如何移除最后一个元素？ 
-temp.pop()
+2.2 dfs如何移除最后一个元素？ temp.pop()
 2.3 假如数组中包含多个相同的元素，但是这些元素每个只能选一次，并且结果中不能出现相同的组合，怎么办？ 
 if i > startIndex and nums[i] == nums[i - 1]:
     continue
