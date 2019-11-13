@@ -10,6 +10,13 @@ Output:
   [2,1,1]
 ]
 
+!!!!!!!!!!!!!!!!
+注意区别两种不同的去重情况
+[1,2',2'']
+第一种visited是去除选取数据的不同:在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被加入两次[1,2'',2'']or[1,2',2']
+第二种i > start_index and nums[i] == nums[i - 1]是防止重复情况的出现:[1,2']被分析后,[1,2'']就不用分析了,因为结果是一样的
+
+
 
 
 code:
@@ -39,14 +46,16 @@ class Solution(object):
     
     #3. 递归的拆解
         for i in range(len(nums)):
-            #去重
+            #去重 1
             #用过了(当前temp里正在用)就跳过
             #对于[1,2,3],当1被加入进了temp,则visited[0]=True;temp后续加第二个值时,就只能在剩余的数(2,3)里面选
             #注意后续需要将visited[0]从新设置为False,因为到后面先将2加入temp时,这时的1应该在备选数据中,而不应在visited中
             if visited[i]:
                 continue
                 
-            #去重
+            #去重 2
+            #相当于if i > start_index and nums[i] == nums[i - 1]
+            #这道题因为没有start_index,因此用not visited[i - 1]代替          
             #当前数和前面的数一样,并且前面没有被用过
             #not visited[i - 1]设计的很精妙
             #eg:对于[1,2',2'']来说,当第一个值取[1]时,存在一种情况[1,2',2''],此时相当于先访问的[1,2'],2'的visited=True(因为它已经被加入temp)
