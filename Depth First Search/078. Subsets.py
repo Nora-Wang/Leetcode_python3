@@ -17,6 +17,9 @@ Output:
   []
 ]
 
+
+标准DFS模板
+
 code:
 class Solution(object):
     def subsets(self, nums):
