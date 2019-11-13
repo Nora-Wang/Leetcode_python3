@@ -24,14 +24,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        #当nums为空时,它还有个子集即空集，所以它的subsets应该是[[]]
+        #这是特殊情况
+        #这个判断可以不写
+        if not nums:
+            return [[]]
+        
         #尽量少的使用全局变量
         combinations = []
-        
-        #if not nums:
-        #   return combinations
-        #为什么不做边界条件判断？随课教程里是有判断nums == null的。为什么用python的时候加上 if not nums: return results会挂掉呢？
-        #因为nums = []的时候如果target = 0的话,存在且仅存在一种方案,即结果应为return [[]];但是如果target != 0,结果就应该是return []
-        #其边界nums = []的情况会随着target为不为0而变化，因此不能直接设置边界情况
 
         self.dfs(nums, 0, [], combinations)
         
