@@ -26,6 +26,7 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         #！！！要记得sort！
+        #为后续的去重提供nums[i] == nums[i - 1]条件
         nums.sort()
         combinations = []
         self.dfs(nums, 0, [], combinations)
