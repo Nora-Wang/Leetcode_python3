@@ -24,6 +24,10 @@ A solution set is:
   [3,5]
 ]
 
+与Subsets比较:
+• Combination Sum限制了组合中的数之和:加入一个新的参数cur_target来限制
+• Subsets无重复元素,Combination Sum有重复元素:需要先去重
+• Subsets一个数只能选一次,Combination Sum一个数可以选很多次:搜索时从 start_index 开始而不是从 start_index + 1
 
 code:
 class Solution(object):
