@@ -69,12 +69,12 @@ T(n) = O(n! * n)
             #if i > start_index and nums[i] == nums[i - 1]
             #if i and nums[i] == nums[i - 1] and not visited[i - 1]
             
-            temp.append(candidates[i])#元素写入temp 
+            temp.append(candidates[i])#元素写入temp [2]->[2,2]
             #cur_target -= candidates[i]
             #注意i or i + 1
             self.dfs(candidates, i, temp, results, cur_target) 
             #cur_target += candidates[i]
-            temp.pop()#弹出元素（因为用过了） 
+            temp.pop()#弹出元素（因为用过了） [2,2]->[2]
  
 2. 组合的几个关键问题:
 2.1 起始索引i在递归函数dfs中怎么变化？ 
