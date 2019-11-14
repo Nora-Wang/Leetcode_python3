@@ -1,3 +1,12 @@
+BFS时间复杂度取决于同时queue中存在的node的个数n T(n) = O(2^n)
+DFS时间复杂度取决于深度,空间复杂度低
+
+找所有具体方案用DFS
+找最短路径的step个数用BFS
+
+
+
+
 1. DFS模板:
     def comnination(self, candidates, target):
         results = [] #定义结果
