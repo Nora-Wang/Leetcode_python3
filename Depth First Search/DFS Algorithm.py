@@ -40,12 +40,12 @@ T(n) = O(n! * n)
         #当后续有candidates[i]与candidates[i - 1]的比较时,需要sort
         #candidates.sort()
         
-        self.dfs(candidates, 0, temp, results) 
+        self.dfs(candidates, 0, [], results) 
         #有target时
-        self.dfs(candidates, 0, temp, results, target) 
+        self.dfs(candidates, 0, [], results, target) 
         #当要所有candidates的值每次都要被全部放入temp时,需要visited,避免重复取
         #visited = [False] * len(candidates)
-        #self.dfs(candidates, visited, temp, results, target) 
+        #self.dfs(candidates, visited, [], results, target) 
         
         return results
         
