@@ -58,9 +58,7 @@ class Solution:
                 continue
             
             temp.append(candidates[i])
-            cur_target -= candidates[i]
 #与Combination sum I的区别是,这里为i+1,因为题目多了一个要求:Each number in candidates may only be used once in the combination.
-            self.dfs(candidates, i + 1, temp, results, cur_target)
-            cur_target += candidates[i]
+            self.dfs(candidates, i + 1, temp, results, cur_target - candidates[i])
             temp.pop()
 
