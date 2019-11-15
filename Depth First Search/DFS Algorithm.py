@@ -33,6 +33,11 @@ T(n) = O(n! * n)
 
 
 
+当要求将所有nums的值都排列一遍时,只用visited;当要求答案不能重复时,加上if i and nums[i] == nums[i - 1] and not visited[i - 1]
+当要求输出子集时,最简单的模板;当要求不能输出重复子集时,用上start_index;当能够重复使用同样的index值时(2+2=4),用i;当不能时,用i+1
+
+
+
 1. DFS模板:
     def comnination(self, candidates, target):
         results = [] #定义结果
