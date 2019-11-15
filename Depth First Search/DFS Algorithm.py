@@ -98,15 +98,15 @@ if i > startIndex and nums[i] == nums[i - 1]:
 
 
 注意4和5的区别！！！！
-当要求将所有nums的值都排列一遍时,只用visited;当要求答案不能重复时,加上if i and nums[i] == nums[i - 1] and not visited[i - 1]
-当要求输出子集时,最简单的模板;当每次的取值必须是从剩余的值中选取时,用上start_index;当能够重复使用同样的index值时(2+2=4),用i;当不能时,用i+1
 
+******************************************************************************************************************
 分析步骤：
-1.是不是要将所有的值都排列出来permutation:yes 用visited
-2.每次的取值是不是根据某种规则选取数combination:yes 用start_index
-3.nums是不是存在重复数值([1,2',2'']):yes用nums[i] == nums[i - 1](记得sort) not visited[i - 1] or i > start_index
-4.combination时,每次的取值是不是不能取相同index的值:yes i; no i + 1
-
+1.是不是要将所有的值都排列出来,即permutation problem:用visited
+2.每次的取值是不是根据某种规则选取数,即combination problem:用start_index
+3.nums是不是存在重复数值([1,2',2'']):yes用nums[i] == nums[i - 1] not visited[i - 1] or i > start_index(##记得sort)
+4.combination时,每次的取值是不是不能取相同index的值(2+2=4):yes i; no i + 1
+******************************************************************************************************************
+                 
 4.permutations设置一个visited
 [1,2',2'']
 visited的作用是规定每个存在于nums的值只能被取一次:在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被重复加入[1,2'',2'']or[1,2',2']
