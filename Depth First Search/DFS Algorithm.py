@@ -104,7 +104,7 @@ if i > startIndex and nums[i] == nums[i - 1]:
 分析步骤：
 1.是不是要将所有的值都排列出来permutation:yes 用visited
 2.每次的取值是不是根据某种规则选取数combination:yes 用start_index
-3.是不是要求答案不能重复([1,2'],[1,2'']):yes用nums[i] == nums[i - 1](记得sort) not visited[i - 1] or i > start_index
+3.nums是不是存在重复数值([1,2',2'']):yes用nums[i] == nums[i - 1](记得sort) not visited[i - 1] or i > start_index
 4.combination时,每次的取值是不是不能取相同index的值:yes i; no i + 1
 
 4.permutations设置一个visited
