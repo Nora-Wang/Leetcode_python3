@@ -34,10 +34,6 @@ T(n) = O(n! * n)
 
 
 
-当要求将所有nums的值都排列一遍时,只用visited;当要求答案不能重复时,加上if i and nums[i] == nums[i - 1] and not visited[i - 1]
-当要求输出子集时,最简单的模板;当要求不能输出重复子集时,用上start_index;当能够重复使用同样的index值时(2+2=4),用i;当不能时,用i+1
-
-
 
 1. DFS模板:
     def comnination(self, candidates, target):
@@ -100,7 +96,11 @@ if i > startIndex and nums[i] == nums[i - 1]:
 3.3 无效的答案是否提前进行了剪枝？(建议在每个确定无效或有效的solution都添加return)
 
 
+
 注意4和5的区别！！！！
+当要求将所有nums的值都排列一遍时,只用visited;当要求答案不能重复时,加上if i and nums[i] == nums[i - 1] and not visited[i - 1]
+当要求输出子集时,最简单的模板;当要求不能输出重复子集时,用上start_index;当能够重复使用同样的index值时(2+2=4),用i;当不能时,用i+1
+
 4.permutations设置一个visited
 [1,2',2'']
 visited的作用是规定每个存在于nums的值只能被取一次:在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被重复加入[1,2'',2'']or[1,2',2']
