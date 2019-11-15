@@ -14,6 +14,10 @@ Input: [1,3,4,6], k = 3, target = 8
 Output:  [[1,3,4]]
 
 
+这是一道combination的题,所以用start_index
+由于每个值都是unique的,所以不需要nums[i] == nums[i - 1]
+注意出口的写法和递归function的写法
+    
 
 code:
 class Solution:
@@ -39,5 +43,6 @@ class Solution:
         
         for i in range(start_index, len(nums)):
             temp.append(nums[i])
+            #直接在这减值即可
             self.dfs(nums, i + 1, temp, k - 1, cur_target - nums[i], results)
             temp.pop()
