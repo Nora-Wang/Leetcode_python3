@@ -56,11 +56,11 @@ class Solution(object):
         if len(subset) == n:
             results.append(self.drew(subset))
     
-    #step 3 递归解析: 对于每一列(subset的index)来说,判断应该在哪一行(row)加入Q,即subset.append(row)中 subset[col] = row
+    #step 3 递归解析: 对于每一列(subset的index)来说,判断应该在哪一行(row)加入Q,若不是该行,则row+=1
+                     #subset.append(row)中 subset[col] = row
         for row in range(n):
             if not self.check(row, subset):
                 continue
-                
             subset.append(row)
             self.dfs(n, subset, results)
             subset.pop()
@@ -70,25 +70,29 @@ class Solution(object):
         out = []
         #由于是一个n*n的矩阵,行数和列数都是len(subset)=n
         len_row, len_col = len(subset), len(subset)
-        #对于每一列来说,先建立一个长度为行数的全为'.'的矩阵,由于subset[col] = row,即对于第i列来说,它的第subset[i]值应为'Q',最后将temp转换为str
-        for i in range(len_col):
+        
+        #对于每一列来说,先建立一个长度为len_row的全为'.'的矩阵temp,代表第col列来说有len_row行个'.'
+        #由于subset[col] = row,即对于第col列来说,它的第subset[col]行的值应为'Q',
+        #最后将temp转换为str
+        for col in range(len_col):
             temp = ['.'] * len_row
-            temp[subset[i]] = 'Q'
+            temp[subset[col]] = 'Q'
             out.append(''.join(temp))
             
         return out
     
-    #判断对于目前的subset来说,是否可以在第len(subset)+1列的第row行加入'Q'(参考subset.append(row)),不行就是dfs函数的row+=1
+    #判断对于目前的subset来说,是否可以在第len(subset)+1列的第row行加入'Q'(参考subset.append(row),即向subset的下一个index赋值为row,因此列不会重复),
+    #不行就dfs函数row+=1,然后再做判断
     def check(self, row, subset):
-        cur_col = len(subset)
-        for col in range(cur_col):
-            #列:一定不会重复,因为subset的index代表列,每次都是往下一个index加入值,因此肯定不会重复
-            #行:需要判断,将dfs for循环得到的row和subset中已经存入的row做比较,判断是否该row已经被使用
+        len_cur_col = len(subset)
+        for col in range(len_cur_col):
+            #列:因为subset的index代表列,每次都是往subset的下一个index加入值,因此列肯定不会重复
+            #行:将dfs for循环得到的row和subset中已经存入的row做比较,判断是否该row已经被使用
             #斜对角:即or后半部分的比较
             #其实就是用已经确定可以放置的点(x1,y1)和将要放置的点(x2,y2)作比较，确保斜率(y2-y1)/(x2-x1)的绝对值为1或者-1
             #abs(y2-y1) == abs(x2-x1), x1, y1 表示已经确定的点的横坐标和纵坐标，x2, y2表示将要确定的那个点的横坐标和纵坐标
             #(x1,y1)=(col, subset[col]), (x2,y2)=(cur_col,row) -> abs(row - subset[col]) == abs(cur_col - col)
-            if row == subset[col] or abs(row - subset[col]) == abs(cur_col - col):
+            if subset[col] == row or abs(row - subset[col]) == abs(len_cur_col - col):
                 return False
             
         return True
