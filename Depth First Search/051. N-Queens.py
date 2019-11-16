@@ -29,7 +29,8 @@ Explanation: There exist two distinct solutions to the 4-queens puzzle as shown 
 然后，具体地，我们对每一个 row，考虑其上每个 col 位置放 queen 的话会不会影响之前放置好的第 0 to row-1 row 上的queen。
 如果当前 (row, col) 可以，就继续向 row + 1 继续 dfs。
 
-
+时间复杂度:
+O(s * n^2)
 
 
 code:
