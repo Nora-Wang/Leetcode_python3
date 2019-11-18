@@ -29,27 +29,29 @@ KEYBROAD = {
     '9': 'wxyz'
 }
 
-class Solution:
-    """
-    @param digits: A digital string
-    @return: all posible letter combinations
-    """
+class Solution(object):
     def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
         if not digits:
             return []
-            
+        
         results = []
-        self.dfs(digits, 0, '', results)
+        self.dfs(digits, 0, [], results)
         
         return results
-        
-    #index的作用是取到digits的第几个值
+    
     def dfs(self, digits, index, temp, results):
         if len(temp) == len(digits):
-            results.append(temp)
+            results.append(''.join(temp))
+            #一定要return,否则后面的KEYBROAD会out of range
             return
-        
+            
+        #index的作用是取到digits的第几个值
         for letter in KEYBROAD[digits[index]]:
-            self.dfs(digits, index + 1, temp + letter, results)
-
+            temp.append(letter)
+            self.dfs(digits, index + 1, temp, results)
+            temp.pop()
         
