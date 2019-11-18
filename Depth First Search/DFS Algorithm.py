@@ -54,6 +54,7 @@ T(n) = O(n! * n)
     #recursion definition     
     def dfs(self, candidates, start_index, temp, results, cur_target): 
         #recursion end case
+        #!!!!!!!!!记得写return
         if end case条件:
           return results.append(list(temp))
         #target情况
@@ -93,7 +94,8 @@ if i > startIndex and nums[i] == nums[i - 1]:
 3. combinations要在在1-n的范围内选择k个数时,想明白以下几点： 
 3.1 搜索的起始位置是什么（是i还是i++？） 
 3.2 搜索的出口是什么？（是否满足了所有的限制条件？target<0和target=0)
-3.3 无效的答案是否提前进行了剪枝？(建议在每个确定无效或有效的solution都添加return)
+3.3 无效的答案是否提前进行了剪枝？
+！！！建议在每个确定无效或有效的solution都添加return
 
 
 
