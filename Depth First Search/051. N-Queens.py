@@ -50,50 +50,60 @@ class Solution(object):
         return results
     
     #dfs递归模板
-    #step 1 递归定义: 需要用一个subset来记录每次符合条件的结果,用results来记录所有的结果
-    def dfs(self, n, subset, results):
+    #step 1 递归定义: 需要用一个temp来记录每次符合条件的结果,用results来记录所有的结果
+    def dfs(self, n, temp, results):
     
-    #step 2 递归出口: 当subset的长度与n相等,即对于n*n的矩阵来说,被成功放入了n个Q
-        if len(subset) == n:
-            results.append(self.drew(subset))
+    #step 2 递归出口: 当temp的长度与n相等,即符合题目要求(对于n*n的矩阵来说,被成功放入了n个Q);对于n = 2或者n = 3来说,只能被放入n - 1个Q
+        if len(temp) == n:
+            results.append(self.draw(temp))
     
-    #step 3 递归解析: 对于每一列(subset的index)来说,判断应该在哪一行(row)加入Q,若不是该行,则row+=1
-                     #subset.append(row)中 subset[col] = row
-        for row in range(n):
-            if not self.check(row, subset):
+    #step 3 递归解析: 对于每一行(temp的index)来说,判断应该在哪一列(col)加入Q,若不是该列,则col += 1
+                     #temp.append(col)中 temp[row] = col
+    #分析过程:
+    #1.判断第a行,能在第0列加入Q,则temp[a] = 0,继续dfs
+    #2.判断第b行,因为第0列在temp中,所以self.is_valid为False,continue;
+    #  因为第1列与temp[a] = 0的斜率的绝对值为1,所以self.is_valid为False,continue;
+    #  因为第2列不在temp中,且与temp[a] = 0的斜率的绝对值不为1,所以self.is_valid为True,可以加入temp,即temp[b] = 2
+    
+    #当把temp[a] = 0的情况都判断结束后,通过backtracking将temp全部pop出,
+    #然后进行第一层(即第a行)for循环的第二个值(col++,即第1列),即temp[a] = 1的情况
+        for col in range(n):
+            if not self.is_valid(col, temp):
                 continue
-            subset.append(row)
-            self.dfs(n, subset, results)
-            subset.pop()
+            temp.append(col)
+            self.dfs(n, temp, results)
+            temp.pop()
     
     #画出棋盘
-    def drew(self, subset):
+    #此时len(temp) = n
+    def draw(self, temp):
         out = []
-        #由于是一个n*n的矩阵,行数和列数都是len(subset)=n
-        len_row, len_col = len(subset), len(subset)
-        
-        #对于每一列来说,先建立一个长度为len_row的全为'.'的矩阵temp,代表第col列来说有len_row行个'.'
-        #由于subset[col] = row,即对于第col列来说,它的第subset[col]行的值应为'Q',
-        #最后将temp转换为str
-        for col in range(len_col):
-            temp = ['.'] * len_row
-            temp[subset[col]] = 'Q'
-            out.append(''.join(temp))
+        #对于每一行来说,先建立一个长度为n的全为'.'的矩阵draw_every_row,代表第row行来说有n个'.'
+        #由于temp[row] = col,即对于第row行来说,它的第temp[row]列的值应为'Q'
+        for row in range(len(temp)):
+            draw_every_row = ['.'] * len(temp)
+            draw_every_row[temp[row]] = 'Q'
+            #最后将draw_every_row转换为str
+            out.append(''.join(draw_every_row))
             
         return out
     
-    #判断对于目前的subset来说,是否可以在第len(subset)+1列的第row行加入'Q'(参考subset.append(row),即向subset的下一个index赋值为row,因此列不会重复),
-    #不行就dfs函数row+=1,然后再做判断
-    def check(self, row, subset):
-        len_cur_col = len(subset)
-        for col in range(len_cur_col):
-            #列:因为subset的index代表列,每次都是往subset的下一个index加入值,因此列肯定不会重复
-            #行:将dfs for循环得到的row和subset中已经存入的row做比较,判断是否该row已经被使用
-            #斜对角:即or后半部分的比较
-            #其实就是用已经确定可以放置的点(x1,y1)和将要放置的点(x2,y2)作比较，确保斜率(y2-y1)/(x2-x1)的绝对值为1或者-1
-            #abs(y2-y1) == abs(x2-x1), x1, y1 表示已经确定的点的横坐标和纵坐标，x2, y2表示将要确定的那个点的横坐标和纵坐标
-            #(x1,y1)=(col, subset[col]), (x2,y2)=(cur_col,row) -> abs(row - subset[col]) == abs(cur_col - col)
-            if subset[col] == row or abs(row - subset[col]) == abs(len_cur_col - col):
+    #判断对于目前的temp来说,是否可以在第len(temp)行的第col列加入'Q',不行就dfs函数col+=1,然后再做判断
+    #这里相当于给出一个定点(len(temp), col),判断是否与之前存入temp的点位于同一列or斜率绝对值为1(即在一条直线上)
+    #行=len(temp)是因为行相当于temp的index,其取值从a开始,因此len(temp)相当于取到目前temp的下一行
+    def is_valid(self, col, temp):
+        #去重
+        #行:因为temp的index代表行,每次都是往temp的下一个index加入值(即第len(temp)行),因此行肯定不会重复
+        #列:当col在temp中,即表示之前行的某个点已经被放入该列了(该列不能再被放入Q),则对于第len(temp)行不能再将Q放入第col列了
+        if col in temp:
+            return False
+        
+        #斜对角:即for循环中if部分的比较
+        #对于之前已经被放入temp的点来说,若用于判断给出的定点(len(temp), col)与之前的temp中的点在不在一条斜线上,若不在则该定点可用
+        for row in range(len(temp)):
+            #其实就是用已经存在于temp中的点(x1,y1)和即将被放入的点(x2,y2)作比较，确保斜率(y2-y1)/(x2-x1)的绝对值为1或者-1
+            #(x1,y1)=(row, temp[row]), (x2,y2)=(len(temp), col) -> abs(col - temp[row]) == abs(len(temp) - row))
+            if abs(col - temp[row]) == abs(len(temp) - row)):
                 return False
             
         return True
