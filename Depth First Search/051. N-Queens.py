@@ -95,6 +95,7 @@ class Solution(object):
         #去重
         #行:因为temp的index代表行,每次都是往temp的下一个index加入值(即第len(temp)行),因此行肯定不会重复
         #列:当col在temp中,即表示之前行的某个点已经被放入该列了(该列不能再被放入Q),则对于第len(temp)行不能再将Q放入第col列了
+        #eg:temp[0,2,5],当col = 5,且col与temp中的前两个点符合题目要求时，if语句可以将col与前两个点做判断的步骤省略
         if col in temp:
             return False
         
