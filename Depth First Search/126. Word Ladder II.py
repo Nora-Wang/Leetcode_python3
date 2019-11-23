@@ -34,7 +34,7 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 
 
 
-从end到start做一次BFS,并且把距离end的距离都保存在distance中
+从end到start做一次BFS,并且把距离end的长度都保存在distance中
 然后在从start到end做一次DFS,每走一步必须确保离end的distance越来越近
 
 
@@ -52,15 +52,20 @@ class Solution(object):
         :type wordList: List[str]
         :rtype: List[List[str]]
         """
+        #wordList设置为set,降低时间复杂度
         wordList = set(wordList)
         
+        #leetcode存在一种corner case:wordList中没有endWord,则没有结果
         if endWord not in wordList:
             return []
         
+        #beginWord可能不存在于wordList里面
         wordList.add(beginWord)
         
+        #key为该点,value是距离endWord的长度
         distance = {}
-
+        
+        #构建distance hash表,以为后续dfs提供数据
         self.bfs(endWord, wordList, distance)
         
         results = []
@@ -68,6 +73,8 @@ class Solution(object):
         
         return results
     
+    #bfs需要从endWord开始,因为后续每找到一个符合条件的word的neighbor,其distance可直接在distance[word]基础上+1,即为该点距离endWord的长度
+    #bfs记录每个点到endWord的最短距离长度
     def bfs(self, endWord, wordList, distance):
         queue = collections.deque(set([endWord]))
         distance[endWord] = 0
