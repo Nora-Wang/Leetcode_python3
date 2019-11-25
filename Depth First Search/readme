@@ -1,2 +1,8 @@
 题目：
 733，694
+
+
+1.剪枝英文是pruning 
+2.dfs的time complexity是b^d 
+b是branching factor , 如果是binary tree branching factor就是2
+d是depth 
