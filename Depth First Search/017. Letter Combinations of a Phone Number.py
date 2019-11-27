@@ -18,6 +18,8 @@ Although the above answer is in lexicographical order, your answer could be in a
 时间复杂度大约为 O(每个数字对应字母个数 ^ len(digits))，空间复杂度如果不考虑解集占用空间，为递归栈所占，O(len(digits))
 
 code:
+Version Hash
+
 KEYBROAD = {
     '2': 'abc',
     '3': 'def',
@@ -55,3 +57,29 @@ class Solution(object):
             self.dfs(digits, index + 1, temp, results)
             temp.pop()
         
+Version List
+KEYBROAD = ['abc','def','ghi','jkl','mno','pqrs','tuv','wxyz']
+
+class Solution:
+    """
+    @param digits: A digital string
+    @return: all posible letter combinations
+    """
+    def letterCombinations(self, digits):
+        if not digits:
+            return []
+
+        
+        results = []
+        self.dfs(digits, 0, '', results)
+        
+        return results
+        
+    def dfs(self, digits, index, temp, results):
+        if len(temp) == len(digits):
+            results.append(temp)
+            return
+        
+        for letter in KEYBROAD[int(digits[index]) - 2]:
+            self.dfs(digits, index + 1, temp + letter, results)
+
