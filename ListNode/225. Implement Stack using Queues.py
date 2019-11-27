@@ -20,8 +20,7 @@ Depending on your language, queue may not be supported natively. You may simulat
 You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack).
 
 
-
-stack的front是[-1],queue的front是[0]
+题意是用queue来实现一个stack
 
 
 code:
@@ -31,7 +30,7 @@ class MyStack(object):
         """
         Initialize your data structure here.
         """
-        self.stack = []
+        self.queue = collections.deque([])
 
     def push(self, x):
         """
@@ -39,28 +38,28 @@ class MyStack(object):
         :type x: int
         :rtype: None
         """
-        self.stack.append(x)
+        self.queue.append(x)
 
     def pop(self):
         """
         Removes the element on top of the stack and returns that element.
         :rtype: int
         """
-        return self.stack.pop()
+        return self.queue.pop()
 
     def top(self):
         """
         Get the top element.
         :rtype: int
         """
-        return self.stack[-1]
+        return self.queue[-1]
 
     def empty(self):
         """
         Returns whether the stack is empty.
         :rtype: bool
         """
-        return len(self.stack) == 0
+        return len(self.queue) == 0
 
 
 # Your MyStack object will be instantiated and called as such:
