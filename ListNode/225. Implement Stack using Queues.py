@@ -21,6 +21,8 @@ You may assume that all operations are valid (for example, no pop or top operati
 
 
 
+stack的front是[-1],queue的front是[0]
+
 
 code:
 class MyStack(object):
