@@ -26,7 +26,7 @@ class MyQueue(object):
         """
         Initialize your data structure here.
         """
-        self.queue = collections.deque()
+        self.queue = collections.deque([])
 
     def push(self, x):
         """
