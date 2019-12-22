@@ -20,6 +20,8 @@ NOTE: input types have been changed on April 15, 2019. Please reset to default c
 – 能合并 -> 就合并
 
 
+follow up: 057. Insert Interval
+
 code:
 class Solution(object):
     def merge(self, intervals):
