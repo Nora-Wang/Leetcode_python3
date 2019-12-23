@@ -58,9 +58,11 @@ class Solution(object):
         #sort函数具体参考56题
         letter_logs.sort(key = lambda x: (x[1], x[0]))
         
+        #将letter_logs加入result中,注意写法
         for log_id, log_content in letter_logs:
             result.append(log_id + ' ' + log_content)
-            
+        
+        #两个list组合直接用+
         result += digit_logs
         
         return result
