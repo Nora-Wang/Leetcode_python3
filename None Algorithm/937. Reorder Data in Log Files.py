@@ -55,7 +55,7 @@ class Solution(object):
                 letter_logs.append((log_id, log_content))
                 
         result = []
-        #
+        #sort函数具体参考56题
         letter_logs.sort(key = lambda x: (x[1], x[0]))
         
         for log_id, log_content in letter_logs:
