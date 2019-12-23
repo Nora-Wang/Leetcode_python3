@@ -27,6 +27,8 @@ Return false.
 • 一个串上一个指针i,j
 • 麻烦点:逻辑小细节处理cases(怎样读数字、指针具体指向的位置)
 
+这道题不用判断not len(word) or not len(abbr),因为后续都已判断
+
 
 code:
 class Solution(object):
