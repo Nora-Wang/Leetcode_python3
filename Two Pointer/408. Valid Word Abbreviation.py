@@ -48,6 +48,7 @@ class Solution(object):
                 #用于记录数字有多长,方便后续取值
                 digit_len = 0
                 
+#大while套一个小while时,小while很容易越界!!而且要注意j < len(abbr)的放置的顺序
                 #case 2: 注意别让j超出范围
                 while j < len(abbr) and abbr[j].isdigit():
                     j += 1
