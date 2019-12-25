@@ -39,7 +39,8 @@ class Solution(object):
         temp = x
         while n:
         #n为奇数时eg:n=5，result = temp，即result = x，这时因多的一个x已被记录进result，所以n的值会变成偶数,即n=4
-        #接下来就是两两组对，将剩余的值都赋给temp=x^4，当n为1时，又会进入if语句，这时就会将之前算的x^4再乘给result，即result=x * x^4
+        #接下来就是两两组对，将剩余的值都赋给temp=x^4
+        #****当n为1时，又会进入if语句，这时就会将之前算的x^4再乘给result，即result=x * x^4
             if n % 2:
                 result *= temp
                 n -= 1
