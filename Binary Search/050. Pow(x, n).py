@@ -33,7 +33,7 @@ class Solution(object):
         #当n为负数时
         if n < 0:
             x = 1 / x
-            n = abs(n)
+            n = -n
         
         result = 1
         temp = x
