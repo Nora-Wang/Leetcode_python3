@@ -87,6 +87,14 @@ class Solution:
         
             
             
-        
-            
-        
+最后的return中三个值放置顺序的解释:
+        /      
+      root      
+    /      \
+root.left   B
+   \        
+    A
+
+1. AB都存在/只存在B:此时left_last=A,right_last=B,将Bcopy到A.right,再将root.left放到root.right处,此时root.right的最后一个node为B,即right_last
+2. 只存在A:直接将root.left挪到root的right处,此时最后一个为A,即left_last
+3. AB都不存在:直接返回root即可
