@@ -97,11 +97,12 @@ class Solution(object):
         mapping_t = {}
         for i in range(len(s)):
             if s[i] not in mapping_s:
-                mapping_s[s[i]] = 1
+                #这里为0更make sense,因为后面始终会加1,这里的作用只是初始化而已
+                mapping_s[s[i]] = 0
             mapping_s[s[i]] += 1
         
             if t[i] not in mapping_t:
-                mapping_t[t[i]] = 1
+                mapping_t[t[i]] = 0
             mapping_t[t[i]] += 1
         
         return mapping_s == mapping_t
