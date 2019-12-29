@@ -177,7 +177,7 @@ class Solution(object):
             
 
 Version 3:九章高频班进阶版,只使用一个list,并且使用abs_sum_count存储count中的值,避免每次使用O(l)的时间判断count是否全为0
-(这里还是用了-97,即- ord('a'),这样可以使得list从256变为26,因为题中说了只有小写字母)
+(这里还是用了- ord('a'),这样可以使得list从256变为26,因为题中说了只有小写字母)
 **************时间复杂度为T(n) = O(l + 26 + n - l) = O(n)
  class Solution(object):
     def findAnagrams(self, s, p):
@@ -195,8 +195,8 @@ Version 3:九章高频班进阶版,只使用一个list,并且使用abs_sum_count
         #初始化count
         count = [0] * 26
         for i in range(len(p)):
-            count[ord(p[i]) - 97] -= 1
-            count[ord(s[i]) - 97] += 1
+            count[ord(p[i]) - 'a'] -= 1
+            count[ord(s[i]) - 'a'] += 1
         
         result = []
         #初始化abs_sum_count
@@ -207,14 +207,16 @@ Version 3:九章高频班进阶版,只使用一个list,并且使用abs_sum_count
         if abs_sum_count == 0:
             result.append(0)
         
-        #具体思路:每次先把s[i]和s[i + len(p)]对应的count的值减了,将s[i]和s[i + len(p)]的count值+1,-1的变好后,再重新加入abs_sum_count
+        #具体思路:每次先把left和right对应的count的值减了,将s[i]和s[i + len(p)]的count值+1,-1的变好后,再重新加入abs_sum_count
         #为什么一定要先把全部的值给减了,变好后再加上去？
-        #因为每次计算abs_sum_count时,要取的值是s[i]和s[i + len(p)]对应count的绝对值,不好直接加减,只能先减,等变成最新的值后直接去绝对值再加回去
+        #因为每次计算abs_sum_count时,要取的值是left和right对应count的绝对值,不好直接加减,只能先减,等变成最新的值后直接去绝对值再加回去
         for i in range(len(s) - len(p)):
-            abs_sum_count = abs_sum_count - abs(count[ord(s[i]) - 97]) - abs(count[ord(s[i + len(p)]) - 97])
-            count[ord(s[i]) - 97] -= 1
-            count[ord(s[i + len(p)]) - 97] += 1
-            abs_sum_count = abs_sum_count + abs(count[ord(s[i]) - 97]) + abs(count[ord(s[i + len(p)]) - 97])
+            left = ord(s[i]) - ord('a')
+            right = ord(s[i + len(p)]) - ord('a')
+            abs_sum_count -= (abs(count[left]) + abs(count[right]))
+            count[left] -= 1
+            count[right] += 1
+            abs_sum_count += abs(count[left]) + abs(count[right])
             
             #由于比较的不是count的每个值了,因此此处时间复杂度为O(1)
             if abs_sum_count == 0:
