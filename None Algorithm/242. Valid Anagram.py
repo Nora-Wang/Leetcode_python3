@@ -109,6 +109,7 @@ class Solution(object):
 
 Follow up 1:
 要求O(n) time, O(1) extra space;用固定空间list来存储,代替hash
+Version 1 用两个list来存储
 class Solution(object):
     def isAnagram(self, s, t):
         """
@@ -123,8 +124,6 @@ class Solution(object):
         if len(s) != len(t):
             return False
         
-        #这个地方用两个list是为了避免:若s用+,t用-,最后需要for循环265次才能将整个count遍历判断全为0;
-        #而用两个则O(1)的时间就可以判断两个list是否相等
         #设置为256是因为字母ASCII码最大为256
         s_count, t_count = [0] * 256, [0] * 256
         
@@ -133,9 +132,35 @@ class Solution(object):
             s_count[ord(s[i])] += 1
             t_count[ord(t[i])] += 1
         
+        #判断两个list是否相等也是需要一次比较的,因此也是O(256)
         return s_count == t_count
 
-
+Version 2 用一个list存储
+class Solution(object):
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if s == t:
+            return True
+        
+        if len(s) != len(t):
+            return False
+        
+        count = [0] * 256
+        for i in range(len(s)):
+            count[ord(s[i])] += 1
+            count[ord(t[i])] -= 1
+        
+        #O(256)
+        for item in count:
+            if item != 0:
+                return False
+            
+        return True
+                
 
 Follow up 2:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?
