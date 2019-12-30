@@ -26,6 +26,7 @@ Return false.
 • t = "i12iz4n“
 • 一个串上一个指针i,j
 • 麻烦点:逻辑小细节处理cases(怎样读数字、指针具体指向的位置)
+  注意数字不能以0开头
 
 这道题不用判断not len(word) or not len(abbr),因为后续都已判断
 
@@ -42,7 +43,8 @@ class Solution(object):
         
         while i < len(word) and j < len(abbr):
             if abbr[j].isdigit():
-            
+                
+                #数字不能以0开头
                 #case 1: s = 'a', abbr = '01'
                 if abbr[j] == '0':
                     return False
@@ -65,3 +67,40 @@ class Solution(object):
         
         #case 3: s = 'aa', abbr = 'a2'
         return i == len(word) and j == len(abbr)
+    
+    
+第二次做的Version
+class Solution(object):
+    def validWordAbbreviation(self, word, abbr):
+        """
+        :type word: str
+        :type abbr: str
+        :rtype: bool
+        """
+        if not len(abbr) or len(abbr) > len(word):
+            return False
+        
+        i, j = 0, 0
+        while i < len(word) and j < len(abbr):
+            if not abbr[j].isdigit():
+                if word[i] == abbr[j]:
+                    i += 1
+                    j += 1
+                    continue
+                else:
+                    return False
+
+            start = j
+            ###若为数字,不能以0开头
+            if abbr[j] == '0':
+                return False
+            while j < len(abbr) and abbr[j].isdigit():
+                j += 1
+            
+            i += int(abbr[start:j])
+            
+        return i == len(word) and j == len(abbr)
+            
+            
+        
+        
