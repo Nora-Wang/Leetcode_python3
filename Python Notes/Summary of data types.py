@@ -41,12 +41,19 @@ queue(先进先出):
 queue = collections.deque([])因为deque这个函数所要调用的数据类型规定为list
 eg:一个数时,queue = collections.deque([root]); 一个点时,queue = collections.deque([(x,y)]),要有括号
 
-
+#popleft+append可以使queue从头(左)出,从尾(右)进
 2.删除:
 item = queue.popleft()
-
+用popleft是因为这样才是用头开始pop的,才满足queue的先进先出;若queue.pop(),则是从尾pop
 3.添加:
-queue.append()
+queue.append(item)
+用append是这样是从右端,即尾部开始加入item,满足queue的特性
+
+4.count计数:
+queue.count('a')计出queue中有多少个'a'
+
+5.反转
+queue.reverse()
 
 ***********************
 stack(先进后出):
