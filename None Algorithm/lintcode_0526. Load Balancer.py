@@ -32,7 +32,7 @@ Output:
 Explanation: The return value of pick() is random, it can be either 2 3 3 1 3 2 2 or other.
 
 思路:这题直接用set就行.
-难点就是如何随机选取数据:set无法实现,只能转list;调用random package,有两个方法random.sample,random.choice
+难点就是如何随机选取数据:调用random package
 
 code:
 class LoadBalancer:
@@ -66,5 +66,7 @@ class LoadBalancer:
         return random.choice(list(self.cluster))
         
         #Version 2
-        #注意,由于self.cluster是set,最后youge[0]转换一下,因为原方程是random.sample(list,k);为啥,我也不懂....
+        #注意,由于self.cluster是set,最后youge[0]转换一下,因为原方程是random.sample(list,k
+        #random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，并将n个元素生以list形式返回
+        #random.sample(序列a，n)[0]返回生成的随机数列表中的第一个值
         return random.sample(self.cluster,1)[0]
