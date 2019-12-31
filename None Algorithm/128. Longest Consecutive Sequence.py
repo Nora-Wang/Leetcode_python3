@@ -26,7 +26,7 @@ class Solution(object):
         if not nums:
             return 0
         
-        #dict需要for循环初始化,set直接set()即可
+        #dict需要for循环初始化,value为None;set直接set()即可
         nums_set = set(nums)
 
         result = 0
