@@ -38,6 +38,7 @@ list.append(item)
 ###queue和stack本质上是list
 queue(先进先出):
 1.初始化:
+#一般使用双端队列deque
 queue = collections.deque([])因为deque这个函数所要调用的数据类型规定为list
 eg:一个数时,queue = collections.deque([root]); 一个点时,queue = collections.deque([(x,y)]),要有括号
 
@@ -65,3 +66,6 @@ stack.pop()
 
 3.添加
 stack.append(item)
+
+4.栈顶
+stack[-1]
