@@ -3,6 +3,8 @@ Python 的六个标准数据类型中：
 不可变数据（3 个）：Number（数字）、String（字符串）、Tuple（元组）
 可变数据（3 个）：List（列表）、Dictionary（字典）、Set（集合）
 
+#dict和set查找key,时间复杂度为O(1)
+#list和tuple查找item,时间复杂度为O(n);tuple为不可变的list
 ***********************
 dict:
 1.删除key:
@@ -14,7 +16,7 @@ eg:dict[key] = dict.get(key, 0) 或者 dict[item] = dict.get(key, set([word]))
 
 
 ***********************
-set:
+set 没有value的dict:
 1.删除:
 set.remove(key)
 
