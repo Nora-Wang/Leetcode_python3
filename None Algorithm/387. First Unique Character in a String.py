@@ -60,7 +60,7 @@ class Solution(object):
         return result
         
         
-Version 2:最优
+Version 3:最优
 用hash记录letter的出现位置,一旦重复则赋值为len(s),最后取hash中values的最小值;若最小值为len(s),即连最后一个值len(s)-1都取不到,则返回-1
 class Solution(object):
     def firstUniqChar(self, s):
