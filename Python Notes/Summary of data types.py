@@ -30,7 +30,7 @@ list.remove(item)
 list.append(item)
 
 
-queue先进先出:
+queue(先进先出):
 1.初始化:
 queue = collections.deque()
 
@@ -41,7 +41,7 @@ item = queue.popleft()
 queue.append()
 
 
-stack先进后出:
+stack(先进后出):
 1.初始化
 stack = []
 
