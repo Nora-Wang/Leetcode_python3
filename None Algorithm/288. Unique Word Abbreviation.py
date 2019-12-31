@@ -27,6 +27,18 @@ isUnique("cane") -> false
 isUnique("make") -> true
 
 
+规则解读:
+• 假如apple 没在字典中出现过，a3e这个缩写也没出现过
+unique (要查找的词在词典中没有出现过)
+• 假如 cake 在字典中出现了2次 并且缩写中所有的c2e都是对应cake
+unique (要查找的词在词典中出现过，但缩写只对应要查找的词)
+
+
+思路:
+两种情况合并在一起，总结起来的规律就是:
+– 单词在字典中出现次数等于对应缩写在字典中出现次数 -> unique
+– 单词在字典中出现次数不等于对应缩写在字典中出现次数 -> not unique
+
 code:
 class ValidWordAbbr(object):
 
@@ -51,7 +63,14 @@ class ValidWordAbbr(object):
         :rtype: bool
         """
         abbr = self.get_abbr(word)
-        return self.count_abbr.get(abbr) == self.count_dict.get(word)
+        #return self.count_abbr.get(abbr) == self.count_dict.get(word)
+        #不能直接写self.count_abbr[abbr] == self.count_dict[word];因为self.count_abbr可能不存在key为abbr的值,word同理
+        #这句话可以翻译为:
+        if abbr not in self.count_abbr:
+            return True
+        if word not in self.count_dict:
+            return False
+        return self.count_abbr[abbr] == self.count_dict[word]
 
 
 # Your ValidWordAbbr object will be instantiated and called as such:
