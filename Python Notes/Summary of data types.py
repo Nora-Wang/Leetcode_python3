@@ -1,3 +1,9 @@
+Python 中有六个标准的数据类型：Number（数字）, String（字符串）, List（列表）, Tuple（元组）, Set（集合）, Dictionary（字典）
+Python 的六个标准数据类型中：
+不可变数据（3 个）：Number（数字）、String（字符串）、Tuple（元组）
+可变数据（3 个）：List（列表）、Dictionary（字典）、Set（集合）
+
+***********************
 dict:
 1.删除key:
 del dict[key]
@@ -7,7 +13,7 @@ dict[key] = dict.get(key, value)
 eg:dict[key] = dict.get(key, 0) 或者 dict[item] = dict.get(key, set([word]))
 
 
-
+***********************
 set:
 1.删除:
 set.remove(key)
@@ -20,8 +26,7 @@ item = 'ab'
 set([item])结果为set('ab')
 set(item)结果为set('a','b')
 
-
-
+***********************
 list:
 1.删除:
 list.remove(item)
@@ -29,7 +34,8 @@ list.remove(item)
 2.添加:
 list.append(item)
 
-
+***********************
+###queue和stack本质上是list
 queue(先进先出):
 1.初始化:
 queue = collections.deque()
@@ -40,7 +46,7 @@ item = queue.popleft()
 3.添加:
 queue.append()
 
-
+***********************
 stack(先进后出):
 1.初始化
 stack = []
