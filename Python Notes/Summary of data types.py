@@ -3,8 +3,15 @@ Python 的六个标准数据类型中：
 不可变数据（3 个）：Number（数字）、String（字符串）、Tuple（元组）
 可变数据（3 个）：List（列表）、Dictionary（字典）、Set（集合）
 
-#dict和set查找/添加/删除key,时间复杂度为O(1)
-#list,tuple,queue,stack查找/删除item,时间复杂度为O(n);tuple = ()为不可变的list
+dict和set查找/添加/删除key,时间复杂度为O(1)
+list,tuple,queue,stack查找/删除item,时间复杂度为O(n);tuple = ()为不可变的list
+
+随机取值:import random
+1.random.choice(序列a):从序列a(str/list)中随机抽取一个元素
+2.random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，并将n个元素生以list形式返回;random.sample(序列a，n)[0]返回生成的第一个随机数
+3.random.randint(a,b):返回a到b的一个整数型随机数
+
+
 ***********************
 dict:
 1.删除key:
