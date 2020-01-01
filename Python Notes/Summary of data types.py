@@ -12,6 +12,12 @@ list,tuple,queue,stack查找/删除item,时间复杂度为O(n);tuple = ()为不�
 3.random.randint(a,b):返回a到b的一个整数型随机数
 
 
+  
+排序函数
+1.list.sort():仅对list,且返回的是对已经存在的列表进行操作，无返回值
+2.sorted(iterable):可以对所有可迭代的对象进行排序操作;注意其返回的是一个新的list,而不是在原来的基础上进行的操作
+  
+  
 ***********************
 dict:
 1.删除key:
