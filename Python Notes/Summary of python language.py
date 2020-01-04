@@ -42,12 +42,14 @@ set([item])结果为set('ab')
 set(item)结果为set('a','b')
 
 ***********************
+#两个list相加,相当于重建一个新list
 list:
 1.删除:
 list.remove(item)
 
 2.添加:
 list.append(item)
+
 
 ***********************
 ###queue和stack本质上是list
