@@ -115,53 +115,57 @@ class Solution(object):
                     
             
                     
-lintcode version:
-class Solution:
-    """
-    @param: start: a string
-    @param: end: a string
-    @param: dict: a set of string
-    @return: An integer
-    """
+更新版本:
+class Solution(object):
     def __init__(self):
         self.visited = set()
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+ ###要记得把wordList变为set,否则会超时
+        wordList = set(wordList)
+        if endWord not in wordList:
+            return 0
         
-    def ladderLength(self, start, end, dict):
-        if start == end:
+        if beginWord == endWord:
             return 1
-        dict.add(end)
-        queue = collections.deque([start])
-        self.visited.add(start)
-        step = 1
+        
+        queue = collections.deque([beginWord])
+        level = 1
+        self.visited.add(beginWord)
         
         while queue:
-            size = len(queue)
-            for _ in range(size):
-                node = queue.popleft()
-                neighbors = self.get_neighbors(node, dict)
+            level += 1
+            for _ in range(len(queue)):
+                word = queue.popleft()
+                neighbors = self.get_neighbors(word, wordList)
                 for neighbor in neighbors:
-                    if neighbor == end:
-                        step += 1
-                        return step
-                    if neighbor not in self.visited:
-                        queue.append(neighbor)
-                        self.visited.add(neighbor)
-            step += 1
+                    if neighbor == endWord:
+                        return level
+                    
+                    queue.append(neighbor)
+                    
         return 0
-        
-    def get_neighbors(self, node, dict):
+            
+    def get_neighbors(self, word, wordList):
         neighbors = set()
-        for index in range(len(node)):
-            for letter in 'abcdefghijklmnopqrstuvwxyz':
-                new_node = self.get_new_node(node, index, letter)
-                if new_node in dict and new_node not in self.visited:
-                    neighbors.add(new_node)
+        
+        for i in range(len(word)):
+            left, right = word[:i], word[i + 1:]
+            for letter in string.lowercase:
+                new_word = left + letter + right
+                
+                if new_word in wordList and new_word not in self.visited:
+                    self.visited.add(new_word)
+                    neighbors.add(new_word)
+                    
         return neighbors
-    
-    def get_new_node(self, node, index, letter):
-        list_node = list(node)
-        list_node[index] = letter
-        return ''.join(list_node)
+        
+        
         
 
  
