@@ -63,15 +63,6 @@ class Solution(object):
         step = 1
         queue = collections.deque([beginWord])
         self.visited.add(beginWord)
- 
-################follow up#############
-1.要求把最短路径输出：可直接在bfs中进行更改
-2.要求把所有最短路径输出：用dfs
-######################################
-
-#follow up 1更改：
-#到达key(node)的最短路径从哪来（pre node）,存任意一个
-        pre_to_node = {}
         
         while queue:
             #后续queue在不断append，因此需要提前记录该层的queue个数
@@ -82,12 +73,11 @@ class Solution(object):
                 for neighbor in neighbors:
                     #若直接找到endWord
                     #注意coding style
-                    if neighbor != endWord:
-                        continue
-                    step += 1
-                    return step
+                    if neighbor == endWord:
+                        step += 1
+                        return step
                 
-                    if neighbor not in self.visited:
+                    if neighbor in self.visited:
                         continue
                     self.visited.add(neighbor)
                     queue.append(neighbor)
@@ -100,10 +90,20 @@ class Solution(object):
     def get_neighbors(self, node, wordList):
         neighbors = set()
         for index in range(len(node)): #O(L)
+            #方法一
             for letter in string.lowercase: #O(25)
                 new_node = self.change_letter(index, letter, node) #O(L)
                 if (new_node in wordList) and (new_node not in self.visited): #O(L) not O(1)
                     neighbors.add(new_node)
+                    
+            #方法二(快很多)
+            left, right = word[:i], word[i+1:]
+            for letter in string.lowercase:
+                if letter == word[i]:
+                    continue
+                new_word = left + letter + right
+                if new_word in wordList and new_word not in self.visited:
+                    neighbors.add(new_word)
                     
         return neighbors
     
@@ -163,4 +163,83 @@ class Solution:
         list_node[index] = letter
         return ''.join(list_node)
         
+
+ 
+################follow up#############
+1.要求把最短路径输出：可直接在bfs中进行更改
+2.要求把所有最短路径输出：用dfs(word ladder II)
+######################################
+
+#follow up 1更改：
+#到达key(node)的最短路径从哪来（pre node = {}）,存任意一个
+        
+class Solution(object):
+    def __init__(self):
+        self.visited = set()
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        wordList = set(wordList)
+        
+        if beginWord == endWord:
+            return 1
+        
+        if endWord not in wordList:
+            return 0
+        
+        queue = collections.deque([beginWord])
+        level = 1
+        #使用prev记录parent
+        prev = {}
+        
+        while queue:
+            level += 1
+            for _ in range(len(queue)):
+                word = queue.popleft()
+                neighbors = self.get_neighbors(word, wordList)
+                for neighbor in neighbors:
+                    if neighbor == endWord:
+                        #记得把endWord的parent加进去
+                        prev[endWord] = word
+                        self.print_path(prev, endWord)
+                        return level
+                    
+                    prev[neighbor] = word
+                    
+                    queue.append(neighbor)
+                    self.visited.add(neighbor)
+                    
+        return 0
+                    
+    def print_path(self, prev, end):
+        #先把endWord加进去
+        path = [end]
+        word = end
+        #循环找parent
+        while word in prev:
+            path.append(prev[word])
+            word = prev[word]
+        #记得要把path倒一下
+        #print path[::-1]
+        path.reverse()
+        print path
+    
+    
+    def get_neighbors(self, word, wordList):
+        neighbors = set()
+        
+        for i in range(len(word)):
+            left, right = word[:i], word[i+1:]
+            for letter in string.lowercase:
+                if letter == word[i]:
+                    continue
+                new_word = left + letter + right
+                if new_word in wordList and new_word not in self.visited:
+                    neighbors.add(new_word)
+                    
+        return neighbors
 
