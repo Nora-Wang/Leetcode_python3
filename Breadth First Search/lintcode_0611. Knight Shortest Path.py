@@ -37,6 +37,13 @@ Knight can not enter the barrier.
 Path length refers to the number of steps the knight takes.
 
 
+易错点:
+1.用了grid[new_x][new_y] = 1就不用设置self.visited了
+2.有count/step/level就一定要有for _ in range(len_level):
+3.注意这道题的source和destination是Point类型,使用的时候需要source.x,source.y
+
+
+
 思路：
 总体跟numbers of island差不多
 要注意一点，每遍历一个node，要将其赋值为1，否则会出现Memory limit exceeded的情况
@@ -78,9 +85,9 @@ class Solution:
         grid[source.x][source.y] = 1
         
         while queue:
-        ##一定要记录一下queue的个数，表示每一层有多少个node
-            len_level = len(queue)
-            for _ in range(len_level):
+            #count记录的是遍历了多少层，因此是在每个level处才+1     
+            count += 1
+            for _ in range(len(queue)):
                 node = queue.popleft()
                 #return情况
                 if node.x == destination.x and node.y == destination.y:
@@ -94,9 +101,15 @@ class Solution:
                         queue.append(Point(new_x,new_y))
                     #该点已被放入queue，即被遍历，因此需要将其赋值为1，避免重复遍历
                         grid[new_x][new_y] = 1
-            #count记录的是遍历了多少层，因此是在每个level处才+1     
-            count += 1
+            
         return -1
     
-    def is_valid(self, grid, x, y):
-        return 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == 0
+    #coding style
+    def is_valid(self, grid, i, j):
+        if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]):
+            return False
+        
+        if grid[i][j] == 1:
+            return False
+        
+        return True
