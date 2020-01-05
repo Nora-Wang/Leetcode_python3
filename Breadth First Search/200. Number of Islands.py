@@ -38,7 +38,7 @@ class Solution(object):
         len_c = len(grid[0])
         for i in range(len_r):
             for j in range(len_c):
-                if grid[i][j] != '1':
+                if grid[i][j] == '1':
                     self.bfs(grid, i, j)
                     count += 1
         return count
