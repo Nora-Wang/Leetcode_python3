@@ -188,16 +188,15 @@ class Solution(object):
         :rtype: int
         """
         wordList = set(wordList)
+        if endWord not in wordList:
+            return 0
         
         if beginWord == endWord:
             return 1
         
-        if endWord not in wordList:
-            return 0
-        
         queue = collections.deque([beginWord])
         level = 1
-        #使用prev记录parent
+        self.visited.add(beginWord)
         prev = {}
         
         while queue:
@@ -207,43 +206,41 @@ class Solution(object):
                 neighbors = self.get_neighbors(word, wordList)
                 for neighbor in neighbors:
                     if neighbor == endWord:
-                        #记得把endWord的parent加进去
                         prev[endWord] = word
-                        self.print_path(prev, endWord)
-                        return level
-                    
+                        self.print_path(prev, endWord, beginWord)
+                        
                     prev[neighbor] = word
-                    
                     queue.append(neighbor)
-                    self.visited.add(neighbor)
                     
         return 0
-                    
-    def print_path(self, prev, end):
-        #先把endWord加进去
-        path = [end]
-        word = end
-        #循环找parent
-        while word in prev:
-            path.append(prev[word])
-            word = prev[word]
-        #记得要把path倒一下
-        #print path[::-1]
-        path.reverse()
-        print path
     
+    def print_path(self, prev, endWord, beginWord):
+        path = []
+        word = endWord
+        
+        while word in prev:
+            path.append(word)
+            word = prev[word]
+        
+        #记得把beginword加进去
+        path.append(beginWord)
+        #记得倒一下
+        path.reverse()
+        
+        print ' -> '.join(path)
     
     def get_neighbors(self, word, wordList):
         neighbors = set()
         
         for i in range(len(word)):
-            left, right = word[:i], word[i+1:]
+            left, right = word[:i], word[i + 1:]
             for letter in string.lowercase:
-                if letter == word[i]:
-                    continue
                 new_word = left + letter + right
+                
                 if new_word in wordList and new_word not in self.visited:
+                    self.visited.add(new_word)
                     neighbors.add(new_word)
                     
         return neighbors
-
+        
+        
