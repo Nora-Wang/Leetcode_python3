@@ -39,7 +39,8 @@ Path length refers to the number of steps the knight takes.
 
 易错点:
 1.用了grid[new_x][new_y] = 1就不用设置self.visited了
-2.有count/step/level就一定要有for _ in range(len_level):
+2.有count/step/level就一定要有for _ in range(len_level)
+#注意将这里的count与word ladder区分一下,这里的count初始值为0,因为这里需要的是path length;而word ladder需要的是word的个数
 3.注意这道题的source和destination是Point类型,使用的时候需要source.x,source.y
 
 
