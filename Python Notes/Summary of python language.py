@@ -73,6 +73,9 @@ queue.count('a')计出queue中有多少个'a'
 5.反转
 queue.reverse()
 
+6.队顶
+queue[0]
+
 ***********************
 stack(先进后出):
 1.初始化
