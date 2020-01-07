@@ -20,8 +20,7 @@ Depending on your language, stack may not be supported natively. You may simulat
 You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
 
 
-#注意判断empty的条件是in和out都为空
-#stack是先进后出,即它的front在后面 eg:[1,2,3] front是3
+难点在pop出,利用python中stack的本质上就是一个list这一特性
 code:
 class MyQueue(object):
 
@@ -29,8 +28,8 @@ class MyQueue(object):
         """
         Initialize your data structure here.
         """
-        self.in_stack = []
-        self.out_stack = []
+        self.stack = []
+        self.temp = []
 
     def push(self, x):
         """
@@ -38,34 +37,39 @@ class MyQueue(object):
         :type x: int
         :rtype: None
         """
-        self.in_stack.append(x)
+        self.stack.append(x)
 
     def pop(self):
         """
         Removes the element from in front of queue and returns that element.
         :rtype: int
         """
-        self.peek()
-        return self.out_stack.pop()
+        
+        node = self.stack[0]
+        
+        #Version 1
+        self.stack = self.stack[1:]
+        #Version 2
+        self.stack.remove(node)
+        
+        return node
+        
+        
 
     def peek(self):
         """
         Get the front element.
         :rtype: int
         """
-        if not self.out_stack:
-            while self.in_stack:
-                self.out_stack.append(self.in_stack.pop())
-            
-        return self.out_stack[-1]
+        return self.stack[0]
+        
 
     def empty(self):
         """
         Returns whether the queue is empty.
         :rtype: bool
         """
-        return len(self.in_stack) == 0 and len(self.out_stack) == 0
-        
+        return len(self.stack) == 0
 
 
 # Your MyQueue object will be instantiated and called as such:
