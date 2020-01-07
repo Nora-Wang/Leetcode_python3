@@ -19,6 +19,7 @@ isEmpty()
 
 
 其实一个queue能很简单的得出stack,但两个queue就需要对queue和stack的特性有很强的理解
+题目的意思是queue只能用popleft(要符合queue的逻辑,FIFO)
 
 
 code:
