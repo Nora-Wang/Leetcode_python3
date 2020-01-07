@@ -56,8 +56,9 @@ list.append(item)
 queue(先进先出):
 1.初始化:
 #一般使用双端队列deque
-queue = collections.deque([])因为deque这个函数所要调用的数据类型规定为list
-eg:一个数时,queue = collections.deque([root]); 一个点时,queue = collections.deque([(x,y)]),要有括号
+queue = collections.deque()因为deque这个函数所要调用的数据类型规定为list
+eg:一个数时,queue = collections.deque([root]); 一个点时,queue = collections.deque([(x,y)])
+当加入的数据不是list时,要另写括号;但若直接初始化,则直接写deque()即可,不要用deque([]),这样生成的queue会多出一个[]
 
 #popleft+append可以使queue从头(左)出,从尾(右)进
 2.删除:
