@@ -70,7 +70,11 @@ class MyQueue:
     @return: An integer
     """
     def top(self):
-        while self.stack1:
-            self.stack2.append(self.stack1.pop())
-        
+###这里一定要先判断self.stack2是否为空
+#eg:1.self.stack1 = 123,从而生成self.stack2 = 321
+#2.当self.stack1新加入456后,若self.stack2不为空,直接将self.stack1加入self.stack2的结果为self.stack2 = 321654,
+#但事实上应该先pop123,然后才456
+        if not self.stack2:
+            while self.stack1:
+                self.stack2.append(self.stack1.pop())
         return self.stack2[-1]
