@@ -46,7 +46,7 @@ class Solution(object):
         :type wordList: List[str]
         :rtype: int
         """
-        #将list变为set（时间复杂度）
+!!易错点#将list变为set（时间复杂度）
         wordList = set(wordList)
         
         if endWord not in wordList:
