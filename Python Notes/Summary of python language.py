@@ -19,6 +19,7 @@ Python 的六个标准数据类型中：
 dict和set查找/添加/删除key,时间复杂度为O(1)
 list,tuple,queue,stack查找/删除item,时间复杂度为O(n);tuple = ()为不可变的list
 ***********************
+#dict和set中的key都是不可重复的,与list的index对应;但list中包含的值,以及dict的value都是可以重复的
 dict:
 1.删除key:
 del dict[key]
@@ -43,9 +44,11 @@ set(item)结果为set('a','b')
 
 ***********************
 #两个list相加,相当于重建一个新list
+#list中的value值是可以重复的;与hash中的key做区别
 list:
 1.删除:
-list.remove(item)
+list.remove(item)item是list中所包含的值
+del list[index]
 
 2.添加:
 list.append(item)
