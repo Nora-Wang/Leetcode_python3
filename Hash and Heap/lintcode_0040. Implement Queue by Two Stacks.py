@@ -58,18 +58,8 @@ class MyQueue:
     """
     def push(self, element):
         self.stack1.append(element)
-
-    """
-    @return: An integer
-    """
-    def pop(self):
-        self.top()
-        return self.stack2.pop()
-
-    """
-    @return: An integer
-    """
-    def top(self):
+    
+    def stack1_to_stack2(self):
 ###这里一定要先判断self.stack2是否为空
 #eg:1.self.stack1 = 123,从而生成self.stack2 = 321
 #2.当self.stack1新加入456后,若self.stack2不为空,直接将self.stack1加入self.stack2的结果为self.stack2 = 321654,
@@ -77,4 +67,17 @@ class MyQueue:
         if not self.stack2:
             while self.stack1:
                 self.stack2.append(self.stack1.pop())
+    
+    """
+    @return: An integer
+    """
+    def pop(self):
+        self.stack1_to_stack2()
+        return self.stack2.pop()
+
+    """
+    @return: An integer
+    """
+    def top(self):
+        self.stack1_to_stack2()
         return self.stack2[-1]
