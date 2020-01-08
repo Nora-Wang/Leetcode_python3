@@ -74,8 +74,10 @@ queue.count('a')计出queue中有多少个'a'
 5.反转
 queue.reverse()
 
-6.队顶
+6.队头是最左,删除操作
 queue[0]
+7.队尾是最右,插入操作
+queue[-1]
 
 ***********************
 stack(先进后出):
@@ -88,5 +90,7 @@ stack.pop()
 3.添加
 stack.append(item)
 
-4.栈顶
+4.栈顶是最右;入栈和出栈都在栈顶
 stack[-1]
+5.栈底是最左
+stack[0]
