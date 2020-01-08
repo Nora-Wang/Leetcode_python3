@@ -50,6 +50,9 @@ list.remove(item)
 2.添加:
 list.append(item)
 
+3.查找index:
+list.index(x[, start[, end]]),x为可查找对象
+
 
 ***********************
 ###queue和stack本质上是list
