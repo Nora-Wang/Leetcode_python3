@@ -6,3 +6,6 @@ string.lowercase
 
 3.整除
 mid = (end - start) // 2
+
+4.取小数后k位
+round(num,k)
