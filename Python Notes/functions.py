@@ -14,4 +14,4 @@ round(num,k)
 5.随机取值
 import random
 random.randint(start, last)
-random.sample(data, 5)  #从data中随机获取5个元素，作为一个片断返回  
+random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，并将n个元素生以list形式返回
