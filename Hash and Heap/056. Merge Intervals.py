@@ -23,6 +23,7 @@ NOTE: input types have been changed on April 15, 2019. Please reset to default c
 follow up: 057. Insert Interval
 
 code:
+Version 高频班
 class Solution(object):
     def merge(self, intervals):
         """
@@ -51,4 +52,42 @@ class Solution(object):
             else:
                 result.append(interval)
                 
+        return result
+
+    
+Version 自写
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        #注意点1:corner case
+        if not intervals:
+            return []
+        if len(intervals) == 1:
+            return intervals
+        
+        #知识点:sorted函数的应用
+        #按照intervals中item排序的第一个值
+        sorted_intervals = sorted(intervals, key = lambda item:item[0])
+        
+        result = []
+        i = 0
+        while i < len(sorted_intervals):
+            #记录当前pair的起始值与终点值
+            start = sorted_intervals[i][0]
+            end = sorted_intervals[i][1]
+            #当下一个pair的起始值>=当前pair的终点值,则将终点值更新
+            #注意点2:while循环时用到了i+1,因此需要提前加个条件i < (len(sorted_intervals) - 1)
+            while i < (len(sorted_intervals) - 1) and sorted_intervals[i + 1][0] <= end:
+                #注意点3:可能会出现一个情况[[1,6],[2,3]],这样其实end还是为当前pair的终点值,因此需要加一个取max
+                end = max(sorted_intervals[i + 1][1], end)
+                i += 1
+            
+            #将该轮结果pair加入result
+            result.append([start, end])
+            
+            i += 1
+
         return result
