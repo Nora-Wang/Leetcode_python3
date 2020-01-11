@@ -15,3 +15,10 @@ round(num,k)
 import random
 random.randint(start, last)
 random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，并将n个元素生以list形式返回
+  
+6.排序
+sorted(iterable, cmp=None, key=None, reverse=False)
+iterable -- 可迭代对象
+cmp -- 比较的函数，这个具有两个参数，参数的值都是从可迭代对象中取出，此函数必须遵守的规则为，大于则返回1，小于则返回-1，等于则返回0
+key -- 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序
+reverse -- 排序规则，reverse = True 降序 ， reverse = False 升序（默认）
