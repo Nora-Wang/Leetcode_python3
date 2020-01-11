@@ -37,6 +37,7 @@ dict.values()
 #注意排序后的返回值是一个list
 key:sorted(dict.keys())
 value:sorted(dict.items(), key = lambda item:item[1])
+sorted函数的结构:sorted(iterable, cmp=None, key=None, reverse=False);具体可参考functions文档
 
 ***********************
 set 没有value的dict:
