@@ -29,6 +29,15 @@ dict[key] = dict.get(key, value)
 eg:dict[key] = dict.get(key, 0) 或者 dict[item] = dict.get(key, set([word]))
 dict[key] = dict.get(key, 0) + 1
 
+3.取值
+dict.keys()
+dict.values()
+
+4.排序
+#注意排序后的返回值是一个list
+key:sorted(dict.keys())
+value:sorted(dict.items(), key = lambda item:item[1])
+
 ***********************
 set 没有value的dict:
 1.删除:
