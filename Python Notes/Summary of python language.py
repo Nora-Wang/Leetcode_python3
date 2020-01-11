@@ -27,7 +27,7 @@ del dict[key]
 2.添加key和value:
 dict[key] = dict.get(key, value)
 eg:dict[key] = dict.get(key, 0) 或者 dict[item] = dict.get(key, set([word]))
-
+dict[key] = dict.get(key, 0) + 1
 
 ***********************
 set 没有value的dict:
