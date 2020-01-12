@@ -47,7 +47,7 @@ class Solution(object):
         record = {}
         for node in points:
         #知识点:取根号
-            distance = (abs(node[0]) ** 2 + abs(node[1]) ** 2) ** (0.5)
+            distance = (node[0] ** 2 + node[1] ** 2) ** (0.5)
             if distance not in record:
                 record[distance] = []
             record[distance].append(node)
