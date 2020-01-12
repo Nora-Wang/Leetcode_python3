@@ -39,6 +39,11 @@ class Solution(object):
             
             k -= 1
         
+        #这里不能简写为
+        #if j >= 0:
+        #nums1[:j] = nums2[:j]
+        #因为有一个case:nums1 = [0], m = 0, nums2 = [1], n = 1
+        #我也不理解为啥m为0...但确实如果用上面的跑,j会等于0,这样后面的nums1[:j]就取不到值
         while j >= 0:
             nums1[k] = nums2[j]
             k -= 1
