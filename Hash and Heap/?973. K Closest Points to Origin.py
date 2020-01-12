@@ -70,4 +70,8 @@ class Solution(object):
                     return result
             i += 1
             
-        
+同lintcode 612 https://www.lintcode.com/problem/k-closest-points/description?_from=ladder&&fromId=1
+但这个方法无法用于lintcode,因为有个case过不了:当distance相同时,它要求的是按放入原来的顺序输出,但是sorted不能保证这一点
+因此lintcode需要使用priority queue来解决问题,即优化版
+
+#Version priority queue
