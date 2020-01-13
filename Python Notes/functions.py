@@ -34,3 +34,8 @@ abs(num)
 8.2 都可用
 import cmath
 num_sqrt = cmath.sqrt(num)
+
+9.反转
+list/str.reverse()
+list/str[::-1]
+sorted(reverse = True)
