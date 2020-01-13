@@ -25,7 +25,6 @@ cache.get(4);       // returns 4
 
 code:
 LinkedList Version
-
 class ListNode(object):
     def __init__(self, key = None, value = None, next = None):
         self.key = key
@@ -39,10 +38,14 @@ class LRUCache(object):
         :type capacity: int
         """
         self.capacity = capacity
+        #用于记录该key对应的prev的值
         self.key_to_prev = {}
+        #用于记录key出现的时间,头是最早出现的,尾是最新出现过的key
         self.dummy = ListNode()
+        #用于记录链表的尾
         self.tail = self.dummy
     
+    #当key被使用后,更新一下链表的内容
     def update_dummy(self, key):
         prev = self.key_to_prev[key]
         curt = prev.next
@@ -58,12 +61,14 @@ class LRUCache(object):
         
         self.push(curt)
     
+    #在出现新的point的时候,将该点的key放入链表的尾部,同时更新hash表
     def push(self, curt):
         self.key_to_prev[curt.key] = self.tail
         curt.next = None
         self.tail.next = curt
         self.tail = curt
     
+    #得到数据,并更新链表
     def get(self, key):
         """
         :type key: int
@@ -75,13 +80,15 @@ class LRUCache(object):
         self.update_dummy(key)
         
         return self.key_to_prev[key].next.value
-        
+       
+    #当hash表长度超过capacity时,需要将最早出现的head给删掉,同时更新head.next的hash表(因为里面存储的是其对应的prev)
     def pop_front(self):
         head = self.dummy.next
         self.dummy.next = head.next
         self.key_to_prev[head.next.key] = self.dummy
         del self.key_to_prev[head.key]
     
+    #要分情况,若key在hash表中,直接更新一下value,然后更新一下链表即可;若不在,则需要新建一个point,然后将其放入hash中,注意hash长度,以 判断是否需要pop
     def put(self, key, value):
         """
         :type key: int
