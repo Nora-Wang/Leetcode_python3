@@ -1,3 +1,4 @@
+import heapq(最小堆)
 1.创建一个堆
 1.1直接使用list的创建方式Heap = []
 1.2使用heapify()函数将一个存在的列表转为堆
@@ -22,3 +23,12 @@
 
 
 原文链接：https://blog.csdn.net/qq_23869697/article/details/82735088
+
+  
+  
+#heap == Priority Queue,实现最小堆
+heapq在实现过程中就是用的优先队列,即heap的本质为一个queue
+其原理是:用heapq.heappush(heap, item)将item放入queue,并且对这个queue按照item的数据从小到大的排序
+(这里的item可以是一个元组,eg:(a,b,c),queue通过先比较a,然后比较b,最后比较c的顺序将整个queue按从小到大的排序)
+这样在heapq.heappop(heap)时,依照queue的pop原理,应该是pop队头,即整个queue的最小值
+这样就满足了最小堆的条件
