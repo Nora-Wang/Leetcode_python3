@@ -75,3 +75,28 @@ class Solution(object):
 因此lintcode需要使用priority queue来解决问题,即优化版
 
 #Version priority queue
+import heapq
+class Solution(object):
+    def kClosest(self, points, K):
+        """
+        :type points: List[List[int]]
+        :type K: int
+        :rtype: List[List[int]]
+        """
+        if not points:
+            return []
+        
+        heap = []
+        for point in points:
+            distance = point[0] ** 2 + point[1] ** 2
+            heapq.heappush(heap, (-distance, -point[0], -point[1]))
+            
+            if len(heap) > K:
+                heapq.heappop(heap)
+        
+        result = []
+        for _ in range(K):
+            _, x, y = heapq.heappop(heap)
+            result.append([-x, -y])
+        
+        return result[::-1]
