@@ -39,3 +39,9 @@ num_sqrt = cmath.sqrt(num)
 list/str.reverse()
 list/str[::-1]
 sorted(reverse = True)
+
+10.取值范围
+range(start, stop[, step])
+平时step是直接默认为1,而start为0时也可以不写
+#当step!=1,需要被单独写出且start=0时,一定要记得把start写上,不然系统会将step当作stop用
+eg: range(0, end, 2)
