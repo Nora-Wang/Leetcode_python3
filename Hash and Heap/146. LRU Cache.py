@@ -24,10 +24,90 @@ cache.get(4);       // returns 4
 
 
 code:
+LinkedList Version
+
+class ListNode(object):
+    def __init__(self, key = None, value = None, next = None):
+        self.key = key
+        self.value = value
+        self.next = next
+        
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.capacity = capacity
+        self.key_to_prev = {}
+        self.dummy = ListNode()
+        self.tail = self.dummy
+    
+    def update_dummy(self, key):
+        prev = self.key_to_prev[key]
+        curt = prev.next
+        
+        if curt == self.tail:
+            return
+        
+        #delete curt
+        prev.next = curt.next
+        
+        #update hash
+        self.key_to_prev[curt.next.key] = prev
+        
+        self.push(curt)
+    
+    def push(self, curt):
+        self.key_to_prev[curt.key] = self.tail
+        curt.next = None
+        self.tail.next = curt
+        self.tail = curt
+    
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.key_to_prev:
+            return -1
+        
+        self.update_dummy(key)
+        
+        return self.key_to_prev[key].next.value
+        
+    def pop_front(self):
+        head = self.dummy.next
+        self.dummy.next = head.next
+        self.key_to_prev[head.next.key] = self.dummy
+        del self.key_to_prev[head.key]
+    
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        if key in self.key_to_prev:
+            self.key_to_prev[key].next.value = value
+            self.update_dummy(key)
+            return
+        
+        new_node = ListNode(key, value)
+        self.push(new_node)
+        if len(self.key_to_prev) > self.capacity:
+            self.pop_front()
+        
+        
 
 
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
 
 
+***************************************************************************
 Hash Version
 #主要是将self.keys作为一个key出现先后的记录,每次用了key就先remove,然后重新append
 #这样就可以保证self.keys中的最后一位是最新用过的,而第一位是最老的
