@@ -64,22 +64,30 @@ class Solution:
             return []
             
         size = len(hashTable) * 2
+        #用于记录hash的key
         new_hash_head = [None] * size
+        #用于记录每个hash[key]这一linkedlist的最后一个point
         new_hash_tail = [None] * size
         
         for node in hashTable:
             curt = node
             
             while curt:
+                #求的该point在新hash中的index,即key值
                 index = curt.val % size
+                #新建point
                 temp_node = ListNode(curt.val)
                 
+                #当该index在hash中已经有值了,即这已经存在一个链表,新的point则需要被放在链表的尾部,即tail.next
                 if new_hash_head[index]:
                     new_hash_tail[index].next = temp_node
+                #当hash[index]为空,即不存在链表时,直接将point放入即可
                 else:
                     new_hash_head[index] = temp_node
                 
+                #更新tail,保证tail[index]一直是该linkedlist的最后一个point
                 new_hash_tail[index] = temp_node
+                
                 curt = curt.next
         
         return new_hash_head
