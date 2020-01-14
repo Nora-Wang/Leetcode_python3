@@ -142,15 +142,16 @@ class Solution(object):
         
     
     def merge(self, lists, start, end):
-        #递归出口
+        #分治出口
         if start == end:
             return lists[start]
         
-        
+        #divide
         mid = start + (end - start) // 2
         left = self.merge(lists, start, mid)
         right = self.merge(lists, mid + 1, end)
         
+        #conquer
         return self.merge_two_lists(left, right)
     
     def merge_two_lists(self, l1, l2):
