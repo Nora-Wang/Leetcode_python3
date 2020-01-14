@@ -120,4 +120,56 @@ class Solution(object):
         return dummy.next
                 
 
-#Version 3
+#Version 3 Divide & Conquer自顶向下的归并的方法
+将整个lists看作一个整体,然后进行二分,这样无限二分后会被分为k个list,这时再对k个list进行两两merge并往上走就能得到一个被sort好的linkedlist
+时间复杂度为O(nlogk),因为一共有k层,即logk,而每一层都相当于在merge n个point,即n
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        if not lists:
+            return None
+        
+        return self.merge(lists, 0, len(lists) - 1)
+        
+    
+    def merge(self, lists, start, end):
+        #递归出口
+        if start == end:
+            return lists[start]
+        
+        
+        mid = start + (end - start) // 2
+        left = self.merge(lists, start, mid)
+        right = self.merge(lists, mid + 1, end)
+        
+        return self.merge_two_lists(left, right)
+    
+    def merge_two_lists(self, l1, l2):
+        dummy = tail = ListNode(-1)
+        
+        while l1 and l2:
+            if l1.val > l2.val:
+                tail.next = l2
+                l2 = l2.next
+            else:
+                tail.next = l1
+                l1 = l1.next
+                
+            tail = tail.next
+        
+        if l1:
+            tail.next = l1
+        if l2:
+            tail.next = l2
+            
+        return dummy.next
+        
