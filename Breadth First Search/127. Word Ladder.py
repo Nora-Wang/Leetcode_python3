@@ -220,6 +220,7 @@ class Solution(object):
         
         while word in prev:
             path.append(word)
+            #一定要记得renew一下word
             word = prev[word]
         
         #记得把beginword加进去
