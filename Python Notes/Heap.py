@@ -1,4 +1,5 @@
 import heapq(最小堆)
+#遍历一遍heap,时间为O(nlogn),因为需要把所有node一个一个的pop出来,每次pop的时间为logn
 1.创建一个堆
 1.1直接使用list的创建方式Heap = []
 1.2使用heapify()函数将一个存在的列表转为堆
