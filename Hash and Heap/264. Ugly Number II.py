@@ -15,6 +15,7 @@ n does not exceed 1690.
 
 code:
 #用heap,import heapq
+将heap中pop出的数据直接*2/3/5,然后将结果push进heap,再继续pop
 class Solution(object):
     def nthUglyNumber(self, n):
         """
