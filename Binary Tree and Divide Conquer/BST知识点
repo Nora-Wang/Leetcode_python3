@@ -1,0 +1,4 @@
+1.遍历顺序
+preorder traversal 根左右
+inorder traversal 左根右
+postorder traversal 左右根
