@@ -49,7 +49,8 @@ class LRUCache(object):
     def update_dummy(self, key):
         prev = self.key_to_prev[key]
         curt = prev.next
-        
+
+！！！！#这个特判很容易忘记！
         if curt == self.tail:
             return
         
@@ -101,7 +102,13 @@ class LRUCache(object):
             return
         
         new_node = ListNode(key, value)
+        #1.可直接用push function
         self.push(new_node)
+        #2.单独写,但是有的重复,而且容易写错:先将新点放在tail后,然后renew dummy,最后renew tail
+        self.tail.next = new_point
+        self.key_to_prev[key] = self.tail
+        self.tail = new_point
+        
         if len(self.key_to_prev) > self.capacity:
             self.pop_front()
         
