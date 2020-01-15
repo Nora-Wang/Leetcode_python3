@@ -6,7 +6,7 @@ import heapq(最小堆)
 2.heapq.heappush(heap, item)
 往堆中插入一个值,同时要保持为最小堆
 
-3.heapq.heappop(heap)
+3.heapq.heappop(heap) O(logn)
 返回堆中的最小值,并把它从堆中删除,同时保持为最小堆;如果堆为空,发生IndexError
 直接通过heap[0]可以获取最小值并不从堆中把它删除
 #heap没有提供remove某个特定值的class,强行使用其时间复杂度为O(n)
