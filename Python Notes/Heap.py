@@ -9,6 +9,7 @@ import heapq(最小堆)
 3.heapq.heappop(heap)
 返回堆中的最小值,并把它从堆中删除,同时保持为最小堆;如果堆为空,发生IndexError
 直接通过heap[0]可以获取最小值并不从堆中把它删除
+#heap没有提供remove某个特定值的class,强行使用其时间复杂度为O(n)
 
 4.heapq.heappushpop(heap, item)
 向堆中插入值后再弹出堆中的最小值,这个函数的速度比直接使用heappush() 和heappop()的效率更加高
