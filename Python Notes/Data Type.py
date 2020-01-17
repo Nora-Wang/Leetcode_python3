@@ -17,6 +17,10 @@ Python 的六个标准数据类型中：
 #string需要注意:无法直接改变string中的其中一个值,一般先list(str),然后再进行改变,最后''.join(list_str)
 可变数据（3 个）：List（列表）、Dictionary（字典）、Set（集合）
 
+#数据结构
+heap, queue, stack
+
+
 dict和set查找/添加/删除key,时间复杂度为O(1)
 list,tuple,queue,stack查找/删除item,时间复杂度为O(n);tuple = ()为不可变的list
 ***********************
