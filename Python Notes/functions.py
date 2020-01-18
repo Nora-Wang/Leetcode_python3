@@ -49,3 +49,7 @@ eg: range(0, end, 2)
 11.list化
 list()
 #string不能直接改变其中的内容,需要先list化,改变后再join
+
+12.无穷大和无穷小
+sys.maxsize
+sys.minsize
