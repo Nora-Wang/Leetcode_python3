@@ -58,3 +58,38 @@ class Solution(object):
             return left
         
         return root
+
+       
+       
+Inorder倒过来用,用两个全局变量记录结果和前一个node
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def inorderSuccessor(self, root, p):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :rtype: TreeNode
+        """
+        self.result = None
+        self.prev = None
+        
+        self.helper(root, p)
+        return self.result
+    
+    def helper(self, root, p):
+        if not root or self.result:
+            return
+        
+        self.helper(root.right, p)
+        if root.val == p.val:
+            self.result = self.prev
+        
+        self.prev = root
+        self.helper(root.left, p)
+
