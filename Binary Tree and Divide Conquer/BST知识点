@@ -18,3 +18,7 @@ O(logn) ~ O(n)
 6. divide and conquer其实是一个postodrder,因为从下到上的实现
 
 7. n个节点的binary tree一共有n个subtree(root,leaf都算)
+
+8. 每次divide and conquer的时候只要先写了not root,后续都可以直接写recursion root.left/root.right
+因为if not root,即保证了一定存在root.left/root.right
+
