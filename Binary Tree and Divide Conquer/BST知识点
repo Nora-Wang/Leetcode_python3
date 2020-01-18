@@ -1,4 +1,20 @@
-1.遍历顺序
+0.遍历顺序
 preorder traversal 根左右
 inorder traversal 左根右
 postorder traversal 左右根
+
+1. divide and conquer与recursion的区别
+divide and conquer一定有返回值,而recursion一般用全局变量/类变量代替返回值
+
+2. Iteration == None recursion
+
+3. Backtracking == DFS
+
+4. recursion和none recursion只是一种实现方式,而不是一种算法;traversal和divide and conquer都能用这两种方法实现
+
+5. 一棵树的高度
+O(logn) ~ O(n)
+
+6. divide and conquer其实是一个postodrder,因为从下到上的实现
+
+7. n个节点的binary tree一共有n个subtree(root,leaf都算)
