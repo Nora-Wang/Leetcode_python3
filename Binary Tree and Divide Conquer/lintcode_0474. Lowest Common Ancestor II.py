@@ -90,10 +90,10 @@ class Solution:
     @return: The lowest common ancestor of A and B
     """
     def lowestCommonAncestorII(self, root, A, B):
-        trail = [root]
+        trail = set([root])
         
         while A != root:
-            trail.append(A)
+            trail.add(A)
             A = A.parent
             
         while B not in trail:
