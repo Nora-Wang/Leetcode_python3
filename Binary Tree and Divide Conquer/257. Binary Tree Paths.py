@@ -73,6 +73,7 @@ class Solution:
     @return: all root-to-leaf paths
     """
     def binaryTreePaths(self, root):
+      #这部分一定要写,因为后面会用到root.val
         if not root:
             return []
             
