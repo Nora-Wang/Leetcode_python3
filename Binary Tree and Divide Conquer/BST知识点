@@ -22,3 +22,6 @@ O(logn) ~ O(n)
 8. 每次divide and conquer的时候只要先写了not root,后续都可以直接写recursion root.left/root.right
 因为if not root,即保证了一定存在root.left/root.right
 
+9. no extra space = O(1) space = no extra memory = constant space = inplace 都是不耗费额外空间的意思
+额外空间:出了input和output的空间
+new一个局部变量(不是list之类O(n)的变量)不耗费额外空间
