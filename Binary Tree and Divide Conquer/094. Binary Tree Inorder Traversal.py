@@ -38,10 +38,12 @@ class Solution(object):
         return self.result
     def traverse(self, root):
 ####顺序是左根右
-         self.traverse(root.left)
+        if not root:
+            return
+        self.traverse(root.left)
         self.result.append(root.val)
         self.traverse(root.right)
-        return self.result
+
    
 1.2 divide and conquer
 """
