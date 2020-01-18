@@ -117,6 +117,7 @@ class Solution:
             return is_exist_A, is_exist_B, left_node
         if right_node:
             return is_exist_A, is_exist_B, right_node
-            
+
+ #当root!=A/B,并且A/B也不在其子树中时,则直接返回None
         return is_exist_A, is_exist_B, None
             
