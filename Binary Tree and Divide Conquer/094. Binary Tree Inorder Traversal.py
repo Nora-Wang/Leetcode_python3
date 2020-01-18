@@ -31,11 +31,11 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
-        if not root:
-            return
         self.result = []
-        self.result = self.traverse(root)
+        self.traverse(root)
+      
         return self.result
+   
     def traverse(self, root):
 ####顺序是左根右
         if not root:
