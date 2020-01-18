@@ -24,6 +24,12 @@ Note:
 All of the nodes' values will be unique.
 p and q are different and both values will exist in the BST.
 
+
+
+这道题要与236做对比,这道题明确说了是BST,因此需要用到BST的特性 左节点<根<=右节点 来解题,即version 2;
+而236则只是说是binary tree,因此只能用version 1
+
+
 code:
 Version 1
 同236题，可直接当作一个binary tree处理
