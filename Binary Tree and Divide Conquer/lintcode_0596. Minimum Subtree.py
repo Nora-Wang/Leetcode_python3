@@ -37,7 +37,7 @@ It's guaranteed that there is only one subtree with minimum sum and the given bi
 left_min_root, left_sum, left_minsum
 
 code:
-Version 1: 不使用全局变量
+Version 1: 不使用全局变量,纯divide and conquer
 """
 Definition of TreeNode:
 class TreeNode:
@@ -77,7 +77,7 @@ class Solution:
         return root, cur_sum, cur_sum
 
 
-Version 2:使用全局变量
+Version 2:使用全局变量,divide and conquer + traversal
      """
 Definition of TreeNode:
 class TreeNode:
