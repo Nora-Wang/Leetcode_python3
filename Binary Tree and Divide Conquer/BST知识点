@@ -26,6 +26,6 @@ O(logn) ~ O(n)
 额外空间:出了input和output的空间
 new一个局部变量(不是list之类O(n)的变量)不耗费额外空间
 
-10. 尽量不要用全局变量
+10. 尽量不要用全局变量,即尽量用divide and conquer
 
 
