@@ -23,6 +23,8 @@ Output: []
 
 
 油管讲解https://www.youtube.com/watch?v=AXNb-stFNb4
+时间复杂度:O(4^(n-1))
+空间复杂度:O(n)
 
 code:
 class Solution(object):
