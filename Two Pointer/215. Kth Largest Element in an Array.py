@@ -13,6 +13,7 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 
 
 code:
+Version 1:QuickSelect
 class Solution(object):
     def findKthLargest(self, nums, k):
         """
@@ -58,3 +59,25 @@ class Solution(object):
             return self.quickselect(nums, left, end, k - (left - start))
         
         return pivot
+
+    
+Version 2:priority queue
+    
+import heapq
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        heap = []
+        
+        for item in nums:
+            heapq.heappush(heap, item)
+            
+        while len(heap) > k:
+            heapq.heappop(heap)
+            
+        return heap[0]
+    
