@@ -18,11 +18,9 @@ Explanation: The answer is "wke", with the length of 3.
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
              
 
-思路:
-Hash + sliding window 一边增加 一边减少(双指针)
-先找到s[0]开头的最长的string,然后就是sliding window,在hash表中将减去头部的s[i],然后再进行向后延伸
-             
 code:
+Hashset + sliding window 一边增加 一边减少(双指针)
+先找到s[0]开头的最长的string,然后就是sliding window,在hash表中将减去头部的s[i],然后再进行向后延伸
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """
@@ -44,5 +42,3 @@ class Solution(object):
             unique.remove(s[i])
             
         return longest
-        
-        
