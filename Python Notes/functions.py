@@ -51,5 +51,5 @@ list()
 #string不能直接改变其中的内容,需要先list化,改变后再join
 
 12.无穷大和无穷小
-sys.maxsize
-sys.minsize
+sys.maxsize或float('inf')
+-sys.maxsize或-float('inf')
