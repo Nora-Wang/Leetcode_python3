@@ -14,6 +14,7 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 
 code:
 Version 1:QuickSelect
+时间复杂度O(n)
 class Solution(object):
     def findKthLargest(self, nums, k):
         """
@@ -64,7 +65,7 @@ class Solution(object):
 
     
 Version 2:priority queue
-    
+时间复杂度O(klogn)
 import heapq
 class Solution(object):
     def findKthLargest(self, nums, k):
@@ -83,3 +84,5 @@ class Solution(object):
             
         return heap[0]
     
+Version 3:直接排序
+时间复杂度O(nlogn)
