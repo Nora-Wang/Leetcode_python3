@@ -28,7 +28,8 @@ class Solution(object):
         return self.quickselect(nums, 0, len(nums) - 1, k)
         
     def quickselect(self, nums, start, end, k):
-        if start >= end:
+#这里一定要返回一个值！！
+        if start == end:
             return nums[start]
         
         left, right = start, end
