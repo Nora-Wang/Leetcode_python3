@@ -4,9 +4,12 @@ Union: O(1)合并两个集合
 Find: O(1)查询元素所属集合
 
 
-Union Find是一颗多叉树
+Union Find是一棵多叉树
+时间复杂度:
+Union Find时间复杂度O(lg*n)约为O(1)
+将小的树作为大树的子树,时间复杂度为O(logn)
 
-
+###############
 实现Union Find:
 1.底层数据结构
 父亲表示法,用一个数组/哈希表记录每个节点的父亲是谁
@@ -20,7 +23,8 @@ father['Instagram'] = 'Facebook'
 找到两个集合中最顶层的两个老大哥节点A和B
 father[A] = B // or father[B] = A如果无所谓谁合并谁的话
 
-时间复杂度O(lg*n)约为O(1)
 
 
-将小的树作为大树的子树,时间复杂度为O(logn)
+Union Find与BFS的区别:
+BFS拓扑排序处理静态图,而Union Find处理动态图;eg:number of island
+与连通性有关的问题都可以用BFS/Union Find,但当需要拆开两个集合的时候无法使用Union Find,并且Union Find无法删边
