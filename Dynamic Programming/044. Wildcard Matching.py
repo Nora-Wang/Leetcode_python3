@@ -60,9 +60,18 @@ class Solution(object):
         return self.is_match_helper(s, p, 0, 0, {})
     
     def is_match_helper(self, s, p, i, j, visited):
-        #首先看有没有visited过,剪枝
-        if (i,j) in visited:
-            return visited[(i,j)]
+        #首先看有没有class Solution(object):
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        return self.is_match_helper(s, p, 0, 0, {})
+    
+    def is_match_helper(self, s, p, i, j, memo):
+        if (i,j) in memo:
+            return memo[(i,j)]
         
         #当s的所有字母都遍历完了后,只有当p剩余的字母都为*时,才为True
         if i == len(s):
@@ -78,19 +87,15 @@ class Solution(object):
         
         if p[j] != '*':
             #当前p不为*时,只有当前s和p的字母相同或p为?,并且s和p后面的所有字母都符合要求才为True
-            matched = self.is_match_letter(s, p, i, j) and self.is_match_helper(s, p, i + 1, j + 1, visited)
+            matched = self.is_match_letter(s, p, i, j) and self.is_match_helper(s, p, i + 1, j + 1, memo)
         else:
             #当前p为*时,需要分支,因此两种情况只要有一种复合条件即可
             #如果pattern当前位是*，则需要判断string向后或者pattern向后是否匹配 
             #*可以代表一个或多个字母， *也可以代表空字符 
-            matched = self.is_match_helper(s, p, i + 1, j, visited) or self.is_match_helper(s, p, i, j + 1, visited)
+            matched = self.is_match_helper(s, p, i + 1, j, memo) or self.is_match_helper(s, p, i, j + 1, memo)
             
         #将当前结果记录
-        visited[(i,j)] = matched
+        memo[(i,j)] = matched
         
         return matched
-            
-            
-    
-    def is_match_letter(self, s, p, i ,j):
-        return s[i] == p[j] or p[j] == '?'
+   
