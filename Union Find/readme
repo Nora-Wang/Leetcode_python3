@@ -24,7 +24,17 @@ father['Instagram'] = 'Facebook'
 father[A] = B // or father[B] = A如果无所谓谁合并谁的话
 
 
-
+###############
 Union Find与BFS的区别:
 BFS拓扑排序处理静态图,而Union Find处理动态图;eg:number of island
 与连通性有关的问题都可以用BFS/Union Find,但当需要拆开两个集合的时候无法使用Union Find,并且Union Find无法删边
+
+
+###############
+总结:
+1.合并两个集合
+2.查询某个元素所在集合
+3.判断两个元素是否在同一集合
+4.获得某个集合的元素个数
+5.统计当前集合的个数
+#关键操作:快速寻找老大哥节点
