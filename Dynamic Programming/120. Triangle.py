@@ -109,3 +109,31 @@ class Solution(object):
         
         #answer: 起点就是答案
         return dp[0][0]
+
+
+
+
+最终优化Version
+class Solution(object):
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        n = len(triangle)
+        
+        #只需要两行来滚动
+        dp = [[0] * n, [0] * n]
+        
+        dp[0][0] = triangle[0][0]
+            
+        for i in range(1, n):
+            #先初始化当前行的头和尾
+            dp[i % 2][0] = dp[(i-1) % 2][0] + triangle[i][0]
+            dp[i % 2][i] = dp[(i-1) % 2][i-1] + triangle[i][i]
+            #再计算当前行的中部的结果
+            for j in range(1, i):
+                dp[i % 2][j] = min(dp[(i-1) % 2][j-1], dp[(i-1) % 2][j]) + triangle[i][j]
+                
+        #结尾也要取模
+        return min(dp[(n - 1) % 2])
