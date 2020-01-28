@@ -62,13 +62,13 @@ class Solution(object):
         """
         n = len(triangle)
         
+        #state: dp[i][j]代表从i,j走到最底层的最短路径值
         #建立初始化三角矩阵
         dp = [[0] * (i + 1) for i in range(n)]
         
+        #initialize: 初始化最左边的一斜列和最右边的一斜列,因为它们没有左上角和右上角的点
         #初始化第0行
         dp[0][0] = triangle[0][0]
-        
-        #计算最左边的一斜列和最右边的一斜列
         for i in range(1, n):
             #每个值都是上面的结果加上当前位置的值 
             dp[i][0] = dp[i-1][0] + triangle[i][0]
@@ -81,5 +81,31 @@ class Solution(object):
                 #该点的左上和右上的最小path sum值+自己本身的值 = 该点的最小path sum
                 dp[i][j] = min(dp[i-1][j-1], dp[i-1][j]) + triangle[i][j]
                 
-        #结果是最后一排的最小值
+        #answer: 最后一排的最小值
         return min(dp[n - 1])
+
+     
+     
+#自底向上的动态规划
+状态:坐标, 方程:到哪儿去, 初始化:终点, 答案:起点
+class Solution(object):
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        n = len(triangle)
+        #state: dp[i][j]代表从i,j走到最底层的最短路径值
+        dp = [[0] * (i + 1) for i in range(n)]
+        
+        #initialize: 初始化终点(最后一层)
+        for i in range(n):
+            dp[-1][i] = triangle[-1][i]
+            
+        #function:从下往上倒过来推导,计算每个坐标到哪儿去
+        for i in range(n-2, -1, -1):
+            for j in range(i + 1):
+                dp[i][j] = min(dp[i+1][j], dp[i+1][j+1]) + triangle[i][j]
+        
+        #answer: 起点就是答案
+        return dp[0][0]
