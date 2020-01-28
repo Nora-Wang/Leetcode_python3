@@ -53,6 +53,7 @@ class Solution(object):
 
      
 #自顶向下的动态规划 Version
+状态:坐标, 方程:从哪儿来, 初始化:起点, 答案:终点
 class Solution(object):
     def minimumTotal(self, triangle):
         """
