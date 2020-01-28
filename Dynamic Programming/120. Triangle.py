@@ -15,7 +15,8 @@ Note:
 Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.
 
 
-
+code:
+#memoization search Version
 DP最典型的记忆化搜索memoization search:
 在DFS的基础上,使用一个hash表记录之前计算过的数据,避免重复计算
 
@@ -23,7 +24,7 @@ DP最典型的记忆化搜索memoization search:
 直接使用dfs,时间复杂度为O(2^n)
 使用dp后,时间复杂度为O(n),只用遍历所有nodes
 
-code:
+
 class Solution(object):
     def minimumTotal(self, triangle):
         """
