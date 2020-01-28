@@ -50,3 +50,35 @@ class Solution(object):
         visited[(x,y)] = min(left, right) + triangle[x][y]
         
         return min(left, right) + triangle[x][y]
+
+     
+自顶向下的动态规划
+class Solution(object):
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        n = len(triangle)
+        
+        #建立初始化三角矩阵
+        dp = [[0] * (i + 1) for i in range(n)]
+        
+        #初始化第0行
+        dp[0][0] = triangle[0][0]
+        
+        #计算最左边的一斜列和最右边的一斜列
+        for i in range(1, n):
+            #每个值都是上面的结果加上当前位置的值 
+            dp[i][0] = dp[i-1][0] + triangle[i][0]
+            #每个值都是左上的结果加上当前位置的值 
+            dp[i][i] = dp[i-1][i-1] + triangle[i][i]
+        
+        #由于前面计算两侧时已经将第1行计算完了,因此直接从第2行开始计算
+        for i in range(2, n):
+            for j in range(1, i):
+                #该点的左上和右上的最小path sum值+自己本身的值 = 该点的最小path sum
+                dp[i][j] = min(dp[i-1][j-1], dp[i-1][j]) + triangle[i][j]
+                
+        #结果是最后一排的最小值
+        return min(dp[n - 1])
