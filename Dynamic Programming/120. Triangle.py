@@ -114,6 +114,9 @@ class Solution(object):
 
 
 #最终优化Version
+滚动一般按行滚
+如果想要按列滚动也可以,但是要让列循环放在最前面;即说什么循环在前面,就按照什么滚
+只能滚动一维,不能两维一起滚
 class Solution(object):
     def minimumTotal(self, triangle):
         """
