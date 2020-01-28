@@ -52,7 +52,7 @@ class Solution(object):
         return min(left, right) + triangle[x][y]
 
      
-自顶向下的动态规划
+#自顶向下的动态规划 Version
 class Solution(object):
     def minimumTotal(self, triangle):
         """
