@@ -31,6 +31,7 @@ If 99% of all integer numbers from the stream are between 0 and 100, how would y
 
 
 code:
+#leetcode Version
 import heapq
 
 class MedianFinder(object):
@@ -78,6 +79,69 @@ class MedianFinder(object):
         
         #否则直接返回最大堆的第一个
         return -self.max_heap[0]
+        
+
+
+# Your MedianFinder object will be instantiated and called as such:
+# obj = MedianFinder()
+# obj.addNum(num)
+# param_2 = obj.findMedian()
+
+
+
+#lintcode Version 
+#题目要求不一样,leetcode中,偶数个数字的中位数是中间两个数除以2;而lintcdoe则是直接输出前面那个数
+import heapq
+class Solution:
+    """
+    @param nums: A list of integers
+    @return: the median of numbers
+    """
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.min_heap = []
+        self.max_heap = []
+
+    def addNum(self, num):
+        """
+        :type num: int
+        :rtype: None
+        """
+        if len(self.max_heap) <= len(self.min_heap):
+            heapq.heappush(self.max_heap, -num)
+        else:
+            heapq.heappush(self.min_heap, num)
+        
+        if self.min_heap and self.min_heap[0] < -self.max_heap[0]:
+            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
+            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
+            
+        
+
+    def findMedian(self):
+        """
+        :rtype: float
+        """
+        if not self.min_heap:
+            return -self.max_heap[0]
+        #与leetcode不一样的地方
+        '''if len(self.min_heap) == len(self.max_heap) and len(self.max_heap) > 1:
+            return (self.min_heap[0] - self.max_heap[0]) / 2'''
+        
+        return -self.max_heap[0]
+    
+    def medianII(self, nums):
+        if not nums:
+            return []
+            
+        result = []
+        for i in range(len(nums)):
+            self.addNum(nums[i])
+            result.append(self.findMedian())
+        
+        return result
         
 
 
