@@ -57,6 +57,8 @@ item = 'ab'
 set([item])结果为set('ab')
 set(item)结果为set('a','b')
 
+set([(i,j)])结果为set((i,j))
+
 ***********************
 #两个list相加,相当于重建一个新list
 #list中的value值是可以重复的;与hash中的key做区别
