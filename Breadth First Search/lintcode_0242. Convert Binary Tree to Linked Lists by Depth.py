@@ -50,7 +50,8 @@ class Solution:
         result = []
         
         while queue:
-            dummy = temp = ListNode(0)
+            #注意ListNode的定义,这里一定要带入值
+            dummy = temp = ListNode(None)
             for _ in range(len(queue)):
                 node = queue.popleft()
                 
