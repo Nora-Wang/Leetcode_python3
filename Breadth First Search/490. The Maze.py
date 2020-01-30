@@ -65,7 +65,10 @@ class Solution:
         
         while queue:
             x,y = queue.popleft()
-
+            
+            if [x,y] == destination:
+                    return True
+                
             for direct in DIRECTIONS:
                 x_, y_ = x, y
     
@@ -75,9 +78,6 @@ class Solution:
                 
                 if (x_,y_) in visited:
                     continue
-                
-                if [x_,y_] == destination:
-                    return True
                 
                 visited.add((x_,y_))
                 queue.append([x_,y_])
@@ -93,6 +93,9 @@ class Solution:
             return False
         
         return True
+                
+
+
                 
 
 
