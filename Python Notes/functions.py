@@ -53,3 +53,9 @@ list()
 12.无穷大和无穷小
 sys.maxsize或float('inf')
 -sys.maxsize或-float('inf')
+
+13.除法
+3 / 2 = 1
+3 // 2 =  1.5
+float(3) / 2 = 1.5
+3.0 / 2 = 1.5
