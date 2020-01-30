@@ -44,39 +44,56 @@ BFS：停下若不在原点则入队，出队检查去重
   
 
 code:
-class Solution(object):
+DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]
+class Solution:
+    """
+    @param maze: the maze
+    @param start: the start
+    @param destination: the destination
+    @return: whether the ball could stop at the destination
+    """
     def hasPath(self, maze, start, destination):
-        """
-        :type maze: List[List[int]]
-        :type start: List[int]
-        :type destination: List[int]
-        :rtype: bool
-        """
-        visited = []
-        dic_r = [1,-1,0,0]
-        dic_c = [0,0,1,-1]
-        queue = collections.deque([start])
+        if not len(maze) or not len(maze[0]):
+            return False
+        
+        if start == destination:
+            return True
+        
+        queue = collections.deque([(start)])
+        visited = set([(start[0],start[1])])
+
+        
         while queue:
-            stop_point = queue.popleft()
-            if stop_point not in visited:
-                visited.append(stop_point)
-            else:
-                continue
-            for i in range(0,4):
-                new = [stop_point[0], stop_point[1]]
-                while self.valid_roll(new[0] + dic_r[i], new[1] + dic_c[i], maze):
-                    new[0] += dic_r[i]
-                    new[1] += dic_c[i]
-                if new == destination:
-                    return True
-                if new != stop_point:
-                    queue.append(new)
-        return False 
+            x,y = queue.popleft()
+
+            for direct in DIRECTIONS:
+                x_, y_ = x, y
     
-    def valid_roll(self, row, col, maze):
-        if row < 0 or row >= len(maze) or col < 0 or col >= len(maze[0]):
+                while self.is_valid(maze, x_ + direct[0], y_ + direct[1]):
+                    x_ += direct[0]
+                    y_ += direct[1]
+                
+                if (x_,y_) in visited:
+                    continue
+                
+                if [x_,y_] == destination:
+                    return True
+                
+                visited.add((x_,y_))
+                queue.append([x_,y_])
+        
+        return False
+                
+    
+    def is_valid(self, maze, x, y):
+        if x < 0 or x >= len(maze) or y < 0 or y >= len(maze[0]):
             return False
-        if maze[row][col] == 1:
+        
+        if maze[x][y] == 1:
             return False
+        
         return True
+                
+
+
         
