@@ -25,6 +25,10 @@ You may assume k is always valid, ie: k is always smaller than input array's siz
 Answers within 10^-5 of the actual value will be accepted as correct.
 
 
+max_heap + min_heap + sliding window
+重点是在sliding window时,如何从堆中删除数据:这里用的是list暴力删除(remove),然后直接heapify再次堆化,时间O(n*k)，空间O(k)
+
+
 code:
 import heapq
 class Solution(object):
@@ -46,16 +50,18 @@ class Solution(object):
         result = []
         median = self.get_median()
         result.append(median)
-        #print max_heap, min_heap, median
-
+        
+        #sliding window
         for j in range(len(nums) - k):
+            #先删除window的头
             if -nums[j] in self.max_heap:
+                #强行删除,再heapify
                 self.max_heap.remove(-nums[j])
                 heapq.heapify(self.max_heap)
             else:
                 self.min_heap.remove(nums[j])
                 heapq.heapify(self.min_heap)
-                
+            #再将尾加入
             self.heap_add(nums[j + k])
             
             median = self.get_median()
@@ -64,7 +70,7 @@ class Solution(object):
         
         return result
             
-    
+    #利用最大堆和最小堆求median的function
     def heap_add(self, num):
         if len(self.min_heap) < len(self.max_heap):
             heapq.heappush(self.min_heap, num)
