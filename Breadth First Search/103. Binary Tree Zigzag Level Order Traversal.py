@@ -22,120 +22,39 @@ return its zigzag level order traversal as:
 BFS模板，version1使用变量count记录level，偶数时用reverse翻转；version2使用变量rev记录level，为True时翻转
 
 code:
-
-Version 0:
-    # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-from collections import deque
-class Solution(object):
-    def zigzagLevelOrder(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
-        if not root:
-            return []
-        result = []
-        queue = deque([root])
-        rev = False
-        while queue:
-            level = []
-            len_level = len(queue)
-#注意循环的写法
-            for _ in range(len_level):
-                node = queue.popleft()
-                level.append(node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-#使用rev变量记录level
-            if rev:
-                level.reverse()
-            result.append(level)
-            rev = not rev
-        return result
-        
-        
-        
-Version 1:
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
 
-from collections import deque
-class Solution(object):
-    def zigzagLevelOrder(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
+        
+        queue = collections.deque([root])
+        
         result = []
-        queue = deque([root])
-        count = 1
+        flag = True
+        
         while queue:
             level = []
-            len_level = len(queue)
-            i = 0
-            while i < len_level:
-                node = queue.popleft()
-                level.append(node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-                i += 1
-            if count % 2 == 0:
-                level.reverse()
-            result.append(level)
-            count += 1
-        return result
-        
-Version 2:
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
-from collections import deque
-class Solution(object):
-    def zigzagLevelOrder(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
-        if not root:
-            return []
-        result = []
-        queue = deque([root])
-        rev = False
-        while queue:
-            level = []
-            len_level = len(queue)
-            i = 0
-            while i < len_level:
+            for _ in range(len(queue)):
                 node = queue.popleft()
+
                 level.append(node.val)
-                if node.left:
-                    queue.append(node.left)
+                
                 if node.right:
                     queue.append(node.right)
-                i += 1
-            if rev:
+                if node.left:
+                    queue.append(node.left)
+                
+            if flag:
                 level.reverse()
+            flag = not flag
             result.append(level)
-            rev = not rev
-        return result
         
+        return result
