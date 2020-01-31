@@ -50,10 +50,62 @@ Both the ball and the destination exist on an empty space, and they will not be 
 The given maze does not contain border (like the red rectangle in the example pictures), but you could assume the border of the maze are all walls.
 The maze contains at least 2 empty spaces, and both the width and height of the maze won't exceed 100.
 
-
-用一个二维数组存取start到每个点到distance + BFS
+方法:
+1.Dijkstra
+2.用一个二维数组存取start到每个点到distance + BFS
 
 code:
+#Dijkstra: heap+二维数组 Version
+import heapq
+DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]
+class Solution:
+    def shortestDistance(self, maze: List[List[int]], start: List[int], destination: List[int]) -> int:
+        if not len(maze) or not len(maze[0]):
+            return False
+        
+        if start == destination:
+            return True
+        
+        #初始化二维数组
+        #二维数组一定要设置,用于判断是否比之前的path小,若小,则继续向下走
+        distance = [[sys.maxsize for i in range(len(maze[0]))] for j in range(len(maze))]
+        distance[start[0]][start[1]] = 0
+        
+        #将start放入heap,heap中存入当前点到start的距离,当前点的坐标
+        heap = []
+        heapq.heappush(heap, (0, start[0],start[1]))
+        
+        while heap:
+            #prev代表当前点到start的距离
+            prev, x, y = heapq.heappop(heap)
+            
+            #若为destination则直接输出即可,因为所得到的prev一定是start到destination的最短距离
+            if [x,y] == destination:
+                return prev
+            
+            for direct in DIRECTIONS:
+                x_,y_ = x,y
+                #将count复制为prev,这样获得当前点到start的距离+后续其roll的距离,就是下一个点到start的距离;因此heap直接将count记录即可
+                count = prev
+                
+                while self.is_valid(maze, x_ + direct[0], y_ + direct[1]):
+                    x_ += direct[0]
+                    y_ += direct[1]
+                    count += 1
+                
+                if count < distance[x_][y_]:
+                    distance[x_][y_] = count
+                    heapq.heappush(heap, (count, x_,y_))
+
+        return -1
+    
+    def is_valid(self, maze, x, y):
+        return 0 <= x < len(maze) and 0 <= y < len(maze[0]) and maze[x][y] == 0
+        
+ 
+ 
+ 
+#BFS:queue+二维数组 Version
 DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]
 class Solution(object):
     def shortestDistance(self, maze, start, destination):
