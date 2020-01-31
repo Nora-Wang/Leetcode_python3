@@ -89,3 +89,56 @@ class Solution(object):
             return float(self.min_heap[0] - self.max_heap[0]) / 2
         return -self.max_heap[0]
         
+
+lintcode:
+对median的定义不同
+import heapq
+class Solution:
+    """
+    @param nums: A list of integers
+    @param k: An integer
+    @return: The median of the element inside the window at each moving
+    """
+    def medianSlidingWindow(self, nums, k):
+        if not nums:
+            return []
+            
+        #initial heap
+        self.min_heap = []
+        self.max_heap = []
+        result = []
+        for i in range(k):
+            self.heap_add(nums[i])
+        
+        #first median
+        result.append(-self.max_heap[0])
+        
+        #sliding window
+        for j in range(len(nums) - k):
+            #delete left num
+            if nums[j] in self.min_heap:
+                self.min_heap.remove(nums[j])
+                heapq.heapify(self.min_heap)
+            elif -nums[j] in self.max_heap:
+                self.max_heap.remove(-nums[j])
+                heapq.heapify(self.max_heap)
+
+            #add right num
+            self.heap_add(nums[j + k])
+            
+            result.append(-self.max_heap[0])
+        
+        return result
+    
+    
+    def heap_add(self, num):
+        #add num
+        if len(self.min_heap) < len(self.max_heap):
+            heapq.heappush(self.min_heap, num)
+        else:
+            heapq.heappush(self.max_heap, -num)
+        
+        #balance heap
+        if self.min_heap and self.min_heap[0] < -self.max_heap[0]:
+            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
+            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
