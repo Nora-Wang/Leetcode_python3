@@ -16,6 +16,7 @@ local_max :  [0, 1, 0, 4, 3, 5, 6, 1, 5]
 global_max : [0, 1, 1, 4, 4, 5, 6, 6, 6]
 
 code:
+#greedy
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         #当所有的nums都小于0时,其maxsum一定是最大的那个值
