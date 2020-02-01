@@ -51,3 +51,43 @@ class Solution:
             tail = tail.next
         
         return dummy.next
+
+    
+    
+#自己写的Version
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        num1_list, num2_list = [], []
+        
+        point_l1 = l1
+        point_l2 = l2
+        
+        while l1 or l2:
+            if l1:
+                num1_list.append(str(l1.val))
+                l1 = l1.next
+            if l2:
+                num2_list.append(str(l2.val))
+                l2 = l2.next
+        
+        num1_str = ''.join(num1_list[::-1])
+        num2_str = ''.join(num2_list[::-1])
+        
+        num1 = int(num1_str)
+        num2 = int(num2_str)
+        
+        sum_str = str(num1 + num2)
+
+        dummy = ListNode(None)
+        tail = dummy
+        for i in range(len(sum_str) - 1, -1, -1):
+            tail.next = ListNode(sum_str[i])
+            tail = tail.next
+        
+        return dummy.next
