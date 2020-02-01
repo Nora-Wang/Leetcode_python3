@@ -36,7 +36,11 @@ import cmath
 num_sqrt = cmath.sqrt(num)
 
 9.反转
-list/str.reverse()
+API	          改变原list	  返回值
+list.reverse()	是	         无
+reversed(list)	否	         有
+Note：reversed() 的返回值类型并不是list，因此如果需要，要再套上一个list()
+
 list/str[::-1]
 sorted(reverse = True)
 
@@ -63,3 +67,9 @@ float(3) / 2 = 1.5
 14.string去掉头尾指定的字符（默认为空格或换行符）或字符序列。
 str.strip([chars])
 注意：该方法只能删除开头或是结尾的字符，不能删除中间部分的字符。
+
+15.'sep'.join(seq)
+sep：分隔符,可以为空
+seq：要连接的元素序列、字符串、元组、字典
+上面的语法即：以sep作为分隔符，将seq所有的元素合并成一个新的字符串
+注意seq为list时,list里的内容必须是str
