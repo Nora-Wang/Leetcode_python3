@@ -17,14 +17,11 @@ random.randint(start, last)
 random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，并将n个元素生以list形式返回
   
 6.排序
-6.1 sorted(iterable, cmp=None, key=None, reverse=False)
-iterable -- 可迭代对象
-cmp -- 比较的函数，这个具有两个参数，参数的值都是从可迭代对象中取出，此函数必须遵守的规则为，大于则返回1，小于则返回-1，等于则返回0
-key -- 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序
-reverse -- 排序规则，reverse = True 降序 ， reverse = False 升序（默认）
+#有返回值,不会改变原数据
+new_list = sorted(list/str/dirc/tuple, cmp=None, key=None, reverse=False)
+#没有返回值,会改变原list
+list.sort(cmp=None, key=None, reverse=False)
 
-6.2 list.sort(cmp=None, key=None, reverse=False)
-只能用于list
 
 7.绝对值
 abs(num)
@@ -73,3 +70,7 @@ sep：分隔符,可以为空
 seq：要连接的元素序列、字符串、元组、字典
 上面的语法即：以sep作为分隔符，将seq所有的元素合并成一个新的字符串
 注意seq为list时,list里的内容必须是str
+
+16.lambda
+pairs = [[3,4],[2,3],[1,2]]
+pairs.sort(key = lambda x : x[0], reverse = True),以pairs每一组的第一个数值为标准进行排序
