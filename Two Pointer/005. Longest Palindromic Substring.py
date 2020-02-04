@@ -18,37 +18,41 @@ O(n*n)。对于每一个字符，以之作为中间元素往左右寻找。
 
 code:
 Version 0:
-设置一个self.longest全局变量，直接在find_palindrom函数中对self.longest取最大值
-class Solution(object):
-    def __init__(self):
-        self.longest = ''
-    def longestPalindrome(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
+使用left和index记录当前longest Palindrome的起点index和整个的长度
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
         if not s:
             return ''
-        if len(s) == 2 and s[0] != s[1]:
-            return s[0]
         
-        for middle in range(len(s)):
-            sub = self.find_palindrom(s, middle, middle + 1)
-            sub = self.find_palindrom(s, middle, middle)
-        return self.longest
+        left = 0
+        index = 0
+        count = 0
+        
+        for i in range(len(s)):
+            index1, count1 = self.longest_palindrome(s, i, i)
+            index2, count2 = self.longest_palindrome(s, i, i + 1)
+            
+            if count1 > count:
+                count, index = count1, index1
+            if count2 > count:
+                count, index = count2, index2
+        
+        return s[index : index + count + 1]
     
-    def find_palindrom(self, s, left, right):
+    def longest_palindrome(self, s, left, right):
+        count = 0
+        
         while left >= 0 and right < len(s) and s[left] == s[right]:
+            count = right - left
             left -= 1
             right += 1
-#        left += 1
-#        if len(self.longest) < right - left:
-#            self.longest = s[left:right]
-        if len(self.longest) < right - left - 1:
-            self.longest = s[left + 1:right]        
+            
+        return left + 1, count
+            
+              
                 
 Version 1:
-最常规的方法
+使用string
 class Solution(object):
     def longestPalindrome(self, s):
         """
