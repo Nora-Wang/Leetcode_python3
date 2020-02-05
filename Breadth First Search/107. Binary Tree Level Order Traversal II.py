@@ -24,68 +24,35 @@ return its bottom-up level order traversal as:
 注意循环使用for _ in range(len_level):
 
 code: 
-    
-Version 0
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
 
-from collections import deque
-class Solution(object):
-    def levelOrderBottom(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         if not root:
-            return []
+            return[]
+        
+        return self.bfs(root)
+    
+    def bfs(self, root):
+        queue = collections.deque([root])
         result = []
-        queue = deque([root])
+        
         while queue:
-            result.append([item.val for item in queue])
-            len_level = len(queue)
-            for _ in range(len_level):
+            level = []
+            for _ in range(len(queue)):
                 node = queue.popleft()
+                level.append(node.val)
+                
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-        result.reverse()
-        return result
-    
-    
-Version 1
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-from collections import deque
-class Solution(object):
-    def levelOrderBottom(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
-        if not root:
-            return []
-        result = []
-        queue = deque([root])
-        while queue:
-            result.append([item.val for item in queue])
-            len_level = len(queue)
-            i = 0
-            while i < len_level:
-                node = queue.popleft()
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-                i += 1
-        result.reverse()
-        return result
+            
+            result.append(level)
+        
+        return result[::-1]
