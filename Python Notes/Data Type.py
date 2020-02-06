@@ -33,6 +33,9 @@ del dict[key]
 dict[key] = dict.get(key, value)
 eg:dict[key] = dict.get(key, 0) 或者 dict[item] = dict.get(key, set([word]))
 dict[key] = dict.get(key, 0) + 1
+#若value为list
+dict = collections.defaultdict(list)
+dict[key].append(value)
 
 3.取值
 dict.keys()
