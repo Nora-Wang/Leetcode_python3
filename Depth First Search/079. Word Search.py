@@ -19,23 +19,6 @@ Given word = "ABCB", return false.
 但不同的路径可以经过同样的位置。
 
 
-变量node:
-1.全局变量,不可变
-2.类变量,不可变
-3.成员变量,可变
-4.局部变量,可变
-5.实例变量,可变
-
-eg:
-DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]#全局变量:调用时直接使用,DIRECTIONS
-class Solution(object):
-    DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]#类变量:调用时用class的名字,Solution.DIRECTIONS
-    def __init__(self):
-        self.directions = [(0,1),(0,-1),(1,0),(-1,0)]#成员变量:调用时直接self.directions即可
-    def function(...):
-        directions = [(0,1),(0,-1),(1,0),(-1,0)]#局部变量:调用时直接directions即可
-        self.directions = [(0,1),(0,-1),(1,0),(-1,0)]#实例变量:调用时直接self.directions即可
-
 code:
 DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]#全局变量
 class Solution(object):
