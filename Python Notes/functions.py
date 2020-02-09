@@ -1,5 +1,6 @@
-1.转换为ASCII
-ord()
+1.字母与ASCII互相转换
+ord()转换为ASCII
+chr()转换为字母
 
 2.取小写字母
 string.lowercase
