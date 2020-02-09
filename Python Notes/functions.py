@@ -73,7 +73,9 @@ seq：要连接的元素序列、字符串、元组、字典
 
 16.lambda
 pairs = [[3,4],[2,3],[1,2]]
-pairs.sort(key = lambda x : x[0], reverse = True),以pairs每一组的第一个数值为标准进行排序
+pairs.sort(key=lambda x : x[0], reverse = True),以pairs每一组的第一个数值为标准进行排序
+
+sorted(dict.items(), key=lambda x:[1])dict以value的值进行排序#结果为list中包含tuple,eg:[(key1,value1),(key2,value2)]
 
 17.split
 list = str.split()默认为空格
