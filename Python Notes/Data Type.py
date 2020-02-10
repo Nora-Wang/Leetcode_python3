@@ -76,6 +76,9 @@ list.append(item)
 3.查找index:
 list.index(x[, start[, end]]),x为可查找对象;该方法返回查找对象的索引位置，如果没有找到对象则抛出异常。
 
+4.创建一个长度为n的list
+list = [None for _ in range(n)]
+
 
 ***********************
 ###queue和stack本质上是list
