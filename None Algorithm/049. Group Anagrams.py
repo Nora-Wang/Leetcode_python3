@@ -29,21 +29,15 @@ class Solution(object):
         if not strs:
             return []
         
-        dict_strs = {}
+        hash_record = collections.defaultdict(list)
+        
         for word in strs:
-            word_sorted = self.get_sorted_word(word)
-            if word_sorted not in dict_strs:
-                dict_strs[word_sorted] = []
-            dict_strs[word_sorted].append(word)
-            
+            hash_record[str(sorted(word))].append(word)
+        
         result = []
-        for word_sorted in dict_strs:
-            result.append(dict_strs[word_sorted])
-            
+        for word in hash_record:
+            result.append(hash_record[word])
+        
         return result
-    
-    def get_sorted_word(self, word):
-        #注意sorted函数的结果是一个list
-        return str(sorted(word))
         
         
