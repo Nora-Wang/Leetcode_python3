@@ -7,6 +7,8 @@ string.lowercase
 
 3.整除
 mid = (end - start) // 2
+次方
+2**8 = 2^8
 
 4.取小数后k位
 round(num,k)
@@ -22,7 +24,6 @@ random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，�
 new_list = sorted(list/str/dirc/tuple, cmp=None, key=None, reverse=False)
 #没有返回值,会改变原list
 list.sort(cmp=None, key=None, reverse=False)
-
 
 7.绝对值
 abs(num)
@@ -78,5 +79,9 @@ pairs.sort(key=lambda x : x[0], reverse = True),以pairs每一组的第一个数
 
 sorted(dict.items(), key=lambda x:[1])dict以value的值进行排序#结果为list中包含tuple,eg:[(key1,value1),(key2,value2)]
 
-17.split
-list = str.split()默认为空格
+17.split把str分为list
+list = str.split('c')默认为空格
+
+18.str.strip('c')移除 string 前后的字符串，默认来移除空格，但是也可以给一个字符串，然后会移除含有这个字符串的部分
+str.rstrip()移除右侧字符串
+str.lstrip()移除左侧字符串
