@@ -43,6 +43,7 @@ class Solution:
         
         results = []
         
+        #hash table的结果是,若后续有比num大的数,则记录在value中,若没有,则不存在于hash table中
         for num in nums1:
             if num not in record:
                 results.append(-1)
