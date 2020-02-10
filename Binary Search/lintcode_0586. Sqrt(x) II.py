@@ -31,6 +31,7 @@ class Solution:
         if x == 0:
             return 0
         
+        #需要预处理一下x
         if x >= 1:
             start, end = 1, x
         else:
