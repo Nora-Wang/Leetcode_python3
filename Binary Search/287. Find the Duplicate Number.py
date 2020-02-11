@@ -21,25 +21,23 @@ left__________________________________mid___________right
 ##这道题本质上就是在比较array里面有多少个值(count)是比中位数(mid)大的，如果个数比中位数多，那就证明重复的值在1～中位数之间，反之则在中位数～n之间
 code:
 
-class Solution(object):
-    def findDuplicate(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        left = 1
-        right = len(nums) - 1
-        i = 0
-        while(left < right):
-            mid = left + (right - left) / 2
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        start, end = 1, len(nums) - 1
+        
+        while start < end:
+            mid = (start + end) // 2
+            
             count = 0
-            for i in nums:
-                if i <= mid:
+            for num in nums:
+                if num <= mid:
                     count += 1
-            if(count <= mid):
-                left = mid + 1
+            
+            if count <= mid:
+                start = mid + 1
             else:
-                right = mid
-        return right
+                end = mid
+        
+        return start
                 
         
