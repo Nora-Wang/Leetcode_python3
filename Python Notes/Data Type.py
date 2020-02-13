@@ -123,3 +123,7 @@ stack.append(item)
 stack[-1]
 5.栈底是最左
 stack[0]
+
+***********************
+tuple不可更改,但可以进行连接组合
+tup3 = tup1 + tup2
