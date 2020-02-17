@@ -33,6 +33,7 @@ class Solution:
         while matrix:
             #left to right pop
             #这里的pop(0)意思是对应matrix的第一行
+            #这里用extend,节省空间
             result.extend(matrix.pop(0))
             
             #top to bottom pop
