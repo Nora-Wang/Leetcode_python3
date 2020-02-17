@@ -69,9 +69,12 @@ list:
 1.删除:
 list.remove(item)item是list中所包含的值
 del list[index]
+list.pop() pop出list中的最后一个值
+list.pop(0) pop出list中的第一个值
 
 2.添加:
 list.append(item)
+list1 + list2 = list1.extend(list2) extend直接在list1的基础上改变,不会新建一个list
 
 3.查找index:
 list.index(x[, start[, end]]),x为可查找对象;该方法返回查找对象的索引位置，如果没有找到对象则抛出异常。
