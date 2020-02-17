@@ -26,29 +26,25 @@ lintcode_0443. Two Sum - Greater than target
 先sort，然后for循环最大边的位置 i，接下来的任务就是在 0~i-1 之间用Two Sum的方法找到 > S[i]的组合(因为另外两个边的值都必须要小于i的值)
 
 code:
-class Solution(object):
-    def triangleNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def triangleNumber(self, nums: List[int]) -> int:
         if not nums:
             return 0
         
-        #一定要记得先sort！！！！
-        nums.sort()
-        count = 0
+        nums.sort(reverse=True)
+        result = 0
         
-        for i in range(len(nums)):
-            #Two Sum，范围是0～i-1
-            start, end = 0, i - 1
-            while start < end:
-#分析:若此时的nums[start] + nums[end] > nums[i]，则end不变，start一直++时都是满足>nums[i]的,所以一共end - start种情况都可以加入count
-                if nums[start] + nums[end] > nums[i]:
-                    count += (end - start)
-                    end -= 1
-                    
-                else:
-                    start += 1
+        for i in range(len(nums) - 2):
+            left = i + 1
+            right = len(nums) - 1
             
-        return count
+            while left < right:
+                value = nums[left] + nums[right]
+                
+                if value > nums[i]:
+                    result += right - left
+                    left += 1
+                else:
+                    right -= 1
+        
+        return result
