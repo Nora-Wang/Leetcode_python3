@@ -8,32 +8,33 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 
 参考
 
-class Solution(object):
-    def threeSumClosest(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
         if not nums:
-            return None
+            return 0
         
         nums.sort()
-        result = None
-        diff = sys.maxsize
-        
+        result = 0
+        record = sys.maxsize
         for i in range(len(nums) - 2):
-            start, end = i + 1, len(nums) - 1
+            if i and nums[i] == nums[i - 1]:
+                continue
             
-            while start < end:
-                sum = nums[start] + nums[end] + nums[i]
-                if abs(sum - target) < diff:
-                    diff = abs(sum - target)
-                    result = sum
-                    
-                if sum < target:
-                    start += 1
+            left = i + 1
+            right = len(nums) - 1
+            
+            while left < right:
+                value = nums[left] + nums[right] + nums[i]
+                
+                #特判
+                if abs(target- value) < abs(target - record):
+                    if value == target:
+                        return value
+                    record = value
+                
+                if value < target:
+                    left += 1
                 else:
-                    end -= 1
+                    right -= 1
                     
-        return result
+        return record
