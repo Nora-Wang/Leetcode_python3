@@ -53,6 +53,7 @@ class Solution:
                 #当是左上角的值时,略过,否则后续会out of index
                 if i == 0 and j == 0:
                     continue
+                #这里i-1或者j-1可能会取值为-1,但不是out of index,它依然可以取值,即取到dp的最后一位
                 dp[i][j] = dp[i-1][j] + dp[i][j-1]
         
         return dp[n-1][m-1]
