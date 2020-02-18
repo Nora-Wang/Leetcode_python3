@@ -51,15 +51,6 @@ DP问题,match DP的可行性问题
 
 code:
 class Solution(object):
-    def isMatch(self, s, p):
-        """
-        :type s: str
-        :type p: str
-        :rtype: bool
-        """
-        return self.is_match_helper(s, p, 0, 0, {})
-    
-    def is_match_helper(self, s, p, i, j, visited):
         #首先看有没有class Solution(object):
     def isMatch(self, s, p):
         """
