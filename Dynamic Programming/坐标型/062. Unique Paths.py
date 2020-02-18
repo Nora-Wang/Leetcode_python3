@@ -54,3 +54,20 @@ class Solution:
                 dp[i][j] = dp[i][j-1] + dp[i-1][j]
         
         return dp[n-1][m-1]
+
+    
+    
+递归解法:超时
+    class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+    #递归出口
+        if m < 0 or n < 0:
+            return 0
+        
+        if m == 1 and n == 1:
+            return 1
+        
+        up = self.uniquePaths(m-1, n)
+        left = self.uniquePaths(m,n-1)
+        
+        return up + left
