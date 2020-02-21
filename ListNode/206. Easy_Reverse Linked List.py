@@ -54,9 +54,11 @@ class Solution(object):
         #注意不要用prev = ListNode(None)；因为这样prev就算一个node，最后的结果：5->4->3->2->1->None；正确结果：5->4->3->2->1
         prev = None
         curt = head
-        while(curt):
+   
+        while curt:
             temp = curt.next
             curt.next = prev
             prev = curt
             curt = temp
+         
         return prev
