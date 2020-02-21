@@ -23,6 +23,7 @@ class Solution:
         
         carry = 0
         
+        #这里一定要加一个carry != 0,因为最后一位可能会存在进位
         while l1 or l2 or carry != 0:
             if l1:
                 carry += l1.val
