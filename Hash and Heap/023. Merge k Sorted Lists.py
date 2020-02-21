@@ -22,6 +22,8 @@ code:
 #         self.val = x
 #         self.next = None
 import heapq
+#需要重新优先队列的比较方式 
+ListNode.__lt__ = lambda x, y: (x.val < y.val) 
 class Solution(object):
     def mergeKLists(self, lists):
         """
@@ -39,7 +41,7 @@ class Solution(object):
         for head in lists:
             #这里要这样写是因为corner case:lists = [[]], return [];这样head没有val
             if head:
-                heapq.heappush(heap, (head.val, head))
+                heapq.heappush(heap, head)
         
         #因为rtype: ListNode,所以新建一个dummy
         dummy = ListNode(-1)
@@ -47,7 +49,7 @@ class Solution(object):
         
         #heap就跟queue一样的用
         while heap:
-            _, head = heapq.heappop(heap)
+            head = heapq.heappop(heap)
             tail.next = head
             tail = head
             #这里不能将tail后面清空,因为这里改tail就等同对head(lists中的head)做改变
@@ -55,7 +57,7 @@ class Solution(object):
 
             if head.next:
                 head = head.next
-                heapq.heappush(heap, (head.val, head))
+                heapq.heappush(heap, head)
         
         return dummy.next
 
