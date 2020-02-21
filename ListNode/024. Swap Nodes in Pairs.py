@@ -27,59 +27,32 @@ dummy.next = head可满足特殊情况
 
 
 code:
-
+#####提前定义了curt，使得在while循环中不用单独判定curt和temp
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
-class Solution(object):
-    def swapPairs(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
-        dummy = ListNode(None)
-        #考虑[]和[1]的情况，不会进入while循环，return dummy.next可直接返回head
-        dummy.next = head
-        prev = dummy
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        dummy = prev = ListNode(None)
+        dummy.next = curt = head
         
-        while(prev.next and prev.next.next):
-            curt = prev.next
-            #共偶数个node：1->2->3->4.循环结束，prev指向最后一个node；即整个链表swap结束
-            #这个地方其实就是prev.next
-            if not (curt):
-                break
+        while curt and curt.next:
+            #定义好temp,curt,prev的位置
             temp = curt.next
-            #共奇数个node：1->2->3->4->5.循环结束，prev指向倒数第二个node；此时仅剩一个node，即整个链表swap结束
-            #这个地方其实就是prev.next.next，curt.next
-            if not (temp):
-                break
+            
+            #开始swap:1->4, 3->5, 4->3
             prev.next = temp
             curt.next = temp.next
             temp.next = curt
-            prev = curt
-        return dummy.next
-       
-       
-       
-#####第二次做的结果更好。差距就是提前定义了curt，使得在while循环中不用单独判定curt和temp
-class Solution(object):
-     def swapPairs(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
-        dummy = ListNode(None)
-        dummy.next = head
-        prev = dummy
-        curt = head
-        while(curt and curt.next):
-            temp = curt.next
-            prev.next = temp
-            curt.next = temp.next
-            temp.next = curt
+            
+            #调整一下当前prev和curt的位置
             prev = curt
             curt = curt.next
+        
         return dummy.next
+            
+            
+            
