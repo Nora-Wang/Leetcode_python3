@@ -37,6 +37,7 @@ code:
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
         dummy = prev = ListNode(None)
+        #这里要定义dummy.next=head,因为可能会出现[1]的情况,即不存在curt.next,这时直接输出head即可
         dummy.next = curt = head
         
         while curt and curt.next:
