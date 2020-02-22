@@ -70,8 +70,8 @@ list:
 1.删除:
 list.remove(item)item是list中所包含的值
 del list[index]
-list.pop() pop出list中的最后一个值
-list.pop(0) pop出list中的第一个值
+item = list.pop() pop出list中的最后一个值
+item = list.pop(0) pop出list中的第一个值
 
 2.添加:
 list.append(item)
