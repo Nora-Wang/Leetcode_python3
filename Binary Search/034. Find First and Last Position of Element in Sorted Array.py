@@ -10,52 +10,44 @@ If the target is not found in the array, return [-1, -1].
 套用模板的时候，每一步骤要分析清楚！！！尤其是while循环和最后的if(end/start)语句！！
 
 code：
-
-class Solution(object):
-    def searchRange(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
- #九章version
-        result = [-1, -1]
-        if len(nums) == 0:
-            return result
-        #找first position
-        start = 0
-        end = len(nums) - 1
-        while (start + 1 < end):
-            mid = start + (end - start) / 2
-            if nums[mid] >= target:
-                #找first position，即找target第一次出现的位置，所以限制end
-                end = mid
-            else:
- ####第二次做改良版：start = mid + 1
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        if not nums:
+            return [-1,-1]
+        result = [-1,-1]
+        
+        #find start index
+        start, end = 0, len(nums) - 1
+        
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            
+            if nums[mid] < target:
                 start = mid
-        #需要考虑清楚，只剩最后两个数据的时候，若为[1, 1], 因为找first position，所以应先查看start，再查看end
+            else:
+                end = mid
+        
         if nums[start] == target:
             result[0] = start
         elif nums[end] == target:
             result[0] = end
- ####第二次做改良版：若循环一遍都找不到target，那直接return result
-#         else:
-#             return result
-
-        #找second position
-        start = 0
-        end = len(nums) - 1
-        while (start + 1 < end):
-            mid = start + (end - start) / 2
-            if nums[mid] <= target:
-                #找second position，即找target最后一次出现的位置，所以限制start
-                start = mid
-            else:
- ####第二次做改良版：end = mid - 1
+        else:
+            #if cannot find the start index, which means the target do not exist in the nums, so return [-1,-1]
+            return result
+        
+        start, end = 0, len(nums) - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            
+            if nums[mid] > target:
                 end = mid
-        # 需要考虑清楚，只剩最后两个数据的时候，若为[1, 1], 因为找second position，所以应先查看end，再查看start
+            else:
+                start = mid
+        
         if nums[end] == target:
             result[1] = end
+        ##attention: use elif not if, because the nums[start] may equals to nums[end]
         elif nums[start] == target:
             result[1] = start
+            
         return result
