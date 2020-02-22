@@ -85,3 +85,5 @@ list = str.split('c')默认为空格
 18.str.strip('c')移除 string 前后的字符串，默认来移除空格，但是也可以给一个字符串，然后会移除含有这个字符串的部分
 str.rstrip()移除右侧字符串
 str.lstrip()移除左侧字符串
+
+19.for index, item in enumerate(list)
