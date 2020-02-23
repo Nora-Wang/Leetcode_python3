@@ -40,7 +40,7 @@ list.reverse()	是	         无
 reversed(list)	否	         有
 Note：reversed() 的返回值类型并不是list，因此如果需要，要再套上一个list()
 
-list/str[::-1]
+list/str[::-1] #返回值被reverse了,但list/str并没有被reverse
 sorted(reverse=True)
 
 10.取值范围
