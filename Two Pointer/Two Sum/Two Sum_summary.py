@@ -54,3 +54,48 @@ def twoSum(numbers, target):
 
     return None
     
+
+########################################################################
+4 sum模板:
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        if not nums:
+            return []
+        
+        nums.sort()
+        res = []
+        
+        for i in range(len(nums) - 3):
+            if i and nums[i] == nums[i-1]:
+                continue
+            
+            curt_target = target - nums[i]
+            
+            for j in range(i+1, len(nums) - 2):
+                if j > i+1 and nums[j] == nums[j-1]:
+                    continue
+                    
+                left = j + 1
+                right = len(nums) - 1
+                
+                while left < right:
+                    value = nums[left] + nums[right] + nums[j]
+                    
+                    if value == curt_target:
+                        res.append([nums[i],nums[j],nums[left],nums[right]])
+                        
+                        left += 1
+                        right -= 1
+                        
+                        while left < right and nums[left] == nums[left-1]:
+                            left += 1
+                        while left < right and nums[right] == nums[right+1]:
+                            right -= 1
+                    
+                    elif value < curt_target:
+                        left += 1
+                    else:
+                        right -= 1
+        
+        return res
+        
