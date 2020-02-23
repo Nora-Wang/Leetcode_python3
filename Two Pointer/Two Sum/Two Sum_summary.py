@@ -8,11 +8,9 @@ Two Sum有两种方法：two pointer或者hash
 两种算法的运用场景：
 没有被sorted的array，如果要求返回index，只能用hash
 如果返回的是值，或者是递增或者递减的array，two pointer和hash都能用
-对于给定已经被sorted的array，two pointer更优 
-                
-                
-当要求返回的两个数的值，而不是index时
+对于给定已经被sorted的array，当要求返回的两个数的值，而不是index时,two pointer更优 
 #由于此时要求的是value，所以可以使用.sort()+two pointer的方法来处理，这比hash更好，因为hash需要O(n)的空间复杂度
+
 
 Version 1 two pointer
 1.首先我们对数组进行排序。
