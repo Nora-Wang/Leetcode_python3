@@ -66,6 +66,7 @@ set([(i,j)])结果为set((i,j))
 #两个list相加,相当于重建一个新list
 #list中的value值是可以重复的;与hash中的key做区别
 #同一list中数据类型都是一样的
+#对list中的值进行重新赋值时,一定要用nums[index]的形式,不能直接num = item,这样无法成功赋值
 list:
 1.删除:
 #O(n)
