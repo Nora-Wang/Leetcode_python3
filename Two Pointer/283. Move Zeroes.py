@@ -34,19 +34,21 @@ swap过程
 综上,一共2+2+2=6次写操作
     
     
-class Solution(object):
-    def moveZeroes(self, nums):
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
         """
-        :type nums: List[int]
-        :rtype: None Do not return anything, modify nums in-place instead.
+        Do not return anything, modify nums in-place instead.
         """
+        if not nums:
+            return nums
+        
         quick, slow = 0, 0
         
-        while quick < len(nums):
+        for quick in range(len(nums)):
             if nums[quick] != 0:
                 nums[slow], nums[quick] = nums[quick], nums[slow]
                 slow += 1
-            quick += 1
+            
             
       
     
