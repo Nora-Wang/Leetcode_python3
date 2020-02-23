@@ -68,15 +68,18 @@ set([(i,j)])结果为set((i,j))
 #同一list中数据类型都是一样的
 list:
 1.删除:
+#O(n)
 list.remove(item)item是list中所包含的值
 del list[index]
+#O(1)
 item = list.pop() pop出list中的最后一个值
+#deque为O(1),普通为O(n)
 item = list.pop(0) pop出list中的第一个值
 
 2.添加:
-list.append(item)
+list.append(item) #O(1)
 list1 + list2 = list1.extend(list2) extend直接在list1的基础上改变,不会新建一个list
-list.inset(index, item) O(n)
+list.inset(index, item) #O(n)
 
 3.查找index:
 list.index(x[, start[, end]]),x为可查找对象;该方法返回查找对象的索引位置，如果没有找到对象则抛出异常。
