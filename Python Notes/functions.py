@@ -41,7 +41,7 @@ reversed(list)	否	         有
 Note：reversed() 的返回值类型并不是list，因此如果需要，要再套上一个list()
 
 list/str[::-1]
-sorted(reverse = True)
+sorted(reverse=True)
 
 10.取值范围
 range(start, stop[, step])
