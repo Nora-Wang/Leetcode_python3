@@ -20,7 +20,7 @@ class Solution(object):
         """
         result = ''
         #建立目标字符串的哈希表与出现次数，匹配值初始为0
-        hash_t = self.get_hash(t)
+        hash_t = collections.Counter(t)
         hash_s = {}
         j = 0
         count = 0
@@ -50,11 +50,4 @@ class Solution(object):
                 count -= 1
         
         return result
-    
-    def get_hash(self, t):
-        hash_t = {}
-        for item in t:
-            hash_t[item] = hash_t.get(item, 0) + 1
-        
-        return hash_t
                 
