@@ -23,9 +23,35 @@ The length of the array won't exceed 10,000.
 All the integers in the given input belong to the range: [-1e7, 1e7].
 
 
-用hash记录每个值出现的次数,若k为0,则count=所有出现次数>1的数;否则,判断num -/+ k在不在hash表中,注意最后结果需要除以2
+
 
 code:
+#对每个num进行遍历,看num - k是否在hash table中
+class Solution:
+    def findPairs(self, nums: List[int], k: int) -> int:
+        if not nums or k < 0:
+            return 0
+        
+        hash_nums = collections.Counter(nums)
+        
+        count = 0
+        
+        for num in hash_nums:
+            if k == 0:
+                if hash_nums[num] > 1:
+                    count += 1
+            else:
+                if num - k in hash_nums:
+                    count += 1
+        
+        return count
+    
+    
+    
+    
+    
+    
+#用hash记录每个值出现的次数,若k为0,则count=所有出现次数>1的数;否则,判断num -/+ k在不在hash表中,注意最后结果需要除以2
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
         #注意corner case:k<0
