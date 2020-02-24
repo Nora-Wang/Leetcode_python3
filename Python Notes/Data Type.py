@@ -46,6 +46,11 @@ dict.values()
 key:sorted(dict.keys())
 value:sorted(dict.items(), key = lambda item:item[1])
 sorted函数的结构:sorted(iterable, cmp=None, key=None, reverse=False);具体可参考functions文档
+  
+5.统计频率
+dict = collections.Counter(key的集合)
+dict中value为每个key出现的次数
+
 
 ***********************
 set 没有value的dict:
