@@ -62,3 +62,29 @@ class Solution(object):
             curt = temp
          
         return prev
+       
+       
+       
+#new version
+相当于一直在dummy的后面加点
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        dummy = ListNode(None)
+        tail = dummy.next
+        
+        while head:
+            new_node = ListNode(head.val)
+            
+            dummy.next = new_node
+            new_node.next = tail
+            tail = new_node
+            
+            head = head.next
+        
+        return dummy.next
