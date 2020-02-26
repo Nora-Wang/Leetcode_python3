@@ -20,7 +20,50 @@ The flattened tree should look like:
         5
          \
           6
-          
+
+            
+            
+#反向postroder
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def __init__(self):
+        #prev相当于是当前root的左子树
+        self.prev = None
+        
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        if not root:
+            return
+        
+        self.flatten(root.right)
+        self.flatten(root.left)
+        
+        #将左子树放在root的右侧
+        root.right = self.prev
+        #将左子树清空
+        root.left = None
+        #更新root
+        self.prev = root
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
           
 思路：
 1.将4复制到3.right处
