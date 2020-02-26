@@ -22,7 +22,7 @@ node.val is 0 or 1.
 The answer will not exceed 2^31 - 1.
 
 
-跟一样,就是改为二进制
+就是二进制版129
 
 code:
 # Definition for a binary tree node.
