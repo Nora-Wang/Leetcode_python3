@@ -17,7 +17,82 @@ Example 1:
 Input: [2,1,3]
 Output: true
 
+code:
+#1 记录lower_bound和upper_bound,与当前root.val做比较
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        return self.helper(root, -sys.maxsize, sys.maxsize)
+    
+    def helper(self, root, lower_bound, upper_bound):
+        if not root:
+            return True
+        
+        #题目要求lower_bound < root.val < upper_bound
+        if root.val <= lower_bound or root.val >= upper_bound:
+            return False
+        
+        left = self.helper(root.left, lower_bound, root.val)
+        right = self.helper(root.right, root.val, upper_bound)
+        
+        return left and right
+        
+
+#2 inorder divide and conquer,用一个全局变量来记录上一个node,然后将其与当前root.val做比较,因为BST是递增的
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        self.lastnode = None
+        return self.inorder(root)
+    
+    def inorder(self, root):
+        if not root:
+            return True
+        
+        left = self.inorder(root.left)
+        
+        if self.lastnode and self.lastnode.val >= root.val:
+            return False
+        self.lastnode = root
+        
+        right = self.inorder(root.right)
+        
+        #只有当左右子树都为BST时，整棵树才为BST
+        if left and right:
+            return True
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+########################################################################################################################
 思路：
 Version1：
 仔细看题目，只存在比root大和比root小的情况，不存在等于的情况，因此可以直接利用BST的性质：若inorder traversal的结果是升序的，则为BST
