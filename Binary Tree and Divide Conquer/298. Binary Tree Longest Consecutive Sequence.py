@@ -34,6 +34,8 @@ Output: 2
 Explanation: Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
 
 
+用一个temp来记录path
+
 code:
 # Definition for a binary tree node.
 # class TreeNode:
@@ -63,6 +65,7 @@ class Solution:
         
         self.helper(root.left, temp)
         self.helper(root.right, temp)
+        
         
         temp.pop()
         
