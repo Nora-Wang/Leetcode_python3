@@ -68,9 +68,9 @@ class Solution:
         right = self.inorderTraversal(root.right)
         
         #left, root, right
-        result += left
+        result.extend(left)
         result.append(root.val)
-        result += right
+        result.extend(right)
         
         return result
         
