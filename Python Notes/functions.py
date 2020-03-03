@@ -87,3 +87,6 @@ str.rstrip()移除右侧字符串
 str.lstrip()移除左侧字符串
 
 19.for index, item in enumerate(list)
+
+20.不换行
+print (123,end='')
