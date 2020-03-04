@@ -25,17 +25,13 @@ Explanation: There are a total of 4 courses to take. To take course 3 you should
              
 主题思路跟207一模一样，只是I用count记录node个数，若与numCourses相同即符合
 而II则需要用result记录所遍历的courses，若其长度与numCourses相同即符合，然后输出result
-#两个corner case！！
+#corner case！！
 
 
 
 code:
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        #corner case 1
-        if not prerequisites:
-            return [i for i in range(numCourses)]
-        
         graph, indegrees = self.create_graph_indegrees(numCourses, prerequisites)
         
         queue = collections.deque()
