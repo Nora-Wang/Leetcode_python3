@@ -106,7 +106,7 @@ if i > startIndex and nums[i] == nums[i - 1]:
 1.是不是要将所有的值都排列出来,即permutation problem:用visited
 2.每次的取值是不是根据某种规则选取数,即combination problem:用start_index
 3.nums是不是存在重复数值([1,2',2'']):yes用nums[i] == nums[i - 1] not visited[i - 1] or i > start_index(##记得sort)
-4.combination时,每次的取值是不是不能取相同index的值(2+2=4):yes i; no i + 1
+4.combination时,每次的取值是不是能取相同index的值(2+2=4):yes i; no i + 1
 ******************************************************************************************************************
                  
 4.permutations设置一个visited
