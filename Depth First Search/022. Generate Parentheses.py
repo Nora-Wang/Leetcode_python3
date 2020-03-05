@@ -21,7 +21,8 @@ For example, given n = 3, a solution set is:
     
 这道题用left和right来记录左括号和右括号的个数,以此限制结果是valid的:只有当left > right时,才能加左括号(思路很像大小堆那道题)
     
-
+Time complexity = O(2^(N))#二叉树,一共n*2层
+Space complexity = O(N*2^N)#二叉树,一共n*2层,因此一共有2^(n*2)种结果,而每个结果的长度为2*n -> (2*n) * 2^(n*2) = O(N*2^N)
 
 code:
 class Solution:
