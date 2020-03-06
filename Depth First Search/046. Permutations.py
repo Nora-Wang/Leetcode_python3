@@ -27,9 +27,8 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         results = []
-         #定义一个用过的集合visited
-         #注意visited的写法:要建立一个长度为len(nums),值都为False的list
-        visited = [False] * len(nums)
+        #定义一个用过的集合visited
+        visited = set()
             
         self.dfs(nums, visited, [], results)
         
@@ -49,15 +48,14 @@ class Solution(object):
             #去重
             #用过了(当前temp里正在用)就跳过
             #对于[1,2,3],当1被加入进了temp,则visited[0]=True;temp后续加第二个值时,就只能在剩余的数(2,3)里面选
-            #注意后续需要将visited[0]从新设置为False,因为到后面先将2加入temp时,这时的1应该在备选数据中,而不应在visited中
-            if visited[i]:
+            if nums[i] in visited:
                 continue
                 
             #后面的这些部分呈镜像对称
             temp.append(nums[i])
-            #用的时候设置为True:[]->[1]
-            visited[i] = True
+            #用的时候将其加入visited
+            visited.add(nums[i])
             self.dfs(nums, visited, temp, results)
-            #用完了需要返回False:[1]->[]
-            visited[i] = False
+            #用完了需要返回
+            visited.remove(nums[i])
             temp.pop()
