@@ -46,8 +46,7 @@ class Solution(object):
             return []
         
         results = []
-        #当后续需要将candidates[i]与candidates[i - 1]做比较时,一定要记得sort
-        candidates.sort()
+        
         self.dfs(candidates, 0, [], results, target)
         
         return results
@@ -64,14 +63,8 @@ class Solution(object):
         
         #注意这里的起始值为start_index
         for i in range(start_index, len(candidates)):
-            #去重
-            if i > start_index and candidates[i] == candidates[i - 1]:
-                continue
-                
             temp.append(candidates[i])
-            cur_target -= candidates[i]
             #这里要是i,而不是i+1,因为在得到target的过程中,数据可以重复;eg example 2中的[2,2,2,2]
             #题目中的:The same repeated number may be chosen from candidates unlimited number of times.
-            self.dfs(candidates, i, temp, results, cur_target)
-            cur_target += candidates[i]
+            self.dfs(candidates, i, temp, results, cur_target - candidates[i])
             temp.pop()
