@@ -26,6 +26,10 @@ A solution set is:
 ]
 
 
+时间复杂度: O(n^t)?
+空间复杂度: O(n * n^t)?
+
+
 class Solution:
     """
     @param candidates: A list of integers
