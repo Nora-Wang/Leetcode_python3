@@ -28,7 +28,7 @@ class Solution(object):
         """
         results = []
         #定义一个用过的集合visited
-        visited = set()
+        visited = [False] * len(nums)
             
         self.dfs(nums, visited, [], results)
         
@@ -48,14 +48,14 @@ class Solution(object):
             #去重
             #用过了(当前temp里正在用)就跳过
             #对于[1,2,3],当1被加入进了temp,则visited[0]=True;temp后续加第二个值时,就只能在剩余的数(2,3)里面选
-            if nums[i] in visited:
+            if visited[i]:
                 continue
                 
             #后面的这些部分呈镜像对称
             temp.append(nums[i])
             #用的时候将其加入visited
-            visited.add(nums[i])
+            visited[i] = True
             self.dfs(nums, visited, temp, results)
             #用完了需要返回
-            visited.remove(nums[i])
+            visited[i] = False
             temp.pop()
