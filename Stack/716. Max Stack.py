@@ -60,18 +60,13 @@ class MaxStack:
         while self.stack and self.stack[-1] != Max:
             temp.append(self.stack.pop())
             self.max_stack.pop()
-        
-        #pop the max one
+            
         self.stack.pop()
         self.max_stack.pop()
         
-        #push return all the temp
-        self.stack += temp[::-1]
+        
         for num in temp[::-1]:
-            if self.max_stack:
-                self.max_stack.append(max(self.max_stack[-1], num))
-            else:
-                self.max_stack.append(num)
+            self.push(num)
         
         return Max
 
