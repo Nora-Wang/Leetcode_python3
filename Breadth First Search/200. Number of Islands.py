@@ -23,6 +23,8 @@ return count
 bfs的时候需要判断一下这个node是否在矩阵范围内，且node的值为1 def node_valiable(self, grid, x, y)
 坐标变换数组：对于grid[i][j]的上下左右node，用set类型的dir与x,y加减得到 dir = ([-1,0],[1,0],[0,-1],[0,1])
 
+
+#Version BFS
 code:
 class Solution(object):
     def numIslands(self, grid):
@@ -73,3 +75,58 @@ class Solution(object):
             
         return True
             
+
+        
+        
+#Version Union Find
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not len(grid) or not len(grid[0]):
+            return 0
+        
+        self.father = {}
+        self.size = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '1':
+                    self.father[(i,j)] = (i,j)
+                    self.size += 1
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '0':
+                    continue
+                
+                x,y = i, j
+                #将上下左右的1合并起来
+                for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+                    x_ = x + direct[0]
+                    y_ = y + direct[1]
+                    
+                    if self.check(grid, x_, y_):
+                        self.union((x,y),(x_,y_))
+        
+        return self.size
+    
+    def union(self, point_a, point_b):
+        root_a = self.find(point_a)
+        root_b = self.find(point_b)
+        
+        if root_a != root_b:
+            self.father[root_a] = root_b
+            self.size -= 1
+            
+    def find(self, point):
+        path = []
+        
+        while self.father[point] != point:
+            path.append(point)
+            point = self.father[point]
+        
+        for p in path:
+            self.father[p] = point
+        
+        return point
+    
+    def check(self, grid, x, y):
+        return 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == '1'
