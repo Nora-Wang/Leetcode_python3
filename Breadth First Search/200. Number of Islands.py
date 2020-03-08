@@ -24,6 +24,39 @@ bfs的时候需要判断一下这个node是否在矩阵范围内，且node的值
 坐标变换数组：对于grid[i][j]的上下左右node，用set类型的dir与x,y加减得到 dir = ([-1,0],[1,0],[0,-1],[0,1])
 
 
+#Version DFS
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not len(grid) or not len(grid[0]):
+            return 0
+        
+        res = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '0':
+                    continue
+                
+                res += 1
+                self.dfs(grid, i, j)
+            
+        return res
+    
+    def dfs(self, grid, x, y):
+        if x < 0 or x >= len(grid) or y < 0 or y >= len(grid[0]):
+            return
+        
+        if grid[x][y] == '0':
+            return
+        
+        grid[x][y] = '0'
+        
+        for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+            self.dfs(grid, x + direct[0], y + direct[1])
+            
+            
+
+
+
 #Version BFS
 code:
 class Solution(object):
