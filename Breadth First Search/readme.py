@@ -17,5 +17,5 @@ set用于在graph中，用node去映射sun_node(neighbors)，这时的sun_node(n
 
 2.图建好后,根据题目判断是用dfs还是bfs
 
-3.indegrees只是在无法找到root时使用,即若题目为一个有向图,但题目只给了有几个点,却没给哪个点为root,这时就需要用indegrees的数据判断root
+3.indegrees在无法找到root或者在需要找mid-node时使用,即若题目为一个有向图,但题目只给了有几个点,却没给哪个点为root,这时就需要用indegrees的数据判断root
 若为无向图,则图中任意点都可以是root,直接取node 0即可
