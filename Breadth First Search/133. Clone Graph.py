@@ -29,6 +29,48 @@ Node 4's value is 4, and it has two neighbors: Node 1 and 3.
 
 
 
+#Version 0
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = []):
+        self.val = val
+        self.neighbors = neighbors
+"""
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        
+        #when copying the nodes, we can find all nodes
+        graph, node_r = self.copy_nodes(node)
+        #graph[old_node] = new_node (without neighbors)
+        
+        #copy neighbors
+        for old_node in node_r:
+            for old_neighbor in old_node.neighbors:
+                graph[old_node].neighbors.append(graph[old_neighbor])
+        
+        return graph[node]
+        
+    def copy_nodes(self, node):
+        graph = {}
+        
+        queue = collections.deque([node])
+        node_r = set()
+        
+        while queue:
+            old_node = queue.popleft()
+            graph[old_node] = Node(old_node.val, [])
+            node_r.add(old_node)
+            
+            for neighbor in old_node.neighbors:
+                if neighbor not in node_r:
+                    queue.append(neighbor)
+        
+        return graph, node_r
+
+
 code:
 leetcode版本
 """
