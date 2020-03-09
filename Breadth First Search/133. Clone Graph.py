@@ -39,6 +39,7 @@ class Node:
 """
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
+        #corner case should return None
         if not node:
             return None
         
