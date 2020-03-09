@@ -16,6 +16,40 @@ Given the following tree [3,9,20,null,null,15,7]:
    15   7
 Return true.
 
+#Version 0
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        is_balanced, _ = self.helper(root)
+        
+        return is_balanced
+    
+    def helper(self, root):
+        if not root:
+            return True, 0
+        
+        l_b, l_h = self.helper(root.left)
+        r_b, r_h = self.helper(root.right)
+        
+        #left or right is not balanced
+        if not l_b or not r_b:
+            return False, max(l_h, r_h) + 1
+        
+        #root is not balanced
+        if abs(l_h - r_h) > 1:
+            return False, max(l_h, r_h) + 1
+        
+        return True, max(l_h, r_h) + 1
+
+
+
+
 
 推荐用version1，因为定义了IsBalanced，代码清晰，更好理解
 version2用-1做标记，容易出错
