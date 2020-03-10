@@ -20,6 +20,40 @@ The number of nodes in the tree is at most 10000.
 The final answer is guaranteed to be less than 2^31.
 
 
+Recursion Version
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
+        #res有两种记录方式:
+        #1. 全局变量self.res
+        #2. 利用list存储（这里不能直接用variable存,是因为variable会变回去,就像backtrack一样;但list则不会）
+
+        res = [0]
+        self.helper(root, L, R, res)
+        
+        return res[0]
+    
+    def helper(self, root, L, R, res):
+        if not root:
+            return res
+        
+        if L <= root.val <= R:
+            res[0] += root.val
+            
+        self.helper(root.left, L, R, res)
+        self.helper(root.right, L, R, res)
+
+
+
+
+
+
 code:
 #直接递归解法
 # Definition for a binary tree node.
