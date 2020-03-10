@@ -1,9 +1,11 @@
-九章：
-124，538，572，98，173，450，315，96，95，102，107，297，103，222
+Recursion在Tree题目的基本应用分为两类
 
-
-Acwing:
-98，101，105，102，297，124，173
+1. 把value从上往下传递, 然后从下往上 eg. isValidBST
+2. 只把value从下往上传递 （更为常见）
+    1. GetHeight，把int从下往上传
+    2. isBalancedTree， 把bool从下往上传
+    3. isSymmetric，把bool 从下往上传
+3.  只把value从上往下传，改变global variable的值
 
 
 
