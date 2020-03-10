@@ -13,6 +13,8 @@ Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
 Output: 3
 Explanation: The LCA of nodes 5 and 1 is 3.
 
+      
+        
 3.lintcode 578
 此题还有一种变形，需要用到traverse，，且pq不一定存在在bt中
 需要设定self.p_exist, self.q_exist, lca，用于判断pq是否出现，若出现，则记录其lca的值；若不出现，则返回None
@@ -92,4 +94,38 @@ class Solution(object):
             return right
           
         #情况5
+        return None
+
+
+
+
+#n-nary tree变形
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.children = []
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root:
+            return None
+        
+        if root.val == p.val or root.val == q.val:
+            return root
+        
+        record = []
+        for c in root.children:
+            res_c = self.lowestCommonAncestor(c, p, q)
+            
+            if res_c:
+                record.append[res_c]
+                
+        if len(record) == 2:
+            return root
+        
+        if len(record) == 1:
+            return record[0]
+        
         return None
