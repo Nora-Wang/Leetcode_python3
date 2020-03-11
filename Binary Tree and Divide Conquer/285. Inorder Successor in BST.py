@@ -24,6 +24,50 @@ If the given node has no in-order successor in the tree, return null.
 It's guaranteed that the values of the tree are unique.
 
 
+
+
+#Version 自写
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        if not root:
+            return None
+        
+        self.res = None
+        self.prev = None
+        self.helper(root, p)
+        
+        return self.res
+    
+    def helper(self, root, p):
+        if not root:
+            return
+        
+        self.helper(root.left, p)
+        
+        if self.prev and self.prev.val == p.val:
+            self.res = root
+            #为了避免后续可能还会出现self.prev.val == p.val,所以要更新一下self.prev
+            self.prev = None
+            return
+        self.prev = root
+        
+        self.helper(root.right, p)
+        
+        
+
+
+
+
+
+
+
 思路:参考二分法，考虑p和root之间的关系(p为给定的节点,要找到p节点的后继)
 两种情况:
 1. root的值 =< p的值 答案就在右子树中
