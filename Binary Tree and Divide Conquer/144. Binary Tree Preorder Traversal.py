@@ -97,7 +97,42 @@ class Solution(object):
         
         
 2.非递归：迭代 Non-Recursive: Iteration
+#Che Li Version
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        res = []
+        stack = []
+        
+        while root or stack:
+            if root:
+                res.append(root.val)
+                stack.append(root)
+                root = root.left
+            else:
+                root = stack.pop()
+                root = root.right
+        
+        return res
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 利用stack实现树的前序遍历，每次弹出栈顶元素，先后压入其右孩子和左孩子
     
 # Version 2: Non-Recursion 
