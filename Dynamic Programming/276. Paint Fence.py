@@ -26,6 +26,10 @@ Explanation: Take c1 as color 1, c2 as color 2. All possible ways are:
 code:
 class Solution:
     def numWays(self, n: int, k: int) -> int:
+        #corner case 1
+        if n == 0:
+            return 0
+        #corner case 2    
         if n == 1:
             return k
         
