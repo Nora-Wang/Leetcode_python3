@@ -77,6 +77,43 @@ class Solution:
 
         
 2. Non-recursive
+#Che Li Version
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        res = []
+        stack = []
+        
+        while stack or root:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                root = stack.pop()
+                res.append(root.val)
+                root = root.right
+        
+        return res
+
+
+
+
+
+
+
+
+
+
+
 思路：先把最左边全都加进stack，即此时的root就是inorder的first node。
      然后开始pop，每pop一次检查：1.右边为空就一直pop，相当于回到left node的root
                              2.不为空就到右边去，然后再一次while循环到右子树的第一个inorder node去，并全加进stack里
