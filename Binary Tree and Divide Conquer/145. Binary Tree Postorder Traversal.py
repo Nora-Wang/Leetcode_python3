@@ -43,6 +43,46 @@ class Solution(object):
         
         
 2.Non-recursive
+#Che Li Version
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        stack = []
+        res = []
+        
+        while stack or root:
+            if root:
+                res.append(root.val)
+                stack.append(root)
+                root = root.right
+            else:
+                root = stack.pop()
+                root = root.left
+        
+        return res[::-1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 终于找到一个简单易懂的Non-recursive方法
 利用两个栈，在s1中按照根左右的顺序push进node，然后将右node pop出，再循环；即相当于将整个结果反着push进s2，这样s2 pop时的顺序就是postorder的顺序
 # Definition for a binary tree node.
