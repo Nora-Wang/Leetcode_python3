@@ -43,7 +43,7 @@ dict.values()
 
 4.排序
 #注意排序后的返回值是一个list
-key:sorted(dict.keys())
+key:sorted(dict.items(), key = lambda item:item[0])
 value:sorted(dict.items(), key = lambda item:item[1])
 sorted函数的结构:sorted(iterable, cmp=None, key=None, reverse=False);具体可参考functions文档
   
