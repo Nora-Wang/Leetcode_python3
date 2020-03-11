@@ -34,7 +34,13 @@ class Solution:
                 
                 if value < target:
                     left += 1
+                    #去重
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
                 else:
                     right -= 1
+                    #去重
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
                     
         return record
