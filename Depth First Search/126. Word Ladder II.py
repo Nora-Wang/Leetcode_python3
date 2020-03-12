@@ -39,6 +39,84 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 
 
 
+#3/12/2020
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        wordList = set(wordList)
+        
+        if endWord not in wordList:
+            return []
+        
+        wordList.add(beginWord)
+        
+        distances = self.bfs(endWord, wordList)
+        
+        res = []
+        self.dfs(beginWord, endWord, wordList, [beginWord], res, distances)
+        
+        return res
+    
+    def bfs(self, endWord, wordList):
+        distances = {}
+        
+        distances[endWord] = 0
+        queue = collections.deque([endWord])
+        
+        while queue:
+            for _ in range(len(queue)):
+                word = queue.popleft()
+                
+                neighbors = self.get_neighbors(word, wordList)
+                
+                for neighbor in neighbors:
+                    if neighbor not in distances:
+                        distances[neighbor] = distances[word] + 1
+                        queue.append(neighbor)
+        
+        return distances
+    
+    def dfs(self, curt, endWord, wordList, temp, res, distances):
+        if curt == endWord:
+            res.append(list(temp))
+            return
+        
+        neighbors = self.get_neighbors(curt, wordList)
+        
+        for neighbor in neighbors:
+            if distances[neighbor] != distances[curt] - 1:
+                continue
+                
+            temp.append(neighbor)
+            self.dfs(neighbor, endWord, wordList, temp, res, distances)
+            temp.pop()
+    
+    def get_neighbors(self, word, wordList):
+        neighbors = []
+        
+        for i in range(len(word)):
+            left, right = word[:i], word[i + 1:]
+            
+            for c in string.ascii_lowercase:
+                if c == word[i]:
+                    continue
+                
+                new_word = left + c + right
+                
+                if new_word in wordList:
+                    neighbors.append(new_word)
+            
+        return neighbors
+
+
+
+
+
+
+
+
+
+
+
 
 code:
 
