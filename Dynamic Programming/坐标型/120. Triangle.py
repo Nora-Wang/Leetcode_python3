@@ -16,6 +16,59 @@ Bonus point if you are able to do this using only O(n) extra space, where n is t
 
 
 code:
+#普通版
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        if not triangle:
+            return 0
+        
+        #注意dp二维数组的建立,一定要用for循环
+        dp = [[0 for _ in range(len(triangle))] for _ in range(len(triangle))]
+        #初始化dp
+        dp[0][0] = triangle[0][0]
+        
+        for i in range(1, len(triangle)):
+            for j in range(i + 1):
+                if j == 0:
+                    dp[i][j] = dp[i - 1][j] + triangle[i][j]
+                elif j == i:
+                    dp[i][j] = dp[i - 1][i - 1] + triangle[i][j]
+                else:
+                    dp[i][j] = min(dp[i - 1][j], dp[i - 1][j - 1]) + triangle[i][j]
+        
+        return min(dp[-1])
+     
+#滚动数组
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        if not triangle:
+            return 0
+        
+        dp = [[0] * len(triangle), [0] * len(triangle)]
+        dp[0][0] = triangle[0][0]
+        
+        for i in range(1, len(triangle)):
+            for j in range(i + 1):
+                if j == 0:
+                    dp[i % 2][j] = dp[(i - 1) % 2][j] + triangle[i][j]
+                elif j == i:
+                    dp[i % 2][j] = dp[(i - 1) % 2][i - 1] + triangle[i][j]
+                else:
+                    dp[i % 2][j] = min(dp[(i - 1) % 2][j], dp[(i - 1) % 2][j - 1]) + triangle[i][j]
+        
+        return min(dp[(len(triangle) - 1) % 2])
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
 #memoization search Version
 DP最典型的记忆化搜索memoization search:
 在DFS的基础上,使用一个hash表记录之前计算过的数据,避免重复计算
