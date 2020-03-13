@@ -18,6 +18,41 @@ Explanation: You will always arrive at index 3 no matter what. Its maximum
              
              
 code:
+#模板
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        if not nums:
+            return True
+        
+        curt_end = 0
+        longest = 0
+        curt = 0
+        
+        while curt_end < len(nums):
+            while curt < len(nums) and curt <= curt_end:
+                longest = max(longest, nums[curt] + curt)
+                curt += 1
+            
+            if longest >= len(nums) - 1:
+                return True
+            
+            #意思就是在此范围内已经无法往后挪了
+            if curt_end == longest:
+                return False
+            
+            curt_end = longest
+        
+        return True
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         if not nums:
