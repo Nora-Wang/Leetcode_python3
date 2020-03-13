@@ -16,3 +16,26 @@ code:
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         return sorted(collections.Counter(nums).items(), key=lambda x:x[1])[-1][0]
+    
+    
+#摩尔选举
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        if not nums:
+            return []
+        
+        count = 0
+        
+        for num in nums:
+            if count == 0:
+                curt = num
+                count = 1
+                
+            elif curt == num:
+                count += 1
+                
+            else:
+                count -= 1
+        
+        return curt
+    
