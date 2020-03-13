@@ -16,7 +16,34 @@ You can assume that you can always reach the last index.
 
 
 code:
-#模板
+#模板1
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        if not nums or len(nums) == 1:
+            return 0
+        
+        
+        curt_end = 0
+        longest = 0
+        curt = 0
+        step = 0
+        
+        #直接到倒数第二位即可,因为最后一位不需要判断
+        while curt_end < len(nums) - 1:
+            while curt < len(nums) - 1 and curt <= curt_end:
+                longest = max(longest, curt + nums[curt])
+                curt += 1
+                
+            step += 1
+            
+            curt_end = longest
+            
+        return step
+
+
+
+
+#模板2
 class Solution:
     def jump(self, nums: List[int]) -> int:
         #corner case: length == 0时,res = 0
