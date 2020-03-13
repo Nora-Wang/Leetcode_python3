@@ -23,6 +23,58 @@ The arr parameter had been changed to an array of integers (instead of a list of
 然后使用两根指针从该位置开始向两端遍历, 每次把差值比较小的元素放入答案中然后将该指针向边界方向移动一下即可.
 
 
+#3.13 Version
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        index = self.find_index(arr, x)
+        
+        res = [arr[index]]
+        left, right = index - 1, index + 1
+        
+        while left >= 0 and right < len(arr) and len(res) < k:
+            if abs(arr[left] - x) <= abs(arr[right] - x):
+                res.append(arr[left])
+                left -= 1
+            else:
+                res.append(arr[right])
+                right += 1
+                
+        while left >= 0 and len(res) < k:
+            res.append(arr[left])
+            left -= 1
+        
+        while right < len(arr) and len(res) < k:
+            res.append(arr[right])
+            right += 1
+        
+        return sorted(res)
+
+    def find_index(self, arr, x):
+        start, end = 0, len(arr) - 1
+        index = sys.maxsize
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if arr[mid] == x:
+                index = mid
+                break
+            
+            if arr[mid] < x:
+                start = mid
+            else:
+                end = mid
+        
+        if index == sys.maxsize:
+            return start if abs(arr[start] - x) <= abs(arr[end] - x) else end
+        
+        return index
+
+
+
+
+
+
 code:
 leetcode version
 class Solution(object):
