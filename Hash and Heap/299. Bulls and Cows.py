@@ -22,6 +22,28 @@ Note: You may assume that the secret number and your friend's guess only contain
 
 
 code:
+#03/16/2020 100%
+class Solution:
+    def getHint(self, secret: str, guess: str) -> str:
+        count_s = collections.Counter(secret)
+        count_g = collections.Counter(guess)
+        
+        all_same_c = 0
+        for c in count_s:
+            if c in count_g:
+                all_same_c += min(count_s[c], count_g[c])
+        
+        same_index_c = 0
+        for i in range(len(secret)):
+            if secret[i] == guess[i]:
+                same_index_c += 1
+        
+        return str(same_index_c) + 'A' + str(all_same_c - same_index_c) + 'B'
+    
+    
+    
+    
+    
 class Solution:
     def getHint(self, secret: str, guess: str) -> str:
         count_A = 0
