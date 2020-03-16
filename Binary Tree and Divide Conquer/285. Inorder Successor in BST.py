@@ -40,7 +40,8 @@ class Solution:
             return None
         
         self.res = None
-        self.prev = None
+        self.flag = False
+        
         self.helper(root, p)
         
         return self.res
@@ -49,17 +50,20 @@ class Solution:
         if not root:
             return
         
-        self.helper(root.left, p)
+        if p.val <= root.val:
+            self.helper(root.left, p)
         
-        if self.prev and self.prev.val == p.val:
+        if self.flag:
             self.res = root
             #为了避免后续可能还会出现self.prev.val == p.val,所以要更新一下self.prev
-            self.prev = None
+            self.flag = False
             return
-        self.prev = root
         
-        self.helper(root.right, p)
+        if root == p:
+            self.flag = True
         
+        if p.val >= root.val:
+            self.helper(root.right, p)
         
 
 
