@@ -11,6 +11,35 @@ Output:
 ]
 
 
+03/22/2020
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        self.res = [[None for _ in range(n)] for _ in range(n)]
+        
+        self.dfs(n, 0, 0, set(), 1)
+        
+        return self.res
+    
+    def dfs(self, n, x, y, visited, value):
+        for direct in [(0,1),(1,0),(0,-1),(-1,0)] * n:
+            visited.add((x,y))
+            self.res[x][y] = value
+            
+            while 0 <= (x + direct[0]) < n and 0 <= (y + direct[1]) < n and (x + direct[0], y + direct[1]) not in visited:
+                x += direct[0]
+                y += direct[1]
+                
+                value += 1
+                visited.add((x,y))
+                self.res[x][y] = value
+            
+            if value == (n * n + 1):
+                return
+
+
+
+
+
 四个方向跑一遍,即将最外层赋值,然后循环进入下一层即可
 
 
