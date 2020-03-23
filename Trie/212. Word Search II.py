@@ -28,6 +28,17 @@ The values of words are distinct.
 还有DFS的方法,直接看DFS中的212
 
 
+****************************************
+result要设置为set避免重复
+Input
+[["a","a"]]
+["a"]
+Output
+["a","a"]
+Expected
+["a"]
+****************************************
+
 code:
 DIRECTIONS = [(1,0),(-1,0),(0,1),(0,-1)]
 class TrieNode(object):
