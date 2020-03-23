@@ -26,6 +26,60 @@ You may assume pattern contains only lowercase letters, and str contains lowerca
 建一个hashmap来存对应关系，key = pattern, value = str, a->dog, b->cat，循环一遍如果一样就return true，有不一样return false
 注意题目中用hash_record.values()来避免ab = “cat cat”这种情况,有的话return false
 
+#3/23/2020
+class Solution:
+    def wordPattern(self, pattern: str, str: str) -> bool:
+        record = {}
+        str_list = str.split()
+        
+        #corner case
+        if len(pattern) != len(str_list):
+            return False
+        
+        for i in range(len(pattern)):
+            #当不在hash表中时
+            if pattern[i] in record:
+                #pattern = "aaaa", str = "dog cat cat dog"
+                if record[pattern[i]] != str_list[i]:
+                    return False
+            #当在hash表中时
+            else:
+                #pattern = "abba", str = "dog dog dog dog"
+                if str_list[i] in record.values():
+                    return False
+            
+                record[pattern[i]] = str_list[i]
+        
+        return True
+                
+
+#3/23/2020 用两个hash表来存储
+class Solution:
+    def wordPattern(self, pattern: str, str: str) -> bool:
+        str_list = str.split()
+        
+        if len(str_list) != len(pattern):
+            return False
+        
+        p_record = {}
+        s_record = {}
+        for i in range(len(pattern)):
+            if pattern[i] not in p_record and str_list[i] not in s_record:
+                p_record[pattern[i]] = str_list[i]
+                s_record[str_list[i]] = pattern[i]
+                continue
+            
+            if pattern[i] in p_record and p_record[pattern[i]] != str_list[i]:
+                return False
+        
+            if str_list[i] in s_record and s_record[str_list[i]] != pattern[i]:
+                return False
+            
+        return True
+                
+
+
+
 
 code:
 class Solution(object):
