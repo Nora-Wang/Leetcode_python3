@@ -38,6 +38,87 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 然后在从start到end做一次DFS,每走一步必须确保离end的distance越来越近
 
 
+#3/23/2020
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        wordList = set(wordList)
+        if endWord not in wordList:
+            return []
+        
+        wordList.add(beginWord)
+        self.res = []
+        graph = self.bfs(endWord, beginWord, wordList)
+        #graph[word] = distance to endWord
+        
+        self.dfs(beginWord, endWord, wordList, [beginWord], graph)
+        
+        return self.res
+    
+    def bfs(self, endWord, beginWord, wordList):
+        graph = {}
+        graph[endWord] = 0
+        
+        queue = collections.deque([(endWord, 0)])
+        visited = set([endWord])
+        
+        while queue:
+            word, distance = queue.popleft()
+            
+            neighbors = self.get_neighbors(word, wordList)
+            
+            for neighbor in neighbors:
+                if neighbor in visited:
+                    continue
+
+                graph[neighbor] = distance + 1
+                
+                if neighbor == beginWord:
+                    return graph
+
+                queue.append((neighbor, distance + 1))
+                visited.add(neighbor)
+        
+        return graph
+        
+    
+    def dfs(self, curtWord, endWord, wordList, temp, graph):
+        if curtWord == endWord:
+            self.res.append(list(temp))
+            return
+        
+        neighbors = self.get_neighbors(curtWord, wordList)
+        
+        for neighbor in neighbors:
+            if neighbor not in graph:
+                continue
+            
+            if graph[neighbor] != graph[curtWord] - 1:
+                continue
+            
+            temp.append(neighbor)
+            self.dfs(neighbor, endWord, wordList, temp, graph)
+            temp.pop()
+
+        
+    def get_neighbors(self, word, wordList):
+        neighbors = []
+        
+        for i in range(len(word)):
+            left, right = word[:i], word[i+1:]
+
+            for c in string.ascii_lowercase:
+                if c == word[i]:
+                    continue
+
+                new_word = left + c + right
+                
+                if new_word in wordList:
+                    neighbors.append(new_word)
+        
+        return neighbors
+        
+        
+
 
 #3/12/2020
 class Solution:
