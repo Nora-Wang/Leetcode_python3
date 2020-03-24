@@ -17,6 +17,16 @@ words = ["oath","pea","eat","rain"]
 
 Output: ["eat","oath"]
 
+ 
+ 
+1.要记得用visited！！！！
+[["a","a"]]
+["aaa"]
+
+2.dfs出口别加return
+
+
+
 
 
 code:
