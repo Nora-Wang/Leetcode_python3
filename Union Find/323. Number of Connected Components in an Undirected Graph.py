@@ -22,11 +22,55 @@ Note:
 You can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.
 
 
-典型Union Find的题目
+#BFS Version
+class Solution(object):
+    def countComponents(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: int
+        """
+        graph = self.create(n, edges)
+        
+        count = 0
+        visited = set()
+        for node in range(n):
+            if node in visited:
+                continue
+            visited.add(node)
+            count += 1
+            self.bfs(graph, visited, node)
+    
+        return count
+    
+    def create(self, n, edges):
+        graph = {}
+        
+        for node in range(n):
+            graph[node] = []
+            
+        for edge in edges:
+            graph[edge[0]].append(edge[1])
+            graph[edge[1]].append(edge[0])
+        
+        return graph
+    
+    def bfs(self, graph, visited, node):
+        queue = collections.deque([node])
+        
+        while queue:
+            node = queue.popleft()
+            
+            for neighbor in graph[node]:
+                if neighbor in visited:
+                    continue
+                
+                visited.add(neighbor)
+                queue.append(neighbor)
 
 
 
-code:
+#典型Union Find的题目
 class Solution(object):
     def countComponents(self, n, edges):
         """
