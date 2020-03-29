@@ -40,7 +40,7 @@ class Solution:
         for i in range(len(rating)):
             small, large = record[i][0], record[i][1]
             
-            res += small * large + (i - small) * (n - (i + 1) - large)
+            res += small * large + (i - small) * (len(rating) - (i + 1) - large)
         
         return res
         
@@ -52,7 +52,7 @@ class Solution:
             if rating[index] > rating[i]:
                 left += 1
         
-        for j in range(index + 1, len(rating))
+        for j in range(index + 1, len(rating)):
             if rating[index] < rating[j]:
                 right += 1
             
