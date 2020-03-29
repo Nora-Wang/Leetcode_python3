@@ -31,6 +31,40 @@ n == rating.length
 1 <= rating[i] <= 10^5
 
 code:
+#直解
+class Solution:
+    def numTeams(self, rating: List[int]) -> int:
+        record = [self.helper(i, rating) for i in range(len(rating))]
+        
+        res = 0
+        for i in range(len(rating)):
+            small, large = record[i][0], record[i][1]
+            
+            res += small * large + (i - small) * (n - (i + 1) - large)
+        
+        return res
+        
+    def helper(self, index, rating):
+        left = 0
+        right = 0
+        
+        for i in range(index):
+            if rating[index] > rating[i]:
+                left += 1
+        
+        for j in range(index + 1, len(rating))
+            if rating[index] < rating[j]:
+                right += 1
+            
+        return (left, right)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+#DFS
 class Solution:
     def numTeams(self, rating: List[int]) -> int:
         self.count = 0
