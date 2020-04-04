@@ -16,6 +16,13 @@ Ask HR what's mean of 'Minimize the total number of operations.'?
 Minimize对nums的修改次数，即最小化写操作
 
 
+思路:
+1. brute force: 从头到尾的找到第一个非0和第一个0的index,然后swap; O(n^2)
+2. two pointer: 遍历整个list,只要是非0,就swap到前面(Version 1); O(n)
+3. two pointer进阶版: 遍历整个list,只要是非0,将前面的值赋值为当前值,最后将剩余的值改为0(Version 2); O(n)
+
+
+
 Version 1: 基于 swap 的版本
 这种方法无法保证写次数最小，因为在swap的过程中,0会被不断的换在不同的位置上,这样就造成了步骤重复
 
