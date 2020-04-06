@@ -46,7 +46,29 @@ class Solution:
         if root.right:
             self.dfs(root.right, sum, temp + root.right.val)
 
+#4/6/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
+class Solution:
+    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+        if not root:
+            return False
+        
+        return self.helper(root, sum, 0)
+    
+    def helper(self, root, sum, curt):
+        if not root:
+            return False
+        
+        if not root.left and not root.right:
+            return curt + root.val == sum
+        
+        return self.helper(root.left, sum, curt + root.val) or self.helper(root.right, sum, curt + root.val)
 
 
 
