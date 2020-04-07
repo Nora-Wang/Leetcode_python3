@@ -27,6 +27,7 @@ Return 3. The paths that sum to 8 are:
 
 code:
 #两个DFS function
+时间复杂度： T(N) = 2T(N/2) + O(N)，根据Master公式，可知 复杂度为O(NlogN)
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
