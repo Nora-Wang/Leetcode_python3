@@ -26,6 +26,8 @@ Note:
 
 Priority Queue
 
+time: O(nlogn) space: O(n)
+
 code:
 import heapq
 class Solution:
