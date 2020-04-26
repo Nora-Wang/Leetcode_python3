@@ -84,8 +84,9 @@ class Solution:
         
 solution 3: interative
 use stack
-if root.left exist, add root to stack and go to root.left (find to the most left node and record the path)
-from stack pop a node, add it to the result; if the node has node.right, analyze the node as a new round of root; else, continue pop
+go to the most left node and use stack to record the path
+if left nodes have been traversed, then from stack pop a node, add it to the result
+analyze the node.right as a new round of root
 #Che Li Version
 # Definition for a binary tree node.
 # class TreeNode:
