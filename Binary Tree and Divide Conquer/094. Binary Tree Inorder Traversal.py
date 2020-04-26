@@ -15,9 +15,11 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 
 
-1. Recursive
-
-1.1 traversal
+solution 1: recursion
+use a global variable to record the result (the different between recursion and divide and conquer)
+1. Base case: if root == None -> return None
+2. Recursive rule: if root.left != None, go to root.left; else, add root.val and then go to root.right
+3. What value to return: use global variable to record curt root's traversal result 
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -32,20 +34,24 @@ class Solution(object):
         :rtype: List[int]
         """
         self.result = []
-        self.traverse(root)
+        self.recursion(root)
       
         return self.result
    
-    def traverse(self, root):
+    def recursion(self, root):
 ####顺序是左根右
         if not root:
             return
-        self.traverse(root.left)
+        self.recursion(root.left)
         self.result.append(root.val)
-        self.traverse(root.right)
+        self.recursion(root.right)
 
    
-1.2 divide and conquer
+solution 2: divide and conquer
+return a value to the next recursion
+1. Base case: if root == None -> return None
+2. Recursive rule: left = root.left's traversal result, right = root.right's traversal result
+3. What value to return: return curt root's traversal result (list = [left + root.val + right])
 """
 Definition of TreeNode:
 class TreeNode:
@@ -76,7 +82,10 @@ class Solution:
         
 
         
-2. Non-recursive
+solution 3: interative
+use stack
+if root.left exist, add root to stack and go to root.left (find to the most left node and record the path)
+from stack pop a node, add it to the result; if the node has node.right, analyze the node as a new round of root; else, continue pop
 #Che Li Version
 # Definition for a binary tree node.
 # class TreeNode:
@@ -113,7 +122,7 @@ class Solution:
 
 
 
-
+Past:
 思路：先把最左边全都加进stack，即此时的root就是inorder的first node。
      然后开始pop，每pop一次检查：1.右边为空就一直pop，相当于回到left node的root
                              2.不为空就到右边去，然后再一次while循环到右子树的第一个inorder node去，并全加进stack里
