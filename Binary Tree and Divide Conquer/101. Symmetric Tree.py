@@ -22,15 +22,24 @@ Note:
 Bonus points if you could solve it both recursively and iteratively.
 
 
-3个end case考虑清楚
-
-code:
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
+'''
+first level: continue
+second level: compare two nodes
+start from third level: compare a.left and b.right, a.right and b.left
+return: for curt a and b, are they symmetric?
+compare rules: 
+1. not a and not b, True
+2. not a or not b, False
+3. a != b, False
+4. a == b, depends on its left and right subtrees
+'''
+
 
 class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
@@ -47,6 +56,8 @@ class Solution:
             return False
         
         if left.val != right.val:
-            return True
+            return False
         
         return self.helper(left.left, right.right) and self.helper(left.right, right.left)
+    
+    
