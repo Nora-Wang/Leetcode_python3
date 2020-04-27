@@ -41,7 +41,7 @@ end case:
 1. both are None -> True
 2. one of the node is None -> False
 3. not equal -> False
-4. equal -> depends on others results
+4. equal -> depends on curt node's left and right subtree's results
 
 !!edge case: both p and q are None
 '''
