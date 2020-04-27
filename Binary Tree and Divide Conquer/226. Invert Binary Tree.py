@@ -18,29 +18,30 @@ Output:
 9   6 3   1
 
 
-divide and conquer,将左右子树调换即可
-
-code:
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
+'''
+root: the same
 
-class Solution(object):
-    def invertTree(self, root):
-        """
-        :type root: TreeNode
-        :rtype: TreeNode
-        """
+1. base case: root == None, return None
+2. recursion rule: use divide and conquer to get left and right -> left and right have been inverted
+(just think about the second level), make root.left = right, root.right = left
+3. return value: inverted result for curt root
+'''
+
+
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
-            return root
+            return None
         
         left = self.invertTree(root.left)
         right = self.invertTree(root.right)
         
-        #注意这里的写法，python用,时，两个步骤可以同时进行，这样可省去使用record
         root.left, root.right = right, left
         
         return root
