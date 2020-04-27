@@ -13,7 +13,83 @@ Input: [1,null,2,3]
 Output: [1,2,3]
 Follow up: Recursive solution is trivial, could you do it iteratively?
 
-
+   
+#04/27/2020 Version
+solution 1: Recursion
+1. base case: if root is None, return directly
+2. recusive rule: put root to the result, put root.left subtree's preorder to the result, 
+   put root.right subtree's preorder to the result
+3. return value: return directly. use a result list in funcion input, every function change it directly (avoid global variable)
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        self.helper(root, res)
+        
+        return res
+    
+    def helper(self, root, res):
+        if not root:
+            return
+        
+        res.append(root.val)
+        self.helper(root.left, res)
+        self.helper(root.right, res)
+         
+         
+solution 2: divide and conquer
+1. base case: if root is None, return empty list
+2. recursion rule: get root.left subtree's preorder result, l_r; get root.right subtree's preorder result, r_r; add root.val, l_r, r_r to the result
+3. return value: return the root tree's preorder result
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        left = self.preorderTraversal(root.left)
+        right = self.preorderTraversal(root.right)
+        
+        res = []
+        res.append(root.val)
+        res.extend(left)
+        res.extend(right)
+        
+        return res
+      
+      
+solution 3: iteratively
+use stack, follow the rules of preorder: root -> root.left -> root.right
+go to the most left one node, record the walk though path to stack, add the path to the result(root); pop a node from stack, analyze the node as a new root
+end case: root = None and stack = None -> all the nodes in the tree have been visited
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        stack = []
+        result = []
+        
+        while root or stack:
+            if root:
+                result.append(root.val)
+                stack.append(root)
+                root = root.left
+            else:
+                root = stack.pop()
+                root = root.right
+        
+        return result
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 思路：
 1.递归法recursive
 
