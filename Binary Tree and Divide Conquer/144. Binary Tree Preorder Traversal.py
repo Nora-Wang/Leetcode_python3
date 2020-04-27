@@ -58,7 +58,8 @@ class Solution:
       
 solution 3: iteratively
 use stack, follow the rules of preorder: root -> root.left -> root.right
-go to the most left one node, record the walk though path to stack, add the path to the result(root); pop a node from stack, analyze the node as a new root
+go to the most left one node, record the walk though path to stack, add the path to the result(root); 
+pop a node from stack, analyze the node.right as a new root
 end case: root = None and stack = None -> all the nodes in the tree have been visited
 class Solution:
     def preorderTraversal(self, root: TreeNode) -> List[int]:
