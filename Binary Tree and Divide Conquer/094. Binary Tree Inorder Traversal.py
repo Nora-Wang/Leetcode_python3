@@ -15,11 +15,11 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 
 
-solution 1: recursion
-use a global variable to record the result (the different between recursion and divide and conquer)
-1. Base case: if root == None -> return None
-2. Recursive rule: if root.left != None, go to root.left; else, add root.val and then go to root.right
-3. What value to return: use global variable to record curt root's traversal result 
+solution 1: Recursion
+1. base case: if root is None, return directly
+2. recusive rule: put root.left subtree's preorder to the result, put root to the result, 
+   put root.right subtree's preorder to the result
+3. return value: return directly. use a result list in funcion input, every function change it directly (avoid global variable)
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -48,10 +48,10 @@ class Solution(object):
 
    
 solution 2: divide and conquer
-return a value to the next recursion
-1. Base case: if root == None -> return None
-2. Recursive rule: left = root.left's traversal result, right = root.right's traversal result
-3. What value to return: return curt root's traversal result (list = [left + root.val + right])
+1. base case: if root is None, return empty list
+2. recursion rule: get root.left subtree's preorder result, l_r; get root.right subtree's preorder result, r_r; 
+   add l_r, root.val, r_r to the result
+3. return value: return the root tree's preorder result
 """
 Definition of TreeNode:
 class TreeNode:
@@ -83,10 +83,10 @@ class Solution:
 
         
 solution 3: interative
-use stack
-go to the most left node and use stack to record the path
-if left nodes have been traversed, then from stack pop a node, add it to the result
-analyze the node.right as a new round of root
+use stack, follow the rules of inorder: root.left -> root -> root.right
+go to the most left one node, record the walk though path to stack; 
+pop a node from stack, add the node.val to the result, analyze the node as a new root.
+end case: root = None and stack = None -> all the nodes in the tree have been visited
 #Che Li Version
 # Definition for a binary tree node.
 # class TreeNode:
