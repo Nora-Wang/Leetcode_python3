@@ -31,39 +31,20 @@ Input:     1         1
 Output: false
 
 
-'''
-for every level, the root, left, right should all same
-start from the third level, the situation is the same with first and second level
-first level: compare the root val directly
-second level: root.left and root.right subtrees is same?
-return: for curt root, is it same?
-end case: not equal or one of the node is None
-
-!!edge case: both p and q are None
-'''
-
-
-class Solution:
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        if not p and not q:
-            return True
-        
-        if (p and not q) or (not p and q) or p.val != q.val:
-            return False
-        
-        left = self.isSameTree(p.left, q.left)
-        right = self.isSameTree(p.right, q.right)
-        
-        return left and right
-          
-          
-          
-          
-          
-
 #这道题不能用
 #return p == q
 #因为p和q只是一个指向地址而已,并不代表两棵树本身
+'''
+for every level, the root, left, right should all same
+return: for curt root, is it same?
+end case:
+1. both are None -> True
+2. one of the node is None -> False
+3. not equal -> False
+4. equal -> depends on others results
+
+!!edge case: both p and q are None
+'''
 
 code:
 # Definition for a binary tree node.
