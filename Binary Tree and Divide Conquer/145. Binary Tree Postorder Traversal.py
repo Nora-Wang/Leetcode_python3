@@ -13,12 +13,17 @@ Input: [1,null,2,3]
 Output: [3,2,1]
 Follow up: Recursive solution is trivial, could you do it iteratively?
 
+
+   
+   
 #04/26/2020 Version
 solution 1: Recursion
 1. base case: if root is None, return directly
 2. recusive rule: put root.left subtree's preorder to the result, put root.right subtree's preorder to the result, 
    put root to the result
 3. return value: return directly. use a result list in funcion input, every function change it directly (avoid global variable)
+time: O(n)
+space: O(1)
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         res = []
@@ -39,6 +44,8 @@ solution 2: divide and conquer
 2. recursion rule: get root.left subtree's postorder result, l_r; get root.right subtree's preorder result, r_r; 
    add l_r, r_r, root.val to the result
 3. return value: return the root tree's postorder result
+time: O(n)
+space: O(n)
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
@@ -62,6 +69,8 @@ similar to preorder rules(root -> root.left -> root.right)
 go to the most right one node, record the walk though path to stack, add the path to the result(root); pop a node from stack, 
 analyze the node.left as a new root
 end case: root = None and stack = None -> all the nodes in the tree have been visited
+time: O(n)
+space: O(n)
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         stack = []
