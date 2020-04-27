@@ -13,7 +13,85 @@ Input: [1,null,2,3]
 Output: [3,2,1]
 Follow up: Recursive solution is trivial, could you do it iteratively?
 
+#04/26/2020 Version
+solution 1: Recursion
+1. base case: if root is None, return directly
+2. recusive rule: put root.left subtree's preorder to the result, put root.right subtree's preorder to the result, 
+   put root to the result
+3. return value: return directly. use a result list in funcion input, every function change it directly (avoid global variable)
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        self.helper(root, res)
+        
+        return res
+    
+    def helper(self, root, res):
+        if not root:
+            return
+        
+        self.helper(root.left, res)
+        self.helper(root.right, res)
+        res.append(root.val)
 
+solution 2: divide and conquer
+1. base case: if root is None, return empty list
+2. recursion rule: get root.left subtree's postorder result, l_r; get root.right subtree's preorder result, r_r; 
+   add l_r, r_r, root.val to the result
+3. return value: return the root tree's postorder result
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        left = self.postorderTraversal(root.left)
+        right = self.postorderTraversal(root.right)
+        
+        res = []
+        res.extend(left)
+        res.extend(right)
+        res.append(root.val)
+        
+        return res
+
+
+solution 3: iteratively
+use stack, follow the rules of postorder: root.left -> root.right -> root
+it's difficult to follow the postorder directly, but after invert the rules, the new rules(root -> root.right -> root.left) is
+similar to preorder rules(root -> root.left -> root.right)
+go to the most right one node, record the walk though path to stack, add the path to the result(root); pop a node from stack, 
+analyze the node.left as a new root
+end case: root = None and stack = None -> all the nodes in the tree have been visited
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        stack = []
+        res = []
+        
+        while stack or root:
+            if root:
+                stack.append(root)
+                res.append(root.val)
+                root = root.right
+            else:
+                root = stack.pop()
+                root = root.left
+        
+        res.reverse()
+        return res
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 1.Recursive
 # Definition for a binary tree node.
 # class TreeNode(object):
