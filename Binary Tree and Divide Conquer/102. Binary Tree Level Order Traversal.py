@@ -38,7 +38,7 @@ brute force: use root.left and root.right to find all the nodes in tree, and rec
 
 optimized: cause level order -> use BFS -> use queue to append nodes level by level, if root.left or root.right exist, 
 append it to queue
-set: level(record every level nodes), res(all levels final result), queue(append nodes follow their level by using root.left 
+variables set: level(record every level nodes), res(all levels final result), queue(append nodes follow their level by using root.left 
 and root.right; pop nodes level by level)
 height: O(logn ~ n)
 edge case: root == None, return empty list
