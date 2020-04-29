@@ -16,6 +16,26 @@ Given the following tree [3,9,20,null,null,15,7]:
    15   7
 Return true.
 
+
+brute force:
+utilize root.left and root.right to count the left/right subtrees depth for every node
+time: O(n^2), space: O(n)
+
+optimized:
+use Divide and Conquer
+1. base case
+root is None, return 0(depth), True(is balanced)
+2. Recursion rule
+count root.left depth and root.right depth, compare them(whether balanced)
+compare situation: root.left is not balanced; root.right is not balanced; curt root is not balanced
+3. input
+root
+4. return value
+max (root.left depth, root.right depth) + 1, whether curt root is balanced
+
+time: O(n), space: O(1)
+
+
 #Version 0
 # Definition for a binary tree node.
 # class TreeNode:
