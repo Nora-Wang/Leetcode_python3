@@ -32,8 +32,29 @@ The root-to-leaf path 4->9->1 represents the number 491.
 The root-to-leaf path 4->0 represents the number 40.
 Therefore, sum = 495 + 491 + 40 = 1026.
 
+'''
+brute force
+walk through all paths in the tree, get the result in a list, sum it
+time: O(n^2), space: O(n)
 
-把value从上往下传，改变global variable的值
+
+optimized
+use DFS
+1. input
+root, temp(int)
+2. recursion rule
+curt_sum = temp * 10 + root.val; judge whether curt node is leaf, if not continue root.left/right
+3. return value
+use a global variable to record the final result
+4. base case
+root is None: return
+root if leaf: add curt temp to the self.result
+
+edge case:
+if not root, return 0
+
+time: O(n ^ 2), space: O(1)
+'''    
 
 code:
 # Definition for a binary tree node.
@@ -63,3 +84,25 @@ class Solution:
         
         self.dfs(root.left, curt)
         self.dfs(root.right, curt)
+
+
+class Solution:
+    def sumNumbers(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        self.res = 0
+        self.dfs(root, 0)
+        
+        return self.res
+    
+    def dfs(self, root, temp):
+        if not root:
+            return
+        
+        if not root.left and not root.right:
+            self.res += temp * 10 + root.val
+            return
+        
+        self.dfs(root.left, temp * 10 + root.val)
+        self.dfs(root.right, temp * 10 + root.val)
