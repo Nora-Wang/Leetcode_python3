@@ -16,88 +16,46 @@ Given the below binary tree and sum = 22,
 return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 
 
-
-#recursion (DFS)
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+walk through all paths in the tree from root to leaf -> DFS
+1. input/define: root, target, curt_sum
+2. base case: 
+root is None(only exist in one case: root/root.left exist, but root.right not exist, then judge root.right node), return False(curt root.right is not a leaf); 
+root is a leaf, judge curt sum + root.val == target
+3. recursion: judge root.left or root.right have a path that the sum equal to target
+4. optimized:if all the nodes value are positive
+if curt sum > sum, return directly
+
+edge case: if root is None, return False
+
+Time: O(n)
+Space: O(1)????
+~~~~~~~~~~~~~~~~~~~~~~
+Space complexity : in the worst case, the tree is completely unbalanced, e.g. each node has only one child node, 
+the recursion call would occur N times (the height of the tree), therefore the storage to keep the call stack would be  O(N). 
+But in the best case (the tree is completely balanced), the height of the tree would be log(N). 
+Therefore, the space complexity in this case would be O(log(N)). 
+
+'''
 
 class Solution:
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         if not root:
             return False
         
-        self.res = False
-        self.dfs(root, sum, root.val)
-        
-        return self.res
-        
-    def dfs(self, root, sum, temp):
-        if not root.left and not root.right:
-            if temp == sum:
-                self.res = True
-            return
-        
-        if root.left:
-            self.dfs(root.left, sum, temp + root.left.val)
-        if root.right:
-            self.dfs(root.right, sum, temp + root.right.val)
-
-#4/6/2020
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
-        if not root:
-            return False
-        
-        return self.helper(root, sum, 0)
+        return self.dfs(root, sum, 0)
     
-    def helper(self, root, sum, curt):
+    def dfs(self, root, target, curt):
         if not root:
             return False
         
         if not root.left and not root.right:
-            return curt + root.val == sum
+            return curt + root.val == target
         
-        return self.helper(root.left, sum, curt + root.val) or self.helper(root.right, sum, curt + root.val)
-
-
-
-用recursion分析不同情况
-
-code:
-
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution(object):
-    def hasPathSum(self, root, sum):
-        """
-        :type root: TreeNode
-        :type sum: int
-        :rtype: bool
-        """
-        if not root:
-            return False
-            
-        #叶节点时
-        elif root.val == sum and not root.left and not root.right:
-            return True
-        #recursion左子树和右子树
-        else:
-            return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right, sum - root.val)
-        
-        
+        return self.dfs(root.left, target, curt + root.val) or self.dfs(root.right, target, curt + root.val)
