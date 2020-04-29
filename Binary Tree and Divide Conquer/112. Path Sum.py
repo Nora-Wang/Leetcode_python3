@@ -24,12 +24,15 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 #         self.right = right
 '''
 walk through all paths in the tree from root to leaf -> DFS
-1. input/define: root, target, curt_sum
+1. input/define: root, target, prev_sum
 2. base case: 
-root is None(only exist in one case: root/root.left exist, but root.right not exist, then judge root.right node), return False(curt root.right is not a leaf); 
+root is None(only exist in one case: root/root.left exist, but root.right not exist, then judge root.right node), 
+return False(curt root.right is not a leaf); 
 root is a leaf, judge curt sum + root.val == target
 3. recursion: judge root.left or root.right have a path that the sum equal to target
-4. optimized:if all the nodes value are positive
+4. return: True or False for curt_sum = prev_sum + curt root.val == target
+
+optimized:if all the nodes value are positive
 if curt sum > sum, return directly
 
 edge case: if root is None, return False
