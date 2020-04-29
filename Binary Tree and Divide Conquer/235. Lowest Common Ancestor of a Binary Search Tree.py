@@ -25,6 +25,42 @@ All of the nodes' values will be unique.
 p and q are different and both values will exist in the BST.
 
 
+'''
+brute force
+record the path from root to p/q, compare them, to find the last same node
+time: O(n), space: O(n)
+
+
+optimize
+#####Utilize BST(Version 2)
+compare the value of curt root, p, q;
+root < p and root < q, go to root.right part
+root > p and root > q, go to root.left part
+root in the range of p and q, return root
+
+
+
+#####Not use BST(236) Version 1
+1. input 
+root, p, q
+
+2. output
+LCA node
+
+3. recursion rule
+p/q not exist in curt root, return None
+p exist in root.left, q exist in root.right, return curt root
+p and q exist in root.left/root.right, return root.left/root.right
+
+4. base case
+if root == None/root = q/p, return root
+
+time: O(n), space: O(1)
+'''
+
+
+
+
 
 这道题要与236做对比,这道题明确说了是BST,因此需要用到BST的特性 左节点<根<=右节点 来解题,即version 2;
 而236则只是说是binary tree,因此只能用version 1
