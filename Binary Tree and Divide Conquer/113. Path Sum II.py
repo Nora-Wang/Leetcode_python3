@@ -50,7 +50,13 @@ append the valide temp to the final result(self.result), return final result
 root is None: return
 root is leaf: judge prev_sum + root.val == target sum -> append temp to self.result
 
-time: O(n), space: O(logn ~ n) the height of the tree
+time: O(n^2)个人觉得是O(n)???
+Time Complexity: O(N^2)where N are the number of nodes in a tree. 
+In the worst case, we could have a complete binary tree and if that is the case, then there would be N/2 leafs. 
+For every leaf, we perform a potential O(N) operation of copying over the pathNodes nodes to a new list to be added to the 
+final pathsList. Hence, the complexity in the worst case could be.
+
+space: O(logn ~ n) the height of the tree
 '''
 
 class Solution:
