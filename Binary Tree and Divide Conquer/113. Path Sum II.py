@@ -22,36 +22,60 @@ Return:
 
 
 
-Version by myself
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+Brute force
+walk through all paths one by one
+time: O(n^2), space: O(logn ~ n)(not include result space)
+
+
+Optimize:
+use DFS for backtracking
+1. recursion input/definition
+self.result
+dfs(root, prev_sum, temp, target_sum)
+
+2. recursion rules
+root.left/root.right, prev_sum + root.val, temp.append(root.val), target_sum
+
+3. return value
+append the valide temp to the final result(self.result), return final result
+
+4. base case
+root is None: return
+root is leaf: judge prev_sum + root.val == target sum -> append temp to self.result
+
+time: O(n), space: O(logn ~ n) the height of the tree
+'''
 
 class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
-        res = []
-        self.dfs(root, [], 0, res, sum)
+        if not root:
+            return []
         
-        return res
+        self.res = []
+        self.dfs(root, 0, [], sum)
+        
+        return self.res
     
-    def dfs(self, root, path, curt, res, sum):
+    def dfs(self, root, prev_sum, temp, target):
         if not root:
             return
         
         if not root.left and not root.right:
-            if curt + root.val == sum:
-                res_path = list(path) + [root.val]
-                res.append(res_path)
+            if prev_sum + root.val == target:
+                self.res.append(list(temp) + [root.val])
             return
         
-        path.append(root.val)
-        self.dfs(root.left, path, curt + root.val, res, sum)
-        self.dfs(root.right, path, curt + root.val, res, sum)
-        path.pop()
-
+        temp.append(root.val)
+        self.dfs(root.left, prev_sum + root.val, temp, target)
+        self.dfs(root.right, prev_sum + root.val, temp, target)
+        temp.pop()
 
 
 
