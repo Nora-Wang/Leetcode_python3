@@ -17,6 +17,18 @@ Return the following binary tree:
    
    
 参考105
+Base case: if preorder is a empty list, it means there is no root, so return None
+
+Recursion rule:
+1. preorder: last node is curt root.val, curt_root_value
+2. inorder: index = inorder.index(curt_root_value), [:index] -> root.left, [index + 1:] -> root.right
+3. preorder: utilize index in the inorder, which means the length of left/right part
+   [:index] -> root.left, [index:-1] -> root.right
+    
+Return value: the curt created root
+
+time: O(n^2), n = num of nodes in the tree
+space: O(n)
 
 code:
 # Definition for a binary tree node.
