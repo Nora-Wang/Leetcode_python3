@@ -38,7 +38,7 @@ if curt sum > sum, return directly
 edge case: if root is None, return False
 
 Time: O(n)
-Space: O(1)????
+Space: O(1)????解释：
 ~~~~~~~~~~~~~~~~~~~~~~
 Space complexity : in the worst case, the tree is completely unbalanced, e.g. each node has only one child node, 
 the recursion call would occur N times (the height of the tree), therefore the storage to keep the call stack would be  O(N). 
