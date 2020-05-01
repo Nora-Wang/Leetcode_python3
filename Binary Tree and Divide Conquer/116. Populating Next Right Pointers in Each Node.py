@@ -47,7 +47,7 @@ class Node:
 '''
 brute force
 utilize left/right to iterate to find the next node
-time: O(n^2), space: O(n)
+time: O(n^2), space: O(1)
 
 optimize:
 #level traverse by BFS
