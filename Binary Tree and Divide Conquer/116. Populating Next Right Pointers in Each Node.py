@@ -47,23 +47,17 @@ class Node:
 '''
 brute force
 utilize left/right to iterate to find the next node
-time: O(n^2), space: O(1)
+time: O(n^2), space: O(n)
 
 optimize:
 #level traverse by BFS
 record all nodes by level to level, use a for loop to add the next node
-queue(BFS), record[level1, level2...]
+queue(BFS), prev(record the previous node)
+if change level, prev = None. if prev = None, prev = curt root; if prev exist, prev.next = curt root
+
 time: O(n), space: O(n)
-
-reduce space optimize:
-use a prev variable to record the previous node. if change level, prev = None. 
-if prev = None, prev = curt root; if prev exist, prev.next = curt root
-
 edge case: if not root, return None
-
 '''
-
-
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
@@ -86,5 +80,47 @@ class Solution:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
+        
+        return root
+
+         
+         
+         
+         
+'''
+follow up:
+use head node to represent every level in the tree. 
+complete the problem level by level, so for curt level(level 2), the prev level(level 1)'s nodes have .next node
+
+head, head.next (level 1)
+if head.left exist -> head.left.next = head.right (level 2)
+if head.next exist, which means head is not the lase node of level 1, so the right child of head and the left child of 
+head.next should be connected -> head.right.next = head.next.left (level 1 + level 2)
+
+time: O(n), space: O(1)
+'''
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if not root:
+            return None
+        
+        level_head = root
+        
+        #use level 1's next node to deal with level 2's nodes. level_head.left is to ensuranece level 2's existine
+        while level_head.left:
+            #most left node in the level 1
+            prev = level_head
+            
+            #traverse all the nodes in the level 1
+            while prev:
+                #connect curt node's left and right child in level 2
+                prev.left.next = prev.right
+                #if there still have node in level 1, connect them in level 2
+                if prev.next:
+                    prev.right.next = prev.next.left
+                    
+                prev = prev.next
+            
+            level_head = level_head.left
         
         return root
