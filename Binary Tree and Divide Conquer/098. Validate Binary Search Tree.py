@@ -17,7 +17,27 @@ Example 1:
 Input: [2,1,3]
 Output: true
 
+
+'''
+brute force
+utilize inorder. all the element in the tree, use a prev variable to compare it
+time: O(n), space: O(1)
+
+optimize
+use divide and conquer
+1. definition: helper(root, lower, upper)
+set a lower bound and upper bound for curt tree's nodes, every time compare is curt node in the range(return True or False). 
+for root.left part, root.val is the upper bound; for root.right part, root.val is the lower bound
+2. rules: both left and right part are BST
+3. base case: if not root, return True; node not in the range, return False
+4. return: curt node is in the range?
+
+time: O(n), space: O(1)
+'''
+ 
+ 
 code:
+#optimize
 #1 记录lower_bound和upper_bound,与当前root.val做比较
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -25,29 +45,24 @@ code:
 #         self.val = x
 #         self.left = None
 #         self.right = None
-
-class Solution(object):
-    def isValidBST(self, root):
-        """
-        :type root: TreeNode
-        :rtype: bool
-        """
-        return self.helper(root, -sys.maxsize, sys.maxsize)
-    
-    def helper(self, root, lower_bound, upper_bound):
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
         if not root:
             return True
         
-        #题目要求lower_bound < root.val < upper_bound
-        if root.val <= lower_bound or root.val >= upper_bound:
+        return self.helper(root, -float('inf'), float('inf'))
+    
+    def helper(self, root, lower, upper):
+        if not root:
+            return True
+        
+        if root.val <= lower or root.val >= upper:
             return False
         
-        left = self.helper(root.left, lower_bound, root.val)
-        right = self.helper(root.right, root.val, upper_bound)
-        
-        return left and right
+        return self.helper(root.left, lower, root.val) and self.helper(root.right, root.val, upper)
         
 
+#brute force
 #2 inorder divide and conquer,用一个全局变量来记录上一个node,然后将其与当前root.val做比较,因为BST是递增的
 # Definition for a binary tree node.
 # class TreeNode(object):
