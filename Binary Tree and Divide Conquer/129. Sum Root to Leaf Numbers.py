@@ -53,7 +53,7 @@ root if leaf: add curt temp to the self.result
 edge case:
 if not root, return 0
 
-time: O(n ^ 2), space: O(1)
+time: O(n), space: O(1)
 '''    
 
 code:
