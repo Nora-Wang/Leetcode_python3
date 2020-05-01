@@ -92,7 +92,18 @@ class Solution:
       4
 此时即完成了flatten以2为root的binary tree
             
-            
+'''
+use divide and conquer
+1. definition: lastnode = helper(root)
+2. rules: 
+root.left exist: left lastnode.right = root.right, root.right = root.left, root.left = None; curt lastnode = right lastnode
+root.left exist, root.right not exist: copy root.left to root.right, root.left = None, curt lastnode = left lastnode
+both left/right not exist: lastnode = root
+3. base case: not root, return None
+4. return: curt lastnode
+
+time: O(n), space:O(n)
+'''
 code:
 """
 Definition of TreeNode:
