@@ -71,6 +71,30 @@ class Solution:
 #         self.left = None
 #         self.right = None
 
+#iterative
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        
+        stack = []
+        prev = None
+        
+        while root or stack:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                root = stack.pop()
+                if prev and prev.val >= root.val:
+                    return False
+                prev = root
+                root = root.right
+        
+        return True
+
+
+#divide and conquer
 class Solution(object):
     def isValidBST(self, root):
         """
