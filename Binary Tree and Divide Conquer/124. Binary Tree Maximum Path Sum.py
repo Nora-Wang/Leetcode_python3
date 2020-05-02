@@ -14,6 +14,69 @@ Input: [1,2,3]
 Output: 6
 
 
+#05/01/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+brute force
+find all paths in the tree
+time?? space: O(1)
+
+optimize
+use divide and conquer
+1. definition
+maxPathSum(root)
+2. rules
+use gloable variable to record the max sum -> self.max_sum
+compare (left + root, right + root, root, left + right + root) to get a max sum for curt root -> curt_max
+compare curt_max and self.max_sum
+3. return 
+max(left + root, right + root, root, 0)
+4. base case
+not root, return 0
+
+time: O(n), space: O(1)
+'''
+
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        self.max_sum = -float('inf')
+        self.helper(root)
+        
+        return self.max_sum
+        
+    def helper(self, root):
+        if not root:
+            return 0
+        
+        left = self.helper(root.left)
+        right = self.helper(root.right)
+        
+        self.max_sum = max(self.max_sum, left + root.val, right + root.val, root.val, left + right + root.val)
+        
+        return max(left + root.val, right + root.val, root.val, 0)
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
 code:
 Version 1
 # Definition for a binary tree node.
