@@ -32,8 +32,7 @@ use divide and conquer
 maxPathSum(root)
 2. rules
 use gloable variable to record the max sum -> self.max_sum
-compare (left + root, right + root, root, left + right + root) to get a max sum for curt root -> curt_max
-compare curt_max and self.max_sum
+compare (self.max_sum, left + root, right + root, root, left + right + root) to get a max sum for curt root -> new self.max_sum
 3. return 
 max(left + root, right + root, root, 0)
 4. base case
