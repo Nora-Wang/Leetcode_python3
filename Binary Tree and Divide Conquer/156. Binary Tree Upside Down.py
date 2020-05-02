@@ -34,6 +34,50 @@ Here's an example:
      5
 The above binary tree is serialized as [1,2,3,#,#,4,#,#,5].
 
+#05/02/2020                                        
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+to the most left and depthest node, use stack to record the path
+pop one(-> become right child), varify whether it has right child(-> become left child), continue pop to the next loop
+
+time: O(n), space: O(n)
+'''
+
+class Solution:
+    def upsideDownBinaryTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        
+        stack = []
+        while root:
+            stack.append(root)
+            root = root.left
+            
+        curt = dummy = TreeNode(None)
+        
+        while stack:
+            root = stack.pop()
+            curt.right = TreeNode(root.val)
+            if root.right:
+                curt.left = TreeNode(root.right.val)
+
+            curt = curt.right
+        
+        return dummy.right
+                               
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
 
 code:
 # Definition for a binary tree node.
