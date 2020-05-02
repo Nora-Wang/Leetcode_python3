@@ -86,7 +86,8 @@ class Solution:
 
 follow up
 '''
-[参考](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/discuss/37824/AC-Python-O(1)-space-solution-12-lines-and-easy-to-understand)
+referral:
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/discuss/37824/AC-Python-O(1)-space-solution-12-lines-and-easy-to-understand
 '''
 
 class Solution:
