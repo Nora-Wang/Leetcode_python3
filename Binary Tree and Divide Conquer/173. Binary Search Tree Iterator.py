@@ -25,6 +25,71 @@ Note:
 next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
 You may assume that next() call will always be valid, that is, there will be at least a next smallest number in the BST when next() is called.
 
+#05/02/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+'''
+brute force
+use a stack to record the result of inorder traverse
+time: O(n)(for the inital, but for the next/hasnext function, the time should be O(1)), space: O(n)
+
+optimize
+utinize inorder iterate thoughts
+use a stack to record the left path, when need to get next node, pop it from the stack directly.
+point: after pop a node from stack, go to the node.right, record the left path of the node.right subtree
+
+time: average O(1)???, space: O(h)
+'''
+
+
+class BSTIterator:
+
+    def __init__(self, root: TreeNode):
+        self.stack = []
+        while root:
+            self.stack.append(root)
+            root = root.left
+
+    def next(self) -> int:
+        """
+        @return the next smallest number
+        """
+        min_node = self.stack.pop()
+        res = min_node.val
+        
+        #renew the stack
+        node = min_node.right
+        while node:
+            self.stack.append(node)
+            node = node.left
+        
+        return res
+
+    def hasNext(self) -> bool:
+        """
+        @return whether we have a next smallest number
+        """
+        return len(self.stack) > 0
+
+
+# Your BSTIterator object will be instantiated and called as such:
+# obj = BSTIterator(root)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()
+
+
+
+
+
+
+
+
+
+
 思路：
       5
     /  \
