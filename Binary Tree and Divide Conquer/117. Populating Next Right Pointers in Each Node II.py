@@ -86,13 +86,30 @@ class Solution:
 
 follow up
 '''
-use two while loop
-while loop 1: to find every level in the tree, most_left.left
-while loop 2: head = most_left(level 1), head.next
-head.left.next = head.right; if head.next exist, head.right.next = head.next.left
-if head.right not exist, use head.left; if head.next.left not exist, use head.next.right; if head.next.left/right both not exist, use None
-
-base case: if not root, return None
-
-time: O(n), space: O(1)
+[参考](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/discuss/37824/AC-Python-O(1)-space-solution-12-lines-and-easy-to-understand)
 '''
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        record = root 
+        
+        #loop all levels
+        while root:
+            curt = temp = Node(None)
+            #loop all nodes in curt level
+            #connect all nodes in a linkedlist
+            while root:
+                curt.next = root.left
+                if curt.next:
+                    curt = curt.next
+                curt.next = root.right
+                if curt.next:
+                    curt = curt.next
+
+                root = root.next
+            
+            #there is a littel tricky, because temp means the dummy, and for the 102 row code -> temp = root.left 
+            #-> the first node in the next level
+            root = temp.next
+            
+        return record
