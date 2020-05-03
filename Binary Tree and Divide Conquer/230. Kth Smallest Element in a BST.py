@@ -24,9 +24,41 @@ Input: root = [5,3,6,2,4,null,null,1], k = 3
  1
 Output: 3
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+'''
+traverse the BST follow inorder rules, 
+#use recursion to get the final inorder result, find the kth one
+time O(n), space O(n)
 
-code:
-Version 1: Traversal
+#use iterate
+time O(k), space O(n)
+'''
+
+#iterate
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        stack = []
+        
+        while root or stack:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                root = stack.pop()
+                k -= 1
+                
+                if k == 0:
+                    return root.val
+                
+                root = root.right
+    
+
+#recursion
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -64,10 +96,4 @@ class Solution(object):
         
         self.traverse(root.right)
         
-        
-        
-        
-Version 2: Iterator 
-参考173. Binary Search Tree Iterator
-时间复杂度：O(k)~O(n),因为最多把每个点都遍历一遍
 
