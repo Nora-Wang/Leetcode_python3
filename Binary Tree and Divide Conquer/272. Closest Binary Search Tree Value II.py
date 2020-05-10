@@ -154,3 +154,81 @@ class Solution(object):
             node = node.left
             
         return value
+
+    
+    
+    
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+brute force
+inorder traverse
+use binary search to find the target index
+use two pointer get the k numbers
+
+time: O(n), space: O(n)
+'''
+
+class Solution:
+    def closestKValues(self, root: TreeNode, target: float, k: int) -> List[int]:
+        inorder = self.get_inorder(root)
+        print(inorder)
+        index = self.find_target(inorder, target)
+        
+        if k == len(inorder):
+            return inorder
+        
+        left, right = index, index
+        
+        while right - left + 1 < k and (right < len(inorder) or left >= 0):
+            if right == len(inorder) - 1:
+                left -= 1
+                continue
+                
+            if left == 0:
+                right += 1
+                continue
+                
+            if abs(inorder[right] - target) < abs(target - inorder[left]):
+                right += 1
+            else:
+                left -= 1
+                
+        return inorder[left:right + 1]
+    
+    def get_inorder(self, root):
+        if not root:
+            return []
+        
+        left = self.get_inorder(root.left)
+        right = self.get_inorder(root.right)
+        
+        res = []
+        res.extend(left)
+        res.append(root.val)
+        res.extend(right)
+        
+        return res
+    
+    def find_target(self, inorder, target):
+        start, end = 0, len(inorder) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if float(inorder[mid]) == target:
+                return mid
+            
+            if float(inorder[mid]) < target:
+                start = mid
+            else:
+                end = mid
+        
+        if abs(target - inorder[start]) < abs(target - inorder[end]):
+            return start
+        return end
+        
