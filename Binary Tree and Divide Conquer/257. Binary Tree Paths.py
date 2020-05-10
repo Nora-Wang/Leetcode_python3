@@ -22,14 +22,27 @@ Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 O(nlogn)：满二叉树,高度logn，叶节点n/2
 O(n)：所有node都排在一条线上
 
-1.Divide and Conquer
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
+
+
+
+
+
+
+
+
+1.Divide and Conquer
+'''
+walk through all paths in tree -> save time use backtracking -> dfs recursion -> use divide and conquer
+
+1. every level: only have left and right
+2. depth: depth of tree(logn ~ n)
+3. return: curt left_path, right_path (list of str)
+4. end case: if not root, return
+
+time: O(nlogn), space: O(n)
+
+'''
 class Solution(object):
     def binaryTreePaths(self, root):
         """
@@ -58,46 +71,43 @@ class Solution(object):
             
         return result
 
-2.Traversal
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
+2.Recursion
+'''
+walk through all paths in tree -> save time use backtracking -> dfs recursion
+1. level: 2 child (binary tree)
+2. depth: depth of tree(logn ~ n)
+3. variables set: temp(record curt visited path)
+4. end case: curt root is leaf, turn temp to a string, add this path to result; if not root, return
 
+time: O(nlogn), space: O(n)
+
+'''
 class Solution:
-    """
-    @param root: the root of the binary tree
-    @return: all root-to-leaf paths
-    """
-    def binaryTreePaths(self, root):
-      #这部分一定要写,因为后面会用到root.val
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
         if not root:
             return []
-            
-        self.result = []
-        self.dfs(root, [str(root.val)])
         
-        return self.result
+        res = []
+        self.helper(root, [], res)
         
-    def dfs(self, root, path):
-        if not root.left and not root.right:
-            #用join可节省空间复杂度，直接append每次都会创建一个新的list
-            self.result.append('->'.join(path))
+        return res
+    
+    def helper(self, root, temp, res):
+        if not root:
             return
-            
-        if root.left:
-            path.append(str(root.left.val))
-            self.dfs(root.left, path)
-            #相当于回到上一个点，backtracking
-            path.pop()
-            
-        if root.right:
-            path.append(str(root.right.val))
-            self.dfs(root.right, path)
-            path.pop()
+        
+        #curt root haven't been append in temp
+        if not root.left and not root.right:
+            temp.append(str(root.val))
+            res.append('->'.join(temp))
+            #backtracking
+            temp.pop()
+            return
+        
+        temp.append(str(root.val))
+        self.helper(root.left, temp, res)
+        self.helper(root.right, temp, res)
+        temp.pop()
         
 
 
