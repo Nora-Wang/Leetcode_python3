@@ -33,6 +33,55 @@ Output: 2
 
 Explanation: Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
 
+#05/10/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+divide and conquer
+every level recursion left and right
+1. rules
+use gloable variable to record LCS, use divide and conquer to get curt LCS, return to the upper level
+2. return
+for curt root, if root.left/right exist and root.val == root.left/right.val - 1, return left/right + 1; else 1
+3. edge case
+not root, return 0
+
+time: O(n), space:O(1)
+'''
+class Solution:
+    def longestConsecutive(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        self.lcs = 1
+        self.helper(root)
+        
+        return self.lcs
+    
+    def helper(self, root):
+        if not root:
+            return 0
+        
+        left = self.helper(root.left)
+        right = self.helper(root.right)
+        
+        if root.left and root.left.val - 1 == root.val:
+            self.lcs = max(self.lcs, left + 1)
+            return left + 1
+        
+        if root.right and root.right.val - 1 == root.val:
+            self.lcs = max(self.lcs, right + 1)
+            return right + 1
+        
+        return 1
+        
+            
+
+
 
 用一个temp来记录path
 
