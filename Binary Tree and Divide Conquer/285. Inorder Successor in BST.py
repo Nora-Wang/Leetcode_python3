@@ -23,17 +23,52 @@ Note:
 If the given node has no in-order successor in the tree, return null.
 It's guaranteed that the values of the tree are unique.
 
+#05/10/2020
+'''
+non-recursion/iterator
+use a stack(record the path from root to the most left node) + prev(to record the previous node, to varify is it equal to p) 
+to traverse the tree with in-order iterative way
+time:O(p), space:O(n)
+'''
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        if not root:
+            return None
+        
+        stack = []
+        prev = None
+        
+        while root or stack:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                root = stack.pop()
+                
+                if prev == p:
+                    return root
+                
+                prev = root
+                root = root.right
+        
+        return None
 
+'''
+utilize the property of BST, large go to right, small go to left-> recursion
+1. rules
+follow in-order order
+left: if root.val > p.val -> go to root.left -> return one node in left subtree or root
+root: record the self.flag and root.val to deal with root part
+right: if root.val <= p.val -> go to root.right -> must return one node in right subtree
 
+2. edge case
+if not root, return
 
-#Version 自写
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+3. variables set
+self.flag to varify p have been appeared, self.res to record the result
 
+time: O(h), space: O(1)
+'''
 class Solution:
     def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
         if not root:
@@ -50,7 +85,7 @@ class Solution:
         if not root:
             return
         
-        if p.val <= root.val:
+        if p.val < root.val:
             self.helper(root.left, p)
         
         if self.flag:
