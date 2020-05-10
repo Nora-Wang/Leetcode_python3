@@ -112,8 +112,8 @@ class Solution:
 
 
 
-3.Non-recursive
-从上到下一个stark就可以，注意第一次传入的是空string
+3.Non-recursive（太费空间）
+从上到下一个stack就可以，注意第一次传入的是空string
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -132,10 +132,10 @@ class Solution(object):
             return []
         result = []
       #重点：stark的定义方式[(node, path)]
-        stark = [(root, '')]
+        stack = [(root, '')]
          
-        while stark:
-            node, path = stark.pop()
+        while stack:
+            node, path = stack.pop()
             
             #如果是第一个节点，其path为空，则不需要‘->’
             if path:
@@ -151,9 +151,9 @@ class Solution(object):
             #如果有右节点，则将其push进stark；如果有左节点，则同样push进stark
             #下一次的循环就是先查找左节点的path，等左节点path已经全部找完，再寻找右节点的path
             if node.right:
-                stark.append((node.right, path))
+                stack.append((node.right, path))
             if node.left:
-                stark.append((node.left, path))
+                stack.append((node.left, path))
             
                 
         return result
