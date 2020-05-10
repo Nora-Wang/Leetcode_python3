@@ -61,6 +61,7 @@ class Solution:
         right_is_BST, right_size, right_upper, right_lower = self.helper(root.right)
         
         curt_BST = left_is_BST and right_is_BST and left_upper < root.val < right_lower
+        #注意：这里不一定要整棵left/ right subtree，可以只要left/ right的一边（类似path sum）
         curt_size = left_size + right_size + 1 if curt_BST else max(left_size, right_size) + 1
         curt_upper = max(right_upper, root.val)
         curt_lower = min(left_lower, root.val)
