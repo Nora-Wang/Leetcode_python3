@@ -57,7 +57,47 @@ class Solution:
         return upper if upper - target < target - lower else lower
     
     
+'''
+utilize the property of BST
+use diff(abs(curt root.val - target)) and res(curt closest root.val) to record
+from root to leaf, recursion to find res
+
+rules:
+target > curt root -> go to root.right, renew diff and res
+target == curt root -> return root.val
+target < curt root -> go to root.left, renew diff and res
+
+time: depends on the depth of tree(logn ~ n), space: O(1)
+'''
+
+class Solution:
+    def closestValue(self, root: TreeNode, target: float) -> int:
+        self.diff, self.res = float('inf'), root.val
+        
+        self.helper(root, target)
+        
+        return self.res
     
+    def helper(self, root, target):
+        if not root:
+            return
+        
+        if root.val == target:
+            self.res = root.val
+            self.diff = 0
+            return
+        
+        curt_diff = abs(target - root.val)
+        if curt_diff < self.diff:
+            self.diff = curt_diff
+            self.res = root.val
+        
+        if root.val < target:
+            self.helper(root.right, target)
+        else:
+            self.helper(root.left, target)
+            
+            
 
 思路：
 如果当前root值比target大，就暂且把这个root值当成上限upper，然后往左边走root = root.left
