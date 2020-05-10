@@ -16,6 +16,48 @@ Input: root = [4,2,5,1,3], target = 3.714286
 
 Output: 4
 
+    
+    
+#05/10/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+similar with valid BST
+utilize BST property, use upper and lower bound to record, in the end, conpare the diff between upper/lower and target, get the min_diff one
+
+rule:
+root.val > target -> upper = root.val, go to root.left
+root.val < target -> lower = root.val, go to root.right
+
+end case:
+while root
+
+edge case:
+root = target, return
+
+time: depends on depth of the tree(O(logn) ~ O(n)), space: O(1)
+'''
+
+class Solution:
+    def closestValue(self, root: TreeNode, target: float) -> int:
+        lower, upper = -float('inf'), float('inf')
+        
+        while root:
+            if root.val > target:
+                upper = min(root.val, upper)
+                root = root.left
+            else:
+                lower = max(root.val, lower)
+                root = root.right
+                
+        return upper if upper - target < target - lower else lower
+    
+    
+    
 
 思路：
 如果当前root值比target大，就暂且把这个root值当成上限upper，然后往左边走root = root.left
