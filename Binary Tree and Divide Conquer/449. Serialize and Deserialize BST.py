@@ -82,3 +82,61 @@ class Codec:
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
 # codec.deserialize(codec.serialize(root))
+
+
+
+#pre-order + in-order Version
+'''
+serialize: use preorder traverse get string
+deserialize: split by space, get preorder list, use sort to get inorder result, utilize pre-order + in-order to construct the BST (leetcode 105)
+time: O(n^2), space: O(n)
+'''
+class Codec:
+
+    def serialize(self, root: TreeNode) -> str:
+        """Encodes a tree to a single string.
+        """
+        if not root:
+            return ''
+        
+        res = []
+        stack = []
+        
+        while root or stack:
+            if root: 
+                stack.append(root)
+                res.append(str(root.val))
+                root = root.left
+            else:
+                root = stack.pop()
+                root = root.right
+        
+        return ' '.join(res)
+        
+        
+        
+    def deserialize(self, data: str) -> TreeNode:
+        """Decodes your encoded data to tree.
+        """
+        if not data:
+            return None
+        
+        preorder = data.split()
+        for i in range(len(preorder)):
+            preorder[i] = int(preorder[i])
+            
+        inorder = sorted(preorder)
+        
+        return self.helper(preorder, inorder)
+        
+    def helper(self, preorder, inorder):
+        if not preorder:
+            return None
+        
+        root = TreeNode(preorder[0])
+        index = inorder.index(preorder[0])
+        
+        root.left = self.helper(preorder[1:index + 1], inorder[:index])
+        root.right = self.helper(preorder[index + 1:], inorder[index + 1:])
+        
+        return root
