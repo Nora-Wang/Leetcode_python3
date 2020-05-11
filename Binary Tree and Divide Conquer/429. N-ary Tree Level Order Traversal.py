@@ -28,6 +28,12 @@ The total number of nodes is between [0, 10^4]
 注意当children为None时,不输出
 
 
+'''
+level order traverse -> BFS
+n-ary -> use for loop with the node.children
+
+time: O(n), space: O(n)
+'''
 code:
 """
 # Definition for a Node.
