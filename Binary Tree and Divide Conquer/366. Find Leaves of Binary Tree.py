@@ -34,8 +34,22 @@ Explanation:
           [] 
           
           
+'''
+the height is from bottom(0) to the root -> use divide and conquer to count the height
+-> assume the height is the index, append the leaf.val to self.res[height]
 
-code:
+1. rule
+follow the height(index), append leaf.val to the self.res
+for curt root, assume the left and right all have been dealed -> curt root is a leaf
+the height = max(left, right) + 1, if height over the length of self.res, self.res need add one more index(add a list)
+
+2. return height
+
+3. end case
+not root, return -1
+
+time: O(n), space: O(n)
+'''
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
