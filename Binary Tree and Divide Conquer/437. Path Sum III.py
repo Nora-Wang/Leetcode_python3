@@ -27,6 +27,12 @@ Return 3. The paths that sum to 8 are:
 
 code:
 #两个DFS function
+'''
+must go downwards -> dfs -> for every node in the tree, do a dfs to count the sum -> use two dfs, one for traversing 
+every node in the tree, another for count curt node's downwards sum
+
+time: O(nlogn), space: O(n)
+'''
 时间复杂度： T(N) = 2T(N/2) + O(N)，根据Master公式，可知 复杂度为O(NlogN)
 # Definition for a binary tree node.
 # class TreeNode:
