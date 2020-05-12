@@ -19,7 +19,7 @@ Explanation:
 Surrounded regions shouldn’t be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
 
 
-BFS题目
+#BFS Version
 思路:对regions的所有边缘nodes进行bfs,将为O的标记为M,最后遍历一遍board,当为M则赋为O,否则一定为X
 
 code:
@@ -89,3 +89,61 @@ class Solution(object):
             return False
         
         return True
+
+    
+    
+    
+#DFS Version
+'''
+use dfs from the border of the board to mark all 'O' which will not be changed, and the rest 'O' will be changed to 'X'
+
+time: O(n * m), space: O(1)
+'''
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        if not len(board) or not len(board[0]):
+            return
+        
+        n = len(board)
+        m = len(board[0])
+        
+        for i in range(n):
+            if board[i][0] == 'O':
+                self.dfs(board, i, 0, n, m)
+            if board[i][-1] == 'O':
+                self.dfs(board, i, m - 1, n, m)
+        
+        for j in range(m):
+            if board[0][j] == 'O':
+                self.dfs(board, 0, j, n, m)
+            if board[-1][j] == 'O':
+                self.dfs(board, n - 1, j, n, m)
+                
+        for i in range(n):
+            for j in range(m):
+                board[i][j] = 'O' if board[i][j] == 'M' else 'X'
+                    
+        return
+    
+    def dfs(self, board, x, y, n, m):
+        board[x][y] = 'M'
+        
+        for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+            x_ = direct[0] + x
+            y_ = direct[1] + y
+            
+            if self.is_valid(board, x_, y_, n, m):
+                self.dfs(board, x_, y_, n, m)
+    
+    def is_valid(self, board, x, y, n, m):
+        if x < 0 or x >= n or y < 0 or y >= m:
+            return False
+        
+        if board[x][y] != 'O':
+            return False
+        
+        return True
+    
