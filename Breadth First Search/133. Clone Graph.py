@@ -29,7 +29,7 @@ Node 4's value is 4, and it has two neighbors: Node 1 and 3.
 
 
 
-#Version 0
+#BFS Version
 """
 # Definition for a Node.
 class Node:
@@ -71,6 +71,52 @@ class Solution:
         
         return graph, node_r
 
+       
+#DFS Version
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+'''
+3 steps to clone the graph
+step 1. clone the nodes
+use dfs/bfs to traverse all nodes in the graph, use a hashtable to record {old_node:new_node}
+
+step 2. clone the edges
+based on the neighbors of every old_node, append new_neighbors into new_node.neighbors
+
+time: O(n), space: O(n)
+'''
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return node
+        
+        #step 1
+        graph = {}
+        self.dfs_copy_nodes(node, graph)
+        
+        #step 2
+        for old_node in graph:
+            new_node = graph[old_node]
+            for neighbor in old_node.neighbors:
+                new_node.neighbors.append(graph[neighbor])
+                
+        return graph[node]
+        
+    def dfs_copy_nodes(self, node, graph):
+        if node in graph:
+            return
+        
+        graph[node] = Node(node.val, [])
+        
+        for neighbor in node.neighbors:
+            self.dfs_copy_nodes(neighbor, graph)
+        
+        
 
 code:
 leetcode版本
