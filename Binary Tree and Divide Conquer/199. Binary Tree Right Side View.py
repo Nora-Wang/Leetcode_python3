@@ -12,6 +12,14 @@ Explanation:
  \     \
   5     4       <---
   
+
+哇，这题很有意思啊。
+主体思路就是level order traverse。
+常规直接用BFS，但其实还有4种DFS解法。
+DFS主要分为recursion和stack两种类型，每种又能分为从左到右的遍历还是从右到左的遍历，区别主要是空间复杂度。
+BFS无论从左到右的遍历还是从右到左的遍历都是O(1)的空间，所以无所谓左右。
+
+
   
 # Definition for a binary tree node.
 # class TreeNode:
