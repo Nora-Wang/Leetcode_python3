@@ -25,6 +25,12 @@ bfs的时候需要判断一下这个node是否在矩阵范围内，且node的值
 
 
 #Version DFS
+'''
+#DFS Version
+use recursion to DFS every node in the grid which is '1', and turn it to '0'. count the number of DFS process
+
+time: O(n), space: O(n)
+'''
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         if not len(grid) or not len(grid[0]):
