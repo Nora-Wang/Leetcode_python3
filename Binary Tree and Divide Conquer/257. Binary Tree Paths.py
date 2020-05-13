@@ -24,8 +24,51 @@ O(n)：所有node都排在一条线上
 
 
 
+#05/12/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+walk through all paths in tree -> save time use backtracking -> dfs recursion -> use divide and conquer
 
+1. every level: only have left and right
+2. depth: depth of tree(logn ~ n)
+3. return: curt left_path, right_path (list of str)
+4. end case: if not root, return
 
+************
+the point of the problem is how to saperate the first node in the path which should not have '->' behind it: 
+use a if to judge whether curt node is the first node of the path
+
+edge case: only have one node, which means do not need '->'
+
+time: O(nlogn), space: O(n)
+
+'''
+
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        
+        res = []
+        self.helper(root, '', res)
+            
+        return res
+    
+    def helper(self, root, temp, res):
+        if not root:
+            return
+        
+        if not root.left and not root.right:
+            res.append(temp + '->' + str(root.val) if temp else str(root.val))
+            return
+        
+        self.helper(root.left, temp + '->' + str(root.val) if temp else str(root.val), res)
+        self.helper(root.right, temp + '->' + str(root.val) if temp else str(root.val), res)
 
 
 
