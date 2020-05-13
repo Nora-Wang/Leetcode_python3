@@ -68,7 +68,43 @@ class Solution(object):
                 visited.add(neighbor)
                 queue.append(neighbor)
 
-
+#DFS Version
+class Solution(object):
+    def countComponents(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: int
+        """
+        graph = self.create(n, edges)
+        
+        count = 0
+        visited = set()
+        for node in range(n):
+            if node in visited:
+                continue
+            count += 1
+            self.dfs(graph, visited, node)
+    
+        return count
+    
+    def create(self, n, edges):
+        graph = {}
+        
+        graph = collections.defaultdict(list)
+            
+        for edge in edges:
+            graph[edge[0]].append(edge[1])
+            graph[edge[1]].append(edge[0])
+        
+        return graph
+    
+    def dfs(self, graph, visited, node):
+        visited.add(node)
+        for neighbor in graph[node]:
+            if neighbor in visited:
+                continue
+            self.dfs(graph, visited, neighbor)
 
 #典型Union Find的题目
 class Solution(object):
