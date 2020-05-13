@@ -72,6 +72,7 @@ Output:
 用index, left -> index - 1, right -> index + 1
 
 难点:如何存储数据
+1. BFS
 使用queue,将node和index同时放入queue中,然后用hashtable value为list存储所有结果,最后sort一下即可
 
 code:
@@ -101,3 +102,42 @@ class Solution:
                 queue.append((root.right, index + 1))
         
         return [res_hash[i] for i in sorted(res_hash.keys())]
+
+      
+      
+2. DFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        
+        record = collections.defaultdict(list)
+        
+        self.helper(root, 0, record, 0)
+        #print(record)
+        sorted_record = sorted(record.items(), key = lambda x : x[0])
+        #print(sorted_record)
+        res = []
+        for k, v in sorted_record:
+            v = sorted(v, key = lambda x:x[1])
+            curt = []
+            for value, row in v:
+                curt.append(value)
+            res.append(curt)
+        
+        return res
+        
+        
+    def helper(self, root, index, record, row):
+        if not root:
+            return
+        
+        record[index].append((root.val, row))
+        self.helper(root.left, index - 1, record, row + 1)
+        self.helper(root.right, index + 1, record, row + 1)
