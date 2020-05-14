@@ -13,7 +13,7 @@ Input: [1,[4,[6]]]
 Output: 27 
 Explanation: One 1 at depth 1, one 4 at depth 2, and one 6 at depth 3; 1 + 4*2 + 6*3 = 27.
 
-
+time: O(n), space: O(1)
 code:
 # """
 # This is the interface that allows for creating nested lists.
