@@ -44,6 +44,7 @@ BFS：停下若不在原点则入队，出队检查去重
   
 
 code:
+#BFS Version
 DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]
 class Solution:
     """
@@ -97,6 +98,37 @@ class Solution:
 
 
                 
-
+#DFS Version
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        if not len(maze) or not len(maze[0]):
+            return True
+        
+        return self.dfs(maze, start[0], start[1], destination, set())
+    
+    def dfs(self, maze, x, y, destination, visited):
+        if (x,y) in visited:
+            return False
+        if x == destination[0] and y == destination[1]:
+            return True
+        
+        visited.add((x,y))
+        for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+            x_, y_ = x, y
+            while self.is_valid(x_ + direct[0], y_ + direct[1], maze):
+                x_ += direct[0]
+                y_ += direct[1]
+                
+            if self.dfs(maze, x_, y_, destination, visited):
+                return True
+            
+    def is_valid(self, x, y, maze):
+        if x < 0 or x >= len(maze) or y < 0 or y >= len(maze[0]):
+            return False
+        
+        if maze[x][y] == 1:
+            return False
+        
+        return True
 
         
