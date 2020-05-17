@@ -1,7 +1,11 @@
 时间复杂度：
+#DFS时间复杂度通用公式：
+#O(答案个数 * 构造每个答案的时间)
+
 1.搜索的时间复杂度：O(答案总数 * 构造每个答案的时间)
-举例：Subsets问题,即Combinations，求所有的子集。子集个数一共 2^n，每个集合的平均长度是 O(n) 的，所以时间复杂度为 O(n * 2^n)，
-同理 Permutations 问题的时间复杂度为：O(n * n!)
+举例：Subsets问题,即Combinations，求所有的子集。子集个数一共 2^n(每一个点都有两个选择,选or不选,一共有n个点)，每个集合的平均长度是 O(n) 的，
+所以时间复杂度为 O(n * 2^n)
+同理 Permutations 问题的时间复杂度为：O(n * n!)(每个点都必须被选到,全部选完的总机率为n!)
 
 2.动态规划的时间复杂度：O(状态总数 * 计算每个状态的时间复杂度)
 举例：triangle，数字三角形的最短路径，状态总数约 O(n^2) 个，计算每个状态的时间复杂度为 O(1)——就是求一下 min。所以总的时间复杂度为 O(n^2)
@@ -33,7 +37,8 @@ T(n) = O(2^n * n)
 T(n) = O(n! * n)
 
 
-
+Deep Copy:
+https://azhang2019.gitbook.io/algorithms/algorithm/di-liu-zhang-yin-shi-tu-shen-du-you-xian-sou-suo/shen-me-shi-deep-copy
 
 1. DFS模板:
     def comnination(self, candidates, target):
