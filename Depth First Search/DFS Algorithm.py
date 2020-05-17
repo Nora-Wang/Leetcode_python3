@@ -29,24 +29,31 @@ eg:
 边:元素与元素之间用有向边连接，小的点指向大的点(为了避免选出 12 和 21 这种重复集合) 
 路径:= 子集 = 图中任意点出发到任意点结束的一条路径
 T(n) = O(2^n * n)
+问题模型:求出所有满足条件的“组合”。 
+判断条件:组合中的元素是顺序无关的。 
+时间复杂度:与 2^n 相关。
 
 2. Permutations
 点:每个数为一个点
 边:任意两两点之间都有连边，且为无向边
 路径:= 排列 = 从任意点出发到任意点结束经过每个点一次且仅一次的路径
 T(n) = O(n! * n)
+问题模型:求出所有满足条件的“排列”。 
+判断条件:组合中的元素是顺序“相关”的。 
+时间复杂度:与 n! 相关。
 
-
+    
 Deep Copy:
 https://azhang2019.gitbook.io/algorithms/algorithm/di-liu-zhang-yin-shi-tu-shen-du-you-xian-sou-suo/shen-me-shi-deep-copy
 
 1. DFS模板:
-    def comnination(self, candidates, target):
+    def combination(self, candidates, target):
         results = [] #定义结果
         
         #当后续有candidates[i]与candidates[i - 1]的比较时,需要sort
         #candidates.sort()
         
+        #DFS的temp都是以空数组/空string开头进行调用的
         self.dfs(candidates, 0, [], results) 
         #有target时
         self.dfs(candidates, 0, [], results, target) 
@@ -92,6 +99,7 @@ self.dfs(candidates, i, temp, results, cur_target)
 self.dfs(candidates, i + 1, temp, results, cur_target)
 2.2 dfs如何移除最后一个元素？ temp.pop()
 2.3 假如数组中包含多个相同的元素，但是这些元素每个只能选一次，并且结果中不能出现相同的组合，怎么办？ 
+先提前sort好，然后
 if i > startIndex and nums[i] == nums[i - 1]:
     continue
  
@@ -103,9 +111,6 @@ if i > startIndex and nums[i] == nums[i - 1]:
 ！！！建议在每个确定无效或有效的solution都添加return
 
 
-
-注意4和5的区别！！！！
-
 ******************************************************************************************************************
 分析步骤：
 1.是不是要将所有的值都排列出来,即permutation problem:用visited
@@ -113,16 +118,20 @@ if i > startIndex and nums[i] == nums[i - 1]:
 3.nums是不是存在重复数值([1,2',2'']):yes用nums[i] == nums[i - 1] not visited[i - 1] or i > start_index(##记得sort)
 4.combination时,每次的取值是不是能取相同index的值(2+2=4):yes i; no i + 1
 ******************************************************************************************************************
+
                  
+#注意4和5的区别！！！！                 
 4.permutations设置一个visited
 [1,2',2'']
-visited的作用是规定每个存在于nums的值只能被取一次:在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被重复加入[1,2'',2'']or[1,2',2']
+visited是用于规定每个存在于nums的值只能被取一次:在为temp加入数据时,2'和2''都能被加到temp中[1,2',2''],但都不能被重复加入[1,2'',2'']or[1,2',2']
 当要求nums的每个值都需要加入temp的时候,则需要用一个visited来限制,使得每个值不会被重复放入temp
 
 Combination Sum中同理情况
 由于数据选取可以重复,因此在后续dfs调用的时候为i;但Combination Sum II的数据不能重复选取,因此每次dfs时是i+1
 
+                 
 5.去重
+先提前sort好
 [1,2',2'']
 #Combination Sum和Combination Sum II
 if i > start_index and nums[i] == nums[i - 1]是防止重复情况的出现:[1,2']被分析后,[1,2'']就不用分析了,因为结果是一样的
