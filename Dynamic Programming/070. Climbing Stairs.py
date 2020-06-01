@@ -29,7 +29,7 @@ class Solution:
     
 #dynamic programming 
 #dp[i] means all of the possibilities for curt stair i
-#dp[i] = dp[i - 1] + dp[i - 2] means choose step 1 from dp[i - 1] or choose step 2 from dp[i - 2]
+#dp[i] = dp[i - 1] + dp[i - 2] means choose step 1 from dp[i - 1] or choose step 2 from dp[i - 2], we can arrive curt stair i
 #time: O(n), space: O(n)
 class Solution:
     def climbStairs(self, n: int) -> int:
