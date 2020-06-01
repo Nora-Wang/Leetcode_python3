@@ -21,19 +21,47 @@ Explanation: There are three ways to climb to the top.
 3. 2 steps + 1 step
 
 
-code:
+
+#recursion -> TLE
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        return n if n <= 2 else self.climbStairs(n - 1) + self.climbStairs(n - 2)
+    
+#dynamic programming 
+#dp[i] means all of the possibilities for curt stair i
+#dp[i] = dp[i - 1] + dp[i - 2]
+#time: O(n), space: O(n)
 class Solution:
     def climbStairs(self, n: int) -> int:
         #corner case
-        if n == 1:
-            return 1
+        if n <= 2:
+            return n
         
+        #initial
         dp = [0] * n
-        
-        dp[0] = 1
-        dp[1] = 2
+        dp[0] = 1 # n = 1 -> 1
+        dp[1] = 2 # n = 2 -> 1 + 1, 2
         
         for i in range(2, n):
             dp[i] = dp[i - 1] + dp[i - 2]
         
         return dp[-1]
+    
+#dynamic programming
+#time: O(n), space: O(1)
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 2:
+            return n
+        
+        one = 1
+        two = 1
+        
+        for i in range(2, n + 1):
+            curt = one + two
+            two = one
+            one = curt
+        
+        return curt
+
+    
