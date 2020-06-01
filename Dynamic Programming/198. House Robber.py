@@ -25,6 +25,7 @@ dp[i][1] for curt i house, rob
 dp[i][0] = max(dp[i - 1][0], dp[i - 1][1])
 dp[i][1] = dp[i - 1][0] + nums[i] #if house i will rob -> house i - 1 cannot rob
 '''
+#time: O(n), space: O(n)
 class Solution:
     def rob(self, nums: List[int]) -> int:
         if not nums: 
@@ -39,3 +40,18 @@ class Solution:
             dp[i][1] = dp[i - 1][0] + nums[i]
         
         return max(dp[-1][0], dp[-1][1])
+
+      
+#time: O(n), space: O(1)
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if not nums: 
+            return 0
+        
+        rob, not_rob = nums[0], 0
+        
+        for i in range(1, len(nums)):
+            #利用python特性
+            rob, not_rob = not_rob + nums[i], max(not_rob, rob)
+            
+        return max(rob, not_rob)
