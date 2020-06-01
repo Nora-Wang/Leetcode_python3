@@ -54,6 +54,9 @@ class Solution:
         if n <= 2:
             return n
         
+        #when n = 1, only can choose step 1
+        #two means after choose step 2, we can arrive curt stair
+        #one means after choose step 1, we can arrive curt stair
         one = 1
         two = 1
         
