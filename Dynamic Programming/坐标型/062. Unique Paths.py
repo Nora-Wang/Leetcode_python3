@@ -23,7 +23,27 @@ Example 2:
 Input: m = 7, n = 3
 Output: 28
 
+#06/02/2020
+'''
+for the first row/col position, robot only has one way to reach
+dp[i][j] means all the possible ways to reach curt position
 
+dp[i][0] and dp[0][j] = 1
+dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+
+time: O(n * m), space: O(n * m)
+'''
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [[1 for _ in range(n)] for _ in range(m)]
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        
+        return dp[-1][-1]
+    
+    
 
 【确认条件】
 （1）求解法总数。
