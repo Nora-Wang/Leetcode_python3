@@ -30,7 +30,7 @@ Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
      
 divide and conquer + dynamic programming
 
-利用path sum的思路进行divide and conquer，在conquer的时候利用dp思路得到当前node的值
+利用path sum的思路进行divide and conquer，在conquer的时候利用dp思路得到当前node rob or not rob的最大值
      
 # Definition for a binary tree node.
 # class TreeNode:
