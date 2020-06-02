@@ -13,6 +13,33 @@ Input:
 Output: 7
 Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 
+  
+06/02/2020
+'''
+dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
+
+dp[i][j] means row = i, col = j, the min path sum for curt position
+
+time: O(n * m), space: O(1)
+'''
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        if not len(grid) or not len(grid[0]):
+            return 0
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if i and j:
+                    grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
+                else:
+                    if i:
+                        grid[i][j] += grid[i - 1][j]
+                    if j:
+                        grid[i][j] += grid[i][j - 1]
+
+        return grid[-1][-1]
+        
+  
 
 使用DP是因为这道题也是向一个方向(右下)运动的
 动规方程式dp[i][j] = min(grid[i - 1][j], grid[i][j - 1]) + grid[i][j]
