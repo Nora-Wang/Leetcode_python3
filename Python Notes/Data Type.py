@@ -1,3 +1,15 @@
+#Data Structure
+1. Array物理连续town house
+2. Stack逻辑概念可用别的物理概念来实现，先进后出
+3. Queue逻辑概念，先进先出
+4. Linked List利用物理地址
+5. Tree
+6. Heap
+7. Graph
+8. Hash Table
+
+
+
 #随机取值:import random
 1.random.choice(序列a):从序列a(str/list)中随机抽取一个元素
 2.random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，并将n个元素生以list形式返回;random.sample(序列a，n)[0]返回生成的第一个随机数
