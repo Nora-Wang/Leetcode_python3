@@ -2,7 +2,7 @@ Quick Select参考215(Two Pointer)
 
 Quick Sort与Merge Sort比较：
 
-1.Quick Sort
+1. Quick Sort
 从上往下
 不稳定Unstable（同样的value时，value1和value2不会按照原数组的顺序被排序，可能排完序的结果为value2，value1）
 
@@ -11,7 +11,7 @@ Quick Sort与Merge Sort比较：
 空间复杂度：O(1) (原地排序)
 先整体有序，再局部有序：T(n) = 2T(n/2) + O(n)先做O(n),即先partition
 
-2.Merge Sort
+2. Merge Sort
 从上往下，再从下往上
 稳定Stable（同样的value时，value1和value2会按照原数组的顺序被排序）
 
@@ -24,7 +24,9 @@ O(nlogn)是从下往上进行merge。
 空间复杂度：O(n)
 先局部有序，再整体有序：T(n) = 2T(n/2) + O(n)先做2T(n/2)，即先partition，再做O(n),即后merge
 
-
+3. Selection Sort
+Given an array of integers, sort the elements in the array in ascending order. 
+The selection sort algorithm should be used to solve this problem.
 
 
 1. Quick Sort
