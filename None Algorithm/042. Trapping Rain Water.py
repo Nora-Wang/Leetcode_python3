@@ -9,6 +9,29 @@ Input: [0,1,0,2,1,0,1,3,2,1,2,1]
 Output: 6
 
 
+#06/08/2020
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        if not height:
+            return 0
+        
+        record = [0 for _ in range(len(height))]
+        
+        left_to_right = height[0]
+        for i in range(len(height)):
+            left_to_right = max(height[i], left_to_right)
+            record[i] = left_to_right
+        
+        res = 0
+        right_to_left = height[-1]
+        for j in range(len(height) - 1, -1, -1):
+            right_to_left = max(height[j], right_to_left)
+            res += min(right_to_left, record[j]) - height[j]
+        
+        return res
+    
+    
+    
 每个位置上的盛水数目 = min(左侧最高，右侧最高) - 当前高度
 
 从左到右扫描一边数组，获得每个位置往左这一段的最大值，再从右到左扫描一次获得每个位置向右的最大值。
