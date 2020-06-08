@@ -10,6 +10,22 @@ Output: 6
 
 
 #06/08/2020
+#brute force
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        if not height:
+            return 0
+        
+        res = 0
+        
+        for i in range(len(height)):
+            left_max = max(height[:i + 1])
+            right_max = max(height[i:])
+            res += min(left_max, right_max) - height[i]
+        
+        return res
+    
+    
 class Solution:
     def trap(self, height: List[int]) -> int:
         if not height:
