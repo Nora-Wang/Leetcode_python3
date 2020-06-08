@@ -28,13 +28,10 @@ class Solution:
     
 #DP prefix max    
 每个位置上的盛水数目 = min(左侧最高，右侧最高) - 当前高度
-
 从左到右扫描一边数组，获得每个位置往左这一段的最大值，再从右到左扫描一次获得每个位置向右的最大值。
 然后最后再扫描一次数组，计算每个位置上的盛水数目。
+#时间复杂度O(n)，空间复杂度O(n)
 
-时间复杂度O(n)，空间复杂度O(n)
-
-code:
 class Solution:
     def trap(self, height: List[int]) -> int:
         if not height:
@@ -58,7 +55,8 @@ class Solution:
         
         return result
 
-#同DP法，只是少写一个for loop + 少create一个O(n)的space    
+#同DP法，只是少写一个for loop + 少create一个O(n)的space 
+#time: O(n), sapce: O(n)
 class Solution:
     def trap(self, height: List[int]) -> int:
         if not height:
@@ -78,3 +76,30 @@ class Solution:
             res += min(right_to_left, record[j]) - height[j]
         
         return res
+
+    
+#two pointer
+#从两边向中间找两侧短板
+#time: O(n), space: O(1)
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        if not height:
+            return 0
+        
+        left, right = 0, len(height) - 1
+        
+        max_left, max_right = height[0], height[-1]
+        res = 0
+        
+        while left < right:
+            if max_left < max_right:
+                res += max_left - height[left]
+                left += 1
+                max_left = max(max_left, height[left])
+            else:
+                res += max_right - height[right]
+                right -= 1
+                max_right = max(max_right, height[right])
+        
+        return res
+    
