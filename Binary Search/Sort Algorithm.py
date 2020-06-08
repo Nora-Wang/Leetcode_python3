@@ -3,17 +3,26 @@ Quick Select参考215(Two Pointer)
 Quick Sort与Merge Sort比较：
 
 1.Quick Sort
+从上往下
 不稳定Unstable（同样的value时，value1和value2不会按照原数组的顺序被排序，可能排完序的结果为value2，value1）
+
 时间复杂度：O(n) ~ O(n^2) （每次划分都选的头或尾时，为O(n^2)；每次都是中间时，为O(n)）
 平均时间复杂度：O(nlogn)
 空间复杂度：O(1) (原地排序)
 先整体有序，再局部有序：T(n) = 2T(n/2) + O(n)先做O(n),即先partition
 
 2.Merge Sort
+从上往下，再从下往上
 稳定Stable（同样的value时，value1和value2会按照原数组的顺序被排序）
-时间复杂度：O(nlogn)
+
+时间复杂度：O(nlogn) = O(n) + O(nlogn) -> 
+O(n)是从上往下在每一层进行partition二分。
+第二层为O(1)切一刀，第三层为O(2)切2刀，第四层为O(4)切4刀...最后一层为O(n)切n刀，因此为O(n/2 + n/4 + n/8 +… 1) = O(n)
+O(nlogn)是从下往上进行merge。
+每一层都会将所有的值遍历一遍O(n) * 因为二分一共会有O(logn)层（类似balanced binary tree）
+
 空间复杂度：O(n)
-先局部有序，再整体有序：T(n) = 2T(n/2) + O(n)先做2T(n/2)，再做O(n),即后merge
+先局部有序，再整体有序：T(n) = 2T(n/2) + O(n)先做2T(n/2)，即先partition，再做O(n),即后merge
 
 
 
@@ -102,10 +111,14 @@ class Solution:
     def mergeSort(self, A, start, end, temp):
         
   #注意点2:记得一定要加上这部分，不然会maximum recursion depth exceeded
-        if start >= end:
+        #这里的原因是在divide二分时，当只有一个元素时就不用分了
+        if start == end:
             return
         
   #注意点3:middle要去整，因为后续会当作index用
+        #这样写是为了避免溢出（虽然python并不存在这种问题，因为python在可能出现溢出时，系统会自动增大存储空间，以避免溢出的出现）
+        #溢出是因为当start和end都很大时,(start + end)的值可能会很大，因此造成溢出
+        #而这样写，end和start首先是保证不会溢出的，而end - start也肯定不会溢出，这样就保证整个等式不会造成溢出的情况
         middle = start + (end - start) // 2
         
         self.mergeSort(A, start, middle, temp)
