@@ -44,7 +44,7 @@ class Solution:
         return res
        
        
-
+#Monotonic stack
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         #注意第一位加个0,这样才能保证后续的stack[-1]不会超出范围
