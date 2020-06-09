@@ -8,6 +8,7 @@ Quick Sort与Merge Sort比较：
 
 时间复杂度：O(n) ~ O(n^2) （每次划分都选的头或尾时，为O(n^2)；每次都是中间时，为O(n)）
 平均时间复杂度：O(nlogn)
+
 空间复杂度：O(1) (原地排序)
 先整体有序，再局部有序：T(n) = 2T(n/2) + O(n)先做O(n),即先partition
 
@@ -25,8 +26,11 @@ O(nlogn)是从下往上进行merge。
 先局部有序，再整体有序：T(n) = 2T(n/2) + O(n)先做2T(n/2)，即先partition，再做O(n),即后merge
 
 3. Selection Sort
+每次都选择当前rest array中的最小值，swap到rest array的头
 Given an array of integers, sort the elements in the array in ascending order. 
 The selection sort algorithm should be used to solve this problem.
+
+time: O(n^2), space: O(1)
 
 
 1. Quick Sort
@@ -163,3 +167,21 @@ class Solution:
         for index in range(start, end + 1):
             A[index] = temp[index]
  
+
+3. Selection Sort
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return []
+        
+        for i in range(len(nums)):
+            min_index = i
+            
+            for j in range(i + 1, len(nums)):
+                if nums[j] < nums[min_index]:
+                    min_index = j
+                    
+            nums[i], nums[min_index] = nums[min_index], nums[i]
+        
+        return nums
