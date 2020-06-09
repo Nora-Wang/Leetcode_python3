@@ -18,7 +18,33 @@ Input: [2,1,5,6,2,3]
 Output: 10
 
 
-code:
+#brute force
+#对每一个height做背向双指针
+#time: O(n^2), space: O(1)
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        if not heights:
+            return 0
+        
+        res = 0
+        for i in range(len(heights)):
+            left, right = i - 1, i + 1
+            count = 1
+            
+            while left >= 0 and heights[left] >= heights[i]:
+                count += 1
+                left -= 1
+                
+            while right < len(heights) and heights[right] >= heights[i]:
+                count += 1
+                right += 1
+            
+            res = max(res, count * heights[i])
+        
+        return res
+       
+       
+
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         #注意第一位加个0,这样才能保证后续的stack[-1]不会超出范围
