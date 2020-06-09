@@ -31,6 +31,15 @@ Given an array of integers, sort the elements in the array in ascending order.
 The selection sort algorithm should be used to solve this problem.
 
 time: O(n^2), space: O(1)
+        
+        
+4. Insert Sort
+将第一待排序序列第一个元素看做一个有序序列，把第二个元素到最后一个元素当成是未排序序列。
+从头到尾依次扫描未排序序列，将扫描到的每个元素插入有序序列的适当位置。（如果待插入的元素与有序序列中的某个元素相等，则将待插入元素插入到相等元素的后面。）
+参考链接：https://www.runoob.com/w3cnote/insertion-sort.html
+    
+time: O(n^2), space: O(1)
+        
 
 
 1. Quick Sort
@@ -184,4 +193,22 @@ class Solution:
                     
             nums[i], nums[min_index] = nums[min_index], nums[i]
         
+        return nums
+
+    
+    
+4. Insert Sort
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return []
+        
+        for i in range(1, len(nums)):
+            index = i
+            
+            while index > 0 and nums[index] < nums[index - 1]:
+                nums[index], nums[index - 1] = nums[index - 1], nums[index]
+                index -= 1
+            
         return nums
