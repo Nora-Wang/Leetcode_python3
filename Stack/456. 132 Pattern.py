@@ -25,7 +25,26 @@ Output: True
 Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0] and [-1, 2, 0].
 
 
-code:
+'''
+brute force
+time: O(n^2), space: O(1)
+'''
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        if not nums or len(nums) < 3:
+            return False
+        
+        for i in range(1, len(nums) - 1):
+            left_min, right_max = min(nums[:i]), max(nums[i + 1:])
+            
+            if left_min < right_max < nums[i]:
+                return True
+        
+        return False
+        
+'''
+optimize
+'''
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
         if not nums:
