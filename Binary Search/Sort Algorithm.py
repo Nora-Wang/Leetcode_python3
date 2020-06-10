@@ -41,6 +41,10 @@ time: O(n^2), space: O(1)
 time: O(n^2), space: O(1)
         
 
+        
+        
+        
+        
 
 1. Quick Sort
 
@@ -70,19 +74,27 @@ class Solution:
     #left和right比较时，用<=
     #与pivot比较时，不要=
     def quicksort(self, A, start, end):
-#注意点1:一定要写停止条件
-        if start >= end:
+        #问题1：这里的end case为什么不能是start== end ？
+        #写法差异，考虑到下面问题2的地方，会存在最后一次判断left==right，接着left+=1,right-=1，于是start==end这种情况将不会出现.
+        if start > end:
             return
         
-#注意点2:pivot不能为首尾,不然quick sort的时间复杂度则为最差情况O(n^2)
-#注意点3:pivot是value而不是index，因为后面的比较是用的值比较的
+#注意点1:pivot不能为首尾,不然quick sort的时间复杂度则为最差情况O(n^2)
+#注意点2:pivot是value而不是index，因为后面的比较是用的值比较的
         left, right = start, end
         pivot = A[start + (end - start) / 2]
         
         #partition
-#注意点4:这里是<=,用<会出现stack overflow，因为后续recursion时可能会出现交集
+        
+        #问题2：这里的while条件为什么是left <= right？为什么要加等号？
+        #同样是写法差异。因为问题1处没有考虑等于。这里将left=right的情况考虑在一起。
+        #left==right意味着当前区间中只有一个element，其实是整个区间已经有序了，不需要再分治了，若再继续进行分治则会出现死循环或数组越界的问题。
         while left <= right:
-#注意点5:若A[left] <= pivot会出现不均匀的情况stack overflow，当全部都等于pivot时，会直接循环到end
+        #问题3 : 这里为什么不能是nums[left] <= pivot？
+        #边界问题。如果取等号，会发生数组越界。 
+        #考虑一组[3,1, 3,2,5]，一开始l=0，r=4，pivot=3若条件为nums[left] <= pivot和nums[right] >= pivot，则最后停下来时l=4, r=3。
+        #数组没有任何交换，接着会进入区间[start=0, right=3]，也就是[3, 1, 3, 2]。pivot=1。重复上面步骤，会发现最后l=0, r=-1。
+        #继续递归会发生数组越界错误。
             while left <= right and A[left] < pivot:
                 left += 1
             while left <= right and A[end] > pivot:
@@ -95,7 +107,9 @@ class Solution:
                 right -= 1
                 
 #注意点7:这里是start与right，left与end配对，因为前面while循环结束时的情况为left>right
-        #此时的A被分为3个部分[start, right],pivot,[left,end]
+        #问题4 : 这里结束后，整个nums被分成什么什么样了？是start ~ right, pivot, left ~ end? Why?
+        #快排满足“在任意时刻，left左边都小于等于pivot，right右边都大于等于pivot”。
+        #所以此时区间被分为[start,right]<=pivot，[left,end]>=pivot
         self.quicksort(A, start, right)
         self.quicksort(A, left, end)
            
@@ -119,7 +133,11 @@ class Solution:
             return None
         
   #注意点1:temp在初始化的时候不能写成temp = [] * len(A)，会出bug:list assignment index out of range
-        #用temp来记录每次的排序，最后再将temp赋值给A，因此merge sort会比quick sort多耗费O(n)的extra space
+        #这里设置一个temp是为了在后续从下往上merge的时候用
+        #后续merge是两个有序数组要合并成一个，而这两个sorted array相当于是nums[start, mid]和nums[mid, end].
+        #因为当初divide的时候就是利用二分，因此在conquer的时候也是如此merge即可。
+        #在nums上没有方便的原地算法（不额外使用空间的算法），因此利用一个temp来暂时存储sort后的结果，在最后再将sort好的结果重新赋给nums
+	#这也是归并排序空间复杂度为O(n)的原因。
         temp = [0] * len(A)
         self.mergeSort(A, 0, len(A) - 1, temp)
         
