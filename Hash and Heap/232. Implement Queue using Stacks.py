@@ -29,7 +29,6 @@ class MyQueue(object):
         Initialize your data structure here.
         """
         self.stack = []
-        self.temp = []
 
     def push(self, x):
         """
