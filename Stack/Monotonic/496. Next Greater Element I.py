@@ -22,6 +22,34 @@ Note:
 All elements in nums1 and nums2 are unique.
 The length of both nums1 and nums2 would not exceed 1000.
 
+#06/11/2020
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        if not nums1:
+            return []
+        
+        if not nums2:
+            return [-1] * len(nums1)
+        
+        stack = []
+        record = {}
+        for i in range(len(nums2)):
+            while stack and nums2[stack[-1]] < nums2[i]:
+                record[nums2[stack[-1]]] = nums2[i]
+                stack.pop()
+            
+            stack.append(i)
+        
+        res = []
+        for num in nums1:
+            if num in record:
+                res.append(record[num])
+            else:
+                res.append(-1)
+        
+        return res
+
+
 
 单调栈问题
 
