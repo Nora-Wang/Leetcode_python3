@@ -23,6 +23,7 @@ All elements in nums1 and nums2 are unique.
 The length of both nums1 and nums2 would not exceed 1000.
 
 #06/11/2020
+#一开始理解错题意了，浪费了好多时间，太傻逼了。。难点在于判断出需要用到单调递减的单调栈
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         if not nums1:
