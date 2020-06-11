@@ -10,11 +10,30 @@ The second 1's next greater number needs to search circularly, which is also 2.
 Note: The length of given array won't exceed 10000.
 
 
+#time: O(n), space: (n)
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return []
+        
+        stack = []
+        l = len(nums)
+        res = [-1] * l
+        
+        for i in range(l * 2):
+            while stack and nums[stack[-1] % l] < nums[i % l]:
+                if res[stack[-1] % l] == -1:
+                    res[stack[-1] % l] = nums[i % l]
+                stack.pop()
+            
+            stack.append(i)
+        
+        return res
+    
+    
+#time: O(n), space: O(n)    
 单调栈问题
 因为是环形,直接nums = nums + nums即可,result取前半部
-
-
-code:
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
         stack = []
