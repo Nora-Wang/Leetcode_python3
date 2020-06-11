@@ -47,8 +47,13 @@ snake.move("L"); -> Returns 2 (Snake eats the second food)
 snake.move("U"); -> Returns -1 (Game over because snake collides with border)
 
 
-code:
-DIRECT = {'U':[-1,0], 'L':[0,-1], 'R':[0,1], 'D':[1,0]}
+DIRECTIONS = {'U':(-1,0), 
+              'L':(0,-1), 
+              'R':(0, 1), 
+              'D':(1, 0)}
+
+
+#将snack和food都设计为deque，满足FIFO的原则
 class SnakeGame:
 
     def __init__(self, width: int, height: int, food: List[List[int]]):
@@ -59,12 +64,13 @@ class SnakeGame:
         @param food - A list of food positions
         E.g food = [[1,1], [1,0]] means the first food is positioned at [1,1], the second is at [1,0].
         """
+        self.p = collections.deque([(0,0)])
+        self.score = 0
+        
         self.width = width
         self.height = height
-        self.queue = collections.deque(food)
         
-        self.position = collections.deque([(0,0)])
-        self.count = 0
+        self.food = collections.deque(food)
 
     def move(self, direction: str) -> int:
         """
@@ -73,28 +79,28 @@ class SnakeGame:
         @return The game's score after the move. Return -1 if game over. 
         Game over when snake crosses the screen boundary or bites its body.
         """
-        x_ = self.position[0][0] + DIRECT[direction][0]
-        y_ = self.position[0][1] + DIRECT[direction][1]
+        x = self.p[-1][0] + DIRECTIONS[direction][0]
+        y = self.p[-1][1] + DIRECTIONS[direction][1]
         
-        #out of range
-        if x_ < 0 or y_ < 0 or x_ >= self.height or y_ >= self.width:
+        #out of screen
+        if x < 0 or x >= self.height or y < 0 or y >= self.width:
             return -1
         
         #eat itself
-        #注意这里一定要判定(x_,y_)不是当前snack的尾巴！！
-        if (x_,y_) in self.position and (x_,y_) != self.position[-1]:
+        #if (x,y) == self.p[0], means the next position should be the tail of the snack; but meanwhile, the tail will become
+        #self.p[1]. So it does't matter.
+        if (x,y) in self.p and (x,y) != self.p[0]:
             return -1
         
-        self.position.appendleft((x_,y_))
-        
         #eat food
-        if self.queue and x_ == self.queue[0][0] and y_ == self.queue[0][1]:
-            self.count += 1
-            self.queue.popleft()
+        self.p.append((x,y))
+        if self.food and [x,y] == self.food[0]:
+            self.food.popleft()
+            self.score += 1
         else:
-            self.position.pop()
-        
-        return self.count
+            self.p.popleft()
+            
+        return self.score
         
 
 
