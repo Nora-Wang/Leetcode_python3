@@ -24,6 +24,7 @@ Output: True
 
 Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0] and [-1, 2, 0].
 
+#倒着来解决问题，即变为231.创建一个单调递减的单调栈，这样能保证当前栈的头是3，被pop出去的是2，然后判断当前num是否小于被pop出去的值即可。
 
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
