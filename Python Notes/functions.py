@@ -100,3 +100,8 @@ dp = [[0, 0] for _ in range(len(nums))]
 #这样会使得所有的内层list都是对应的同一pointer，即改变其中一个，其他的都会变
 dp = [[0] * 2] * len(nums)
 dp = [0, 0] * len(nums)
+
+22.map
+map(function, iterable, ...)会根据提供的函数对指定序列做映射
+第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表
+eg: map(int, str([1,2,3,4,5])) -> 12345      map(square, [1,2,3,4,5]) -> [1, 4, 9, 16, 25]
