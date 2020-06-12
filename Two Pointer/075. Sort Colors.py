@@ -44,7 +44,8 @@ class Solution:
                 right -= 1
                 
             #如果当前值是0,放到最左,左指针往前挪,index往前走
-            #这里index必须往前挪,否则会报错.因为如果不挪,index会一直停留在该点,导致死循环
+#这里index必须往前挪,否则会报错.因为如果不挪,index会一直停留在该点,导致死循环
+#因为这里换过来的可能还是0,这样会使得left一直+1,index一直不变
             #这里注意，由于nums[index] == 2的情况时,index不能挪动,因此不是每种情况都能index += 1,即不能在while循环的最后直接写index += 1,
             #所以在nums[index] == 0中需要单独写一次
             elif nums[index] == 0:
