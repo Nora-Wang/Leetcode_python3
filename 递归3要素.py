@@ -10,6 +10,18 @@ eg:
 再把左子树的前序遍历放到 result 里 --> preorder(root.left, result)。回想一下递归的定义，是不是正是如此？
 再把右子树的前序遍历放到 result 里 --> preorder(root.right, result)。
 
-3. 递归的
+3. 递归的结束
 什么时候可以直接知道答案，不用再拆解，直接 return
 #必须有一个明确的结束条件
+
+
+recursion的分析步骤:
+1. input （recursion definition）
+2. base/end case
+3. recursion rules（how to process next level recursion）
+4. return value
+
+时间复杂度分析:
+想像一棵树
+1. 一共有多少层
+2. 每一层代表什么
