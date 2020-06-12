@@ -21,8 +21,8 @@ class Solution:
             # java和C++ 最好写成 mid = start + (end - start) / 2
             # 防止在 start = 2^31 - 1, end = 2^31 - 1 的情况下出现加法 stack overflow
             mid = start + (end - start) // 2
-             
-            # > , =, < 的逻辑先分开写，然后在看看 = 的情况是否能合并到其他分支里
+            
+            # > , =, < 的逻辑分开思考，考虑清楚 = 的情况是否能合并到其他分支里
             if nums[mid] < target:
                 # 写作 start = mid + 1 也是正确的
                 # 只是可以偷懒不写，因为不写也没问题，不会影响时间复杂度
