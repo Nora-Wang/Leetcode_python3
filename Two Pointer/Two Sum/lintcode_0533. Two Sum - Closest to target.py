@@ -49,4 +49,28 @@ class Solution:
                 end -= 1
         
         return diff
-                
+
+    
+    
+#若要求输出这两个值
+#time: O(n), space: O(1)
+class Solution:
+    def TwoSumClosest(self, nums, target):
+        left, right = 0, len(nums) - 1
+        record = [float('inf'), float('inf')]
+
+        while left < right:
+            curt = nums[left] + nums[right]
+            if curt == target:
+                return [nums[left], nums[right]]
+
+            if abs(sum(record) - target) > abs(curt - target):
+                record[0] = nums[left]
+                record[1] = nums[right]
+
+            if curt > target:
+                right -= 1
+            else:
+                left += 1
+
+        return record
