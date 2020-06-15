@@ -23,6 +23,58 @@ The arr parameter had been changed to an array of integers (instead of a list of
 然后使用两根指针从该位置开始向两端遍历, 每次把差值比较小的元素放入答案中然后将该指针向边界方向移动一下即可.
 
 
+#06/15/2020
+#time: O(logn + k), space: O(1)
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        if not arr:
+            return []
+        
+        #找到最接近target的index
+        x_index = self.find_target(arr, x)
+        
+        #背向双指针
+        left, right = x_index - 1, x_index + 1
+        k -= 1
+        
+        while k > 0 and left >= 0 and right < len(arr):
+            if x - arr[left] <= arr[right] - x:
+                left -= 1
+            else:
+                right += 1
+            
+            k -= 1
+            
+        while k > 0 and left >= 0:
+            left -= 1
+            k -= 1
+        while k > 0 and right < len(arr):
+            right += 1
+            k -= 1
+        
+        #注意这里left和right代表下一个用于判断的值,因此真正valid的数应该在left + 1 ~ right - 1之间
+        return arr[left + 1:right]
+        
+        
+    
+    def find_target(self, arr, target):
+        start, end = 0, len(arr) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if arr[mid] == target:
+                return mid
+            
+            if arr[mid] > target:
+                end = mid
+            else:
+                start = mid
+        
+        return start if abs(arr[start] - target) <= abs(arr[end] - target) else end
+        
+        
+
 #3.13 Version
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
