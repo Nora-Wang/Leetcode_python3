@@ -18,7 +18,53 @@ Output: false
 Explanation: There are a total of 2 courses to take. 
              To take course 1 you should have finished course 0, and to take course 0 you should
              also have finished course 1. So it is impossible.
-             
+       
+#06/15/2020
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        #graph = {pre_course:courses}
+        #neighbor = {course:how many pre_courses for this course}
+        graph, neighbors = self.create(numCourses, prerequisites)
+        
+        queue = collections.deque()
+        for course in neighbors:
+            if neighbors[course] == 0:
+                queue.append(course)
+        
+        count = 0
+        while queue:
+            course = queue.popleft()
+            count += 1
+            for sub_course in graph[course]:
+                neighbors[sub_course] -= 1
+                
+                if neighbors[sub_course] == 0:
+                    queue.append(sub_course)
+        
+        return count == numCourses
+    
+    def create(self, numCourses, prerequisites):
+        #这里要注意graph可以直接defaultdict,但neighbor一定要用numCourses对每一个course进行单独初始化为0,否则后续queue无法建成,也无法进行count
+        #eg: 2, []. 这应该return True, 因为对于course0和course1来说,其pre_course都不存在,即不存在circle.
+        graph = collections.defaultdict(list)
+        neighbors = {}
+        
+        for i in range(numCourses):
+            neighbors[i] = 0
+        
+        for course, pre_course in prerequisites:
+            graph[pre_course].append(course)
+            neighbors[course] += 1
+        
+        return graph, neighbors
+        
+        
+        
 ############################################################
 topological sort：判读一个有向图，是无环的
 queue和list都是append，set是add
