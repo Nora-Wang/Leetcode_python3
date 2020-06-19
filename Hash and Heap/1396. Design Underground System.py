@@ -71,7 +71,7 @@ Answers within 10^-5 of the actual value will be accepted as correct.
 
 
 #######################################################################################################################
-Clarify:
+Clarification:
 1. input and output:
 checkIn(id: int, stationName: str, t: int) -> None, 
 checkOut(id: int, stationName: str, t: int) -> None, 
