@@ -106,14 +106,15 @@ time: all O(1)
 space: self.check_in O(P) + self.check_out O(S^2) -> O(P + S^2); P = number of passengers, S = number of stations
 
 #######################################################################################################################
+from collections import defaultdict
 class UndergroundSystem:
 
     def __init__(self):
-        #key = id, value = [station_name, start_time]
-        self.check_in = collections.defaultdict(list)
-        
-        #route = startStation_endStation, value = [total_time = all(end_time - start_time), count]
-        self.check_out = collections.defaultdict(list)
+        # key = id, value = [station_name, start_time]
+        self.check_in = defaultdict(list)
+
+        # route = startStation_endStation, value = [total_time = all(end_time - start_time), count]
+        self.check_out = defaultdict(list)
 
     def checkIn(self, id: int, stationName: str, t: int) -> None:
         self.check_in[id] = [stationName, t]
@@ -121,21 +122,30 @@ class UndergroundSystem:
     def checkOut(self, id: int, stationName: str, t: int) -> None:
         start_station, start_time = self.check_in[id]
         route = start_station + '_' + stationName
-        
+
         if route in self.check_out:
             self.check_out[route][0] += t - start_time
             self.check_out[route][1] += 1
         else:
-            self.check_out[route].append(t - start_time)
-            self.check_out[route].append(1)
+            self.check_out[route] = [t - start_time, 1]
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
         route = startStation + '_' + endStation
-        
+
         if route not in self.check_out:
             return 0.0
-        
+
         return self.check_out[route][0] / self.check_out[route][1]
+
+solution = UndergroundSystem()
+
+solution.checkIn(1, "A", 1)
+solution.checkOut(1, "B", 5)
+solution.checkIn(1, "A", 10)
+solution.checkOut(1, "B", 20)
+res = solution.getAverageTime("A","B")
+
+print(res)
 
 #######################################################################################################################
 test case:
