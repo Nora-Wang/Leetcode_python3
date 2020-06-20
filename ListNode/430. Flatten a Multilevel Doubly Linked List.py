@@ -63,7 +63,7 @@ Constraints:
 Number of Nodes will not exceed 1000.
 1 <= Node.val <= 10^5
 
-code:
+#iteration solution
 """
 # Definition for a Node.
 class Node:
@@ -84,6 +84,7 @@ class Solution:
         while stack:
             node = stack.pop()
             
+            #connect the prev node and curt node
             if pre:
                 pre.next = node
                 node.prev = pre
@@ -98,3 +99,56 @@ class Solution:
                 node.child = None
                 
         return head
+
+       
+       
+#recursion solution
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+
+class Solution:
+    def flatten(self, head: 'Node') -> 'Node':
+        if not head:
+            return None
+        
+        curt = head
+        self.helper(curt)
+        
+        return head
+    
+    def helper(self, node):
+        while node:
+            #get the end node for curt level
+            next_node = node.next
+            if not next_node:
+                tail = node
+            
+            if node.child:
+                #connect node and node.child
+                node.next = node.child
+                node.child.prev = node
+                
+                #get the end node for child level
+                child_tail = self.helper(node.child)
+                
+                #connect child_tail and node.next
+                if next_node:
+                    next_node.prev = child_tail
+                child_tail.next = next_node
+                
+                #clear node.child
+                node.child = None
+            
+            #move to next node
+            node = node.next
+        
+        return tail
+                
+            
