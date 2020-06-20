@@ -63,6 +63,10 @@ Constraints:
 Number of Nodes will not exceed 1000.
 1 <= Node.val <= 10^5
 
+
+#time: O(n), space: O(n)
+
+
 #iteration solution
 """
 # Definition for a Node.
