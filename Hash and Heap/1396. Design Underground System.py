@@ -91,13 +91,7 @@ checkOut [2, B, 6]
 #######################################################################################################################
 solution:
 1. 因为要search station name or id frequently -> use hashmap
-2. 想用key = station name, value = {id:time}, 但问题是如果出现same passager checkin/out from the same satation, such as
-    checkIn  [1, A, 1]
-    checkOut [1, B, 3]
-    checkIn  [1, A, 4]
-    checkOut [1, B, 6]
-    这样会造成replace records and the time complexsity for getAverageTime函数 is not O(1)
-3. based above设计为:
+
 self.check_in: #key = id, value = [station_name, start_time]
 self.check_out: #route = startStation_endStation, value = [total_time = all(end_time - start_time), count]
 
