@@ -22,7 +22,34 @@ while循环的条件
 dummy.next = head可满足特殊情况
 循环结束的情况（仅剩一个node:temp == None和无node:curt == None时，都标志着swap结束）
 
-
+#06/30/2020
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        dummy = ListNode()
+        dummy.next = head
+        
+        prev = dummy
+        curt = prev.next
+        
+        #end situation
+        while curt and curt.next:
+            temp = curt.next
+            
+            record = temp.next
+            
+            prev.next = temp
+            temp.next = curt
+            curt.next = record
+            
+            prev = curt
+            curt = record
+        
+        return dummy.next
 
 
 
