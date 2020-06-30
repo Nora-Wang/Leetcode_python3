@@ -21,6 +21,50 @@ Input: -1->5->3->4->0
 Output: -1->0->3->4->5
 
 
+ 
+#06/30/2020
+#time: O(n), space: O(1)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def insertionSortList(self, head: ListNode) -> ListNode:
+        #corner case
+        if not head or not head.next:
+            return head
+        
+        dummy = ListNode()
+        #curt means curt compare node. the insert node will be inserted between curt and curt.next
+        curt = dummy
+        
+        while head:
+            #剪枝：若当前要被insert的node,head.val,比curt小,则回到dummy进行比较;若>=,则直接从当前curt继续比较即可
+            if head.val < curt.val:
+                curt = dummy
+            
+            #这里要保证curt.next的存在,因为如果curt.next不存在,则没有挪动的必要了,直接将node加到curt.next即可
+            while curt.next and head.val > curt.next.val:
+                curt = curt.next
+            
+            #需要提前记录一下curt.next(也可以写出下面的代码,但是运行时间会加长)
+            #curt.next = ListNode(head.val, curt.next)
+            temp = curt.next
+            curt.next = ListNode(head.val, temp)
+            
+            head = head.next
+        
+        return dummy.next
+        
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 code:
 # Definition for singly-linked list.
 # class ListNode:
