@@ -23,7 +23,7 @@ Output: -1->0->3->4->5
 
  
 #06/30/2020
-#time: O(n), space: O(1)
+#time: O(n^2), space: O(1)
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
