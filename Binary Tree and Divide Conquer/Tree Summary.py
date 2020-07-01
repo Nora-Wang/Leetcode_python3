@@ -26,10 +26,15 @@ divide and conquer其实是一个postodrder,因为从下到上的实现
 
 
 
-# 遍历顺序
+# 知识点
+1. 遍历顺序
 preorder traversal  根左右
 inorder traversal   左根右
 postorder traversal 左右根
+2. Balanced binary tree, Complete binary tree, Binary Search Tree(BST)
+Balanced binary tree 左右子数高度差不超过1. #leetcode 110
+Complete binary tree 除了最后一层,都要满,所有节点尽量靠左 #leetcode 958
+Binary Search Tree 左<=跟<右 #leetcode 98
 
 #tips
 1. iteration == None recursion
