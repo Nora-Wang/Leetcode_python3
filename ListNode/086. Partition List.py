@@ -45,7 +45,7 @@ class Solution:
             
             head = head.next
         
-        left.next = dummy_right.next if dummy_right.next else None
+        left.next = dummy_right.next
         
         return dummy_left.next
     
