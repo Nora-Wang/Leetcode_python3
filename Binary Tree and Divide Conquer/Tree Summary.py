@@ -9,9 +9,8 @@
 
 #题目分析
 1. input （recursion definition）
-2. base/end case）
-3. recursion rules（how to process next level recursion
-4. return value
+2. base/end case
+3. recursion rules and return value（分析清楚每一层是什么,与下一层之间的联系是什么,一共有多少层）
 
 
 
