@@ -1,8 +1,3 @@
-# 遍历顺序
-preorder traversal  根左右
-inorder traversal   左根右
-postorder traversal 左右根
-
 #题型分析
 1. 是前中后序遍历吗，是的话就用3序遍历的3种方法来做（遍历，栈，分治三种方法）
 2. 是层序遍历吗，是的话就bfs，用queue
@@ -11,6 +6,14 @@ postorder traversal 左右根
    改点root.left = self.helper
 4. 是递归回溯法吗，是的话就dfs
 5. 硬解
+
+#题目分析
+1. input （recursion definition）
+2. base/end case）
+3. recursion rules（how to process next level recursion
+4. return value
+
+
 
 # Recursion & divide and conquer
 recursion和none recursion只是一种实现方式,而不是一种算法;traversal和divide and conquer都能用这两种方法实现
@@ -23,6 +26,11 @@ divide and conquer却是从上往下的遍历所有node，然后再从下往上�
 divide and conquer其实是一个postodrder,因为从下到上的实现
 
 
+
+# 遍历顺序
+preorder traversal  根左右
+inorder traversal   左根右
+postorder traversal 左右根
 
 #tips
 1. iteration == None recursion
