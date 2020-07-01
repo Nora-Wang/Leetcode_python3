@@ -15,6 +15,31 @@ Given binary tree [3,9,20,null,null,15,7],
    15   7
 return its minimum depth = 2.
 
+
+#07/01/2020
+#直接BFS,因为DFS waste time.用BFS进行level traverse即可
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        queue = collections.deque([root])
+        depth = 0
+        
+        while queue:
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                
+                if not node:
+                    return depth
+                
+                queue.append(node.left)
+                queue.append(node.right)
+            
+            depth += 1
+
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
