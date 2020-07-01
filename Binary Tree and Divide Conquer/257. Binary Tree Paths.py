@@ -23,6 +23,39 @@ O(nlogn)：满二叉树,高度logn，叶节点n/2
 O(n)：所有node都排在一条线上
 
 
+#07/01/2020
+#注意点：.join这个function如果用于list,则需要保证list里的elements为string
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        
+        res = []
+        self.dfs(root, [], res)
+        
+        return res
+    
+    def dfs(self, root, temp, res):
+        if not root:
+            return
+        
+        #当前leaf node并没有被加到temp中
+        if not root.left and not root.right:
+            temp.append(str(root.val))
+            res.append('->'.join(temp))
+            temp.pop()
+            return
+        
+        temp.append(str(root.val))
+        self.dfs(root.left, temp, res)
+        self.dfs(root.right, temp, res)
+        temp.pop()
+        
+        
+        
+        
+        
+
 
 #05/12/2020
 # Definition for a binary tree node.
