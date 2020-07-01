@@ -18,6 +18,25 @@ Input: [2,1,3]
 Output: true
 
 
+#07/01/2020
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        return self.helper(root, -float('inf'), float('inf'))
+    
+    def helper(self, root, lower, upper):
+        if not root:
+            return True
+        
+        left = self.helper(root.left, lower, root.val)
+        right = self.helper(root.right, root.val, upper)
+        
+        if left and right and lower < root.val < upper:
+            return True
+        return False
+ 
+ 
+ 
+
 '''
 brute force
 utilize inorder. all the element in the tree, use a prev variable to compare it
