@@ -40,7 +40,7 @@ Each node's value will be between 0 and 1000.
 
 
 参考leetcode 314
-主要的区别就是这道题要求当index和level都相同时，按照node.val的大小进行排序，而314则是根据从左到右的顺序
+主要的区别就是这道题要求当index和level都相同时，按照node.val的大小进行排序，而314则是根据从左到右的顺序 #因为level traverse直接满足这一条件，因此不需要另外sort
 BFS和DFS都需要另外加入level，因为先对hash_table按照key=index进行排序，然后对value=(level, node.val)进行排序
 #注意这里直接写成value.sort()即可。先按level再按node.val进行排序
 
