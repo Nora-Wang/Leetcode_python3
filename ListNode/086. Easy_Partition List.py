@@ -21,7 +21,36 @@ Output: 1->2->2->4->3->5
 将链表结尾置空：tail.next = null,否则会保留原始节点的next。
 返回dummy_low.next;
 
-
+#06/30/2020
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def partition(self, head: ListNode, x: int) -> ListNode:
+        if not head:
+            return None
+        
+        left, right = ListNode(), ListNode()
+        dummy_left, dummy_right = left, right
+        
+        while head:
+            if head.val < x:
+                left.next = ListNode(head.val)
+                left = left.next
+            else:
+                right.next = ListNode(head.val)
+                right = right.next
+            
+            head = head.next
+        
+        left.next = dummy_right.next if dummy_right.next else None
+        
+        return dummy_left.next
+    
+    
+    
 
 code:
 
