@@ -27,33 +27,27 @@ The tree will have between 1 and 100 nodes.
 
 BFS遍历所有node,用miss_flag来代表前面是否有node为Null
 
-code:
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution:
     def isCompleteTree(self, root: TreeNode) -> bool:
         if not root:
             return True
         
         queue = collections.deque([root])
-        miss_flag = False
+        
+        flag = False
         
         while queue:
             node = queue.popleft()
-            if not node:
-                miss_flag = True
-                continue
             
-            #这里的意思是,当前node存在,但在当前node之前有node缺失,证明其不是complete binary tree
-            if miss_flag:
+            #只要出现not node的情况,都标记为flag = True
+            #这里注意一定要直接标记为True,而不能用flag = not flag
+            #因为存在一种情况, eg: [1,2,3,5,null,null,8]. 即两个None连续,则会使得flag回到False
+            if not node:
+                flag = True
+                continue
+                
+            if flag:
                 return False
             
             queue.append(node.left)
             queue.append(node.right)
-        
-        return True
