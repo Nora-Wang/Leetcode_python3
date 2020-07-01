@@ -9,6 +9,57 @@ Explanation:
 rotate 1 steps to the right: 5->1->2->3->4->NULL
 rotate 2 steps to the right: 4->5->1->2->3->NULL
 
+  
+#06/30/2020
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if not head or not head.next:
+            return head
+        
+        #get the length of head
+        length = 0
+        dummy = ListNode()
+        dummy.next = head
+        curt = dummy.next
+        while curt:
+            length += 1
+            curt = curt.next
+            
+        #get the real k
+        k = length - k % length - 1
+        
+        #find the rotate place
+        curt = head
+        while k:
+            k -= 1
+            curt = curt.next
+        
+        #if the rotate place is the end of the linked list -> return directly
+        if not curt.next:
+            return head
+
+        #record the right part
+        new_head = curt.next
+        dummy = ListNode()
+        dummy.next = new_head
+
+        #connect the left part
+        while new_head.next:
+            new_head = new_head.next
+        curt.next = None
+        new_head.next = head
+
+        return dummy.next
+  
+  
+  
+  
+  
 思路：
 将链表向后移k次
 
@@ -26,9 +77,6 @@ prev.next=slow.next fast.next=head
 注意：
 1.[] or [1]情况的判断方法：if(head == None or head.next == None): return head
 2.考虑k == l的情况，即链表向后移0次 = 整个链表不变
-
-
-code:
 
 
 class Solution(object):
