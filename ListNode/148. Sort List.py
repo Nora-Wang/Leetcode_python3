@@ -25,6 +25,11 @@ class Solution:
             return head
         
         # 2. divide 
+        #use slow and fast to saperate the linked list to two part
+        #set a prev to interupt the linked list on middle node
+        #head ~ prev -> left part
+        #slow -> middle node of linked list
+        #slow ~ fast -> right part
         prev, slow, fast = ListNode(None), head, head
         while fast and fast.next:
             prev = slow
