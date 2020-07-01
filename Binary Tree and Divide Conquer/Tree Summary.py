@@ -40,6 +40,7 @@ Binary Search Tree 左<=跟<右 #leetcode 98
 1. iteration == None recursion
 2. 每次divide and conquer的时候只要先写了not root,后续都可以直接写recursion root.left/root.right. 因为if not root,即保证了一定存在root.left/root.right
 3. Backtracking == DFS
-4. 当使用leaf节点时，一定要判断当前叶节点是否已经被加入temp中
+！！4. 当使用leaf节点时，一定要判断当前叶节点是否已经被加入temp中
 5. 一棵树的高度O(logn) ~ O(n)
 6. n个节点的binary tree一共有n个subtree(root,leaf都算)
+7. tree中常用到的.join这个function，如果用于list，则需要保证list里的elements为string
