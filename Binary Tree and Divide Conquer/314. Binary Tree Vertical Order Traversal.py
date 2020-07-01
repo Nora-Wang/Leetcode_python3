@@ -75,33 +75,37 @@ Output:
 1. BFS
 使用queue,将node和index同时放入queue中,然后用hashtable value为list存储所有结果,最后sort一下即可
 
-code:
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def verticalOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
         
         queue = collections.deque([(root, 0)])
-        
-        res_hash = collections.defaultdict(list)
+        hash_table = collections.defaultdict(list)
         
         while queue:
-            root, index = queue.popleft()
-            res_hash[index].append(root.val)
+            node, index = queue.popleft()
             
-            if root.left:
-                queue.append((root.left, index - 1))
-            if root.right:
-                queue.append((root.right, index + 1))
+            hash_table[index].append(node.val)
+            
+            if node.left:
+                queue.append((node.left, index - 1))
+            if node.right:
+                queue.append((node.right, index + 1))
         
-        return [res_hash[i] for i in sorted(res_hash.keys())]
+        sorted_hash = sorted(hash_table.items(), key=lambda x:x[0])
+        
+        res = [value for _, value in sorted_hash]
+        
+        return res
+        
+        
 
       
       
