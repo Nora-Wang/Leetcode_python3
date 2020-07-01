@@ -110,7 +110,10 @@ class Solution:
       
       
 2. DFS
-#DFS有个注意点：需要区分level，否则由于根左右的顺序，可能level大的node会先被append进temp
+#DFS有个注意点：
+#hash表建立的时候不仅仅需要算index，还需要记录当前node的level。
+#因为根左右的顺序进行DFS会把左边的node先遍历完，这样会使得左侧level更大的node会比同等index的右侧node先append进temp。这不符合题目要求。
+#因此还需要对value中的值按照level单独进行排序。eg：[3,9,8,4,0,1,7,null,null,null,2,5]
 class Solution:
     def verticalOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
