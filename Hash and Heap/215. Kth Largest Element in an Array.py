@@ -19,8 +19,8 @@ if k >= n -> return nums
 Solution:
 1. brute force: sort and get kth element -> time: O(nlogn)
 2. quick select sort -> time: O(n) ~ O(n^2) depends on the pivot, space: O(1) or O(logn) ~ O(n)(recursion extra space)
-3. min_heap: heapify + pop len(nums)-k+1 elements -> time: O(n) + O((n - k)logn), space: O(n)
-4. max_heap: create a k length max_heap + push n-k element into the heap -> time: O(k) + O((n - k)logn), space: O(k)
+3. max_heap: heapify + pop k elements -> time: O(n) + O(klogn), space: O(n)
+4. min_heap: create a k length min_heap + push n-k element into the heap -> time: O(k) + O((n - k)logn), space: O(k)
 
 ************************************************************************************************************
 #1. brute force
@@ -74,27 +74,52 @@ class Solution:
         return pivot
     
 ************************************************************************************************************    
-#3. min_heap: 
-#heapify + pop len(nums) - k + 1 elements
-#time: O(n) + O((n - k)logn), space: O(n)
+#3. max_heap
+#heapify max heap + pop k elements
+#time: O(n) + O(klogn), space: O(n)
 from heapq import heapify, heappop
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         if not nums:
             return None
         
+        #create max heap
+        for i in range(len(nums)):
+            nums[i] *= -1
         heapq.heapify(nums)
         
-        res = None
-        k = len(nums) - k + 1
-        while k:
-            res = heapq.heappop(nums)
-            k -= 1
+        #pop largest k - 1 elements
+        for _ in range(k - 1):
+            heapq.heappop(nums)
         
-        return res
+        #get the kth largest elements
+        return -heapq.heappop(nums)
 
+************************************************************************************************************
+#4. min_heap
+#create a k length min_heap + push rest n-k element into the heap
+#time: O(k) + O((n - k)logn), space: O(k)
+from heapq import heapify, heappop
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        if not nums:
+            return None
+        
+        heap = nums[:k]
+        heapq.heapify(heap)
+        
+        for i in range(k, len(nums)):
+            heapq.heappush(heap, nums[i])
+            heapq.heappop(heap)
+        
+        return heapq.heappop(heap)
+    
+    
 
-
+    
+    
+    
+    
 
 code:
 Version 1:QuickSelect
