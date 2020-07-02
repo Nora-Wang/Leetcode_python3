@@ -15,13 +15,14 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 what's the relationship between k and n?
 if k >= n -> return nums
 
+************************************************************************************************************
 Solution:
 1. brute force: sort and get kth element -> time: O(nlogn)
-2. quick select sort -> time: O(n) ~ O(n^2) depends on the pivot, space: O(logn) ~ O(n)
+2. quick select sort -> time: O(n) ~ O(n^2) depends on the pivot, space: O(1) or O(logn) ~ O(n)(recursion extra space)
 3. min_heap: heapify + pop k elements -> time: O(n) + O(klogn), space: O(n)
-3. max_heap: create a k length max_heap + push n-k element into the heap -> time: O(k) + O((n - k)logn), space: O(k)
+4. max_heap: create a k length max_heap + push n-k element into the heap -> time: O(k) + O((n - k)logn), space: O(k)
 
-
+************************************************************************************************************
 #1. brute force
 #sort the whole array directly, return the kth element
 #time: O(nlogn), space: O(n)
@@ -29,16 +30,50 @@ class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         return sorted(nums, reverse=True)[k - 1]
     
-#time: O(nlogn), space: O(n)
+#time: O(nlogn), space: O(1) or O(n)(recursion extra space)
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         nums.sort(reverse=True)
         return nums[k - 1]
     
+************************************************************************************************************    
+#2. quick select
+#time: O(n) ~ O(n^2) depends on the pivot, space: O(1) or O(logn) ~ O(n)(recursion extra space)
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        if not nums:
+            return None
+        
+        return self.quick_select(nums, 0, len(nums) - 1, k)
     
+    def quick_select(self, nums, start, end, k):
+        if start == end:
+            return nums[start]
+        
+        pivot = nums[(start + end) // 2]
+        left, right = start, end
+        
+        while left <= right:
+            while left <= right and nums[left] > pivot:
+                left += 1
+            while left <= right and nums[right] < pivot:
+                right -= 1
+            
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+        
+        #start ~ right, pivot, left ~ end
+        #这里是直接return,相当于二分思想,将另一部分直接舍弃
+        if k <= right + 1:
+            return self.quick_select(nums, start, right, k)
+        elif k >= left + 1:
+            return self.quick_select(nums, left, end, k)
+        
+        return pivot
     
-    
-    
+************************************************************************************************************    
 
 
 
