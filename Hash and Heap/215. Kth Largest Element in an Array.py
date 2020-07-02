@@ -11,6 +11,38 @@ Output: 4
 Note: 
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 
+#clarification
+what's the relationship between k and n?
+if k >= n -> return nums
+
+Solution:
+1. brute force: sort and get kth element -> O(nlogn)
+2. quick select sort -> O(n) ~ O(n^2) depends on the pivot
+3. min_heap: heapify + pop k elements -> O(n) + O(klogn)
+3. max_heap: create a k length max_heap + push n-k element into the heap -> O(k) + O((n - k)logn)
+
+
+#1. brute force
+#sort the whole array directly, return the kth element
+#time: O(nlogn), space: O(n)
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return sorted(nums, reverse=True)[k - 1]
+    
+#time: O(nlogn), space: O(1)
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        nums.sort(reverse=True)
+        return nums[k - 1]
+    
+    
+    
+    
+    
+
+
+
+
 
 code:
 Version 1:QuickSelect
