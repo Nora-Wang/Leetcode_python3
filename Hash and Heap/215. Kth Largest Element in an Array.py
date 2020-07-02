@@ -19,7 +19,7 @@ if k >= n -> return nums
 Solution:
 1. brute force: sort and get kth element -> time: O(nlogn)
 2. quick select sort -> time: O(n) ~ O(n^2) depends on the pivot, space: O(1) or O(logn) ~ O(n)(recursion extra space)
-3. min_heap: heapify + pop k elements -> time: O(n) + O(klogn), space: O(n)
+3. min_heap: heapify + pop len(nums)-k+1 elements -> time: O(n) + O((n - k)logn), space: O(n)
 4. max_heap: create a k length max_heap + push n-k element into the heap -> time: O(k) + O((n - k)logn), space: O(k)
 
 ************************************************************************************************************
@@ -74,7 +74,24 @@ class Solution:
         return pivot
     
 ************************************************************************************************************    
-
+#3. min_heap: 
+#heapify + pop len(nums) - k + 1 elements
+#time: O(n) + O((n - k)logn), space: O(n)
+from heapq import heapify, heappop
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        if not nums:
+            return None
+        
+        heapq.heapify(nums)
+        
+        res = None
+        k = len(nums) - k + 1
+        while k:
+            res = heapq.heappop(nums)
+            k -= 1
+        
+        return res
 
 
 
