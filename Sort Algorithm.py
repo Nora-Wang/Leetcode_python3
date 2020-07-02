@@ -13,6 +13,7 @@ pivot的值可以任意取，只要最后满足整个区间的左边都小于等
 #recursion所用额外空间 = 递归深度 * 每次递归所用空间
 最优的情况下空间复杂度为：O(logn): 每一次都平分数组的情况
 最差的情况下空间复杂度为：O( n ): 退化为冒泡排序的情况
+#面试的时候跟面试官说好assume the stack used in recursion will not use extra space -> O(1)
 
 
 2. Merge Sort
