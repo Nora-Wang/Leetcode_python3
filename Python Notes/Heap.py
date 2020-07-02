@@ -1,11 +1,17 @@
-heap
-插入一个数:直接放在堆尾,然后往上翻就行 O(logn)
-删除堆头(即删除最小值或最大值):用堆尾代替堆头,然后往下翻就行 O(logn)
+heap性质 (priority queue)
+1. 任意节点小于它的所有后裔，最小元素在堆的root上 (增序性) (注意: 与BST做区别,堆并没有左<根<右的rule)
+2. 堆总是一颗完全树Complete tree: 因为插入/删除数据的方式
+3. 将根节点最大的堆叫做MAX HEAP, 根节点最小的堆叫做最小堆MIN HEAP
+4. index of left_Child  = index of parent * 2 + 1
+5. index of right_Child = index of parent * 2 + 2
+6. Unsorted but follow rules above
   
 时间复杂度:
 1.找出最大值/最小值 O(1)
-2.插入数据 O(logN)
-3.删除数据 O(logN)
+2.插入数据push   O(logN):直接放在堆尾,然后往上翻就行
+3.删除数据pop    O(logN):删除堆头(即删除最小值或最大值),用堆尾代替堆头,然后往下翻就行
+4.更新数据update O(logN):更新heap中的某个数据,再通过上/下翻调整位置
+5.直接一个list生成heap -> O(n), 一个一个的append进heap -> O(nlogn)
 
 
 import heapq(最小堆)
