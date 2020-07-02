@@ -18,7 +18,7 @@ import heapq(最小堆)
 #遍历一遍heap,时间为O(nlogn),因为需要把所有node一个一个的pop出来,每次pop的时间为logn
 1.创建一个堆
 1.1直接使用list的创建方式Heap = []
-1.2使用heapify()函数将一个存在的列表转为堆
+1.2使用heapify(x)函数将一个存在的列表转为堆#Transform list x into a heap, in-place, in linear time.
 
 2.heapq.heappush(heap, item)
 往堆中插入一个值,同时要保持为最小堆
@@ -36,7 +36,7 @@ import heapq(最小堆)
 这一个操作也比直接使用heappush() 和heappop()的效率更加高,尤其适合使用在固定堆大小不变的情况
 与上一个函数相比，这个函数返回的值可能要比将要插入到堆的值大
 
-6.heapq.heapify(x)
+6.heapq.heapify(x)#直接in-place的将x转换成堆,不会return
 将一个list转为最小堆,线性时间复杂度,O(n)
 
 
