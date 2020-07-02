@@ -20,6 +20,7 @@ random.randint(start, last)
 random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，并将n个元素生以list形式返回
   
 6.排序
+#无论是sort还是sorted,其本质上空间复杂度都是O(n),因为recursion会消耗空间.但面试的时候提前说好recursion的stack不消耗额外空间即可.
 #有返回值,不会改变原数据
 new_list = sorted(list/str/dirc/tuple, cmp=None, key=None, reverse=False)
 #没有返回值,会改变原list
