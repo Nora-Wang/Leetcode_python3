@@ -16,6 +16,10 @@ Note:
 You may assume k is always valid, 1 ≤ k ≤ n2.
 
 
+一开始要clarify k与n大小的关系
+
+
+
 merge k sorted array思路
 
 code:
