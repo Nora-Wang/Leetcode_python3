@@ -14,6 +14,7 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 #clarification
 what's the relationship between k and n?
 if k >= n -> return nums
+if k << m -> use min_heap
 
 ************************************************************************************************************
 Solution:
