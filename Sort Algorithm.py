@@ -1,6 +1,4 @@
-Quick Select参考215(Two Pointer)
-
-Quick Sort与Merge Sort比较：
+#quick-select 参考215
 
 1. Quick Sort
 从上往下
@@ -11,8 +9,11 @@ pivot的值可以任意取，只要最后满足整个区间的左边都小于等
 时间复杂度：O(n) ~ O(n^2) （每次划分都选的头或尾时，为O(n^2)；每次都是中间时，为O(n)）
 平均时间复杂度：O(nlogn)
 
-空间复杂度：O(1) (原地排序)
-先整体有序，再局部有序：T(n) = 2T(n/2) + O(n)先做O(n),即先partition
+空间复杂度：O(1) (原地排序) + recursion所用额外空间 = O(logn) ~ O(n)
+#recursion所用额外空间 = 递归深度 * 每次递归所用空间
+最优的情况下空间复杂度为：O(logn): 每一次都平分数组的情况
+最差的情况下空间复杂度为：O( n ): 退化为冒泡排序的情况
+
 
 2. Merge Sort
 从上往下，再从下往上
