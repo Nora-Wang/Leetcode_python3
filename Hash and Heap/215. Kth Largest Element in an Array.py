@@ -16,10 +16,10 @@ what's the relationship between k and n?
 if k >= n -> return nums
 
 Solution:
-1. brute force: sort and get kth element -> O(nlogn)
-2. quick select sort -> O(n) ~ O(n^2) depends on the pivot
-3. min_heap: heapify + pop k elements -> O(n) + O(klogn)
-3. max_heap: create a k length max_heap + push n-k element into the heap -> O(k) + O((n - k)logn)
+1. brute force: sort and get kth element -> time: O(nlogn)
+2. quick select sort -> time: O(n) ~ O(n^2) depends on the pivot, space: O(logn) ~ O(n)
+3. min_heap: heapify + pop k elements -> time: O(n) + O(klogn), space: O(n)
+3. max_heap: create a k length max_heap + push n-k element into the heap -> time: O(k) + O((n - k)logn), space: O(k)
 
 
 #1. brute force
@@ -29,7 +29,7 @@ class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         return sorted(nums, reverse=True)[k - 1]
     
-#time: O(nlogn), space: O(1)
+#time: O(nlogn), space: O(n)
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         nums.sort(reverse=True)
