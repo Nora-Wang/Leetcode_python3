@@ -20,6 +20,83 @@ After running your function, the 2D grid should be:
   1  -1   2  -1
   0  -1   3   4
   
+
+#07/03/2020
+#BFS
+#time: O(n), space: O(n). n = all the elements in grid
+class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        """
+        Do not return anything, modify rooms in-place instead.
+        """
+        if not len(rooms) or not len(rooms[0]):
+            return
+        
+        n, m = len(rooms), len(rooms[0])
+        
+        queue = collections.deque()
+        for i in range(n):
+            for j in range(m):
+                if rooms[i][j] == 0:
+                    queue.append((i, j))
+        
+        while queue:
+            x, y = queue.popleft()
+
+            for direct in [(0,1), (0,-1), (1,0), (-1,0)]:
+                x_, y_ = x + direct[0], y + direct[1]
+
+                if self.check(rooms, x_, y_):
+                    rooms[x_][y_] = rooms[x][y] + 1
+                    queue.append((x_, y_))
+        
+        return
+    
+    def check(self, rooms, x, y):
+        if x < 0 or x >= len(rooms) or y < 0 or y >= len(rooms[0]):
+            return False
+        
+        if rooms[x][y] != 2 ** 31 - 1:
+            return False
+        
+        return True
+  
+  
+#DFS
+#time: O(n^2), space: O(1). n = all the elements in grid
+class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        """
+        Do not return anything, modify rooms in-place instead.
+        """
+        if not len(rooms) or not len(rooms[0]):
+            return
+        
+        for i in range(len(rooms)):
+            for j in range(len(rooms[0])):
+                if rooms[i][j] == 0:
+                    self.dfs(rooms, i, j)
+        
+        return 
+    
+    def dfs(self, rooms, x, y):
+        for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+            x_, y_ = x + direct[0], y + direct[1]
+            
+            #in the range & curt_step(rooms[x][y] + 1) < rooms[x_][y_]
+            if 0 <= x_ < len(rooms) and 0 <= y_ < len(rooms[0]) and rooms[x_][y_] > rooms[x][y] + 1:
+                rooms[x_][y_] = rooms[x][y] + 1
+                self.dfs(rooms, x_, y_)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 典型bfs题目
   
