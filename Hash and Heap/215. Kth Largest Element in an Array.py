@@ -22,6 +22,7 @@ Solution:
 2. quick select sort -> time: O(n) ~ O(n^2) depends on the pivot, space: O(1) or O(logn) ~ O(n)(recursion extra space)
 3. max_heap: heapify + pop k elements -> time: O(n) + O(klogn), space: O(n)
 4. min_heap: create a k length min_heap + push n-k element into the heap -> time: O(k) + O((n - k)logn), space: O(k)
+5. python内置函数 nlargest            
 
 ************************************************************************************************************
 #1. brute force
@@ -115,8 +116,12 @@ class Solution:
         
         return heapq.heappop(heap)
     
-    
-
+************************************************************************************************************
+#5. Python内置函数 nlargest
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heapq.heapify(nums)
+        return heapq.nlargest(k, nums)[-1]
     
     
     
