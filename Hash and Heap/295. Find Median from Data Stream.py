@@ -26,6 +26,102 @@ If all integer numbers from the stream are between 0 and 100, how would you opti
 If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
 
 
+#07/03/2020
+#1. insertion sort - Binary Search
+#time: O(logn + n), space: O(n)
+#O(logn) for binary search, O(n) for insert function
+use a list to record all the numbers, use insertion sort to sort all the element one by one, utilize the length to find the median one
+#use binary search to find the insert index
+class MedianFinder:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.record = []
+        self.l = 0
+
+    def addNum(self, num: int) -> None:
+        self.l += 1
+        
+        if not self.record:
+            self.record.append(num)
+            return
+        
+        start = 0
+        end = len(self.record) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if self.record[mid] == num:
+                self.record.insert(mid, num)
+                return
+            
+            if self.record[mid] < num:
+                start = mid
+            else:
+                end = mid
+        
+        if self.record[start] >= num:
+            self.record.insert(start, num)
+        elif self.record[end] >= num:
+            self.record.insert(end, num)
+        else:
+            self.record.insert(end + 1, num)
+        
+        return
+
+    def findMedian(self) -> float:
+        if self.l % 2:
+            return float(self.record[self.l // 2])
+        else:
+            return (self.record[self.l // 2 - 1] + self.record[self.l // 2]) / 2
+    
+
+#2. heap
+#time: O(logn) , space: O(n)
+#attention: heap in Python is similar like queue -> input from heap[-1], output from heap[0]
+#elements in max heap are negative
+import heapq
+class MedianFinder:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.min_heap = [] #larget half
+        self.max_heap = [] #smaller half
+
+    def addNum(self, num: int) -> None:
+        #keep len_max >= len_min
+        if len(self.min_heap) < len(self.max_heap):
+            heapq.heappush(self.min_heap, num)
+        else:
+            heapq.heappush(self.max_heap, -num)
+        
+        #becase used index, make sure self.min_heap is not []
+        #heap in Python is similar like queue -> input from heap[-1], output from heap[0] -> compare use heap[0]
+        if self.min_heap and self.min_heap[0] < -self.max_heap[0]:
+            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
+            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
+
+    def findMedian(self) -> float:
+        #when len_max == len_min -> there are two median
+        if len(self.min_heap) == len(self.max_heap):
+            return (self.min_heap[0] - self.max_heap[0]) / 2
+        return -float(self.max_heap[0])
+
+
+# Your MedianFinder object will be instantiated and called as such:
+# obj = MedianFinder()
+# obj.addNum(num)
+# param_2 = obj.findMedian()
+
+
+
+
+
 用heap做,将中位数以及中位数之前的数存入max_heap,将中位数之后的数存入min_heap
 这样求中位数时,要不就是max_heap中的最大值,要不就是（max_heap的最大值 + min_heap的最小值）/ 2
 
