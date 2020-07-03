@@ -36,7 +36,9 @@ import heapq(最小堆)
 这一个操作也比直接使用heappush() 和heappop()的效率更加高,尤其适合使用在固定堆大小不变的情况
 与上一个函数相比，这个函数返回的值可能要比将要插入到堆的值大
 
-6.heapq.heapify(x)#直接in-place的将x转换成堆,不会return
+6.heapq.heapify(x)
+#直接in-place的将x转换成堆,不会return
+#x为一个array
 将一个list转为最小堆,线性时间复杂度,O(n)
 
 
