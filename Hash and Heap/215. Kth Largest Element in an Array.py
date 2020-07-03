@@ -117,7 +117,7 @@ class Solution:
         return heapq.heappop(heap)
     
 ************************************************************************************************************
-#5. Python内置函数 nlargest
+#5. Python内置函数 nlargest -> 将前k个largest nums单减的放在一个array里
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         heapq.heapify(nums)
