@@ -77,12 +77,6 @@ checkIn(id: int, stationName: str, t: int) -> None,
 checkOut(id: int, stationName: str, t: int) -> None, 
 getAverageTime(startStation: str, endStation: str) -> float
 
-give a case:
-checkIn  [1, A, 1]
-checkOut [1, B, 3]
-checkIn  [2, A, 4]
-checkOut [2, B, 6]
-
 2. 对于checkIn函数来说，can I assume that the customer can only be checked into one place at a time?
 3. 对于所有的time来说，can I assume that all the input t are increasing, follow the time increasing logical order?
 4. 对于getAverageTime函数来说，is there has a situation that the startStation or endStation not exist in our database? 
@@ -91,9 +85,12 @@ checkOut [2, B, 6]
 #######################################################################################################################
 solution:
 1. 因为要search station name or id frequently -> use hashmap
+2. how to get the average? -> utilize startStation_endStation to find out all time and all number of passagers
+-> self.check_out: #route = startStation_endStation, value = [total_time = all(end_time - start_time), count]
+3. how to get all time and all passagers -> record check_In fucntion information, in the check_Out function to count them. 
+the connection between check_In and check_Out is id
+-> self.check_in: #key = id, value = [station_name, start_time]
 
-self.check_in: #key = id, value = [station_name, start_time]
-self.check_out: #route = startStation_endStation, value = [total_time = all(end_time - start_time), count]
 
 #######################################################################################################################
 time: all O(1)
@@ -121,6 +118,7 @@ class UndergroundSystem:
             self.check_out[route][0] += t - start_time
             self.check_out[route][1] += 1
         else:
+            #这里不能是tuple！！！！
             self.check_out[route] = [t - start_time, 1]
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
