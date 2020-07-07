@@ -33,7 +33,7 @@ Each {amount} consist of digits, and represent an integer between 0 and 2000.
 
 
 
-#time: O(), space: O()
+#time: O(n^2), space: O(n)
 class Transaction:
     def __init__(self, t):
         self.name = t[0]
