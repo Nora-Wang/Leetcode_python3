@@ -32,7 +32,62 @@ Each {time} consist of digits, and represent an integer between 0 and 1000.
 Each {amount} consist of digits, and represent an integer between 0 and 2000.
 
 
+class Transaction:
+    def __init__(self, s):
+        self.name = s[0]
+        self.time = int(s[1])
+        self.amount = int(s[2])
+        self.city = s[3]
+        
+class Solution:
+    def invalidTransactions(self, transactions: List[str]) -> List[str]:
+        if not transactions:
+            return []
+        
+        #[t, t,...]
+        transactions = [Transaction(s.split(',')) for s in transactions]
+        
+        transactions.sort(key=lambda x:x.time)
+        
+        #separate the information by name
+        record = collections.defaultdict(list)
+        for i, t in enumerate(transactions):
+            record[t.name].append(i)
+        
+        invalid = []
+        for name, indexs in record.items():
+            for i in range(len(indexs)):
+                t = transactions[indexs[i]]
+                str_t = ','.join([t.name, str(t.time), str(t.amount), t.city])
+                
+                #1. the amount exceeds $1000
+                if t.amount > 1000:
+                    invalid.append(str_t)
+                    continue
+                
+                #2. if it occurs within (and including) 60 minutes of another transaction with the same name in a different city.
+                #indexs = [i1, i2, ...]
+                #find the range which match [t - 60, t + 60]
+                left, right = i, i
+                while left >= 0 and transactions[indexs[left]].time >= t.time - 60:
+                    left -= 1
+                while right < len(indexs) and transactions[indexs[right]].time <= t.time + 60:
+                    right += 1
+                
+                for j in range(left + 1, right):
+                    if transactions[indexs[j]].city != t.city:
+                        invalid.append(str_t)
+                        break
+        
+        return invalid
+                
+                
 
+
+
+
+
+#leetcode reference: https://leetcode.com/problems/invalid-transactions/discuss/367221/Python-Both-Optimized-O(nlogn)-and-Brute-Force-O(n2)-Solutions-with-Explanations
 #time: O(n^2), space: O(n)
 class Transaction:
     def __init__(self, t):
