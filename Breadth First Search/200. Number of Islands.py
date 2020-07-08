@@ -24,12 +24,16 @@ bfs的时候需要判断一下这个node是否在矩阵范围内，且node的值
 坐标变换数组：对于grid[i][j]的上下左右node，用set类型的dir与x,y加减得到 dir = ([-1,0],[1,0],[0,-1],[0,1])
 
 
+
+#3种方法：BFS，DFS，Union Find
+#time: O(n * m), space: O(n * m)
+
+
+
 #Version DFS
 '''
 #DFS Version
 use recursion to DFS every node in the grid which is '1', and turn it to '0'. count the number of DFS process
-
-time: O(n), space: O(n)
 '''
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
