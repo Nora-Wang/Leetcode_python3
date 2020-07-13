@@ -13,11 +13,43 @@ s = "3[a2[c]]", return "accaccacc".
 s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 
+用curt_num记录当前需要repeat多少次，用curt_str记录当前的sub_str，利用stack的先进后出来处理当前square brackets的东西
+
 四种情况
-1）是数字，就累加之前有的数字
-2）是左括号，从左括号之后开始递归。递归要传回两个值：组成的substring，递归结束的位置。 之后把传回的substring × 数字 加到结果里。数字归零。
-3）是右括号，返回结果
-4）是普通字母，直接加到结果里
+1）是左括号：将当前的curt_num加入stack，记做后续sub_str需要repeat的count数；将当前curt_str加入stack，记做prev_str；将curt_num, curt_str都归零（另起一循环了）
+2）是右括号：意味着当前循环结束，将prev_str给pop出，再将curt_str需要repeat多少次的count pop出，两者结合后再赋值给curt_str
+3）是数字：就累加之前有的数字
+4）是普通字母：直接加到curt_str里
+
+#time: O(n), space: O(n)
+class Solution:
+    def decodeString(self, s: str) -> str:
+        if not s:
+            return ''
+        
+        curt_num = 0
+        curt_str = []
+        stack = []
+        
+        for c in s:
+            if c == '[':
+                stack.append(curt_str)
+                stack.append(curt_num)
+                curt_str = []
+                curt_num = 0
+            elif c == ']':
+                repeat = stack.pop()
+                prev_str = stack.pop()
+                for _ in range(repeat):
+                    prev_str.extend(curt_str)
+                curt_str = prev_str
+            elif c.isdigit():
+                curt_num = curt_num * 10 + int(c)
+            else:
+                curt_str.append(c)
+        
+        return ''.join(curt_str)
+
 
 code:
 class Solution:
