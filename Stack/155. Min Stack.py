@@ -17,7 +17,7 @@ minStack.pop();
 minStack.top();      --> Returns 0.
 minStack.getMin();   --> Returns -2.
 
-
+#time: O(1), space: O(n)
 code:
 #为保障gerMin是O(1),因此用一个min_stack来记录当前栈的最小值,注意不能用int类型,要用list,因为在stack pop数据后,其最小值可能会变化,
 #因此用list记录stack在每一阶段的最小值
