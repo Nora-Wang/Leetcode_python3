@@ -12,6 +12,7 @@ NOTE: input types have been changed on April 15, 2019. Please reset to default c
 
     
 #07/14/2020
+#time: O(nlogn), space: O(1)
 class Solution:
     def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
         intervals.sort(key=lambda x:x[0])
