@@ -9,6 +9,27 @@ s = "loveleetcode",
 return 2.
 Note: You may assume the string contain only lowercase letters.
 
+    
+    
+#07/15/2020
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        count = collections.Counter(s)
+        
+        for i in range(len(s)):
+            if count[s[i]] == 1:
+                return i
+        
+        return -1
+    
+    
+    
+    
+    
 code:
 #leetcode Version
 class Solution(object):
