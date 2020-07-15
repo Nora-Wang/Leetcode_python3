@@ -86,7 +86,9 @@ class Solution:
          
          
          
-         
+# 以每层最左侧的node为level_head，用prev = level_head代表当前层的head
+# 然后将prev的左孩子与右孩子连起来，若prev有next，则需要将prev的右孩子与prev.next的左孩子连起来；使用while循环将当前prev层的所有node的子孩子都连起来
+# 再将level_head挪到level_head.left
 '''
 follow up:
 use head node to represent every level in the tree. 
