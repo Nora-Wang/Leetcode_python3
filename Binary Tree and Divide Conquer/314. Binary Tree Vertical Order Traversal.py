@@ -68,6 +68,49 @@ Output:
   [7]
 ]
 
+注意一定要用BFS来遍历树：example 3中，node 8 要比node 2先被加入list
+#use BFS to traverse the tree!!
+#utilize left node -> index - 1, right node -> index + 1
+#time: O(n), space: O(n)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        
+        record = collections.defaultdict(list)
+        
+        self.traverse(root, record)
+        
+        res = [0] * len(record)
+        min_index = min(record.keys())
+        
+        for key, value in record.items():
+            res[key - min_index] = value
+        
+        return res
+    
+    def traverse(self, root, record):
+        queue = collections.deque([(root, 0)])
+        
+        while queue:
+            node, index = queue.popleft()
+            record[index].append(node.val)
+            if node.left:
+                queue.append((node.left, index - 1))
+            if node.right:
+                queue.append((node.right, index + 1))
+
+
+
+
+
+
 
 用index, left -> index - 1, right -> index + 1
 
