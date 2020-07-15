@@ -39,6 +39,57 @@ The tree will have between 1 and 1000 nodes.
 Each node's value will be between 0 and 1000.
 
 
+#07/15/2020
+#time: O(nlogn), space: O(n)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        
+        hash_record = collections.defaultdict(list)
+        
+        self.traverse(root, hash_record)
+        
+        min_index = min(hash_record.keys())
+        
+        res = [None] * len(hash_record)
+        for key, value in hash_record.items():
+            value.sort(key=lambda x:(x[1], x[0]))
+            res[key - min_index] = [x[0] for x in value]
+        
+        return res
+    
+    def traverse(self, root, hash_record):
+        queue = collections.deque([(root, 0)])
+        level = 0
+        
+        while queue:
+            for _ in range(len(queue)):
+                node, index = queue.popleft()
+                hash_record[index].append([node.val, level])
+
+                if node.left:
+                    queue.append((node.left, index - 1))
+                if node.right:
+                    queue.append((node.right, index + 1))
+            
+            level += 1
+        
+        return
+        
+        
+
+
+
+
+
+
 参考leetcode 314
 主要的区别就是这道题要求当index和level都相同时，按照node.val的大小进行排序，而314则是根据从左到右的顺序 #因为level traverse直接满足这一条件，因此不需要另外sort
 BFS和DFS都需要另外加入level，因为先对hash_table按照key=index进行排序，然后对value=(level, node.val)进行排序
