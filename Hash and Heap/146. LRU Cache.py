@@ -23,6 +23,126 @@ cache.get(3);       // returns 3
 cache.get(4);       // returns 4
 
 
+# brute force: Hash
+#主要是将self.keys作为一个key出现先后的记录,每次用了key就先remove,然后重新append
+#这样就可以保证self.keys中的最后一位是最新用过的,而第一位是最老的
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.capacity = capacity
+        self.record = {}
+        self.keys = []
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key in self.record:
+            self.keys.remove(key)
+            self.keys.append(key)
+            return self.record[key]
+        return -1
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        #这里直接将value赋值即可,因为无论需不需要初始化,都可以这样写
+        #这里的意思是,若self.record存在key,则将其重新赋值为value;若self.record不存在key,则新建一个item
+        self.record[key] = value
+        
+        #因为前一句话,key一定会在self.record中,但是由于不知道key是否已经存在于self.keys中,需要提前判断一下,如果在则需要提前删除,然后才能加入
+        if key in self.keys:
+            self.keys.remove(key)
+        self.keys.append(key)
+        
+        if len(self.record) > self.capacity:
+            del self.record[self.keys[0]]
+            self.keys = self.keys[1:]
+
+# Optimization: doublely linked list
+# time: O(1), space: O(n)
+class DoubleLinkedList:
+    def __init__(self, key=None, value=None):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
+        
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        # {key:node}
+        self.cache = {}
+        self.capacity = capacity
+        
+        # 初始化双向链表
+        self.dummy = DoubleLinkedList()
+        self.tail = DoubleLinkedList()
+        self.dummy.next = self.tail
+        self.tail.prev = self.dummy
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        
+        # 将node的位置更新：先remove，再放到尾部
+        self.remove_node(self.cache[key])
+        self.put_end(self.cache[key])
+        
+        return self.cache[key].value
+        
+
+    def put(self, key: int, value: int) -> None:
+        # key在cache里时：更新value值，将node的位置更新：先拿出，再放尾部
+        if key in self.cache:
+            self.cache[key].value = value
+            node = self.cache[key]
+            self.remove_node(node)
+        else:
+            # key不在cache里：先判断capacity，若超了则拿出头节点并删除cache内容；再建立新node，将新数据存入cache，最后将新node放入尾部
+            if len(self.cache) == self.capacity:
+                del self.cache[self.dummy.next.key]
+                self.remove_node(self.dummy.next)
+            node = DoubleLinkedList(key, value)
+            self.cache[key] = node
+            
+        self.put_end(node)
+    
+    #将当前node从链表中删除
+    def remove_node(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+    
+    #将当前node放在链表尾部
+    def put_end(self, node):
+        self.tail.prev.next = node
+        node.prev = self.tail.prev
+        self.tail.prev = node
+        node.next = self.tail
+        
+    
+    
+            
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+
+
+
+
+
+
+
 code:
 LinkedList Version
 class ListNode(object):
@@ -122,51 +242,4 @@ class LRUCache(object):
 
 
 ***************************************************************************
-Hash Version
-#主要是将self.keys作为一个key出现先后的记录,每次用了key就先remove,然后重新append
-#这样就可以保证self.keys中的最后一位是最新用过的,而第一位是最老的
-class LRUCache(object):
 
-    def __init__(self, capacity):
-        """
-        :type capacity: int
-        """
-        self.capacity = capacity
-        self.record = {}
-        self.keys = []
-
-    def get(self, key):
-        """
-        :type key: int
-        :rtype: int
-        """
-        if key in self.record:
-            self.keys.remove(key)
-            self.keys.append(key)
-            return self.record[key]
-        return -1
-
-    def put(self, key, value):
-        """
-        :type key: int
-        :type value: int
-        :rtype: None
-        """
-        #这里直接将value赋值即可,因为无论需不需要初始化,都可以这样写
-        #这里的意思是,若self.record存在key,则将其重新赋值为value;若self.record不存在key,则新建一个item
-        self.record[key] = value
-        
-        #因为前一句话,key一定会在self.record中,但是由于不知道key是否已经存在于self.keys中,需要提前判断一下,如果在则需要提前删除,然后才能加入
-        if key in self.keys:
-            self.keys.remove(key)
-        self.keys.append(key)
-        
-        if len(self.record) > self.capacity:
-            del self.record[self.keys[0]]
-            self.keys = self.keys[1:]
-
-
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
