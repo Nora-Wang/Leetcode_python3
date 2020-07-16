@@ -36,7 +36,8 @@ Note that 'A' and 'a' are treated as two different characters.
 
 
 # hash + sort
-# time: O(nlogn), space: O(26class Solution:
+# time: O(nlogn), space: O(n)
+class Solution:
     def frequencySort(self, s: str) -> str:
         if not s:
             return ''
@@ -53,3 +54,22 @@ Note that 'A' and 'a' are treated as two different characters.
 
 
 # stack + heap
+# time: O(n), space: O(n)
+import heapq
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        if not s:
+            return ''
+        
+        count = collections.Counter(s)
+        heap = [(-v, k) for k, v in count.items()]
+        heapq.heapify(heap)
+        
+        res = []
+        while heap:
+            count, c = heapq.heappop(heap)
+            for _ in range(-count):
+                res.append(c)
+        
+        return ''.join(res)
+            
