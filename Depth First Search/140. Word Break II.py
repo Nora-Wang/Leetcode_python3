@@ -36,6 +36,7 @@ Output:
 
 
 # DFS
+# time: O(n^2), space: O(n)
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         return self.dfs(s, set(wordDict))
@@ -64,6 +65,7 @@ class Solution:
         
         
 # memo + DFS
+# time: O(n^2), space: O(n)
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         return self.dfs(s, set(wordDict), {})
@@ -90,3 +92,42 @@ class Solution:
         
         memo[s] = res
         return res
+
+      
+# memo + DFS
+# time: O(n * min(n * m)), space: O(n), n = len(s), m = wordDict中最长单词的长度（the lenght of longest word in wordDict）
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        # 后续需要取到对wordDict进行max，因此需要判断一下
+        if not wordDict:
+            return []
+        
+        # m = wordDict中最长单词的长度
+        m = len(max(wordDict, key=len))
+        return self.dfs(s, set(wordDict), {}, m)
+    
+    def dfs(self, s, wordDict, memo, m):
+        if s in memo:
+            return memo[s]
+        
+        res = []
+        
+        if not s:
+            return []
+        
+        if s in wordDict:
+            res.append(s)
+        
+        # 注意这里的取值范围，因为后续s[:i],i取不到，所以都得+1
+        for i in range(1, min(m, len(s)) + 1):
+            if s[:i] in wordDict:
+                left = s[:i]
+                
+                wordlist = self.dfs(s[i:], wordDict, memo, m)
+                
+                for right in wordlist:
+                    res.append(left + ' ' + right)
+        
+        memo[s] = res
+        return res
+      
