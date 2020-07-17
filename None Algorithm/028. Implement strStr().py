@@ -28,6 +28,7 @@ class Solution:
         if not haystack or l_h < l_n:
             return -1
         
+        # 这里的取值范围需要多考虑一下，用一个例子算！
         for i in range(l_h - l_n + 1):
             if haystack[i:i + l_n] == needle:
                 return i
