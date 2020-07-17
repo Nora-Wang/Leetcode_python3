@@ -35,7 +35,8 @@ class Solution:
         if s in wordDict:
             return True
         
-        for i in range(1, len(s)):
+        # 这里的取值范围为[1,len(s) + 1]，因为需要考虑到后续s[:i]，这里是取不到i的，所以所有取值都得+1
+        for i in range(1, len(s) + 1):
             if s[:i] in wordDict and self.dfs(s[i:], wordDict):
                 return True
 
@@ -59,7 +60,7 @@ class Solution:
             memo[s] = True
             return True
         
-        for i in range(1, len(s)):
+        for i in range(1, len(s) + 1):
             if s[:i] in wordDict and self.dfs(s[i:], wordDict, memo):
                 memo[s] = True
                 return True
@@ -71,9 +72,11 @@ class Solution:
 # time: O(1. m < n : O(m * n); 2. m > n : O(n ^ 2)), space: O(n)
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        # 后续要对wordDict取max，因此需要判断一下
         if not wordDict:
             return False
         
+        # m是wordDict中最长单词的长度
         m = len(max(wordDict, key=len))
         return self.dfs(s, set(wordDict), m, {})
     
