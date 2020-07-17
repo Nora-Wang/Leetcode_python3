@@ -69,7 +69,7 @@ class Solution:
         return False
       
 ********************************************************************** 
-# time: O(1. m < n : O(m * n); 2. m > n : O(n ^ 2)), space: O(n)
+# time: O(n * min(n, m)), space: O(n), n = len(s), m = wordDict中最长单词的长度
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         # 后续要对wordDict取max，因此需要判断一下
