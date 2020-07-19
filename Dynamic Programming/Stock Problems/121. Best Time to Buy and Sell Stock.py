@@ -18,37 +18,6 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
 
 # 07/19/2020
-# O(1) space
-'''
-curt, min_r, max_r, profit
-1. curt < min_r
-renew profit = max(curt_profit), min_r = curt, max_r = curt
-2. min_r <= curt < max_r
-renew profit, max_r = curt
-3. curt >= max_r
-renew profit, max_r = curt
-
-time: O(n), space: O(1)
-'''
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        if not prices:
-            return 0
-        
-        min_r = max_r = prices[0]
-        profit = 0
-        
-        for curt in prices:
-            if curt < min_r:
-                min_r = curt
-            max_r = curt
-            profit = max(max_r - min_r, profit)
-        
-        return profit
-
-
-
-
 
 # DP
 '''
@@ -93,16 +62,58 @@ class Solution:
         
         return dp[-1][0]
                 
+# DP release space version
+# time: O(n), space: O(1)
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        
+        l = len(prices)
+        dp_i_0, dp_i_1 = 0, -prices[0]
+        
+        for i in range(1, l):
+            # 用之前的dp_i_1和dp_i_0来进行计算，得到当前的dp_i_1和dp_i_0
+            dp_i_0 = max(dp_i_1 + prices[i], dp_i_0)
+            dp_i_1 = max(dp_i_1, -prices[i])
+        
+        return dp_i_0                
+  
+  
+  
+  
+  
+  
+  
+# 直接写的：O(1) space
+'''
+curt, min_r, max_r, profit
+1. curt < min_r
+renew profit = max(curt_profit), min_r = curt, max_r = curt
+2. min_r <= curt < max_r
+renew profit, max_r = curt
+3. curt >= max_r
+renew profit, max_r = curt
+
+time: O(n), space: O(1)
+'''
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        
+        min_r = max_r = prices[0]
+        profit = 0
+        
+        for curt in prices:
+            if curt < min_r:
+                min_r = curt
+            max_r = curt
+            profit = max(max_r - min_r, profit)
+        
+        return profit
 
 
-                
-  
-  
-  
-  
-  
-  
-  
   
   
   
