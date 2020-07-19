@@ -59,6 +59,11 @@ k = 1
 choose = [0, 1], 0 = no stock, 1 = have stack
 
 2. function
+原始方程：
+dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+
+简化版：
 dp[i][0] = max(dp[i - 1][1] + price[i], dp[i - 1][0])
 dp[i][1] = max(dp[i - 1][1], -price[i])
 
