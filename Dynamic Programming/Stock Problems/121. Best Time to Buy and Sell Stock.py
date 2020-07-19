@@ -70,7 +70,7 @@ dp[i][1] = max(dp[i - 1][1], -price[i])
 3. end case
 if i - 1 = -1:
 dp[i][0] = 0
-dp[i][1] = -price[i]
+dp[i][1] = -price[i] ——> dp[i][1] = max(dp[-1][1], dp[-1][0] - prices[i]) = max(-float('inf'), 0 - prices[i]) 
 
 time: O(n), space: O(n)
 '''
