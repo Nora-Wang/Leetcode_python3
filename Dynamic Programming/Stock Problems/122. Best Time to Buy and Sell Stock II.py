@@ -36,7 +36,7 @@ Constraints:
 1. define:
 dp[i][k][choose]
 i = day, [0 len(price)]
-k = 1
+k = 0 ～ float('inf')
 choose = [0, 1], 0 = no stock, 1 = have stack
 
 2. function:
