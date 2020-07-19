@@ -83,7 +83,4 @@ class Solution:
             for i in range(slow, -1, -1):
                 board[i][j] = 0
                 
-        if not stop:
-            return self.candyCrush(board)
-        else:
-            return board
+        return board if stop else self.candyCrush(board)
