@@ -32,14 +32,16 @@ i = [0, len(prices)]
 
 2. function
 dp[k][i] = max(rest, MaxDiff)
-MaxDiff: 对于kth的transaction的操作为sell -> 在0 ~ i-1天买入
-         max(在i-1天买入， 0 ~ i-2天买入) 的最大profit
+dp[k - 1][i - 1] - price[i - 1]代表的是在第i - 1天以price[i - 1]买入股票之后口袋里还剩的最大profit，
+但是我们做了Max(maxDiff, dp[k - 1][i - 1] - price[i - 1]),所以是跟之前所有天的maxDiff做对比
 
 dp[k][i] = max(dp[k][i - 1], prices[i] + MaxDiff)
 MaxDiff = max(dp[k - 1][i - 1] - prices[i - 1], MaxDiff)
 
 3. end case:
 k = 0 or i = 0 -> profit = 0
+dp[0][i]是因为没有操作transaction，所以为0
+dp[k][0]是因为如果price array长度为1的话，如[3]，因为当天不能多次交易，所以最大profit是0
 
 time: O(n), space: O(n * K), K = 2
 '''
