@@ -24,27 +24,23 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
 
-'''
+
 1. define:
 dp[k][i] for every transaction find the max profit
 K = 2
 i = [0, len(prices)]
 
 2. function
-dp[k][i] = max(rest, MaxDiff)
-dp[k - 1][i - 1] - price[i - 1]代表的是在第i - 1天以price[i - 1]买入股票之后口袋里还剩的最大profit，
-但是我们做了Max(maxDiff, dp[k - 1][i - 1] - price[i - 1]),所以是跟之前所有天的maxDiff做对比
-
-dp[k][i] = max(dp[k][i - 1], prices[i] + MaxDiff)
-MaxDiff = max(dp[k - 1][i - 1] - prices[i - 1], MaxDiff)
+dp[k][i] = max(rest, sell)
+dp[k][i] = max(dp[k][i - 1], prices[i] + buy in 0~i-1)
+buy in 0~i-1 = max(dp[k-1][j] - prices[j]), j in range(0, i)
 
 3. end case:
 k = 0 or i = 0 -> profit = 0
 dp[0][i]是因为没有操作transaction，所以为0
 dp[k][0]是因为如果price array长度为1的话，如[3]，因为当天不能多次交易，所以最大profit是0
 
-time: O(n), space: O(n * K), K = 2
-'''
+# time: O(k * n * n), space: O(n * k), k = 2
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
@@ -55,12 +51,33 @@ class Solution:
         dp = [[0 for _ in range(len(prices))] for _ in range(2 + 1)] 
         
         for k in range(1, K + 1):
-            MaxDiff = float('-inf')
             for i in range(1, len(prices)):
-                MaxDiff = max(dp[k - 1][i - 1] - prices[i - 1], MaxDiff)
-                dp[k][i] = max(dp[k][i - 1], prices[i] + MaxDiff)
+                max_buy = -float('inf')
+                for j in range(0, i):
+                    max_buy = max(max_buy, dp[k - 1][j] - prices[j])
+                    
+                dp[k][i] = max(dp[k][i - 1], max_buy + prices[i])
         
         return dp[K][-1]
+    
+# Optimization
+为了得到max_buy，每次都是O(n)的时间去进行计算，但其实每次比的都一样，所以直接用max_buy记住当前的最大即可，这样就少一层循环
+# time: O(k * n), space: O(n * k), k = 2
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        
+        K = 2
+        dp = [[0 for _ in range(len(prices))] for _ in range(2 + 1)] 
+        
+        for k in range(1, K + 1):
+            max_buy = -float('inf') 
+            for i in range(1, len(prices)):
+                max_buy = max(max_buy, dp[k - 1][i - 1] - prices[i - 1])
+                dp[k][i] = max(dp[k][i - 1], max_buy + prices[i])
+        
+        return dp[K][-1]    
 
 
   
@@ -70,7 +87,7 @@ class Solution:
   
   
   
-  
+# 套路
 '''
 1. define:
 dp[i][k][choose]
