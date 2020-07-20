@@ -44,13 +44,13 @@ class Solution:
                 left, right, up, down = j - 1, j + 1, i - 1, i + 1
                 center = abs(board[i][j])
                 
-                while left >= 0 and board[i][left] == center:
+                while left >= 0 and abs(board[i][left]) == center:
                     left -= 1
-                while right < col and board[i][right] == center:
+                while right < col and abs(board[i][right]) == center:
                     right += 1
-                while up >= 0 and board[up][j] == center:
+                while up >= 0 and abs(board[up][j]) == center:
                     up -= 1
-                while down < row and board[down][j] == center:
+                while down < row and abs(board[down][j]) == center:
                     down += 1
                 
                 # get distance
