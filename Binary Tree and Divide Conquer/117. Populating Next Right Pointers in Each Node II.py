@@ -111,6 +111,10 @@ class Solution:
         
         level_head = root
         
+        # 这里的while循环条件与116不同
+        # 116是因为整个思路就是用up_level链接sub_level，因此只要保证sub_level一定存在，就可以继续循环
+        # 而这里是因为由于不能保证sub_level_head的子节点是否存在，只能一行一行的都判断一遍
+        # case：[3,9,20,null,null,15,7]，当level_head指向9时，由于9没有左右子节点，若根据level_head是否有字节点作为判断依据则无法进行下一步循环
         while level_head:
             curt = level_head
             prev = sub_head = Node(None)
