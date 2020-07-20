@@ -13,6 +13,27 @@ s = "3[a2[c]]", return "accaccacc".
 s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 
+# square brackets
+stack = [[next_string_repeat_count, prev_str]]
+curt_count = 0
+curt_str = '' -> []
+
+1. char
+curt_str += char
+2. number
+curt_count = curt_count * 10 + int(c)
+3. '['
+stack.append([curt_count, curt_str])
+renew curt_count, curt_str
+4. ']'
+stack pop -> curt_str_repeat_count, prev_str -> prev_str += curt_str_repeat_count * curt_str
+renew curt_str = prev_str
+
+
+
+
+
+
 用curt_num记录当前需要repeat多少次，用curt_str记录当前的sub_str，利用stack的先进后出来处理当前square brackets的东西
 
 四种情况
