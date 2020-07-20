@@ -32,6 +32,24 @@ Constraints:
 
 
 # 07/19/2020
+# all the price[i] 比上一个大，就可以增加profit
+# time: O(n), space: O(1)
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        
+        profit = 0
+        for i in range(1, len(prices)):
+            profit += max(prices[i] - prices[i - 1], 0)
+        
+        return profit
+
+
+
+
+
+# DP
 '''
 1. define:
 dp[i][k][choose]
