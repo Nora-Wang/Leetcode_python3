@@ -23,9 +23,10 @@ cache.get(3);       // returns 3
 cache.get(4);       // returns 4
 
 
-# brute force: Hash
-#主要是将self.keys作为一个key出现先后的记录,每次用了key就先remove,然后重新append
-#这样就可以保证self.keys中的最后一位是最新用过的,而第一位是最老的
+# brute force: Hash + stack
+# 主要是将self.keys作为一个key出现先后的记录,每次用了key就先remove,然后重新append
+# 这样就可以保证self.keys中的最后一位是最新用过的,而第一位是最老的
+# time: O(n), space: O(n), n = capacity
 class LRUCache(object):
 
     def __init__(self, capacity):
