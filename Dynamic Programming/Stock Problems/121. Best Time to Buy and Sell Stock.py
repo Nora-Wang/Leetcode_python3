@@ -18,6 +18,29 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
 
 # 07/19/2020
+'''
+lowest = 对于prices[i]来说，在[0,i-1]中最小的值
+'''
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        
+        lowest, profit = float('inf'), 0
+        
+        for curt in prices:
+            lowest = min(lowest, curt)
+            profit = max(profit, curt - lowest)
+            
+        return profit  
+  
+  
+  
+  
+  
+  
+  
+  
   
 # 直接写的：O(1) space
 '''
