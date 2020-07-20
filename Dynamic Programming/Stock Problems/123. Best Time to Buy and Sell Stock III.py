@@ -26,6 +26,51 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
 '''
 1. define:
+dp[k][i] for every transaction find the max profit
+K = 2
+i = [0, len(prices)]
+
+2. function
+dp[k][i] = max(rest, MaxDiff)
+MaxDiff: 对于kth的transaction的操作为sell -> 在0 ~ i-1天买入
+         max(在i-1天买入， 0 ~ i-2天买入) 的最大profit
+
+dp[k][i] = max(dp[k][i - 1], prices[i] + MaxDiff)
+MaxDiff = max(dp[k - 1][i - 1] - prices[i - 1], MaxDiff)
+
+3. end case:
+k = 0 or i = 0 -> profit = 0
+
+time: O(n), space: O(n * K), K = 2
+'''
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        
+        K = 2
+        dp = [[0 for _ in range(len(prices))] for _ in range(2 + 1)] 
+        
+        for k in range(1, K + 1):
+            MaxDiff = float('-inf')
+            for i in range(1, len(prices)):
+                MaxDiff = max(dp[k - 1][i - 1] - prices[i - 1], MaxDiff)
+                dp[k][i] = max(dp[k][i - 1], prices[i] + MaxDiff)
+        
+        return dp[K][-1]
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+'''
+1. define:
 dp[i][k][choose]
 i = day, [0 len(price)]
 k = 2
