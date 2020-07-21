@@ -23,7 +23,6 @@ Each board[i][j] will initially start as an integer in the range [1, 2000].
 
 
 
-# 并没有AC
 # time: O((r * c)^2), space: O(1)
 class Solution:
     def candyCrush(self, board: List[List[int]]) -> List[List[int]]:
