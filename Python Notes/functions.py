@@ -56,7 +56,7 @@ print (123,end='')
 #一维
 dp = [0] * n
 #二维
-dp = [[0 for _ in range(n)] for _ in range(m))]
+dp = [[0 for _ in range(col)] for _ in range(row))]
 #如果使用后面两个种方法 -> 会出现[[0,1],[0,1],[0,1]]的情况，因为外层在*的时候，只会copy pointer，
 #这样会使得所有的内层list都是对应的同一pointer，即改变其中一个，其他的都会变
 dp = [[0] * 2] * len(nums)
