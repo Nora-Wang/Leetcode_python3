@@ -92,3 +92,42 @@ class Solution(object):
             step += 1
             
         return -1
+
+    
+    
+    
+    
+# DFS + memo -> TLE (深度太大，宽度很小)    
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+        res = float('inf')
+        self.dfs('0000', set(deadends), target, 0, res, {}, set(['0000']))
+        
+        return res if res != float('inf') else -1
+        
+        
+    def dfs(self, lock, deadends, target, step, res, memo, visited):
+        if lock in memo:
+            res = min(res, step + memo[lock])
+            return
+        
+        if lock == target:
+            res = min(res, step)
+            memo[lock] = step
+            return
+        
+        for i in range(4):
+            left, num, right = lock[:i], int(lock[i]), lock[i + 1:]
+            
+            for changed_num in [(num - 1) % 10, (num + 1) % 10]:
+                new_lock = left + str(changed_num) + right
+                
+                if new_lock in deadends:
+                    continue
+                    
+                if new_lock in visited:
+                    continue
+                
+                visited.add(new_lock)
+                self.dfs(new_lock, deadends, target, step + 1, res, memo, visited)
+                visited.pop()
