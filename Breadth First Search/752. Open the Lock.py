@@ -94,7 +94,52 @@ class Solution(object):
         return -1
 
     
+# return path版本
+# 将visited改成hashtable {new_lock:parent_lock}, 当找到target的时候直接从target往回找parent就能找到整个path
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+        deadends = set(deadends)
+        queue = collections.deque(['0000'])
+        visited = {}
+        visited['0000'] = -1
+        step = -1
+        
+        while queue:
+            step += 1
+            for _ in range(len(queue)):
+                lock = queue.popleft()
+                
+                if lock == target:
+                    path = self.print_path(lock, visited)
+                    return path
+                
+                if lock in deadends:
+                    continue
+
+                for i in range(len(lock)):
+                    left, num, right = lock[:i], int(lock[i]), lock[i+1:]
+
+                    for wheeled_num in [(num + 1) % 10, (num - 1) % 10]:
+                        new_lock = left + str(wheeled_num) + right
+
+                        if new_lock in visited:
+                            continue
+                        
+                        visited[new_lock] = lock
+                        queue.append(new_lock)
+        
+        return -1
     
+    def print_path(self, lock, visited):
+        path = [lock]
+        
+        while lock != '0000':
+            lock = visited[lock]
+            path.append(lock)
+            
+        path.reverse()
+        
+        return '->'.join(path)
     
     
 # DFS + memo -> TLE (深度太大，宽度很小)    
