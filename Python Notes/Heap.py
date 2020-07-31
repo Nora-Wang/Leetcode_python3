@@ -41,6 +41,10 @@ import heapq(最小堆)
 #x为一个array
 将一个list转为最小堆,线性时间复杂度,O(n)
 
+7.heapq.nlargest/heapq.nsmallest(k, heap)
+得到heap中前k个最大/最小的数
+时间：O(klogn)
+
 
 原文链接：https://blog.csdn.net/qq_23869697/article/details/82735088
 
