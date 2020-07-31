@@ -24,14 +24,6 @@ traversal就是将整个tree的node给walk though一遍.主要用于判断
 divide and conquer却是从上往下的遍历所有node，然后再从下往上的return所需的返回值，最后在root处得到最终结果
 divide and conquer其实是一个postodrder,因为从下到上的实现
 
-************************************
-# recursion explain
-    1. input （recursion definition）
-    2. recursion rules（how to process next level recursion）
-    3. return value
-    4. base/end case
-************************************
-
 # 知识点
 1. 遍历顺序
 preorder traversal  根左右
