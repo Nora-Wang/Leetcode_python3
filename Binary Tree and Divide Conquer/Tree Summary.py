@@ -15,8 +15,8 @@
 
 
 # Recursion & divide and conquer
-recursion和none recursion只是一种实现方式,而不是一种算法;traversal和divide and conquer都能用这两种方法实现
-divide and conquer与recursion的区别: divide and conquer一定有返回值,而recursion一般用全局变量/类变量代替返回值
+1. recursion和none recursion只是一种实现方式,而不是一种算法;traversal和divide and conquer都能用这两种方法实现
+2. divide and conquer与recursion的区别: divide and conquer一定有返回值,而recursion一般用全局变量/类变量代替返回值
 
 思想上的区别:
 recursion本质上是指操作重复,能无限调用同一函数对数据进行处理以得到结果
@@ -24,7 +24,13 @@ traversal就是将整个tree的node给walk though一遍.主要用于判断
 divide and conquer却是从上往下的遍历所有node，然后再从下往上的return所需的返回值，最后在root处得到最终结果
 divide and conquer其实是一个postodrder,因为从下到上的实现
 
-
+************************************
+# recursion explain
+    1. input （recursion definition）
+    2. recursion rules（how to process next level recursion）
+    3. return value
+    4. base/end case
+************************************
 
 # 知识点
 1. 遍历顺序
