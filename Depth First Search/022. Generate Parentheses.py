@@ -10,6 +10,47 @@ For example, given n = 3, a solution set is:
   "()()()"
 ]
 
+# 08/01/2020
+# DFS Version
+                                Empty
+                           /            \
+Position 0                (              )
+                        /   \          /    \
+Position 1             (     )        (      )
+                     /   \
+Position 2
+…….     
+# time: O(n * 2^n), space: O(n)
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+        
+        self.dfs(n, 0, 0, [], res)
+        
+        return res
+    
+    # left = 左括号的个数，right = 右括号的个数
+    def dfs(self, n, left, right, temp, res):
+	# end case
+        if left == n and right == n:
+            res.append(''.join(temp))
+            return
+        
+	# 只要left < n，就能加入'('
+        if left < n:
+            temp.append('(')
+            self.dfs(n, left + 1, right, temp, res)
+            temp.pop()
+        
+	# 只要right < left，就能加入')'
+        if left > right:
+            temp.append(')')
+            self.dfs(n, left, right + 1, temp, res)
+            temp.pop()
+
+
+
+
 
 3连问:
 1.每一层都代表什么，或者什么状态？
