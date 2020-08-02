@@ -16,6 +16,33 @@ Output:
 ]
 
 模板DFS
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return []
+        
+        nums.sort()
+        res = []
+        visited = [False] * len(nums)
+        self.dfs(nums, [], 0, res, visited)
+        
+        return res
+    
+    def dfs(self, nums, temp, index, res, visited):
+        res.append(list(temp))
+        
+        for i in range(index, len(nums)):
+            if i > index and nums[i] == nums[i - 1] and visited[i - 1] == False:
+                continue
+                
+            visited[i] = True
+            temp.append(nums[i])
+            self.dfs(nums, temp, i + 1, res, visited)
+            temp.pop()
+            visited[i] = False
+
+
+
 
 code:
 
