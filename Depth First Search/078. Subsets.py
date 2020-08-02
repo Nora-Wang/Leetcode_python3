@@ -19,6 +19,27 @@ Output:
 
 
 标准DFS模板
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        
+        self.dfs(nums, 0, [], res)
+        
+        return res
+    
+    def dfs(self, nums, index, temp, res):
+        res.append(list(temp))
+        
+        if index == nums:
+            return
+        
+        for i in range(index, len(nums)):
+            temp.append(nums[i])
+            self.dfs(nums, i + 1, temp, res)
+            temp.pop()
+
+
+
 
 code:
 class Solution(object):
