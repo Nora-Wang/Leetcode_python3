@@ -24,6 +24,30 @@ A solution set is:
   [3,5]
 ]
 
+# 80/01/2020
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        
+        self.dfs(candidates, 0, [], target, res)
+        
+        return res
+    
+    def dfs(self, candidates, index, temp, curt_target, res):
+        if curt_target == 0:
+            res.append(list(temp))
+            return
+        
+        if curt_target < 0:
+            return
+        
+        for i in range(index, len(candidates)):
+            temp.append(candidates[i])
+            self.dfs(candidates, i, temp, curt_target - candidates[i], res)
+            temp.pop()
+
+
+
 与Subsets比较:
 • Combination Sum限制了组合中的数之和:加入一个新的参数cur_target来限制
 • Subsets无重复元素,Combination SumII有重复元素:需要先去重
