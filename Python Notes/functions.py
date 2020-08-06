@@ -13,6 +13,8 @@ sorted_w = sorted(f_count.items(), key=lambda x:x[1]) #以value为标准
 
 # 取小写字母
 string.lowercase
+string.lower()
+string.upper()
 
 # 随机取值
 import random
