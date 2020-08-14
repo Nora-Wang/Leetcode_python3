@@ -16,6 +16,9 @@ n == mat[i].length
 1 <= m, n <= 100
 1 <= mat[i][j] <= 100
 
+
+# 斜着取数的规律：j - i的值相等
+
 code:
 class Solution:
     def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
