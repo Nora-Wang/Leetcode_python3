@@ -40,7 +40,7 @@ str -> list: list = str.split('c')默认为空格
 list -> str: str = '分隔符'.join(list) #注意list里的内容必须是str
 
 
-# string去掉头尾指定的字符
+# strip
 str.strip('c')移除 string 前后的字符串，默认来移除空格，但是也可以给一个字符串，然后会移除含有这个字符串的部分
 str.rstrip()移除右侧字符串
 str.lstrip()移除左侧字符串
@@ -76,3 +76,9 @@ python中切片会创建一个新的容器，新容器对原容器的每个指�
 #4.取小数后k位
 round(num,k)
 然而,事实上,直接写1.00000/用float()更有用,参考346
+
+
+# 进制转换
+十进制 -> 二进制   bin(10)
+十进制 -> 八进制   oct(10) 
+十进制 -> 十六进制 hex(10)
