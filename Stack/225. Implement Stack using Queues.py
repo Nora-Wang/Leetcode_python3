@@ -20,46 +20,59 @@ Depending on your language, queue may not be supported natively. You may simulat
 You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack).
 
 
-题意是用queue来实现一个stack
+# 具体可参考232，类似
 
 
-code:
-class MyStack(object):
+class MyStack:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.queue = collections.deque([])
+        self.queue = collections.deque()
+        self.helper_queue = collections.deque()
 
-    def push(self, x):
+    def push(self, x: int) -> None:
         """
         Push element x onto stack.
-        :type x: int
-        :rtype: None
         """
         self.queue.append(x)
 
-    def pop(self):
+    def pop(self) -> int:
         """
         Removes the element on top of the stack and returns that element.
-        :rtype: int
         """
-        return self.queue.pop()
+        self.move_out()
+        res = self.queue.popleft()
+        self.move_back()
+        
+        return res
 
-    def top(self):
+    def top(self) -> int:
         """
         Get the top element.
-        :rtype: int
         """
-        return self.queue[-1]
+        self.move_out()
+        stack_top = self.queue.popleft()
+        self.move_back()
+        
+        # 注意这里一定要最后才加入queue，因为stack_top是queue的top，即queue[-1]
+        self.queue.append(stack_top)
+        return stack_top
 
-    def empty(self):
+    def empty(self) -> bool:
         """
         Returns whether the stack is empty.
-        :rtype: bool
         """
         return len(self.queue) == 0
+    
+    def move_out(self) -> None:
+        while len(self.queue) > 1:
+            self.helper_queue.append(self.queue.popleft())
+            
+    def move_back(self) -> None:
+        while self.helper_queue:
+            self.queue.append(self.helper_queue.popleft())
 
 
 # Your MyStack object will be instantiated and called as such:
