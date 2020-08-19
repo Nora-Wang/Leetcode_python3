@@ -14,6 +14,8 @@
    return (n & (n - 1)) == 0
 7. 判断两个数是否异号
    (x ^ y) < 0 -> True 异号；False 同号
+   x ^ y = 0 -> 两个值相等
+   x ^ 0 = x; x ^ y = y ^ x
    count(x ^ y) -> 计算共有多少bit异号
 8. reverse all bit in a number -> new one
    ～a
