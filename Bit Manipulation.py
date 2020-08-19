@@ -1,5 +1,22 @@
-1. 
-
+1. 用于判断第k位是否为1 -> True/False
+   (a >> k) & 1
+   (1 << k) & a
+2. 设置第k位为1 -> new one
+   a = a | (1 << k)
+3. 设置第k位为0 -> new one
+   a = a & ~(1 << k)
+4. 消除最后一个1 -> new one
+   a = a & (a - 1)
+5. 找到最后一个1 -> new one
+   n & -n
+6. 判断是否为2的指数 (if a number is exponential of two) -> True/False
+   if (n <= 0) return false
+   return (n & (n - 1)) == 0
+7. 判断两个数是否异号
+   (x ^ y) < 0 -> True 异号；False 同号
+   count(x ^ y) -> 计算共有多少bit异号
+8. reverse all bit in a number -> new one
+   ～a
 
 # 进制转换
 每一位 * n^k
