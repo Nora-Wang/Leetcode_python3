@@ -81,10 +81,10 @@ eg:一个数时,queue = collections.deque([root]); 一个点时,queue = collecti
 当加入的数据不是list时,要另写括号;但若直接初始化,则直接写deque()即可,不要用deque([]),这样生成的queue会多出一个[]
 
 #popleft+append可以使queue从头(左)出,从尾(右)进
-2.删除:
+2.删除: dequeue from the front
 item = queue.popleft()
 用popleft是因为这样才是用头开始pop的,才满足queue的先进先出;若queue.pop(),则是从尾pop
-3.添加:
+3.添加: enqueue from the back
 queue.append(item)
 用append是这样是从右端,即尾部开始加入item,满足queue的特性
 
