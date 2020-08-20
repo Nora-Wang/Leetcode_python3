@@ -44,7 +44,7 @@ class MyHashSet:
         """
         Initialize your data structure here.
         """
-        self.capacity = 1000000
+        self.capacity = 1000
         self.list = [None] * self.capacity
         self.size = 0
 
