@@ -1,3 +1,15 @@
+# Data Structure
+1. Array物理连续town house
+2. Stack逻辑概念可用别的物理概念来实现，先进后出
+3. Queue逻辑概念，先进先出
+4. Linked List利用物理地址
+5. Tree
+6. Heap
+7. Graph
+8. Hash Table
+
+# Abstract Data Types
+
 ********************************************************************************************
 #dict和set中的key都是不可重复的,与list的index对应;但list中包含的值,以及dict的value都是可以重复的
 dict:
@@ -119,25 +131,7 @@ stack[0]
 tuple不可更改,但可以进行连接组合
 tup3 = tup1 + tup2
 
-
-
-
-
 ********************************************************************************************
-#Data Structure
-1. Array物理连续town house
-2. Stack逻辑概念可用别的物理概念来实现，先进后出
-3. Queue逻辑概念，先进先出
-4. Linked List利用物理地址
-5. Tree
-6. Heap
-7. Graph
-8. Hash Table
-
-
-#数据结构
-heap, queue, stack
-
 
 dict和set查找/添加/删除key,时间复杂度为O(1)
 list,tuple,queue,stack查找/删除item,时间复杂度为O(n);tuple = ()为不可变的list
