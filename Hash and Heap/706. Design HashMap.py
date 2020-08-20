@@ -30,93 +30,94 @@ key和value被当作一组pair放在hash表中,当key值被映射到hash表的�
 一般来说open hashing更简单,而且更好用.因此,这道题目其实就是写一个open hashing.
 
 open hashing其实就是当发生conflict时,将统一index的pairs以链表的方式进行存储;
-即不同key值通过hash function后得到的相同hash[index]以linkedlist的方式存储很多pairs(keys, values)
+即不同key值通过hash function后得到的相同hash[index]以linkedlist的方式存储很多pairs[keys, values] # 因为在遇到相同key时，会renew value，因此用list更好，tuple不好改数据
 
 
-code:
-class ListNode(object):
-    def __init__(self, key, value):
-        self.pair = (key, value)
-        self.next = None
+class ListNode:
+    def __init__(self, val=None, next=None):
+        self.val = val
+        self.next = next
         
-class MyHashMap(object):
+class MyHashMap:
+
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        #1000这个值是由题目Note里的信息计算得出;后续的取模即实现hash function的功能
-        self.size = 1000
-        self.array = [None] * self.size
+        # 1000这个值是由题目Note里的信息计算得出;后续的取模即实现hash function的功能
+        self.capacity = 1000
+        self.list = [None] * self.capacity
 
-    def put(self, key, value):
+    def put(self, key: int, value: int) -> None:
         """
         value will always be non-negative.
-        :type key: int
-        :type value: int
-        :rtype: None
         """
-        #hash function
-        index = key % self.size
+        valid_key = key % self.capacity
         
-        #若为空,则直接加入pair;否则,在该hash[index]的linkedlist中找有没有同样key值的pair,若有,更新value值;若没有则新加入一组pair
-        if self.array[index] == None:
-            self.array[index] = ListNode(key, value)
-        else:
-            curt = self.array[index]
-            while True:
-                if curt.pair[0] == key:
-                    curt.pair = (key, value)
-                    return
-                if curt.next == None:
-                    curt.next = ListNode(key, value)
-                    return
-                curt = curt.next
-            
-        
-
-    def get(self, key):
-        """
-        Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
-        :type key: int
-        :rtype: int
-        """
-        index = key % self.size
-        
-        #存在的情况只有当hash[index]的linkedlist中出现了key值才能有value;否则不管是hash[index]为空还是linkedlist中不存在该key值,其结果都是-1
-        curt = self.array[index]
-        while curt:
-            if curt.pair[0] == key:
-                return curt.pair[1]
-            curt = curt.next
-
-        return -1
-        
-
-    def remove(self, key):
-        """
-        Removes the mapping of the specified value key if this map contains a mapping for the key
-        :type key: int
-        :rtype: None
-        """
-        index = key % self.size
-        #不存在key
-        if self.array[index] == None:
+        # linkedlist not exist
+        if not self.list[valid_key]:
+            self.list[valid_key] = ListNode([key, value])
             return
         
-        #一定要单独判断一下curt,因为后续当需要删除一个链表的curt point时,一定是prev.next = curt.next,而prev则需要被提供
-        #这一步排除了curt是key的情况,即即便是出现key,也只能是curt.next这个点,此时prev最早也是curt
-        curt = self.array[index]
-        if curt.pair[0] == key:
-            self.array[index] = curt.next
-            
-        prev = curt
-        curt = curt.next
+        # find the tail of the linkedlist
+        head = curt = self.list[valid_key]
         while curt:
-            if curt.pair[0] == key:
-                prev.next = curt.next
+            # if key has already exist -> renew value
+            if curt.val[0] == key:
+                curt.val[1] = value
                 return
-            prev, curt = prev.next, curt.next
             
+            if not curt.next:
+                curt.next = ListNode([key, value])
+                return
+            
+            curt = curt.next
+            
+        return
+
+    def get(self, key: int) -> int:
+        """
+        Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
+        """
+        valid_key = key % self.capacity
+        
+        # linkedlist not exist
+        if not self.list[valid_key]:
+            return -1
+        
+        # find key in the linkedlist
+        curt = self.list[valid_key]
+        while curt:
+            if curt.val[0] == key:
+                return curt.val[1]
+            curt = curt.next
+        
+        return -1
+
+    def remove(self, key: int) -> None:
+        """
+        Removes the mapping of the specified value key if this map contains a mapping for the key
+        """
+        valid_key = key % self.capacity
+        
+        # find key's position in the linkedlist -> prev node for the key node; key node = curt
+        dummy = prev = ListNode()
+        curt = dummy.next = self.list[valid_key]
+        while curt:
+            # find key
+            if curt.val[0] == key:
+                break
+            prev = curt
+            curt = curt.next
+        
+        # key not exist in linkedlist
+        if not curt:
+            return
+        
+        # delete key node
+        prev.next = curt.next
+        self.list[valid_key] = dummy.next
+        return
 
 
 # Your MyHashMap object will be instantiated and called as such:
