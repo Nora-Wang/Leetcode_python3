@@ -89,8 +89,8 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        #特判None和'{}'
-        if not data or data == '{}':
+        #特判None和'[]'
+        if not data or data == '[]':
             return None
         
         #split(','):以','为准分割字符串为列表
@@ -98,8 +98,8 @@ class Codec:
         list_data = data[1:-1].split(',')
         
         #将data中第一个值，即树的root以TreeNode类型的格式加入root
-        #list_data[0]是int型
-        root = TreeNode(list_data[0])
+        #list_data[0]是str型,而root.val要求int型
+        root = TreeNode(int(list_data[0]))
         
         #deque要求参数为list，所以要加[]
         queue = collections.deque([root])
@@ -114,12 +114,12 @@ class Codec:
             #因为二叉树的特性，除了第一个值，其后面跟的两个值一定是它的left和right
             if list_data[index] != 'null':
                 #注意要以TreeNode的格式赋值
-                node.left = TreeNode(list_data[index])
+                node.left = TreeNode(int(list_data[index]))
                 queue.append(node.left)
             index += 1
             
             if list_data[index] != 'null':
-                node.right = TreeNode(list_data[index])
+                node.right = TreeNode(int(list_data[index]))
                 queue.append(node.right)
             index += 1
         
@@ -130,81 +130,4 @@ class Codec:
 # codec = Codec()
 # codec.deserialize(codec.serialize(root))
 
-
-
-
-lintcode version
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
-
-
-class Solution:
-    """
-    @param root: An object of TreeNode, denote the root of the binary tree.
-    This method will be invoked first, you should design your own algorithm 
-    to serialize a binary tree which denote by a root node to a string which
-    can be easily deserialized by your own "deserialize" method later.
-    """
-    def serialize(self, root):
-        # write your code here
-        if not root:
-            return '{}'
-            
-        ser_result = []
-        #ser_result = ''
-        queue = collections.deque([root])
-        while queue:
-            node = queue.popleft()
-            if node:
-                ser_result.append(str(node.val))
-                #ser_result += (str(node.val) + ',')
-                queue.append(node.left)
-                queue.append(node.right)
-            else:
-                ser_result.append('#')
-                #ser_result += '#,'
-                
-        #将list转换为string，每个元素间隔为','        
-        ser_result = ','.join(ser_result)
-        ser_result = '{' + ser_result + '}'
-        #ser_result = '{' + ser_result + '}'
-        
-        return ser_result
-
-    """
-    @param data: A string serialized by your serialize method.
-    This method will be invoked second, the argument data is what exactly
-    you serialized at method "serialize", that means the data is not given by
-    system, it's given by your own serialize method. So the format of data is
-    designed by yourself, and deserialize it here as you serialize it in 
-    "serialize" method.
-    """
-    def deserialize(self, data):
-        # write your code here
-        if not data or data == '{}':
-            return None
-        
-        ser_list = data[1:-1].split(',')
-        index = 0
-        deser_result = TreeNode(ser_list[index])
-        queue = collections.deque([deser_result])
-        index += 1
-        
-        while queue:
-            node = queue.popleft()
-            if ser_list[index] != '#':
-                node.left = TreeNode(ser_list[index])
-                queue.append(node.left)
-            index += 1
-            
-            if ser_list[index] != '#':
-                node.right = TreeNode(ser_list[index])
-                queue.append(node.right)
-            index += 1
-        return deser_result
         
