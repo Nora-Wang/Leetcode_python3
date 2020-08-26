@@ -11,6 +11,35 @@ Input: 1->1->1->2->3
 Output: 2->3
 
 
+# new version
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# time: O(n), space: O(1)
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head:
+            return None
+        
+        prev = dummy = ListNode(-head.val) if head.val != 0 else ListNode(1)
+        curt = head
+        
+        while curt:
+            if curt.next and curt.val == curt.next.val:
+                duplicate = curt.val
+                while curt and curt.val == duplicate:
+                    curt = curt.next
+            else:
+                prev.next = ListNode(curt.val)
+                prev = prev.next
+                curt = curt.next
+        
+        return dummy.next
+    
+    
+    
 思路:
 dummy = ListNode(-1)
 dummy.next = head
