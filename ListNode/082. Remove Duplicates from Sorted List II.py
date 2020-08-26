@@ -23,10 +23,12 @@ class Solution:
         if not head:
             return None
         
+        # 这样设置dummy node能够保证prev.val != curt.val
         prev = dummy = ListNode(-head.val) if head.val != 0 else ListNode(1)
         curt = head
         
         while curt:
+            # 出现重复情况 -> while循环到不是重复数据的node处
             if curt.next and curt.val == curt.next.val:
                 duplicate = curt.val
                 while curt and curt.val == duplicate:
