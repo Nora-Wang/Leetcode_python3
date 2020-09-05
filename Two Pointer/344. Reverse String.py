@@ -15,6 +15,61 @@ Example 2:
 Input: ["H","a","n","n","a","h"]
 Output: ["h","a","n","n","a","H"]
 
+# time: O(n), space: O(1)
+ 
+# 1. Python function
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        s.reverse()
+        
+        return
+      
+      
+      
+# 2. interation
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        if not s:
+            return
+        
+        left, right = 0, len(s) - 1
+        
+        while left < right:
+            s[left], s[right] = s[right], s[left]
+            left += 1
+            right -= 1
+        
+        return
+       
+# 3.  recursion
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        if not s:
+            return
+        
+        self.helper(s, 0, len(s) - 1)
+        
+        return
+    
+    def helper(self, s, left, right):
+        if left >= right:
+            return
+        
+        s[left], s[right] = s[right], s[left]
+        
+        self.helper(s, left + 1, right - 1)
+ 
+ 
+ 
 
 
 code:
