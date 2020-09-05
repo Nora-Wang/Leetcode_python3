@@ -33,7 +33,7 @@ Constraints:
 0 <= t.length <= 104
 s and t consist of lower-case letters, upper-case letters and/or digits.
 
-
+# personal version
 class Solution:
     def isOneEditDistance(self, s: str, t: str) -> bool:
         l_s = len(s)
@@ -68,5 +68,29 @@ class Solution:
         return True if diff == 1 else False
         
         
+# optimization
+class Solution:
+    def isOneEditDistance(self, s: str, t: str) -> bool:
+        l_s = len(s)
+        l_t = len(t)
         
-            
+        if abs(l_s - l_t) >= 2:
+            return False
+        
+        diff = 0
+        index_s, index_t = 0, 0
+        for i in range(min(l_s, l_t)):
+            if s[i] != t[i]:
+                # t need to insert one char, so that t == s
+                if l_s > l_t:
+                    return s[i + 1:] == t[i:]
+                # t need to delete one char, so that t == s
+                elif l_t > l_s:
+                    return s[i:] == t[i + 1:]
+                # t need to replace only one char, so that t == s -> rest part are equal
+                else:
+                    return s[i + 1:] == t[i + 1:]
+        
+        # case: 'ab', 'abcd' -> after the while loop, every char is same, but index_s = index_t = 2 != l_t = 4
+        return True if abs(l_s - l_t) == 1 else False
+        
