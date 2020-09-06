@@ -33,6 +33,8 @@ Constraints:
 0 <= t.length <= 104
 s and t consist of lower-case letters, upper-case letters and/or digits.
 
+# time: O(n), space: O(1)
+
 # personal version
 class Solution:
     def isOneEditDistance(self, s: str, t: str) -> bool:
