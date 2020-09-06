@@ -36,8 +36,16 @@ sorted(reverse=True)
 # 数据类型转换
 int -> str: str()
 str -> int: int()
-str -> list: list = str.split('c')默认为空格
+str -> list: list = str.split('c')默认为空格 # 'ab cd ef' -> ['ab', 'cd', 'ef']
+str -> list: list = list(str)              # 'abcdef'   -> ['a', 'b'...]
 list -> str: str = '分隔符'.join(list) #注意list里的内容必须是str
+  
+'''
+print(list('abcd'))       -> ['a', 'b', 'c', 'd']
+print(list('ab cd'))      -> ['a', 'b', ' ', 'c', 'd']
+print('abcd'.split())     -> ['abcd']
+print('ab cd'.split())    -> ['ab', 'cd']
+'''
 
 
 # strip
