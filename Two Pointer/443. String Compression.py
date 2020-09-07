@@ -56,6 +56,7 @@ chars[i] is a lower-case English letter, upper-case English letter, digit or a s
 
 
 code:
+# time: O(n), space: O(k), n = len(chars), k = len(str(the_largest_count_of_char))
 class Solution:
     def compress(self, chars: List[str]) -> int:
         if not chars:
