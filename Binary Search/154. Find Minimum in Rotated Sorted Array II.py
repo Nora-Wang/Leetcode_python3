@@ -19,6 +19,38 @@ Note:
 This is a follow up problem to Find Minimum in Rotated Sorted Array.
 Would allow duplicates affect the run-time complexity? How and why?
 
+# inner while loop去重法
+# time: O(logn)(best case) ~ O(n)(worse case), space: O(1)
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        start, end = 0, len(nums) - 1
+        
+        while start + 1 < end:
+            # 两个while loop直接将重复情况去掉
+            while start + 1 < end and nums[start + 1] == nums[start]:
+                start += 1
+            while start + 1 < end and nums[end - 1] == nums[end]:
+                end -= 1
+            
+            mid = (start + end) // 2
+            
+            # 只有一种情况是start = mid：在真的rotated的情况下（nums[start] >= nums[end]），nums[mid] >= nums[start]
+            if nums[mid] >= nums[start] and nums[start] >= nums[end]:
+                start = mid
+            else:
+                end = mid
+        
+        return nums[start] if nums[start] < nums[end] else nums[end]
+
+
+
+
+
+
+
+
+
+# trick method
 '''
 第一次分类讨论：比较nums[start]和nums[end]
 
