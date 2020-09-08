@@ -59,12 +59,52 @@ class Solution:
         return (larger_median + smaller_median) / 2
 
 # 2. binary search
+# time: O(log(min(n, m))), space: O(1)
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # 得到larger_median应该是sorted(nums1 + nums2)的第k个数
+        k = (len(nums1) + len(nums2)) // 2 + 1
+        
+        # 若是奇数个 -> 直接返回median即可
+        if (len(nums1) + len(nums2)) % 2:
+            return self.get_median(nums1, 0, nums2, 0, k)
+        
+        # 若是偶数个 -> 还需要找到smaller_median，即第k-1个数
+        left = self.get_median(nums1, 0, nums2, 0, k - 1)
+        right = self.get_median(nums1, 0, nums2, 0, k)
+        return (left + right) / 2
+    
+    def get_median(self, nums1, start1, nums2, start2, k):
+        # end case: 当nums1/nums2走完后，median一定在nums2/nums1上
+        if start1 >= len(nums1):
+            return nums2[start2 + k - 1]
+        if start2 >= len(nums2):
+            return nums1[start1 + k - 1]
+        
+        # end case: 当k=1，即median就是当前两个array的最小值
+        if k == 1:
+            return min(nums1[start1], nums2[start2])
+        
+        # 使用k//2的二分办法分别得到median1和median2
+        # 这里要注意判断一下是否会out of index
+        median1 = nums1[start1 + k // 2 - 1] if start1 + k // 2 - 1 < len(nums1) else None
+        median2 = nums2[start2 + k // 2 - 1] if start2 + k // 2 - 1 < len(nums2) else None
+        
+        # 若出现out of index的情况，则说明当前二分只能出现在另一个array上
+        if median1 == None:
+            return self.get_median(nums1, start1, nums2, start2 + k // 2, k - k // 2)
+        if median2 == None:
+            return self.get_median(nums1, start1 + k // 2, nums2, start2, k - k // 2)
+        
+        # 二分出现在具有较小median的array上
+        if median1 < median2:
+            return self.get_median(nums1, start1 + k // 2, nums2, start2, k - k // 2)
+        else:
+            return self.get_median(nums1, start1, nums2, start2 + k // 2, k - k // 2)
 
-# time: O(log(n + m)), space: O(1)
 
 
-
-# 3. Heap: 基本上就是用最小堆与最大堆求中位数的模板
+# 3. Heap: 基本上就是用最小堆与最大堆求中位数的模板 参考leetcode 295
 import heapq
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
