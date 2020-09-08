@@ -18,41 +18,43 @@ This is a follow up problem to Search in Rotated Sorted Array, where nums may co
 Would this affect the run-time complexity? How and why?
 
 
-二分+数学
-
-code:
+# 利用while loop去重，剩余部分与leetcode 33一模一样
+# time: O(logn) ~ O(n), space: O(1)
 class Solution:
     def search(self, nums: List[int], target: int) -> bool:
         if not nums:
             return False
         
-        start, end = 0, len(nums) - 1
+        left, right = 0, len(nums) - 1
         
-        while start + 1 < end:
-            mid = start + (end - start) // 2
+        while left + 1 < right:
+            # 利用两个while循环来去重即可
+            while left + 1 < right and nums[left + 1] == nums[left]:
+                left += 1
+            while left + 1 < right and nums[right - 1] == nums[right]:
+                right -= 1
             
+            mid = (left + right) // 2
+            
+            # end
             if nums[mid] == target:
                 return True
             
-            #Tricky part
-            #直接将重复部分略去
-            while start < mid and nums[start] == nums[mid]:
-                start += 1
-            while end > mid and nums[end] == nums[mid]:
-                end -= 1
-
-            if nums[start] <= nums[mid]:
-                if nums[start] <= target < nums[mid]:
-                    end = mid
+            # 这里与right/left比较都可以，只要分析清楚情况即可
+            # 因为重复以及相等的情况已经处理过了，只剩下了下面的情况
+            if nums[mid] < nums[right]:
+                if nums[mid] < target <= nums[right]:
+                    left = mid
                 else:
-                    start = mid
+                    right = mid
             else:
-                if nums[mid] < target <= nums[end]:
-                    start = mid
+                if nums[left] <= target < nums[mid]:
+                    right = mid
                 else:
-                    end = mid
+                    left = mid
         
-        if nums[start] == target or nums[end] == target:
+        if nums[left] == target or nums[right] == target:
             return True
-        
         return False
+
+
