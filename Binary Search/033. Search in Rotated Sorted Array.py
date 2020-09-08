@@ -9,6 +9,95 @@ You may assume no duplicate exists in the array.
 
 Your algorithm's runtime complexity must be in the order of O(log n).
 
+# 09/07/2020
+# Method 1: 用两次二分的方法。
+# 第一次二分：找到最小数的位置，参考 153
+# 第二次二分：确定 target 在左侧区间还是右侧，用一个普通的二分法即可找到。
+# time: O(logn), space: O(1)
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return -1
+        
+        min_index = self.find_min_num(nums)
+        
+        if nums[min_index] <= target <= nums[-1]:
+            return self.binary_search_target(nums, min_index, len(nums) - 1, target)
+        return self.binary_search_target(nums, 0, min_index - 1, target)
+    
+    def find_min_num(self, nums):
+        start, end = 0, len(nums) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if nums[mid] > nums[end]:
+                start = mid
+            else:
+                end = mid
+        
+        return start if nums[start] < nums[end] else end
+    
+    def binary_search_target(self, nums, left, right, target):
+        while left + 1 < right:
+            mid = (left + right) // 2
+            
+            if nums[mid] < target:
+                left = mid
+            else:
+                right = mid
+        
+        if nums[left] == target:
+            return left
+        if nums[right] == target:
+            return right
+        return -1
+        
+    
+# optimization
+# Method 2: 用一次二分直接找到target -> 主要就是根据nums[mid] 和 nums[end]比较大小得出当前mid在哪一个递增数组上
+# time: O(logn), space: O(1)
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return -1
+        
+        start, end = 0, len(nums) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            # binary search 注意用mid和start/end做比较
+            if nums[mid] > nums[end]:
+		# 此时end和mid肯定处在同一个递增数组上
+                # 记得加等号 -> 以保证只要在这个特殊范围内，都能使end = mid
+                if nums[start] <= target < nums[mid]:
+                    end = mid
+                else:
+                    start = mid
+            else:
+		# 此时mid处于第二个递增数组 right处于第二个递增数组 自然的mid和left肯定处于第一个递增数组上 
+                # 记得加等号 -> 以保证只要在这个特殊范围内，都能使start = mid
+                if nums[mid] < target <= nums[end]:
+                    start = mid
+                else:
+                    end = mid
+        
+        if nums[start] == target:
+            return start
+        if nums[end] == target:
+            return end
+        return -1
+
+
+
+
+
+
+
+
+
+# previous
 
 思路：结合153题，再加一个target。所有情况分析清楚！
                         递增数组：
