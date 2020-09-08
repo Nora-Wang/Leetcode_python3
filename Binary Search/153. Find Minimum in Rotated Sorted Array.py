@@ -8,6 +8,29 @@ Find the minimum element.
 You may assume no duplicate exists in the array.
 
 
+
+# 09/07/2020
+# 直接和nums[0]/nums[-1]做比较就能知道当前nums[mid]在哪一段递增数组上
+# time: O(logn), space: O(1)
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        start, end = 0, len(nums) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if nums[mid] > nums[-1]:
+                start = mid
+            else:
+                end = mid
+        
+        return nums[start] if nums[start] < nums[end] else nums[end]
+
+
+
+
+
+
 不清楚可以画图：
               ↗
             ↗
