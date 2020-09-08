@@ -66,6 +66,9 @@ class Solution:
         
         while start + 1 < end:
             mid = (start + end) // 2
+	
+	    if nums[mid] == target:
+                return mid
             
             # binary search 注意用mid和start/end做比较
             if nums[mid] > nums[end]:
