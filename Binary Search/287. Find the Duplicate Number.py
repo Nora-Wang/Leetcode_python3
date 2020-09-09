@@ -4,6 +4,93 @@ prove that at least one duplicate number must exist.
 Assume that there is only one duplicate number, find the duplicate one.
 
 
+# 09/08/2020
+'''
+0. brute force: for every num, find is there has duplicate num in array
+time: O(n^2), space: O(1)
+
+1. sort, walk though the nums to find the duplicate number
+time: O(nlogn), space: O(1)/O(n)
+
+2. set, walk though the nums to find the duplicate number
+time: O(n), space: O(n)
+
+3. utilize index to modify the array nums: 
+for every num in the nums:
+      if nums[abs(num)] > 0 -> mark nums[abs(num)] = - nums[abs(num)] 
+      if nums[abs(num)] > 0 -> abs(num) is the duplicate number
+time: O(n), space: O(1)
+
+4. binary search
+base on this information: nums containing n + 1 integers where each integer is in the range [1, n] inclusive
+do binary search on the integer's range [1,n] -> left, right = 1, n
+varify go left or right based on how many numbers in nums are <= mid -> count
+if count <= mid -> go to right side
+if count > mid -> go to left side
+time: O(nlogn), space: O(1)
+'''
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left, right = 1, len(nums) - 1
+        
+        while left + 1 < right:
+            mid = (left + right) // 2
+            
+            count = 0
+            for num in nums:
+                if num <= mid:
+                    count += 1
+            
+            if count > mid:
+                right = mid
+            else:
+                left = mid
+        
+        # 需要再用一个for循环计算nums中有多少个数小于count，才能判断最后结果是left还是right
+        count = 0
+        for num in nums:
+            if num <= left:
+                count += 1
+        
+        return right if count <= left else left
+        
+        
+# 更优写法
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left, right = 1, len(nums) - 1
+        
+        # 这里停止的条件就是left == right
+        while left < right:
+            mid = (left + right) // 2
+            
+            count = 0
+            for num in nums:
+                if num <= mid:
+                    count += 1
+            
+            # 当出现count <= mid时，则说明duplicate number一定出现在[mid + 1:right]里，因此可以left + 1
+            if count > mid:
+                right = mid
+            else:
+                left = mid + 1
+        
+        return left
+
+
+
+
+
+
+
 思路：
 抽屉问题
 1.仔细理解题意，从共n+1个数，取值范围：1～n(包括n)，即最大值为n
