@@ -5,6 +5,51 @@ Integers in each row are sorted in ascending from left to right.
 Integers in each column are sorted in ascending from top to bottom.
 
 
+# 09/09/2020
+'''
+n = number of col, m = number of row
+
+M1: brute force
+traverse all the elements in matrix
+time: O(n * m), space: O(1)
+
+M2: binary search for every row/every col, depends on n and m
+time: O(min(mlogn. nlogm)), space: O(1)
+
+M3: utilize the conditions to solve
+以右上角为标准，因为条件给了，每一行中最右侧最大，每一列中最上面的最小，因此当发现当前num < target，则往下走;当发现当前num > target，则往左走
+time: O(n + m), space: O(1)
+'''
+# M3 code
+class Solution:
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        if not len(matrix) or not len(matrix[0]) or target < matrix[0][0] or target > matrix[-1][-1]:
+            return False
+        
+        m, n = len(matrix), len(matrix[0])
+        row, col = 0, n - 1
+        
+        while row < m and col >= 0:
+            curt = matrix[row][col]
+            
+            if curt == target:
+                return True
+            
+            if curt < target:
+                row += 1
+            else:
+                col -= 1
+        
+        return False
+
+
+
+
 思路：
 矩阵特点：每一行和每一列递增
 
