@@ -7,6 +7,29 @@ The array may contain multiple peaks, in that case return the index to any one o
 You may imagine that nums[-1] = nums[n] = -∞.
 
 
+# 09/09/2020
+# 只需要跟下一个比较即可
+# time: O(logn), space:O(1)
+class Solution:
+    def findPeakElement(self, nums: List[int]) -> int:
+        if not nums:
+            return float('-inf')
+        
+        start, end = 0, len(nums) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if nums[mid + 1] > nums[mid]:
+                start = mid
+            else:
+                end = mid
+                
+        return start if nums[start] > nums[end] else end
+
+
+
+
 
 思路：
 1. 九章
