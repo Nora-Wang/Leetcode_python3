@@ -15,29 +15,51 @@ return 13.
 Note: 
 You may assume k is always valid, 1 ≤ k ≤ n2.
 
+'''
+1. min_heap
+push all elements in min_heap, pop k elements
+2. max_heap
+keep len(max_heap) == k, pop one element
 
-一开始要clarify k与n大小的关系
+3. binary search
+'''
 
 
-
-merge k sorted array思路
-
-code:
-import heapq
+# max_heap
+# time: O(nlogk), space: O(n)
+from heapq import heappush, heappop
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         if not len(matrix) or not len(matrix[0]):
             return None
         
-        heap = []
-        for i in range(len(matrix)):
-            heapq.heappush(heap, (matrix[i][0], i, 0))
+        max_heap = []
         
-        for _ in range(k):
-            res, x, y = heapq.heappop(heap)
-            
-            #这里要判断一下y的取值
-            if y + 1 < len(matrix[0]):
-                heapq.heappush(heap, (matrix[x][y + 1], x, y + 1))
-            
-        return res
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                heappush(max_heap, -matrix[i][j])
+                
+                if len(max_heap) > k:
+                    heappop(max_heap)
+                
+        return -heappop(max_heap)
+
+
+# min_heap
+# time: O(nlogn), space: O(n)
+from heapq import heappush, heappop
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        if not len(matrix) or not len(matrix[0]):
+            return None
+        
+        min_heap = []
+        
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                heappush(min_heap, matrix[i][j])
+        
+        for _ in range(k - 1):
+            heappop(min_heap)
+        
+        return heappop(min_heap)
