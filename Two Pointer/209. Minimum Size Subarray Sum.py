@@ -9,6 +9,100 @@ Follow up:
 If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log n). 
 
 
+# 09/11/2020
+'''
+1. brute force
+for every num find the minimum size subarray
+time: O(n^2), space: O(1)
+
+2. binary search
+get the sum_nums array
+utilize binary search to find the minimum size subarray for every num
+target = sum_nums[i] + s - nums[i]
+start, end = 0, len(nums) - 1
+nums[mid] < target -> start = mid
+nums[mid] >= target -> end = mid
+
+time: O(nlogn), space: O(n)
+
+3. sliding window / two pointer
+use left to represent the size of curt subarray window
+use curt_sum to represent curt sum for this subarray
+
+use for loop to caculate the sum of the subarray
+    while curt_sum >= s:
+        renew res -> min
+        renew curt_sum -> curt_sum -= nums[left]
+        renew left -> left += 1
+    
+time: O(n), space: O(1)
+
+'''
+# binary search
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        if not nums or sum(nums) < s:
+            return 0
+        
+        sum_nums = [nums[0]]
+        for i in range(1, len(nums)):
+            sum_nums.append(nums[i] + sum_nums[i - 1])
+        
+        res = len(nums)
+        for i in range(len(nums)):
+            target = sum_nums[i] + s - nums[i]
+            
+            end_index = self.binary_search(sum_nums, target)
+            
+            if end_index == -1:
+                continue
+            
+            res = min(res, end_index - i + 1)
+        
+        return res
+    
+    def binary_search(self, nums, target):
+        start, end = 0, len(nums) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if nums[mid] < target:
+                start = mid
+            else:
+                end = mid
+        
+        if nums[start] >= target:
+            return start
+        if nums[end] >= target:
+            return end
+        return -1
+
+
+# sliding window
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        
+        left, res, sum = 0, len(nums) + 1, 0
+        
+        for i in range(len(nums)):
+            sum += nums[i]
+            
+            while sum >= s:
+                res = min(res, i - left + 1)
+                sum -= nums[left]
+                left += 1
+        
+        return res if res != len(nums) + 1 else 0
+    
+    
+    
+    
+
+
+
 
 最坏解法:i,j循环n次,O(n^2)
 
