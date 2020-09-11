@@ -63,3 +63,39 @@ class Solution:
             heappop(min_heap)
         
         return heappop(min_heap)
+
+      
+# binary search
+# time: O(nlog(max, min)), space: O(1)
+# count == k的情况是包括在end里的，即按照找smallest，这样也能保证最后得到的start/end一定是存在于matrix里的
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        if not len(matrix) or not len(matrix[0]):
+            return None
+        
+        n = len(matrix)
+        start, end = matrix[0][0], matrix[-1][-1]
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            count = self.count_smaller(matrix, mid)
+            
+            if count < k:
+                start = mid
+            else:
+                end = mid
+        
+        count = self.count_smaller(matrix, start)
+        return start if count >= k else end
+    
+    def count_smaller(self, matrix, target):
+        count = 0
+        
+        for i in range(len(matrix)):
+            j = len(matrix[0]) - 1
+            while j >= 0 and matrix[i][j] > target:
+                j -= 1
+            count += j + 1 if j >= 0 else 0
+        
+        return count
