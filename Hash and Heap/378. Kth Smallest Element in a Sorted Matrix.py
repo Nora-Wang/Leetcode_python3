@@ -92,6 +92,8 @@ class Solution:
     def count_smaller(self, matrix, target):
         count = 0
         
+        # 直接从最后一列进行判断即可，如果当前的都 <= target,则说明这一行前面的都是满足条件的,count直接加就行
+        # 这样就不用一个一个的遍历了
         for i in range(len(matrix)):
             j = len(matrix[0]) - 1
             while j >= 0 and matrix[i][j] > target:
