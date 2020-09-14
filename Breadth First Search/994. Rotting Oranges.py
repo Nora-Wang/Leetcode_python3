@@ -34,6 +34,63 @@ Note:
 grid[i][j] is only 0, 1, or 2.
 
 
+
+# 09/14/2020
+# time: O(n * m), space: O(n * m)
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        if not len(grid) or not len(grid[0]):
+            return 0
+        
+        queue = collections.deque()
+        # fresh orange count
+        # 这里设置一个count，可在最后省去两个for loop重新遍历所有点，以节省时间
+        count = 0 
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 2:
+                    queue.append((i,j))
+                if grid[i][j] == 1:
+                    count += 1
+        
+        # 这里step设置为0: 因为由题目例题可知，当最后第4步时，还有一轮check当前queue中的数据是否还有==1的情况，因此得到的结果为5
+        # 因此最后应该返回step - 1
+        step = 0
+        while queue:
+            step += 1
+            for _ in range(len(queue)):
+                x,y = queue.popleft()
+                
+                for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+                    x_, y_ = x + direct[0], y + direct[1]
+                    
+                    if self.check(grid, x_, y_):
+                        grid[x_][y_] = 2
+                        count -= 1
+                        queue.append((x_,y_))
+        
+        # 当所有fresh orange全部被遍历后才能返回step - 1
+        # 这里取max是有个edge case: grid = [[0]] -> step - 1 = -1
+        return max(step - 1, 0) if count == 0 else -1
+    
+    def check(self, grid, x, y):
+        if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]):
+            return False
+        
+        if grid[x][y] != 1:
+            return False
+        
+        return True
+
+
+
+
+
+
+
+
+
+
 code:
 DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]
 class Solution:
