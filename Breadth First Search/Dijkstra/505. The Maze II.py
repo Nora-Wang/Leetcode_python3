@@ -50,12 +50,65 @@ Both the ball and the destination exist on an empty space, and they will not be 
 The given maze does not contain border (like the red rectangle in the example pictures), but you could assume the border of the maze are all walls.
 The maze contains at least 2 empty spaces, and both the width and height of the maze won't exceed 100.
 
-方法:
-1.Dijkstra
-2.用一个二维数组存取start到每个点到distance + BFS
+# 方法 1:
+'''
+Dijkstra + hashset
+用一个visited_set存储已经判断过的点
+'''
+from heapq import heappush, heappop
+class Solution:
+    def shortestDistance(self, maze: List[List[int]], start: List[int], destination: List[int]) -> int:
+        if start == destination:
+            return True
+        
+        heap = []
+        heappush(heap, (0, start[0],start[1]))
+        # initialize visited 的时候不加入start: 因为visited需要被放在heappop处，而不是heappush处
+        visited = set()
+        
+        while heap:
+            step, x, y = heappop(heap)
+            
+            # 判断是否 == destination需要放在heappop处
+            # 因为如果放在后面，即用x_,y_来判断，则可能出现一个情况：同一个loop的一个点先滚到destination，但其distance其实比同loop的一个点大，导致最后结果不是shortest distance
+            if [x,y] == destination:
+                return step
+            
+            # visited需要放在heappop处
+            # 原因跟上面判断destination差不多，担心其中一个点先到达一个点，但其实另一个点到该点到距离更短
+            if (x,y) in visited:
+                continue
+            visited.add((x,y))
+            
+            for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+                x_, y_ = x, y
+                count = 0
+                
+                while self.valid(maze, x_ + direct[0], y_ + direct[1]):
+                    x_ += direct[0]
+                    y_ += direct[1]
+                    count += 1
+                
+                heappush(heap, (step + count, x_, y_))
+                    
+        
+        return -1
+    
+    def valid(self, maze, x, y):
+        if x < 0 or y < 0 or x >= len(maze) or y >= len(maze[0]):
+            return False
+        
+        if maze[x][y] == 1:
+            return False
+        
+        return True
 
-code:
-#Dijkstra: heap+二维数组 Version
+
+# 方法 2:
+'''
+Dijkstra + 二维数组
+用一个二维数组存取start到每个点到distance + BFS
+'''
 import heapq
 DIRECTIONS = [(0,1),(0,-1),(1,0),(-1,0)]
 class Solution:
