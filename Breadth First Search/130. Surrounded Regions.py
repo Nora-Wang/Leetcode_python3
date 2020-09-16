@@ -19,7 +19,8 @@ Explanation:
 Surrounded regions shouldn’t be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
 
 
-#BFS Version
+# time: O(n * m), space: O(n * m)
+# BFS Version
 思路:对regions的所有边缘nodes进行bfs,将为O的标记为M,最后遍历一遍board,当为M则赋为O,否则一定为X
 
 code:
@@ -92,8 +93,8 @@ class Solution(object):
 
     
     
-    
-#DFS Version
+# time: O(n * m), space: O(1)    
+# DFS Version
 '''
 use dfs from the border of the board to mark all 'O' which will not be changed, and the rest 'O' will be changed to 'X'
 
