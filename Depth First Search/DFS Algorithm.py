@@ -32,6 +32,14 @@ T(n) = O(2^n * n)
 问题模型:求出所有满足条件的“组合”。 
 判断条件:组合中的元素是顺序无关的。 
 时间复杂度:与 2^n 相关。
+empty                                    {}
+                                    /          \
+For a                             {a}            {}
+                                 /    \        /   \ 
+For b                      {a, b}     {a}    {b}    {}
+                         /      \
+For c             {a, b, c}    {a, b}
+
 
 2. Permutations
 点:每个数为一个点
@@ -41,6 +49,11 @@ T(n) = O(n! * n)
 问题模型:求出所有满足条件的“排列”。 
 判断条件:组合中的元素是顺序“相关”的。 
 时间复杂度:与 n! 相关。
+Empty                     {}
+选1个     a         b           c          {}
+选2个 ab   ac    ba   bc     ca   cb 
+选3个 abc acb    bac  bca    cab  cba
+
 
     
 Deep Copy:
