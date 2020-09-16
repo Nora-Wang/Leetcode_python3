@@ -32,13 +32,26 @@ T(n) = O(2^n * n)
 问题模型:求出所有满足条件的“组合”。 
 判断条件:组合中的元素是顺序无关的。 
 时间复杂度:与 2^n 相关。
-empty                                    {}
-                                    /          \
-For a                             {a}            {}
-                                 /    \        /   \ 
-For b                      {a, b}     {a}    {b}    {}
-                         /      \
-For c             {a, b, c}    {a, b}
+  
+方法1:
+# 时间为O(2^n)
+# 空间为O(2^n)
+empty                                            {}
+                                     /                     \
+For a                              {a}                      {}
+                              /          \             /         \ 
+For b                     {a, b}         {a}         {b}         {}
+                         /      \       /    \       /   \      /   \
+For c             {a, b, c}  {a, b}  {a, c}  {a}    {b,c} {b}   {c}  {}
+
+方法2:
+# 时间为O(n!)???? 感觉应该还是O(2^n)?
+# 空间为O(n)
+Empty                     {}
+选1个     a         b           c          {}
+选2个 ab   ac      bc   
+选3个 abc
+
 
 
 2. Permutations
@@ -49,10 +62,12 @@ T(n) = O(n! * n)
 问题模型:求出所有满足条件的“排列”。 
 判断条件:组合中的元素是顺序“相关”的。 
 时间复杂度:与 n! 相关。
+# 时间为O(n!)
+# 空间为O(n)
 Empty                     {}
-选1个     a         b           c          {}
-选2个 ab   ac    ba   bc     ca   cb 
-选3个 abc acb    bac  bca    cab  cba
+选1个     a           b           c          {}
+选2个 ab   ac     ba   bc      ca   cb       {}
+选3个 abc acb     bac  bca     cab  cba      {}
 
 
     
