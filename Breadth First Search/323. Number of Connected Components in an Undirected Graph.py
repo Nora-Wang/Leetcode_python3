@@ -97,3 +97,42 @@ class Solution:
         for neighbor in graph[node]:
             self.dfs(graph, neighbor, visited)
                     
+
+               
+# Union Find
+# time: , space: 
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        if not edges:
+            return n
+        
+        self.father = {}
+        self.size = 0
+        for node in range(n):
+            self.father[node] = node
+            self.size += 1
+        
+        for a, b in edges:
+            self.union(a, b)
+            
+        return self.size
+    
+    def union(self, a, b):
+        root_a = self.find(a)
+        root_b = self.find(b)
+        
+        if root_a != root_b:
+            self.father[root_a] = root_b
+            self.size -= 1
+    
+    def find(self, point):
+        path = []
+        while point != self.father[point]:
+            path.append(point)
+            point = self.father[point]
+        
+        for p in path:
+            self.father[p] = point
+        
+        return point
+        
