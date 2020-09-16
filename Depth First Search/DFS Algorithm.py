@@ -54,7 +54,7 @@ Empty                     {}
 
 '''
 方法2 code:
-		def combination(self, candidates, target):
+def combination(self, candidates, target):
         results = [] #定义结果
         
         #当后续有candidates[i]与candidates[i - 1]的比较时,需要sort
@@ -108,7 +108,7 @@ Empty                     {}
 选3个 abc acb     bac  bca     cab  cba      {}
 
 '''
-		def permutation(self, candidates):
+def permutation(self, candidates):
         results = [] #定义结果
         
         #当后续有candidates[i]与candidates[i - 1]的比较时,需要sort
