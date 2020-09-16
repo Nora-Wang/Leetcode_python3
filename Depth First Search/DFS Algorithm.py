@@ -35,7 +35,7 @@ T(n) = O(2^n * n)
   
 方法1:
 # 时间为O(2^n)
-# BFS的空间为O(2^n)
+# 空间为O(n)
 empty                                            {}
                                      /                     \
 For a                              {a}                      {}
@@ -45,14 +45,52 @@ For b                     {a, b}         {a}         {b}         {}
 For c             {a, b, c}  {a, b}  {a, c}  {a}    {b,c} {b}   {c}  {}
 
 方法2:
-# 时间为O(n!)???? 感觉应该还是O(2^n)?
+# 时间为O(2^n)
 # 空间为O(n)
 Empty                     {}
 选1个     a         b           c          {}
 选2个 ab   ac      bc   
 选3个 abc
 
+'''
+方法2 code:
+		def combination(self, candidates, target):
+        results = [] #定义结果
+        
+        #当后续有candidates[i]与candidates[i - 1]的比较时,需要sort
+        #candidates.sort()
+        
+        #DFS的temp都是以空数组/空string开头进行调用的
+        self.dfs(candidates, 0, [], results, target) 
+        
+        return results
+        
+    #recursion definition     
+    def dfs(self, candidates, start_index, temp, results, cur_target): 
+        #recursion end case
+        #!!!!!!!!!记得写return
 
+        #题目给的限制条件:
+            #return results.append(list(temp))
+        if cur_target < 0:
+            return
+        if cur_target == 0: 
+						#deep copy
+            results.append(list(temp))
+						return 
+
+        #recursion explanation
+        #镜像对称
+        for i in range(start_index, len(candidates)): 
+            #去重判断(1,2')与(1,2'')
+            #if i > start_index and nums[i] == nums[i - 1]:
+								#continue
+            
+            temp.append(candidates[i])#元素写入temp [2]->[2,2]
+            #注意i or i + 1
+            self.dfs(candidates, i, temp, results, cur_target - candidates[i])
+            temp.pop()#弹出元素（因为用过了） [2,2]->[2]
+'''
 
 2. Permutations
 点:每个数为一个点
@@ -69,7 +107,48 @@ Empty                     {}
 选2个 ab   ac     ba   bc      ca   cb       {}
 选3个 abc acb     bac  bca     cab  cba      {}
 
+'''
+		def permutation(self, candidates):
+        results = [] #定义结果
+        
+        #当后续有candidates[i]与candidates[i - 1]的比较时,需要sort
+        #candidates.sort()
+        
+        #DFS的temp都是以空数组/空string开头进行调用的
+        #permutation需要visited，以避免重复取
+        visited = [False] * len(candidates)
+        self.dfs(candidates, visited, [], results) 
+        
+        return results
+        
+    #recursion definition     
+    def dfs(self, candidates, visited, temp, results): 
+        #recursion end case
+        #!!!!!!!!!记得写return
 
+        #candidates中的所有值都已经被加入到temp中:
+        #return results.append(list(temp))
+        if len(temp) == len(candidates):
+						results.append(list(temp))
+						return
+
+        #recursion explanation
+        #镜像对称
+        for i in range(len(candidates)): 
+						#同start_index一个作用
+						if visited[i]:
+								continue
+
+            #去重判断(1,2')与(1,2'')
+            #if i and nums[i] == nums[i - 1] and not visited[i - 1]:
+								#continue
+            
+            temp.append(candidates[i])#元素写入temp [2]->[2,2]
+						visited[i] = True
+            self.dfs(candidates, visited, temp, results)
+						visited[i] = False
+            temp.pop()#弹出元素（因为用过了） [2,2]->[2]
+'''
     
 Deep Copy:
 https://azhang2019.gitbook.io/algorithms/algorithm/di-liu-zhang-yin-shi-tu-shen-du-you-xian-sou-suo/shen-me-shi-deep-copy
