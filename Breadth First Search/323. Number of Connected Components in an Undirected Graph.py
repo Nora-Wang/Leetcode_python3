@@ -100,7 +100,7 @@ class Solution:
 
                
 # Union Find
-# time: , space: 
+# time: O(V + E), space: O(V + E)
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         if not edges:
