@@ -22,7 +22,7 @@ Output:  1
 
 
 
-
+# BFS
 # time: O(V + E), space: O(V)
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
@@ -60,3 +60,40 @@ class Solution:
                 if neighbor not in visited:
                     queue.append(neighbor)
                     visited.add(neighbor)        
+
+                    
+                    
+# DFS
+# time: O(V + E), space: O(V)
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        if not edges:
+            return n
+        
+        graph = {}
+        for i in range(n):
+            graph[i] = []
+        
+        for a,b in edges:
+            graph[a].append(b)
+            graph[b].append(a)
+        
+        visited = set()
+        res = 0
+        for i in range(n):
+            if i in visited:
+                continue
+            
+            res += 1
+            self.dfs(graph, i, visited)
+            
+        return res
+    
+    def dfs(self, graph, node, visited):
+        if node in visited:
+            return
+        
+        visited.add(node)
+        for neighbor in graph[node]:
+            self.dfs(graph, neighbor, visited)
+                    
