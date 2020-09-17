@@ -31,6 +31,9 @@ Note: Do not use class member/global/static variables to store states. Your seri
 ****************************************************************************************
 
 
+# 这题生成string的时候需要用','作为分隔符而不是直接生成一个string'123##45####'，是因为可能存在val为负数。若为负数，当用list(str)时，则不好区分负数的存在
+
+
 code:
 leetcode version
 # Definition for a binary tree node.
