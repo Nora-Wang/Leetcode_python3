@@ -75,18 +75,24 @@ class Solution:
         for i in range(len(rooms)):
             for j in range(len(rooms[0])):
                 if rooms[i][j] == 0:
-                    self.dfs(rooms, i, j)
+                    self.dfs(rooms, i, j, 0)
         
-        return 
+        return
     
-    def dfs(self, rooms, x, y):
+    def dfs(self, rooms, x, y, step):
+        # end cases
+        if x < 0 or y < 0 or x >= len(rooms) or y >= len(rooms[0]):
+            return
+        
+        if rooms[x][y] == -1:
+            return
+        
+        if rooms[x][y] < step:
+            return
+        
+        rooms[x][y] = step
         for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
-            x_, y_ = x + direct[0], y + direct[1]
-            
-            #in the range & curt_step(rooms[x][y] + 1) < rooms[x_][y_]
-            if 0 <= x_ < len(rooms) and 0 <= y_ < len(rooms[0]) and rooms[x_][y_] > rooms[x][y] + 1:
-                rooms[x_][y_] = rooms[x][y] + 1
-                self.dfs(rooms, x_, y_)
+            self.dfs(rooms, x + direct[0], y + direct[1], step + 1)
   
   
   
