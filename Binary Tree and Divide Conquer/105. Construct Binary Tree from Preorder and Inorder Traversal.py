@@ -15,7 +15,7 @@ Return the following binary tree:
     /  \
    15   7
    
-
+'''
 utilize the preorder and inorder rules
 
 Base case: if preorder is a empty list, it means there is no root, so return None
@@ -29,18 +29,8 @@ Recursion rule:
 Return value: the curt created root
 
 time: O(n^2), n = num of nodes in the tree
-space: O(n)
-
-
-   
-code:
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+space: O(1)
+'''
 class Solution(object):
     def buildTree(self, preorder, inorder):
         """
@@ -66,3 +56,27 @@ class Solution(object):
         
         
         
+# 上面的方法由于inorder.index(preorder[0])，导致每次recursion的时候都是O(n) -> 最后的时间复杂度为O(n^2)
+# 可以对inorder进行预处理，使用hashtable = {value:index}来记录，这样在利用preorder[0]找到inorder对应的index的时候，时间为O(1) -> 最后的时间复杂度为O(n)
+# time: O(n), space: O(n)(hashtable)
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        # {value:index}
+        hash_inorder = {}
+        for index, value in enumerate(inorder):
+            hash_inorder[value] = index
+            
+        return self.helper(preorder, inorder, hash_inorder)
+        
+    def helper(self, preorder, inorder, hash_inorder):
+        if not preorder:
+            return None
+        
+        root = TreeNode(preorder[0])
+        
+        index = hash_inorder[preorder[0]]
+        
+        root.left = self.buildTree(preorder[1:index+1], inorder[:index])
+        root.right = self.buildTree(preorder[index+1:], inorder[index+1:])
+        
+        return root
