@@ -40,7 +40,10 @@ Each node's value will be between 0 and 1000.
 
 
 #07/15/2020
-#time: O(nlogn), space: O(n)
+# BFS
+# n = number of nodes, k = width of the tree
+# time: worse case O(nlogn), average O(nlog(n / k))
+# space: O(n)
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -84,7 +87,41 @@ class Solution:
         return
         
         
-
+# DFS
+# n = number of nodes, k = width of the tree
+# time: worse case O(nlogn), average O(nlog(n / k))
+# space: O(n)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        
+        # {index: (level, value)}
+        hash_record = collections.defaultdict(list)
+        self.traverse(root, hash_record, 0, 0)
+        
+        min_index = min(hash_record.keys())
+        
+        res = [None] * len(hash_record)
+        for index, v in hash_record.items():
+            res[index - min_index] = [v[1] for v in sorted(v)]
+        
+        return res
+    
+    def traverse(self, root, hash_record, level, index):
+        if not root:
+            return
+        
+        hash_record[index].append((level, root.val))
+        
+        self.traverse(root.left, hash_record, level + 1, index - 1)
+        self.traverse(root.right, hash_record, level + 1, index + 1)
 
 
 
