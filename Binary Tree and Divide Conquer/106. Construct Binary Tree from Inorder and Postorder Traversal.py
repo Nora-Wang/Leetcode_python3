@@ -53,6 +53,8 @@ class Solution(object):
         
         root = TreeNode(postorder[-1])
         
+        # 跟105一样，如果想要减少时间复杂度，则可以用hashtable = {value:index}来预处理inorder，这样就能在O(1)的时间内找到postorder[-1]对应的index
+        # 这样最终time: O(n)
         root_index = inorder.index(postorder[-1])
         
         root.left = self.build_tree(inorder[:root_index], postorder[:root_index])
