@@ -22,6 +22,9 @@ Note: The length of path between two nodes is represented by the number of edges
 之所以能直接将左右两边的高度相加，是因为其高度相当于边的个数，path的长度 = node的个数 - 1 = 边的个数
 如1的高度为3，而2的高度为2，3的高度为，4-2-1-3的长度为3
 
+# n = number of nodes in the tree
+# time: O(n), space: O(1) ignore recursion; O(n) include recursion
+
 
 #Simple Version
 # Definition for a binary tree node.
