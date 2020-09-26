@@ -41,7 +41,8 @@ Each node's value will be between 0 and 1000.
 # 注意这题的比较条件
 # 1. from top to bottom
 # 2. If two nodes have the same position, then the value of the node that is reported first is the value that is smaller.
-# 而314的第二个条件是from left to right，并没有大小的比较
+# 而314的第二个条件是from left to right（可直接在queue append的时候解决），并没有大小的比较
+# 这题的不同点是，在确保同level和index的情况下还需要按照大小排序，所以需要先记录level，后续以（level + value）的格式进行排序
 
 
 #07/15/2020
