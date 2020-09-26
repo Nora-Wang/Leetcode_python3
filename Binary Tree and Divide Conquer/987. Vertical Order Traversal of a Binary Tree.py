@@ -38,18 +38,17 @@ Note:
 The tree will have between 1 and 1000 nodes.
 Each node's value will be between 0 and 1000.
 
+# 注意这题的比较条件
+# 1. from top to bottom
+# 2. If two nodes have the same position, then the value of the node that is reported first is the value that is smaller.
+# 而314的第二个条件是from left to right，并没有大小的比较
+
 
 #07/15/2020
 # BFS
 # n = number of nodes, k = width of the tree
 # time: worse case O(nlogn), average O(nlog(n / k))
 # space: O(n)
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
         if not root:
@@ -91,12 +90,6 @@ class Solution:
 # n = number of nodes, k = width of the tree
 # time: worse case O(nlogn), average O(nlog(n / k))
 # space: O(n)
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
         if not root:
