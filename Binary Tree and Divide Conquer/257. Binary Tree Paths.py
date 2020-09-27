@@ -18,12 +18,10 @@ Output: ["1->2->5", "1->3"]
 Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 
 
-时间复杂度：
-O(nlogn)：满二叉树,高度logn，叶节点n/2
-O(n)：所有node都排在一条线上
-
-
-#07/01/2020
+# 09/26/2020
+# time: O(n * l), space: O(n)
+# n = number of nodes in tree, l = number of leaves in tree
+# time中*l是因为.join function
 #注意点：.join这个function如果用于list,则需要保证list里的elements为string
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
@@ -52,7 +50,8 @@ class Solution:
         temp.pop()
         
 # iteration way
-# time是一样的，但空间消耗很大，因为temp必须设置为string而不能是list了，这样每次都会生成一个新的string -> 这也使得stack中可以使用tuple进行存储，因为没有list了
+# time: O(n)
+# time是一样的，但space消耗很大，因为temp必须设置为string而不能是list了，这样每次都会生成一个新的string -> 这也使得stack中可以使用tuple进行存储，因为没有list了
 # 不能设置为list是因为list会延续使用同样的空间进行存储，因此每次root.right或者root.left分别对temp进行更改的时候都是对同一temp进行操作，即无法实现backtracking
 # 使得最后结果为["1->2->5","1->2->5->3"]，原始结果应该为["1->2->5","1->3"]
 class Solution:
@@ -77,7 +76,30 @@ class Solution:
         
         return res
         
+# BFS
+# time: O(n), space: O(n)
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
         
+        res = []
+        # 注意：这里的temp还是用的string，理由跟上面的iteration一样
+        queue = collections.deque([(root, '')])
+        
+        while queue:
+            root, temp = queue.popleft()
+            
+            if not root.left and not root.right:
+                res.append(temp + str(root.val))
+                continue
+            
+            if root.left:
+                queue.append((root.left, temp + str(root.val) + '->'))
+            if root.right:
+                queue.append((root.right, temp + str(root.val) + '->'))
+        
+        return res
         
 
 
