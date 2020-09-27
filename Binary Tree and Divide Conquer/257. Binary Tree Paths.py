@@ -53,7 +53,7 @@ class Solution:
         
 # iteration way
 # time是一样的，但空间消耗很大，因为temp必须设置为string而不能是list了，这样每次都会生成一个新的string -> 这也使得stack中可以使用tuple进行存储，因为没有list了
-# 不能设置为list是因为list会延续使用同样的空间进行存储，因此每次root.right或者root.left分别对temp进行更改的时候都是对同一temp进行操作
+# 不能设置为list是因为list会延续使用同样的空间进行存储，因此每次root.right或者root.left分别对temp进行更改的时候都是对同一temp进行操作，即无法实现backtracking
 # 使得最后结果为["1->2->5","1->2->5->3"]，原始结果应该为["1->2->5","1->3"]
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
