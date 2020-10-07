@@ -73,6 +73,24 @@ class Solution:
         # 若所有数都标为负数了，则证明只有nums[index] = 0，即index这个值miss
         return mark_0
 
+# Bit Manipulation
+'''
+index 0  1  2  3
+value 0  1  3  4
+missing
+= 4 ^ (0 ^ 0) ^ (1 ^ 1) ^ (2 ^ 3) ^ (3 ^ 4)
+= (4 ^ 4) ^ (0 ^ 0) ^ (1 ^ 1) ^ (3 ^ 3) ^ 2
+= 0 ^ 0 ^ 0 ^ 0 ^ 2
+= 2
+'''
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        missing = len(nums)
+        
+        for i, num in enumerate(nums):
+            missing ^= i ^ num
+        
+        return missing
     
     
 
