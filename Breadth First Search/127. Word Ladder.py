@@ -23,6 +23,110 @@ Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" 
 return its length 5.
 
 
+
+# BFS
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordList = set(wordList)
+        
+        if endWord not in wordList:
+            return 0
+        
+        queue = collections.deque([beginWord])
+        visited = set()
+        visited.add(beginWord)
+        step = 1
+        
+        while queue:
+            step += 1
+            for _ in range(len(queue)):
+                word = queue.popleft()
+                
+                new_words = self.get_next(wordList, word, visited)
+                
+                for new_word in new_words:
+                    if new_word == endWord:
+                        return step
+                    
+                    queue.append(new_word)
+        
+        return 0
+    
+    def get_next(self, wordList, word, visited):
+        new_words = []
+        
+        for i in range(len(word)):
+            left, right = word[:i], word[i+1:]
+
+            for c in string.ascii_lowercase:
+                if c == word[i]:
+                    continue
+
+                new_word = left + c + right
+                if self.check(wordList, new_word, visited):
+                    visited.add(new_word)
+                    new_words.append(new_word)
+        
+        return new_words
+    
+    def check(self, wordList, word, visited):
+        if word in visited:
+            return False
+        
+        if word not in wordList:
+            return False
+        
+        return True
+
+        
+# DFS
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordList = set(wordList)
+        
+        if endWord not in wordList:
+            return 0
+        
+        self.res = float('inf')
+        self.dfs(beginWord, endWord, wordList, 1, set([beginWord]))
+        
+        return self.res if self.res != float('inf') else 0
+    
+    def dfs(self, word, endWord, wordList, step, visited):
+        if word == endWord:
+            self.res = min(self.res, step)
+            return
+        
+        for i in range(len(word)):
+            left, right = word[:i], word[i+1:]
+            
+            for c in string.ascii_lowercase:
+                if c == word[i]:
+                    continue
+                
+                new_word = left + c + right
+                
+                if new_word in visited:
+                    continue
+                if new_word not in wordList:
+                    continue
+                
+                visited.add(new_word)
+                self.dfs(new_word, endWord, wordList, step + 1, visited)
+                visited.remove(new_word)
+
+
+
+
+
+
+
+
+
+
+
+
+
 思路：
 实现的基本思路就是每次考虑当前node改变一个letter后，若在wordlsit中且还没有visit过，则加入queue
 分层bfs，记录step数；每一层为上一层node在改变一个letter后，存在于wordlsit中所有的可能性
