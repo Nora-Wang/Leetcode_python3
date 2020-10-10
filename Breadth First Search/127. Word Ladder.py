@@ -25,6 +25,8 @@ return its length 5.
 
 
 # BFS
+# time: O(26 * n * m), space: O(n)
+# n = length of wordList, m = length of longest word in wordList
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         wordList = set(wordList)
