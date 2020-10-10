@@ -28,6 +28,51 @@ Update (2015-02-10):
 The signature of the C++ function had been updated. If you still see your function signature accepts a const char * argument, please click the reload button to reset your code definition.
 
 
+# 10/09/2020
+class Solution:
+    def isNumber(self, s: str) -> bool:
+        if not s:
+            return False
+        
+        has_num = False
+        has_e = False
+        has_point = False
+        
+        s = s.strip()
+        
+        for i,c in enumerate(s):
+            if '0' <= c <= '9':
+                has_num = True
+                
+            elif c == 'e':
+                if has_e or not has_num or i == len(s) - 1:
+                    return False
+                has_e = True
+                has_num = False
+            
+            elif c == '+' or c == '-':
+                if i != 0 and ((not has_e) or s[i - 1] != 'e'):
+                    return False
+                
+            elif c == '.':
+                if has_point or has_e:
+                    return False
+                has_point = True
+            
+            else:
+                return False
+                
+        return has_num
+                
+            
+
+
+
+
+
+
+
+
 
 思路:
 一个数怎么构成: 符号+浮点数+'e'+符号+整数
