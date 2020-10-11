@@ -49,9 +49,11 @@ class Solution:
 #time: O(nlogn), space: O(n)
 '''
 这里如果用min heap会很麻烦，因为在排序的时候会先将frequency小的pop出去，问题是word order较小的也会被先pop，这与题目意思违背.而想要设置word较大的先被pop会很麻烦.
+如果用最小堆，就算是最后直接将同freq的word reverse一下也不行
 eg: ["i", "love", "leetcode", "i", "love", "coding"], 1 -> 若用最小堆,则结果会是["love"](因为i比l小,会先从heap中被pop出去)；但正确结果为["i"]
 
-因此采用frequency为负数 + word的排序方式，这样能保证heap在排序时是按照frequency较高 + word较小来排序的
+
+因此采用max_heap: frequency为负数 + word的排序方式；这样能保证heap在排序时是按照frequency较高 + word较小来排序的
 上面不用nlargest也是同样的道理.largest意味着frequency为正，但同时还要满足word较小的先被pop，不好实现.
 '''
 import heapq
