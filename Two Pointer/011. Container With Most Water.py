@@ -20,6 +20,7 @@ Output: 49
 
 方法:设定两个指针, 初始在两端, 计算这两个组成的容量, 然后移动值较小的那个, 所有计算结果取最大.
 
+ # time: O(n), space:O(1)
 code:
 class Solution:
     def maxArea(self, height: List[int]) -> int:
