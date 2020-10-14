@@ -1,9 +1,9 @@
 1. 剪枝英文是pruning 
-2. dfs的time complexity是b^d 
-b是branching factor , 如果是binary tree branching factor就是2
-d是depth 
 
-3. DFS的做法——灵魂3问： 
+2. 能用BFS就不用DFS  
+   用DFS就用recursion，除非各种order写iteration method
+
+3. DFS/recursion做法——-灵魂3问： 
    1. 每一层是什么 
    2. 每一层有多少个状态/case需要操作 
    3. 一共有多少层 
