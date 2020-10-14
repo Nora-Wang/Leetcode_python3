@@ -20,6 +20,7 @@ DFS模板
 
 
 code:
+# time: O(n!), space: O(n)
 class Solution(object):
     def permute(self, nums):
         """
