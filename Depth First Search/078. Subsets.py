@@ -30,6 +30,8 @@ class Solution:
     def dfs(self, nums, index, temp, res):
         res.append(list(temp))
         
+        # 这部分要写在append的后面：从temp为空，加入res后，加入单个element[1]，要在dfs recursion的时候才能被加进res中
+        # 如果先写return，则部分得到的结果无法被加入res中
         if index == nums:
             return
         
