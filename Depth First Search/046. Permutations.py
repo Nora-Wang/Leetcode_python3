@@ -14,6 +14,34 @@ Output:
 ]
 
 
+# 10/14/2020
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return []
+        
+        res = []
+        self.dfs(nums, set(), [], res)
+        
+        return res
+    
+    def dfs(self, nums, visited, temp, res):
+        if len(temp) == len(nums):
+            res.append(list(temp))
+            return
+        
+        for i in range(len(nums)):
+            if nums[i] in visited:
+                continue
+            
+            visited.add(nums[i])
+            temp.append(nums[i])
+            self.dfs(nums, visited, temp, res)
+            temp.pop()
+            visited.remove(nums[i])
+
+
+
 
 DFS模板
 注意一下递归出口
