@@ -15,32 +15,33 @@ Output:
   []
 ]
 
-模板DFS
+搞清楚什么时候用visited（permutation），什么时候用index（combination）
+
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        if not nums:
-            return []
-        
-        nums.sort()
         res = []
-        visited = [False] * len(nums)
-        self.dfs(nums, [], 0, res, visited)
+        nums.sort()
+        
+        self.dfs(nums, 0, [], res)
         
         return res
     
-    def dfs(self, nums, temp, index, res, visited):
+    def dfs(self, nums, index, temp, res):
         res.append(list(temp))
         
+        # 注意: return case要放在res.append后面
+        if index == len(nums):
+            return
+        
         for i in range(index, len(nums)):
-            if i > index and nums[i] == nums[i - 1] and visited[i - 1] == False:
+            # 这里注意i > index，而不是i != 0
+            # 因为这里是要跟当前层中的数据做比较，之前已选的部分不能算在内
+            if i > index and nums[i] == nums[i - 1]:
                 continue
-                
-            visited[i] = True
+            
             temp.append(nums[i])
-            self.dfs(nums, temp, i + 1, res, visited)
+            self.dfs(nums, i + 1, temp, res)
             temp.pop()
-            visited[i] = False
-
 
 
 
