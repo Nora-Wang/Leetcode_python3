@@ -21,6 +21,67 @@ Output: [
 Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
 
 
+ 
+ 
+ 
+ # 10/15/2020
+ class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        if not n:
+            return []
+        
+        res = []
+        self.dfs(n, [], set(), res)
+        
+        return res
+    
+    # temp[row] = col
+    def dfs(self, n, temp, visited_col, res):
+        if len(temp) == n:
+            res.append(self.draw(temp))
+            return
+        
+        for col in range(n):
+            if not self.is_valid(col, temp, visited_col):
+                continue
+            
+            visited_col.add(col)
+            temp.append(col) # temp[row] = col -> for curt row, the queen will be set in col
+            self.dfs(n, temp, visited_col, res)
+            temp.pop()
+            visited_col.remove(col)
+            
+    def draw(self, temp):
+        n = len(temp)
+        puzzle = [None] * n
+        
+        for row, col in enumerate(temp):
+            curt_row = ['.'] * n
+            curt_row[col] = 'Q'
+            
+            puzzle[row] = ''.join(curt_row)
+        
+        return puzzle
+    
+    def is_valid(self, col, temp, visited_col):
+        if col in visited_col:
+            return False
+        
+        row = len(temp)
+        for r, c in enumerate(temp):
+            if abs(row - r) == abs(col - c):
+                return False
+            
+        return True
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 因为要求输出所有情况,肯定是一道dfs的题目,具体分析:
 
