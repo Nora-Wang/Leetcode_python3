@@ -10,6 +10,48 @@ Output:
   [2,1,1]
 ]
 
+
+
+# 10/14/2020
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if not nums:
+            return []
+        
+        res = []
+        nums.sort()
+        self.dfs(nums, set(), [], res)
+        
+        return res
+    
+    def dfs(self, nums, visited, temp, res):
+        if len(temp) == len(nums):
+            res.append(list(temp))
+            return
+        
+        for i in range(len(nums)):
+            if i and nums[i] == nums[i - 1] and ((i - 1) not in visited):
+                continue
+                
+            if i in visited:
+                continue
+            
+            visited.add(i)
+            temp.append(nums[i])
+            self.dfs(nums, visited, temp, res)
+            temp.pop()
+            visited.remove(i)
+            
+
+
+
+
+
+
 !!!!!!!!!!!!!!!!
 注意区别两种不同的去重情况
 [1,2',2'']
