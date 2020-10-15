@@ -19,6 +19,45 @@ Explanation: There are two distinct solutions to the 4-queens puzzle as shown be
   ".Q.."]
 ]
 
+class Solution:
+    def totalNQueens(self, n: int) -> int:
+        if not n:
+            return []
+        
+        res = [0]
+        self.dfs(n, [], set(), res)
+        
+        return res[0]
+    
+    # temp[row] = col
+    def dfs(self, n, temp, visited_col, res):
+        if len(temp) == n:
+            res[0] += 1
+            return
+        
+        for col in range(n):
+            if not self.is_valid(col, temp, visited_col):
+                continue
+            
+            visited_col.add(col)
+            temp.append(col) # temp[row] = col -> for curt row, the queen will be set in col
+            self.dfs(n, temp, visited_col, res)
+            temp.pop()
+            visited_col.remove(col)
+    
+    def is_valid(self, col, temp, visited_col):
+        if col in visited_col:
+            return False
+        
+        row = len(temp)
+        for r, c in enumerate(temp):
+            if abs(row - r) == abs(col - c):
+                return False
+            
+        return True
+
+
+
 
 实际是N-queens I的简化版，省去了返回所有解决方案的麻烦，直接用一个全局变量self.count计算已经找到的解决方案的个数就搞定了
 
