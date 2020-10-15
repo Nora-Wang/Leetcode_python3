@@ -36,6 +36,7 @@ Explanation: There exist two distinct solutions to the 4-queens puzzle as shown 
         return res
     
     # temp[row] = col
+    # visited_col is for using O(1) time to varify whether col has been used (in self.is_valid) 
     def dfs(self, n, temp, visited_col, res):
         if len(temp) == n:
             res.append(self.draw(temp))
