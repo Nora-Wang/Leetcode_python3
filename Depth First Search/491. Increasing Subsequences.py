@@ -37,12 +37,15 @@ class Solution(object):
         if len(temp) > 1:
             combinations.append(list(temp))
         
+        # 这题因为array不是sorted的，也不能sort，因此这里使用visited来避免在同层中选到重复的num
         visited = set()
         
         for i in range(start_index, len(nums)):
+            # 避免出现[4,7], [4,7]的情况
+            # 等同sorted的nums中 if i > start_index and nums[i] == nums[i - 1]
             if nums[i] in visited:
                 continue
-                
+            
             visited.add(nums[i])
             
             if not temp or nums[i] >= temp[-1]:
