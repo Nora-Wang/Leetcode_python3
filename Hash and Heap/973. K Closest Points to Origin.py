@@ -32,7 +32,8 @@ Note:
 
 # 10/26/2020
 # max_heap
-from heapq import heappush, heappop
+# time: O(k + nlogk), space: O(k)
+from heapq import heappush, heappop, heapify
 class Solution(object):
     def kClosest(self, points, K):
         """
@@ -40,29 +41,61 @@ class Solution(object):
         :type K: int
         :rtype: List[List[int]]
         """
-        heap = []
+        # initail a k length max_heap
+        max_heap = []
         
-        for point in points:
-            distance = point[0] ** 2 + point[1] ** 2
-            heappush(heap, (-distance, point[0], point[1]))
+        for i in range(K):
+            distance = points[i][0] ** 2 + points[i][1] ** 2
+            max_heap.append((-distance, points[i][0], points[i][1]))
             
-            if len(heap) == K + 1:
-                heappop(heap)
+        heapify(max_heap)
         
+        # push rest n - k points into max_heap, always keep max_heap.length == k
+        for i in range(K, len(points)):
+            distance = points[i][0] ** 2 + points[i][1] ** 2
+            
+            heappush(max_heap, (-distance, points[i][0], points[i][1]))
+            heappop(max_heap)
+        
+        # convert the max_heap to a list array
         res = []
-        while heap:
-            _, x, y = heappop(heap)
+        while max_heap:
+            _, x, y = heappop(max_heap)
             res.append([x,y])
         
         return res
 
 # min_heap
+# time: O(n + klogn), space: O(n)
+from heapq import heappush, heappop, heapify
+class Solution(object):
+    def kClosest(self, points, K):
+        """
+        :type points: List[List[int]]
+        :type K: int
+        :rtype: List[List[int]]
+        """
+        min_heap = []
+        for point in points:
+            distance = point[0] ** 2 + point[1] ** 2
+            min_heap.append((distance, point[0], point[1]))
+            
+        heapify(min_heap)
+        
+        res = []
+        for _ in range(K):
+            _, x, y = heappop(min_heap)
+            res.append([x,y])
+        
+        return res
 
 
 
 
-
-
+       
+       
+       
+       
 
 
 
