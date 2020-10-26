@@ -29,6 +29,47 @@ Note:
 -10000 < points[i][1] < 10000
 
 
+
+# 10/26/2020
+# max_heap
+from heapq import heappush, heappop
+class Solution(object):
+    def kClosest(self, points, K):
+        """
+        :type points: List[List[int]]
+        :type K: int
+        :rtype: List[List[int]]
+        """
+        heap = []
+        
+        for point in points:
+            distance = point[0] ** 2 + point[1] ** 2
+            heappush(heap, (-distance, point[0], point[1]))
+            
+            if len(heap) == K + 1:
+                heappop(heap)
+        
+        res = []
+        while heap:
+            _, x, y = heappop(heap)
+            res.append([x,y])
+        
+        return res
+
+# min_heap
+
+
+
+
+
+
+
+
+
+
+
+
+
 code:
 #brute force
 class Solution(object):
