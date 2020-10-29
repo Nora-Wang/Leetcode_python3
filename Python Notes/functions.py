@@ -1,3 +1,12 @@
+# split
+str -> list
+list_s = s.split()
+
+s = "a good   example"
+print(s.split())      -> ['a', 'good', 'example']
+print(s.split(' '))   -> ['a', 'good', '', '', 'example']
+print(s.split(''))    -> ValueError
+
 # 字母与ASCII互相转换
 ord()转换为ASCII
 chr()转换为字母
