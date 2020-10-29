@@ -10,6 +10,49 @@ If there is no such window in S that covers all characters in T, return the empt
 If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
 
 
+
+# 10/28/2020
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        # edge case
+        if not s or not t or len(s) < len(t):
+            return ''
+        
+        hash_t = collections.Counter(t) # count char freq in t
+        hash_s = collections.defaultdict(int) # record char freq in s
+        res = ''
+        min_length = float('inf')
+        match = len(hash_t) # all char in t are in curt_s_window
+        right = 0
+        
+        for left in range(len(s)):
+            # create the match window
+            while right < len(s) and match != 0:
+                if s[right] in hash_t:
+                    hash_s[s[right]] += 1
+                    if hash_s[s[right]] == hash_t[s[right]]:
+                        match -= 1
+                        
+                right += 1
+            
+            # renew res and min_length
+            if match == 0 and right - left < min_length:
+                res = s[left:right]
+                min_length = right - left
+            
+            # move window
+            if s[left] not in hash_t:
+                continue
+            
+            if hash_s[s[left]] == hash_t[s[left]]:
+                match += 1
+            hash_s[s[left]] -= 1
+        
+        return res
+
+
+
+
 code:
 class Solution(object):
     def minWindow(self, s, t):
