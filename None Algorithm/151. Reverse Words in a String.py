@@ -52,18 +52,18 @@ class Solution:
             return ''
         
         res = []
-        index = 0
+        left = 0
         
-        while index < len(s):
-            if s[index] == ' ':
-                index += 1
+        while left < len(s):
+            if s[left] == ' ':
+                left += 1
                 continue
             
-            right = index
+            right = left
             while right < len(s) and s[right] != ' ':
                 right += 1
             
-            res.append(s[index:right])
-            index = right
+            res.append(s[left:right])
+            left = right
         
         return ' '.join(reversed(res))
