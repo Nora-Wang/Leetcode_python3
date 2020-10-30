@@ -17,6 +17,11 @@ string.isdigit()
 只接受0～9
 '-1' -> 
 
+# 取整
+round down: int(3.75) = 3
+round number(四舍五入): round(3.75) = 4
+round up: math.ceil(3.75) = 4; c = a // b, if a % b -> c += 1
+
 
 # 排序
 无论是sort还是sorted,其本质上空间复杂度都是O(n),因为recursion会消耗空间.但面试的时候提前说好recursion的stack不消耗额外空间即可.
