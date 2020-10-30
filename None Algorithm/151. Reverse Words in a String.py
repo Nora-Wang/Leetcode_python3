@@ -38,7 +38,33 @@ Constraints:
 s contains English letters (upper-case and lower-case), digits, and spaces ' '.
 There is at least one word in s.
 
+'''
+clarification
+input: string, None?, ''?, only lowercase letters and space?
+output: string
 
+1. utilize Python split function
+list = string.split()
+split -> reversed -> ' '.join
+time: O(n), space: O(n)
+
+2. two pointer
+find the valid sub_string = s[left:right], no space
+while left < len(s):
+    1. s[left] == ' ' -> continue
+    2. s[left] != ' '
+        right = left
+        while right < len(s) and s[right] != ' ':
+            right += 1
+        append s[left:right] into res
+        left = right
+    
+    reverse res, use join function to get the string res
+
+time: O(n), space: O(n)
+
+3. 
+'''
 
 # version 1
 class Solution:
