@@ -44,6 +44,7 @@ edge case:
 3. [1, +]?
 4. [1, 2, +, 1] -> [3, 1]?
 
+find the last number in the list -> utilize stack to solve it(FILO)
 
 time: O(n), space: O(n)
 '''
