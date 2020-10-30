@@ -30,6 +30,23 @@ Explanation:
 = 22
 
 
+'''
+clarification
+1. digit: negative, positive
+2. +
+3. -
+4. *
+5. /: the division's result, round/down/up? 
+
+edge case:
+1. other situation? other invalid char?
+2. divisor == 0?
+3. [1, +]?
+4. [1, 2, +, 1] -> [3, 1]?
+
+
+time: O(n), space: O(n)
+'''
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         if not tokens:
@@ -38,7 +55,6 @@ class Solution:
         stack = []
         
         for c in tokens:
-            # isdigit只能判断0～9的情况，负数无法判断
             if c.isdigit() or len(c) >= 2:
                 stack.append(int(c))
                 continue
@@ -59,10 +75,11 @@ class Solution:
                 stack.append(curt_pro)
             
             if c == '/':
-                # 这道题的除法是round down
                 curt_div = first / second
                 stack.append(int(curt_div))
         
         return stack[-1]
+                
+                
                 
                 
