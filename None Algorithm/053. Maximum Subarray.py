@@ -15,6 +15,49 @@ If you have figured out the O(n) solution, try coding another solution using the
 local_max :  [0, 1, 0, 4, 3, 5, 6, 1, 5]
 global_max : [0, 1, 1, 4, 4, 5, 6, 6, 6]
 
+  
+'''
+clarification
+input: list int, negative, None? []?
+output: int
+
+1. brute force
+use two for loop to list all the subarray, get the max
+time: O(n^2), space: O(1)
+
+2. optimal
+smaller problem
+assume already know the curt_sum for index = i - 1, how to get the new curt_sum for index = i?
+curt_sum: the curt subarray's sum; curt_sum = nums[0]
+global_sum: the maximum subarray's sum; global_sum = nums[0]
+
+two choices:
+1. use nums[i] -> curt_sum(i - 1) + nums[i]
+2. not use nums[i]
+    if nums[i] <= 0 -> 0
+    if nums[i] > 0 -> nums[i]
+
+curt_sum = max(curt_sum + nums[i], nums[i], 0)
+global_sum= max(global_sum, curt_sum)
+
+time: O(n), space: O(1)
+'''
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        if not nums or max(nums) <= 0:
+            return max(nums)
+        
+        curt_sum, global_sum = nums[0], nums[0]
+        
+        for i in range(1, len(nums)):
+            curt_sum = max(curt_sum + nums[i], nums[i], 0)
+            global_sum= max(global_sum, curt_sum)
+        
+        return global_sum
+  
+  
+  
+  
 code:
 #greedy
 class Solution:
