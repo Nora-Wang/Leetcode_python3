@@ -37,7 +37,8 @@ import cmath
 num_sqrt = cmath.sqrt(num)
 
 # reverse
-reversed() 的返回值类型并不是list，因此如果需要，要再套上一个list()
+list.reverse()
+reversed(tuple/list/string/range) 的返回值类型是iterator并不是list，因此如果需要，要再套上一个list()
 list/str[::-1] #返回值被reverse了,但list/str并没有被reverse
 sorted(reverse=True)
 
