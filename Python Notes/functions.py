@@ -12,6 +12,12 @@ ord()转换为ASCII
 chr()转换为字母
 
 
+# 是否为数字
+string.isdigit()
+只接受0～9
+'-1' -> 
+
+
 # 排序
 无论是sort还是sorted,其本质上空间复杂度都是O(n),因为recursion会消耗空间.但面试的时候提前说好recursion的stack不消耗额外空间即可.
 sorted有返回值,不会改变原数据
