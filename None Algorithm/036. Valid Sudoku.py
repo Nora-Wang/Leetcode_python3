@@ -48,6 +48,67 @@ The given board contain only digits 1-9 and the character '.'.
 The given board size is always 9x9.
 
 
+# 11/02/2020
+'''
+clarification
+1. 9 * 9 board with only 1 ~ 9 digits
+2. rule
+
+input: list[list[]]
+output: True/False
+
+difficult
+how to define the sub_box number -> utilize the indexs [r][c]
+g = r // 3 * 3 + c // 3
+
+check many times -> set()
+9 row/col/grid -> list index
+row = [set() for _ in range(9)]
+col = [set() for _ in range(9)]
+grid = [set() for _ in range(9)]
+
+time: O(n * m), space: O(n * m)
+n = len(board), m = len(board[0])
+'''
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        if not len(board) or not len(board[0]):
+            return False
+        
+        row = [set() for _ in range(9)]
+        col = [set() for _ in range(9)]
+        grids = [set() for _ in range(9)]
+        
+        for r in range(len(board)):
+            for c in range(len(board[0])):
+                if board[r][c] == '.':
+                    continue
+                
+                if board[r][c] in row[r]:
+                    return False
+                
+                if board[r][c] in col[c]:
+                    return False
+                
+                g = (r // 3) * 3 + c // 3
+                if board[r][c] in grids[g]:
+                    return False
+                
+                row[r].add(board[r][c])
+                col[c].add(board[r][c])
+                grids[g].add(board[r][c])
+        
+        return True
+
+
+
+
+
+
+
+
+
+
 
 数独的定义:
 一般由9个3×3个的九宫格組成
