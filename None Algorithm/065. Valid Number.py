@@ -27,6 +27,66 @@ Of course, the context of these characters also matters in the input.
 Update (2015-02-10):
 The signature of the C++ function had been updated. If you still see your function signature accepts a const char * argument, please click the reload button to reset your code definition.
 
+# 11/02/2020
+'''
+clarification
+input: string, ''? None?
+output: True/False
+
+'3', '+3', '+3.', '+3.0'
+'e3','3e', '3e3', '3e+3'
+'3.0e+3'
+
+1. number
+2. Exponent 'e'
+3. position/negative sign
+4. decimal point '.'
+5. others
+
+(+/-) + number + ('.' + number) + ('e' + (+/-) + number)
+
+time: O(n), space: O(1)
+'''
+
+class Solution:
+    def isNumber(self, s: str) -> bool:
+        if not s:
+            return True
+        
+        has_num = False
+        has_sign = False
+        has_point = False
+        has_e = False
+        
+        s = s.strip()
+        
+        for i,c in enumerate(s):
+            if c.isdigit():
+                has_num = True
+            
+            elif c == 'e':
+                if has_e or not has_num:
+                    return False
+                has_e = True
+                has_num = False
+            
+            elif c == '+' or c == '-':
+                if i != 0 and s[i - 1] != 'e':
+                    return False
+                has_sign = True
+            
+            elif c == '.':
+                if has_point or has_e:
+                    return False
+                has_point = True
+            
+            else:
+                return False
+            
+        return has_num
+
+
+
 
 # 10/09/2020
 class Solution:
