@@ -30,7 +30,8 @@ words[i] consists of lower-case English letters.
 
 
 # 与76题很像，但这里的words是一个个单词，有一定的长度 -> 不可避免的需要第二层循环
-
+# time: O(w) + O(s - w') * O(w) = O(s- w) * O(w), space: O(w)
+# w = len(words), w' = total length of the words = w * length_of_each_word, s = len(s)
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         if not s or not words:
