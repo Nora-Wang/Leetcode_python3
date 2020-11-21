@@ -26,8 +26,8 @@ A solution set is:
 ]
 
 
-时间复杂度: O(n^t)?
-空间复杂度: O(n * n^t)?
+时间复杂度: O(2^n)
+空间复杂度: O(n)
 
 
 class Solution:
