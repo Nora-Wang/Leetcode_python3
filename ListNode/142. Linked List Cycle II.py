@@ -13,6 +13,47 @@ Input: head = [3,2,0,-4], pos = 1
 Output: tail connects to node index 1
 Explanation: There is a cycle in the linked list, where tail connects to the second node.
 
+# time: O(n), space: O(1)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def detectCycle(self, head: ListNode) -> ListNode:
+        if not head:
+            return None
+        
+        slow, fast = head, head
+        mark = None
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+            if slow == fast:
+                mark = slow
+                break
+        
+        # no cycle
+        if not mark:
+            return None
+        
+        slow = head
+        fast = mark
+        while slow != fast:
+            slow = slow.next
+            fast = fast.next
+        
+        return slow
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 思路：
 1.先按照slow走一步fast走两步的过程找到相遇点
 2.fast从快慢指针相遇的地方出发，slow指针从初始地方head出发，两个指针每次走一步，直到相遇，就是环的入口
