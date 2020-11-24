@@ -10,29 +10,29 @@ Example 2:
 Input: A = 'abcde', B = 'abced'
 Output: false
 
-
-code:
-#将A挨个翻转，若其中一个能与B相同，则为True
-class Solution(object):
-    def rotateString(self, A, B):
-        """
-        :type A: str
-        :type B: str
-        :rtype: bool
-        """
+# Solution 1
+# time: O(n^2), space: O(n)
+class Solution:
+    def rotateString(self, A: str, B: str) -> bool:
         if len(A) != len(B):
             return False
         
+        # edge case: A = B = ''
         if not A and not B:
             return True
         
-        for i in range(len(A)):
-            if A[i:] + A[:i] == B:
+        # 用list比string省空间
+        A_list = list(A)
+        B_list = list(B)
+        
+        for i in range(len(A_list)):
+            if A_list[i:] + A_list[:i] == B_list:
                 return True
+        
         return False
         
         
-        
+# Solution 2
 真大神的写法，细思极恐
 def rotateString(self, A, B):        
     return len(A) == len(B) and B in A + A
