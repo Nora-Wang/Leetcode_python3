@@ -1,3 +1,7 @@
+# subsequence != subarray/substring
+# subsequence: A subsequence of an array or string is a set of elements of the array/string in the same relative order, but not necessarily contiguous.
+# subarray/substring: contiguous sub_array/string
+
 # Data Structure
 1. Array物理连续town house
 2. Stack逻辑概念可用别的物理概念来实现，先进后出
