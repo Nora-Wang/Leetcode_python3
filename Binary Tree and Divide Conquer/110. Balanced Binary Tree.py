@@ -22,6 +22,18 @@ utilize root.left and root.right to count the left/right subtrees depth for ever
 time: O(n^2), space: O(n)
 
 optimized:
+    
+Solution 1: top-down
+end case: not root -> return 0 (height)
+left_height
+right_height
+return abs(left_height - right_height) <= 1 and is_balanced(root.left) and is_balanced(root.right)
+
+time: O(nlogn), space: O(n)
+for time: there a n nodes in the tree need to varify is_balanced. 
+          the height for the whole tree is logn -> need logn time to get the height for every node 
+
+Solution 2: down-top
 use Divide and Conquer
 1. base case
 root is None, return 0(depth), True(is balanced)
@@ -34,9 +46,24 @@ root
 max (root.left depth, root.right depth) + 1, whether curt root is balanced
 
 time: O(n), space: O(1)
+# Solution 1
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        
+        left = self.get_height(root.left)
+        right = self.get_height(root.right)
+        
+        return abs(left - right) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right)
+    
+    def get_height(self, root):
+        if not root:
+            return 0
+        
+        return 1 + max(self.get_height(root.left), self.get_height(root.right))
 
-
-#Version 0
+# Solution 2
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -68,6 +95,15 @@ class Solution:
         return True, max(l_h, r_h) + 1
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
