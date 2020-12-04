@@ -22,6 +22,170 @@ Note:
 There will be at least one building. If it is not possible to build such house according to the above rules, return -1.
 
 
+
+'''
+shortest distance -> BFS
+start from every building to find out the shortest distance from every building '1' to every empty land '0'
+-> empty_to_building = {empty_land_position:[total_distance_to_buildings, reached_building_count]}
+based on empty_to_building to find out the result
+
+queue: BFS
+visited: avoid repeated traverse
+
+time: O(number_1 * n*m) = worse case O(n*m * n*m)
+space: O(n*m)
+
+Questions:
+1. why not from every empty land '0' to do the BFS?
+starting from '0' will repeated computation for every same path positions, if without memorization
+
+2. for the grid below, what's the diff for start from '0' and '1'?
+[[1, 1, 1, 1, 1],
+ [0, 0, 0, 0, 0],
+ [1, 1, 1, 1, 1],
+ [0, 0, 0, 0, 0],
+ [1, 1, 1, 1, 1]]
+ they are actually the same, both start from '0' and '1' cannot pass through buildings -> both will return -1 
+
+'''
+# Grid version
+class Solution:
+    def shortestDistance(self, grid: List[List[int]]) -> int:
+        if not len(grid) or not len(grid[0]):
+            return 0
+        
+        distance = [[0 for _ in range(len(grid[0]))] for _ in range(len(grid))]
+        reached = [[0 for _ in range(len(grid[0]))] for _ in range(len(grid))]
+        building_count = 0
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    self.bfs(grid, i, j, distance, reached)
+                    building_count += 1
+                    
+        res = float('inf')
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 0 and distance[i][j] < res and reached[i][j] == building_count:
+                    res = distance[i][j]
+        
+        return res if res != float('inf') else -1
+                    
+    def bfs(self, grid, x, y, distance, reached):
+        visited = set()
+        visited.add((x,y))
+        queue = collections.deque([(x,y)])
+        step = 0
+        
+        while queue:
+            step += 1
+            for _ in range(len(queue)):
+                x,y = queue.popleft()
+                
+                for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+                    x_ = x + direct[0]
+                    y_ = y + direct[1]
+                    
+                    if self.is_valid(grid, x_, y_, visited):
+                        queue.append((x_,y_))
+                        visited.add((x_,y_))
+                        distance[x_][y_] += step
+                        reached[x_][y_] += 1
+        
+    def is_valid(self, grid, x, y, visited):
+        if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]):
+            return False
+        
+        if grid[x][y] != 0:
+            return False
+        
+        if (x,y) in visited:
+            return False
+        
+        return True
+            
+
+# Hashtable version
+class Solution:
+    def shortestDistance(self, grid: List[List[int]]) -> int:
+        if not len(grid) or not len(grid[0]):
+            return 0
+        
+        empty = {} # {position:(total distance to buildings, reached buildings count)}
+        building_count = 0
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    self.bfs(grid, i, j, empty)
+                    building_count += 1
+                    
+        res = float('inf')
+        for e in empty:
+            if empty[e][0] < res and empty[e][1] == building_count:
+                res = empty[e][0]
+        
+        return res if res != float('inf') else -1
+                    
+    def bfs(self, grid, x, y, empty):
+        visited = set()
+        visited.add((x,y))
+        queue = collections.deque([(x,y)])
+        distance = 0
+        
+        while queue:
+            distance += 1
+            for _ in range(len(queue)):
+                x,y = queue.popleft()
+                
+                for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+                    x_ = x + direct[0]
+                    y_ = y + direct[1]
+                    
+                    if self.is_valid(grid, x_, y_, visited):
+                        queue.append((x_,y_))
+                        visited.add((x_,y_))
+                        if (x_,y_) in empty:
+                            empty[(x_,y_)][0] += distance
+                            empty[(x_,y_)][1] += 1
+                        else:
+                            empty[(x_,y_)] = [distance, 1]
+        
+    def is_valid(self, grid, x, y, visited):
+        if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]):
+            return False
+        
+        if grid[x][y] != 0:
+            return False
+        
+        if (x,y) in visited:
+            return False
+        
+        return True
+            
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 参考Lintcode 573
 
 
