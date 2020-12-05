@@ -39,8 +39,8 @@ Version 1
 # 不同点：It is NOT guaranteed that both p and q are in the tree.
 # -> 1. 需要判断p、q是否出现
 # -> 2. We need to traverse the entire tree even after we've found one of them. 
-#       而Leetcode 236则是we can return either p OR q as soon as we find one of them以判断是否p、q同时存在
-#       原因：If you return early, the above example would be null, because the code stops when it finds 5 and does not keep searching for 4.
+#       而Leetcode 236则是we can return either p OR q as soon as we find one of them
+#       原因：In 1644, if you return early, the above example would be null, because the code stops when it finds 5 and does not keep searching for 4.
 
 Version 1 # Use boolean as flags
 class Solution:
