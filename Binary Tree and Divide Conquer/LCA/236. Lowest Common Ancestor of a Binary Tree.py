@@ -7,34 +7,29 @@ Given the following binary tree:  root = [3,5,1,6,2,0,8,null,null,7,4]
 
 
 Example 1:
-
 Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
 Output: 3
 Explanation: The LCA of nodes 5 and 1 is 3.
 
+Example 2:
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+Output: 5
+Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
       
-'''
-3.lintcode 578
-此题还有一种变形，需要用到traverse，，且pq不一定存在在bt中
-需要设定self.p_exist, self.q_exist, lca，用于判断pq是否出现，若出现，则记录其lca的值；若不出现，则返回None
+Example 3:
+Input: root = [1,2], p = 1, q = 2
+Output: 1
+      
+      
+Constraints:
 
-1.lintcode 474
-给出node.parent，且pq一定存在在bt中
-思路：
-如果二叉树中存储了父亲节点，则可以从两个点出发往上寻找至root:
-比如5和1：
-5:[5,3]
-1:[1,3]
-得到路径之后从后向前遍历，3,3一样，5,1不一样了，所以最近公共祖先是3
-再比如5和4：
-5:[5,3]
-4:[4,2,5,3]
-从后向前遍历，发现3,5之后不一样了，所以公共祖先是5
-'''
+The number of nodes in the tree is in the range [2, 105].
+-109 <= Node.val <= 109
+All Node.val are unique.
+p != q
+p and q will exist in the tree.
 
-
-
-2.给出root，不给parent（若两个都不给，无解），且pq一定存在在bt中
+# 类型 1: 给出root，不给parent（若两个都不给，无解），且pq一定存在在bt中
 整体思路：
 divide and conquer
 p和q一定在分布在最后的root的left和right中，即只有情况1和4整个程序才终止；
@@ -44,7 +39,9 @@ p和q一定在分布在最后的root的left和right中，即只有情况1和4整
 '''
 这题一定要注意两个条件：
 1. All Node.val are unique. -> 只会出现一个结果
-2. p and q will exist in the tree. -> 一定会有一个结果（与Leetcode 1644的不同之处）
+2. p and q will exist in the tree. -> 对于root来说，若root==p/q则直接返回root即可，不用再继续往下走了，因为root.parent和root.parent.otherside一定是return None
+                                      （与Leetcode 1644的不同之处）
+3. allow a node to be a descendant of itself -> 
 '''
 如果没有存储父亲节的信息，给定root节点和两个点n1,n2:
         _______3______
@@ -77,6 +74,7 @@ class Solution(object):
         :rtype: TreeNode
         """
         #情况1
+        # （与Leetcode 1644的不同之处）
         if not root or root == p or root == q:
             return root
         
@@ -110,7 +108,6 @@ class Solution(object):
 #     def __init__(self, x):
 #         self.val = x
 #         self.children = []
-
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root:
@@ -133,3 +130,23 @@ class Solution:
             return record[0]
         
         return None
+
+
+'''
+类型1: lintcode 474
+给出node.parent，且pq一定存在在bt中
+思路：
+如果二叉树中存储了父亲节点，则可以从两个点出发往上寻找至root:
+比如5和1：
+5:[5,3]
+1:[1,3]
+得到路径之后从后向前遍历，3,3一样，5,1不一样了，所以最近公共祖先是3
+再比如5和4：
+5:[5,3]
+4:[4,2,5,3]
+从后向前遍历，发现3,5之后不一样了，所以公共祖先是5
+
+类型 3: lintcode 578
+此题还有一种变形，需要用到traverse，，且pq不一定存在在bt中
+需要设定self.p_exist, self.q_exist, lca，用于判断pq是否出现，若出现，则记录其lca的值；若不出现，则返回None
+'''
