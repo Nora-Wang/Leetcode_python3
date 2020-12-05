@@ -42,9 +42,11 @@ p和q一定在分布在最后的root的left和right中，即只有情况1和4整
 否则对于情况2，3来说，其实就是把root改为left或right；即已经确定了LCA不在另一边中，而是在left或right中
 
 具体思路：
-# 这题一定要注意两个条件：
-# 1. All Node.val are unique. -> 只会出现一个结果
-# 2. p and q will exist in the tree. -> 一定会有一个结果（与Leetcode 1644的不同之处）
+'''
+这题一定要注意两个条件：
+1. All Node.val are unique. -> 只会出现一个结果
+2. p and q will exist in the tree. -> 一定会有一个结果（与Leetcode 1644的不同之处）
+'''
 如果没有存储父亲节的信息，给定root节点和两个点n1,n2:
         _______3______
        /              \
