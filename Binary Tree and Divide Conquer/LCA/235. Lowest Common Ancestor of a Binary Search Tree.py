@@ -120,6 +120,9 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
+        if not root:
+            return root
+      
         #当root的值比p,q的值都大时，证明p,q一定在root的左子树上
         if root.val > p.val and root.val > q.val:
             root = self.lowestCommonAncestor(root.left, p, q)
