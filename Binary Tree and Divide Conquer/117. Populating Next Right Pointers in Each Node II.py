@@ -103,6 +103,7 @@ class Node:
 # 对于第一层来说使用curt来代表当前层的node
 # 利用来将curt的下一层所有的node连到一起：prev = sub_head = Node(None), prev.next等于curt的left/right，若prev.next存在则挪动prev，否则使用覆盖的原理寻找下一个node
 # curt = sub_head
+# 这题最tricky的点是利用prev.next
 # time: O(n), space: O(1)
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
@@ -133,3 +134,57 @@ class Solution:
             level_head = sub_head.next
         
         return root
+
+         
+         
+         
+# 冗长版
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+# time: O(n), space: O(1)
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if not root:
+            return None
+        
+        head = root
+        
+        while head:
+            # find the valid head with sub_head
+            sub_head = None
+            while head and sub_head == None:
+                if head.left:
+                    sub_head = head.left
+                elif head.right:
+                    sub_head = head.right
+                else:
+                    head = head.next
+            
+            # utilize head level to connect sub_head level
+            curt = head
+            previous = None
+            while curt:
+                if curt.left:
+                    if previous:
+                        previous.next = curt.left
+                    previous = curt.left
+                
+                if curt.right:
+                    if previous:
+                        previous.next = curt.right
+                    previous = curt.right
+                
+                curt = curt.next
+            
+            head = sub_head
+        
+        return root
+            
+            
