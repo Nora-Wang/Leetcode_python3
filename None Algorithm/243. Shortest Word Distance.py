@@ -10,6 +10,64 @@ Output: 1
 Note:
 You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
 
+# Version 0
+'''
+We can greatly improve on the brute-force approach by keeping two indices i1 and i2 where we store the most recent locations of word1 and word2. 
+Each time we find a new occurrence of one of the words, we do not need to search the entire array for the other word, 
+since we already have the index of its most recent occurrence.
+'''
+class Solution:
+    def shortestDistance(self, words: List[str], word1: str, word2: str) -> int:
+        p1, p2 = -1, -1
+        min_distance = len(words)
+        
+        for i in range(len(words)):
+            if words[i] == word1:
+                p1 = i
+            elif words[i] == word2:
+                p2 = i
+                
+            if p1 != -1 and p2 != -1:
+                min_distance = min(min_distance, abs(p1 - p2))
+        
+        return min_distance
+
+
+# Version 1
+class Solution:
+    def shortestDistance(self, words: List[str], word1: str, word2: str) -> int:
+        hash_index = collections.defaultdict(list)
+        
+        for i in range(len(words)):
+            if words[i] == word1 or words[i] == word2:
+                hash_index[words[i]].append(i)
+        
+        min_distance = len(words)
+        for w1_index in hash_index[word1]:
+            w2_index = self.closest_num(hash_index[word2], w1_index)
+            min_distance = min(min_distance, abs(w2_index - w1_index))
+        
+        return min_distance
+    
+    def closest_num(self, w2, target):
+        if len(w2) == 1:
+            return w2[0]
+        
+        left, right = 0, len(w2) - 1
+        
+        while left + 1 < right:
+            mid = (left + right) // 2
+            
+            if w2[mid] < target:
+                left = mid
+            else:
+                right = mid
+        
+        return w2[left] if abs(w2[left] - target) < abs(w2[right] - target) else w2[right]
+
+
+
+
 
 将整个数组遍历一遍
 
