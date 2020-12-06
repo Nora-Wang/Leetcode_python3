@@ -15,6 +15,7 @@ You may assume that word1 does not equal to word2, and word1 and word2 are both 
 We can greatly improve on the brute-force approach by keeping two indices i1 and i2 where we store the most recent locations of word1 and word2. 
 Each time we find a new occurrence of one of the words, we do not need to search the entire array for the other word, 
 since we already have the index of its most recent occurrence.
+这里的设计有点tricky，这里使得p1和p2都是最近的pair，因为只要p1和p2同时存在，则他们一定是最close的
 '''
 class Solution:
     def shortestDistance(self, words: List[str], word1: str, word2: str) -> int:
