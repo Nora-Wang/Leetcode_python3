@@ -39,7 +39,7 @@ path situation:
 4. root
 
 need left and right sum -> divide and conquer
-return the min_diff between (root, left + root, right + root) and sum
+return: one path with the min_diff between (root, left + root, right + root) and sum
 
 time: O(n), space: O(n)
 '''
