@@ -22,12 +22,10 @@ Output: 6
 
 '''
 max path sum:
-1. left path
-2. right path
-3. left + root + right
-4. root + left
-5. root + right
-6. root
+1. left + root + right
+2. root + left
+3. root + right
+4. root
 every recursion level renew self.res
 at least one node -> return max(left + root, right + root, root)
 from down to top -> divide and conquer
@@ -49,7 +47,7 @@ class Solution:
         left = self.helper(root.left)
         right = self.helper(root.right)
         
-        self.res = max(self.res, left, right, left + root.val + right, root.val + left, root.val + right, root.val)
+        self.res = max(self.res, left + root.val + right, root.val + left, root.val + right, root.val)
         
         return max(root.val, left + root.val, right + root.val)
        
