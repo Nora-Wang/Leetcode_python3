@@ -24,6 +24,66 @@ Return 3. The paths that sum to 8 are:
 2.  5 -> 2 -> 1
 3. -3 -> 11
 
+# 12/07/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+path situation:
+1. left + root
+2. right + root
+3. left + right + root
+4. root
+
+need left and right sum -> divide and conquer
+return the min_diff between (root, left + root, right + root) and sum
+
+time: O(n), space: O(n)
+'''
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> int:
+        if not root:
+            return 0
+        
+        self.count = 0
+        self.helper(root, 0, sum)
+        
+        return self.count
+    
+    def helper(self, root, temp, sum):
+        if not root:
+            return 0
+        
+        left = self.helper(root.left, temp + root.val, sum)
+        right = self.helper(root.right, temp + root.val, sum)
+        
+        if left + root.val == sum:
+            self.count += 1
+        if right + root.val == sum:
+            self.count += 1
+        if left + right + root.val == sum:
+            self.count += 1
+        if root.val == sum:
+            self.count += 1
+        
+        min_diff = min(abs(root.val - sum), abs(left + root.val - sum), abs(root.val + right - sum))
+        
+        if min_diff == abs(root.val - sum):
+            return root.val
+        elif min_diff == abs(left + root.val - sum):
+            return left + root.val
+        else:
+            return root.val + right
+        
+        
+
+
+
+
+
 
 code:
 #两个DFS function
