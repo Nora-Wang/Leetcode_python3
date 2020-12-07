@@ -41,6 +41,7 @@ class Solution:
         return self.res
     
     def helper(self, root):
+        # edge case: [-3] -> cannot return 0, because the max sum could be negative
         if not root:
             return float('-inf')
         
