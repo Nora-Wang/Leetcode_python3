@@ -94,12 +94,7 @@ every node in the tree, another for count curt node's downwards sum
 time: O(nlogn), space: O(n)
 '''
 时间复杂度： T(N) = 2T(N/2) + O(N)，根据Master公式，可知 复杂度为O(NlogN)
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+# 这里之所以有logn是因为每次得重新计算path sum -> optimal的方法是用一个memo记录path sum，这样若node在memo中，则直接得到path sum -> time: O(n)
 
 class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> int:
