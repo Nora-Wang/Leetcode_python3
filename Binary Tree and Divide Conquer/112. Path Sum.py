@@ -49,9 +49,6 @@ Therefore, the space complexity in this case would be O(log(N)).
 
 class Solution:
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
-        if not root:
-            return False
-        
         return self.dfs(root, sum, 0)
     
     def dfs(self, root, target, curt):
