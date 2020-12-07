@@ -19,8 +19,50 @@ Input:
 ]
 Output: [1,2,3,4,8,12,11,10,9,5,6,7]
 
+ # 12/07/2020
+ # 方法类似59. Spiral Matrix II
+ # 唯一不同的是，由于这题的n和m值不同，因此在right -> left时需要判断一下当前的m值是否为1，因为如果为1则证明只有一行，这样如果再继续right -> left则会出现重复。bottom -> top同理。
+ class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        if not len(matrix) or not len(matrix[0]):
+            return []
+        
+        n, m = len(matrix), len(matrix[0])
+        start = 0
+        res = []
+        while n > 0 and m > 0:
+            self.helper(matrix, n, m, res, start)
+            start += 1
+            n -= 2
+            m -= 2
+        
+        return res
+    
+    def helper(self, matrix, n, m, res, start):
+        # left -> right
+        for j in range(m):
+            res.append(matrix[start][start + j])
+            
+        # top -> bottom
+        for i in range(1, n):
+            res.append(matrix[start + i][start + m - 1])
+            
+        # right -> left
+        if n != 1:
+            for j in range(m - 2, -1, -1):
+                res.append(matrix[start + n - 1][start + j])
+            
+        # bottom -> top
+        if m != 1:
+            for i in range(n - 2, 0, -1):
+                res.append(matrix[start + i][start])
+            
+        return
+ 
+ 
+ 
 
- 03/22/2020
+ # 03/22/2020
  class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         if not len(matrix) or not len(matrix[0]):
