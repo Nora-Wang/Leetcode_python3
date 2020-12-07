@@ -12,7 +12,49 @@ Input: [1,2,3]
      2   3
 
 Output: 6
+# 12/07/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 
+'''
+max path sum:
+1. left path
+2. right path
+3. left + root + right
+4. root + left
+5. root + right
+6. root
+every recursion level renew self.res
+at least one node -> return max(left + root, right + root, root)
+from down to top -> divide and conquer
+
+time: O(n), space: O(n)
+'''
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+        self.res = float('-inf')
+        
+        self.helper(root)
+        
+        return self.res
+    
+    def helper(self, root):
+        if not root:
+            return float('-inf')
+        
+        left = self.helper(root.left)
+        right = self.helper(root.right)
+        
+        self.res = max(self.res, left, right, left + root.val + right, root.val + left, root.val + right, root.val)
+        
+        return max(root.val, left + root.val, right + root.val)
+       
+       
+       
 
 #05/01/2020
 # Definition for a binary tree node.
