@@ -10,8 +10,46 @@ Output:
  [ 7, 6, 5 ]
 ]
 
+# 12/07/2020
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        matrix = [[0 for _ in range(n)] for _ in range(n)]
+        num = 1
+        start_index = 0
+        
+        while n > 0:
+            num = self.fill_matrix(matrix, n, num, start_index)
+            n -= 2
+            start_index += 1
+        
+        return matrix
+    
+    def fill_matrix(self, matrix, n, num, start_index):
+        # left -> right
+        for j in range(n):
+            matrix[start_index][start_index + j] = num
+            num += 1
+        
+        # top -> down
+        for i in range(1, n):
+            matrix[start_index + i][start_index + n - 1] = num
+            num += 1
+        
+        # right -> left
+        for j in range(n - 2, -1, -1):
+            matrix[start_index + n - 1][start_index + j] = num
+            num += 1
+        
+        # down -> top
+        for i in range(n - 2, 0, -1):
+            matrix[start_index + i][start_index] = num
+            num += 1
+        
+        return num
+        
 
-03/22/2020
+
+# 03/22/2020
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
         self.res = [[None for _ in range(n)] for _ in range(n)]
