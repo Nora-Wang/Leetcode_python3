@@ -25,12 +25,64 @@ Return 3. The paths that sum to 8 are:
 3. -3 -> 11
 
 # 12/07/2020
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+#两个DFS function
+'''
+must go downwards -> dfs -> for every node in the tree, do a dfs to count the sum -> use two dfs, one for traversing 
+every node in the tree, another for count curt node's downwards sum
+
+time: O(nlogn), space: O(n)
+'''
+时间复杂度： T(N) = 2T(N/2) + O(N)，根据Master公式，可知 复杂度为O(NlogN)
+# 这里之所以有logn是因为每次得重新计算path sum -> optimal的方法是用一个memo记录path sum，这样若node在memo中，则直接得到path sum -> time: O(n)
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> int:
+        if not root:
+            return 0
+        
+        self.res = 0
+        self.dfs(root, sum)
+        
+        return self.res
+    
+    def dfs(self, root, sum):
+        if not root:
+            return
+        
+        self.helper(root, 0, sum)
+        self.dfs(root.left, sum)
+        self.dfs(root.right, sum)
+        
+    def helper(self, root, curt, sum):
+        if not root:
+            return
+        
+        if curt + root.val == sum:
+            self.res += 1
+        
+        self.helper(root.left, curt + root.val, sum)
+        self.helper(root.right, curt + root.val, sum)
+
+# Optimal with memorization
+
+
+
+
+
+
+# 错误的做法，原因如下:
+# eg: [5,4,8,11,null,13,4,7,2,null,null,5,1], 22
+#        5
+#      /  \
+#     4    8
+#    /    / \
+#   11   13  4
+#  / \      / \
+# 7   2    5   1
+# 1. 在处理self.count时，这里用4个situation来分类，一旦==sum，则count++。这样做是有问题的。
+#    例如上面的path [4,11,7] = 22: root 4的left+root可使count++，但同时root 4的left+root+right也可使count++
+# 2. return min_diff也有问题
+#    例如path [5,8,4,1], 对于8来说，left 13与target 22的diff比right 5更小，因此最后不能得到该path
 '''
 path situation:
 1. left + root
@@ -78,51 +130,6 @@ class Solution:
         else:
             return root.val + right
         
-        
-
-
-
-
-
-
-code:
-#两个DFS function
-'''
-must go downwards -> dfs -> for every node in the tree, do a dfs to count the sum -> use two dfs, one for traversing 
-every node in the tree, another for count curt node's downwards sum
-
-time: O(nlogn), space: O(n)
-'''
-时间复杂度： T(N) = 2T(N/2) + O(N)，根据Master公式，可知 复杂度为O(NlogN)
-# 这里之所以有logn是因为每次得重新计算path sum -> optimal的方法是用一个memo记录path sum，这样若node在memo中，则直接得到path sum -> time: O(n)
-
-class Solution:
-    def pathSum(self, root: TreeNode, sum: int) -> int:
-        if not root:
-            return 0
-        
-        self.res = 0
-        self.dfs(root, sum)
-        
-        return self.res
-    
-    def dfs(self, root, sum):
-        if not root:
-            return
-        
-        self.helper(root, 0, sum)
-        self.dfs(root.left, sum)
-        self.dfs(root.right, sum)
-        
-    def helper(self, root, curt, sum):
-        if not root:
-            return
-        
-        if curt + root.val == sum:
-            self.res += 1
-        
-        self.helper(root.left, curt + root.val, sum)
-        self.helper(root.right, curt + root.val, sum)
         
         
         
