@@ -16,7 +16,44 @@ Input:
 Output: ["1->2->5", "1->3"]
 
 Explanation: All root-to-leaf paths are: 1->2->5, 1->3
+# 12/07/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+'''
+root to leaf path -> dfs
+end case:
+1. not root -> return
+2. root is leaf -> record path, return
 
+time: O(N)(not count list function), space: O(N)
+'''
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        res = []
+        self.helper(root, [], res)
+        
+        return res
+    
+    def helper(self, root, path, res):
+        if not root:
+            return
+        
+        if not root.left and not root.right:
+            temp = list(path) + [str(root.val)]
+            res.append('->'.join(temp))
+            return
+        
+        path.append(str(root.val))
+        self.helper(root.left, path, res)
+        self.helper(root.right, path, res)
+        path.pop()
+      
+      
+      
 
 # 09/26/2020
 # time: O(n * l), space: O(n)
