@@ -37,6 +37,10 @@ random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，�
 from cmath import sqrt
 num_sqrt = sqrt(num)
 
+# factorial
+import math
+math.factorical(num)
+
 # reverse
 list.reverse()
 reversed(tuple/list/string/range) 的返回值类型是iterator并不是list，因此如果需要，要再套上一个list()
