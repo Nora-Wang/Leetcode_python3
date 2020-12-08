@@ -5,7 +5,32 @@ Example:
 Input: nums = [0, 1, 3, 50, 75], lower = 0 and upper = 99,
 Output: ["2", "4->49", "51->74", "76->99"]
 
-
+# 12/08/2020
+# time: O(n), space: O(1)
+# n = len(nums)
+# prev: the first exist num; num: the last exist num -> missing num in range (prev + 1 ~ num - 1)
+class Solution:
+    def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[str]:
+        nums.append(upper + 1)
+        res = []
+        prev = lower - 1
+        
+        for num in nums:
+            # == 2 -> only one missing num
+            if num - prev == 2:
+                res.append(str(prev + 1))
+            elif num - prev > 2:
+                res.append(str(prev + 1) + '->' + str(num - 1))
+            prev = num
+            
+        return res    
+    
+    
+    
+    
+    
+    
+    
 思路:模拟题,没什么算法;注意corner case,注意last的定义
 
 
