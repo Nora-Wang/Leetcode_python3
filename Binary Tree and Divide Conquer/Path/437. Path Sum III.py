@@ -27,14 +27,12 @@ Return 3. The paths that sum to 8 are:
 # 12/07/2020
 #两个DFS function
 '''
-must go downwards -> dfs -> for every node in the tree, do a dfs to count the sum -> use two dfs, one for traversing 
-every node in the tree, another for count curt node's downwards sum
+must go downwards -> dfs -> for every node in the tree, do a dfs to count the sum 
+-> use two dfs, one for traversing every node in the tree, another for count curt node's downwards sum
 
 time: O(nlogn), space: O(n)
 '''
-时间复杂度： T(N) = 2T(N/2) + O(N)，根据Master公式，可知 复杂度为O(NlogN)
-# 这里之所以有logn是因为每次得重新计算path sum -> optimal的方法是用一个memo记录path sum，这样若node在memo中，则直接得到path sum -> time: O(n)
-
+# 时间复杂度： T(N) = 2T(N/2) + O(N)，根据Master公式，可知 复杂度为O(NlogN)
 class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> int:
         if not root:
@@ -64,7 +62,7 @@ class Solution:
         self.helper(root.right, curt + root.val, sum)
 
 # Optimal with memorization
-
+# https://leetcode.com/problems/path-sum-iii/discuss/141424/Python-step-by-step-walk-through.-Easy-to-understand.-Two-solutions-comparison.-%3A-)
 
 
 
