@@ -49,9 +49,43 @@ class Solution:
         
         return max_score
 
+# Optimal:Imagine that we receive a stream of characters which we can only read in a single pass. 
+# More precisely, we should only read each character of s once, and ordered from left to right. 
+# Can you find the maximum value of f(L, R) in the stream using O(1) extra memory?
+# time: O(n), space: O(1)
+# max_score = max(left_0 + right_1)
+#           = max(left_0 + total_1 - left_1)
+#           = total_1 + max(left_0 - left_1)
+class Solution:
+    def maxScore(self, s: str) -> int:
+        left_0 = 0
+        left_1 = 0
+        # attention 1: max_diff cannot initialize as 0
+        # "1111" -> max_diff could less than 0
+        max_diff = float('-inf')
+        
+        # attention 2: range is len(s) - 1
+        # right substring is non_empty
+        for i in range(len(s) - 1):
+            if s[i] == '0':
+                left_0 += 1
+            else:
+                left_1 += 1
+            
+            max_diff = max(max_diff, left_0 - left_1)
+            
+        total_1 = left_1
+        # for loop only walk through s[:-1]
+        if s[-1] == '1':
+            total_1 += 1
+        
+        return max_diff + total_1
 
 
-
+       
+       
+       
+       
 # time: O(n), space: O(n)
 class Solution:
     def maxScore(self, s: str) -> int:
