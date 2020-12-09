@@ -63,7 +63,37 @@ class Solution:
 
 # Optimal with memorization
 # https://leetcode.com/problems/path-sum-iii/discuss/141424/Python-step-by-step-walk-through.-Easy-to-understand.-Two-solutions-comparison.-%3A-)
-
+# time: O(n), space: O(n) for memo and recursion
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> int:
+        if not root:
+            return 0
+        
+        self.count = 0
+        # {path_sum:count for the path number with the path_sum}
+        # pay attention to the initialization for memo
+        memo = {0:1} 
+        self.dfs(root, 0, memo, sum)
+        
+        return self.count
+    
+    def dfs(self, root, curt_path_sum, memo, sum):
+        if not root:
+            return
+        
+        curt_path_sum += root.val
+        prev_path_sum = curt_path_sum - sum
+        # if prev_path_sum exist in the prev paths 
+        # -> there is a valid solution from prev_path_node to curt_path_node
+        self.count += memo.get(prev_path_sum, 0)
+        
+        # backtracking for memo:
+        # if this path has done, because this path is not available in later traverse
+        memo[curt_path_sum] = memo.get(curt_path_sum, 0) + 1
+        self.dfs(root.left, curt_path_sum, memo, sum)
+        self.dfs(root.right, curt_path_sum, memo, sum)
+        memo[curt_path_sum] -= 1
+            
 
 
 
