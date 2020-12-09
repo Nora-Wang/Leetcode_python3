@@ -35,6 +35,7 @@ You may assume that next() call will always be valid, that is, there will be at 
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# time: O(n), space: O(n)
 class BSTIterator:
 
     def __init__(self, root: TreeNode):
