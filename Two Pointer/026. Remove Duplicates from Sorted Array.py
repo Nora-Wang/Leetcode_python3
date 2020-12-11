@@ -34,6 +34,28 @@ for (int i = 0; i < len; i++) {
 }
 
 
+# 12/11/2020
+# time: O(n), space: O(1)
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) <= 1:
+            return len(nums)
+        
+        slow, fast = 0, 1
+        
+        while fast < len(nums):
+            if nums[slow] != nums[fast]:
+                slow += 1
+                nums[slow] = nums[fast]
+            fast += 1
+        
+        return slow + 1
+                
+
+
+
+
+
 这个问题有两种做法:
 1. 第一种做法比较容易想到的是，把所有的数扔到 hash 表里，然后就能找到不同的整数有哪些。但是这种做法会耗费额外空间 O(n)。
 #这种做法已经不能AC
