@@ -33,6 +33,30 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 
+
+# 12/11/2020
+# time: O(n), space: O(1)
+# slow: the last valid number -> valid nums: nums[:slow+1]
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) <= 2:
+            return len(nums)
+        
+        slow, fast = 1, 2
+        while fast < len(nums):
+            if nums[slow] != nums[fast] or (nums[slow] == nums[fast] and nums[slow] != nums[slow - 1]):
+                slow += 1
+                nums[slow] = nums[fast]
+            fast += 1
+        
+        return slow + 1
+    
+
+    
+    
+
+
+
 two pointer
 时间O(n), 空间O(1)
 
