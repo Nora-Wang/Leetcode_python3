@@ -65,3 +65,34 @@ class Solution(object):
             
         return slow + 1
             
+Version 3.1 逻辑分析
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        count = 0
+        for i in range(len(nums) - 1):
+            if nums[i] == nums[i + 1]:
+                count += 1
+            else:
+                nums[i - count + 1] = nums[i + 1]
+            
+        return len(nums) - count
+        
+Version 3.2
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        count = 0
+        for i in range(1, len(nums)):
+            if nums[i] == nums[i - 1]:
+                count += 1
+            else:
+                nums[i - count] = nums[i]
+            
+        return len(nums) - count
