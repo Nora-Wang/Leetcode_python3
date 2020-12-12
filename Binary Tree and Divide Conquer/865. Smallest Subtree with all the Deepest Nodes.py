@@ -36,6 +36,64 @@ The number of nodes in the tree will be in the range [1, 500].
 0 <= Node.val <= 500
 The values of the nodes in the tree are unique.
 
+# BFS + DFS
+# time: O(n), space: O(n)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        
+        # use BFS to find the leaves
+        deepest_nodes = self.bfs(root)
+        
+        res, _ = self.helper(root, deepest_nodes)
+        
+        return res
+    
+    def helper(self, root, deepest_nodes):
+        if not root:
+            return None, False
+        
+        if root in deepest_nodes:
+            return root, True
+        
+        left, left_has_deepest_node = self.helper(root.left, deepest_nodes)
+        right, right_has_deepest_node = self.helper(root.right, deepest_nodes)
+        
+        if left_has_deepest_node and right_has_deepest_node:
+            return root, True
+        if left_has_deepest_node:
+            return left, True
+        if right_has_deepest_node:
+            return right, True
+        return None, False
+        
+    
+    def bfs(self, root):
+        queue = collections.deque([root])
+        
+        while queue:
+            deepest_nodes = set()
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                deepest_nodes.add(node)
+                
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+        
+        return deepest_nodes
+
+
+
+# Optimal: recursion
 # time: O(n), space: O(1)
 # Definition for a binary tree node.
 # class TreeNode:
