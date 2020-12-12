@@ -93,7 +93,7 @@ class Solution:
 
 
 
-# Optimal: recursion
+# Optimal: DFS
 # time: O(n), space: O(1)
 # Definition for a binary tree node.
 # class TreeNode:
