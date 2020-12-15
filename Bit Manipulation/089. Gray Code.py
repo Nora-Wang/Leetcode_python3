@@ -49,6 +49,9 @@ Explanation: We define the gray code sequence to begin with 0.
 
 # For the pair of (2, 6), (3, 7), (1, 5) and (0, 4), the last 2 bits are the same. The only difference is 6,7,5 and 4 set the first bit on. Hope this helps.
 
+# time: O(2^n), space: O(1)
+
+
 
 # Backtracking Version
 class Solution:
