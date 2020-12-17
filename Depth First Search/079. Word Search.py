@@ -16,6 +16,62 @@ Given word = "SEE", return true.
 Given word = "ABCB", return false.
 
 
+
+# 12/16/2020
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == word[0]:
+                    visited = set()
+                    visited.add((i,j))
+                    if self.dfs(board, word, 1, i, j, visited):
+                        return True
+        
+        return False
+    
+    def dfs(self, board, word, index, x, y, visited):
+        if index == len(word):
+            return True
+        
+        for direct in [(0,1),(0,-1),(1,0),(-1,0)]:
+            x_ = x + direct[0]
+            y_ = y + direct[1]
+            if self.is_valid(board, x_, y_, visited, word[index]):
+                visited.add((x_,y_))
+                if self.dfs(board, word, index + 1, x_, y_, visited):
+                    return True
+                visited.remove((x_,y_))
+                
+        return False
+            
+    def is_valid(self, board, x, y, visited, letter):
+        if x < 0 or y < 0 or x >= len(board) or y >= len(board[0]):
+            return False
+        
+        if (x,y) in visited:
+            return False
+        
+        if board[x][y] != letter:
+            return False
+        
+        return True
+    
+        
+                    
+
+
+
+
+
+
+
+
 ****************************************
 一定要注意dfs是有返回值的！！！！因此在每次调用dfs的时候都要写上返回值
 ****************************************
