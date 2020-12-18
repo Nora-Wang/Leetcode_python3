@@ -61,7 +61,7 @@ class Solution:
         return False
         
         
-        
+# time: O(n), space: O(1)        
 #直接解
 #只要能找到3个数,first < second < last,即说明成立
 class Solution:
