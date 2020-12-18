@@ -15,6 +15,32 @@ Example 2:
 Input: [5,4,3,2,1]
 Output: false
 
+    
+# 12/18/2020
+# time: O(n), space: O(n)
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        if len(nums) <= 2:
+            return False
+        
+        min_nums = [float('inf')] * len(nums)
+        for i in range(1, len(nums)):
+            min_nums[i] = min(min_nums[i - 1], nums[i - 1])
+            
+        max_nums = [float('-inf')] * len(nums)
+        for j in range(len(nums) - 2, -1, -1):
+            max_nums[j] = max(max_nums[j + 1], nums[j + 1])
+            
+        for i in range(1, len(nums) - 1):
+            if min_nums[i] < nums[i] < max_nums[i]:
+                return True
+        
+        return False
+    
+    
+    
+    
+    
 
 code:
 #DP Version
