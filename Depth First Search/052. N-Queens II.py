@@ -21,6 +21,8 @@ Explanation: There are two distinct solutions to the 4-queens puzzle as shown be
 
 
 # 12/18/2020
+# permutation
+# time: O(n!), space: O(n)
 class Solution:
     def totalNQueens(self, n: int) -> int:
         if not n:
