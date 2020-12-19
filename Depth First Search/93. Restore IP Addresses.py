@@ -6,6 +6,52 @@ Input: "25525511135"
 Output: ["255.255.11.135", "255.255.111.35"]
 
 
+# 12/18/2020
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        if len(s) < 4:
+            return []
+        
+        res = []
+        self.helper(s, [], 0, '', res)
+        
+        return res
+    
+    def helper(self, s, temp, index, last, res):
+        # edge case 1: '010'
+        if len(last) > 1 and (last[0] == '0' or int(last) > 255):
+            return
+        
+        # edge case 2: only can be seperate to 4 parts
+        if len(temp) > 3:
+            return
+        
+        # end case
+        if index == len(s):
+            # temp_length + last = 4 parts
+            if len(temp) == 3:
+                prev = '.'.join(temp)
+                res.append(prev + '.' + last)
+            return
+        
+        # situation 1: s[index] will combin with last number
+        self.helper(s, temp, index + 1, last + s[index], res)
+        
+        # situation 2: only when the last != '', we can append it into temp
+        # edge case 3: avoid: '.1.1.1'
+        if len(last):
+            temp.append(last)
+            self.helper(s, temp, index + 1, s[index], res)
+            temp.pop()
+    
+    
+    
+    
+    
+    
+    
+    
+    
 code:
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
