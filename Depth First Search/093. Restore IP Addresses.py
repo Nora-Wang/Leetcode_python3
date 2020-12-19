@@ -7,6 +7,42 @@ Output: ["255.255.11.135", "255.255.111.35"]
 
 
 # 12/18/2020
+# Optimal
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        if len(s) < 4:
+            return []
+        
+        res = []
+        self.helper(s, [], 0, res)
+        
+        return res
+    
+    def helper(self, s, temp, index, res):
+        if len(temp) == 4 and index == len(s):
+            res.append('.'.join(temp))
+            return
+        
+        if len(temp) >= 4 or index >= len(s):
+            return
+        
+        # last address: s[index:index + i]
+        for i in range(1, 4):
+            # 1. edge case: '010'
+            # 2. out of index
+            # 3. value > 255
+            if (i != 1 and s[index] == '0') or ((index + i) > len(s)) or (int(s[index:index + i]) > 255):
+                return
+            
+            temp.append(s[index:index + i])
+            self.helper(s, temp, index + i, res)
+            temp.pop()
+
+
+
+
+
+
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
         if len(s) < 4:
