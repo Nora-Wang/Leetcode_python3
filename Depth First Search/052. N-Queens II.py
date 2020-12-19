@@ -19,6 +19,45 @@ Explanation: There are two distinct solutions to the 4-queens puzzle as shown be
   ".Q.."]
 ]
 
+
+# 12/18/2020
+class Solution:
+    def totalNQueens(self, n: int) -> int:
+        if not n:
+            return 0
+        
+        self.res = 0
+        self.dfs(n, 0, {}) # {col:row}
+        
+        return self.res
+    
+    def dfs(self, n, row, visited):
+        if len(visited) == n:
+            self.res += 1
+            return
+        
+        for j in range(n):
+            # j has been used in previous rows
+            if j in visited:
+                continue
+            # diagonal situation
+            if self.is_valid(row, j, visited):
+                visited[j] = row
+                self.dfs(n, row + 1, visited)
+                del visited[j]
+    
+    def is_valid(self, i, j, visited):
+        for col, row in visited.items():
+            if abs(j - col) == abs(i - row):
+                return False
+            
+        return True
+
+
+
+
+
+
 class Solution:
     def totalNQueens(self, n: int) -> int:
         if not n:
