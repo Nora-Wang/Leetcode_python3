@@ -42,14 +42,14 @@ The decoded string is guaranteed to have less than 2^63 letters.
 class Solution:
     def decodeAtIndex(self, S: str, K: int) -> str:
         size = 0
-        # Find size = length of decoded string
+        
         for c in S:
             if c.isdigit():
                 size *= int(c)
             else:
                 size += 1
 
-        for c in reversed(S):
+        for c in S[::-1]:
             K %= size
             if K == 0 and c.isalpha():
                 return c
@@ -58,6 +58,11 @@ class Solution:
                 size /= int(c)
             else:
                 size -= 1
+                
+            
+            
+        
+            
                 
             
             
