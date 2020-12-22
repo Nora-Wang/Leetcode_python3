@@ -40,6 +40,7 @@ class Solution:
         if not coins:
             return -1
         
+        coins.sort(reverse=True)
         self.res = float('inf')
         
         self.helper(coins, 0, 0, amount)
@@ -54,7 +55,8 @@ class Solution:
             self.res = min(self.res, count)
             return
         
-        if amount < 0:
+        # prune
+        if amount < 0 or count >= self.res:
             return
         
         self.helper(coins, index, count + 1, amount - coins[index])
