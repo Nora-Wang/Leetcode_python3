@@ -130,3 +130,55 @@ class Solution:
             
         self.memo[(start, end)] = True
         return True
+
+       
+       
+       
+# Version 4: use a matrix to record Palindrome situation for s[i:j]
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        res = []
+        
+        is_palindrome = self.pre_deal(s)
+        self.helper(s, 0, [], res, is_palindrome)
+        
+        return res
+    
+    def helper(self, s, index, temp, res, is_palindrome):
+        if index == len(s):
+            res.append(list(temp))
+            return
+        
+        for i in range(index, len(s)):
+            if is_palindrome[index][i]:
+                temp.append(s[index:i+1])
+                self.helper(s, i+1, temp, res, is_palindrome)
+                temp.pop()
+    
+    def pre_deal(self, s):
+        n = len(s)
+        
+        is_palindrome = [[False for _ in range(n)] for _ in range(n)]
+        
+        # 因为is_palindrome[i][j] = is_palindrome[i + 1][j - 1] and s[i] == s[j]
+        # 因此在得到is_palindrome[i][j]前需要得到is_palindrome[i + 1][j - 1]的结果
+        # 即在is_palindrome[i]前需要得到is_palindrome[i + 1]
+        # -> i 是rotated的取值的
+        for i in range(n - 1, -1, -1):
+            # 只取右上半区
+            for j in range(i, n):
+                # only one letter
+                if i == j:
+                    is_palindrome[i][i] = True
+                    continue
+                
+                # eg: 'aa' or 'aba' -> 只用判断s[i] == s[j]即可
+                # is_palindrome[i + 1][j - 1] 可能不在范围内
+                if j - i <= 2:
+                    is_palindrome[i][j] = s[i] == s[j]
+                    continue
+                
+                is_palindrome[i][j] = is_palindrome[i + 1][j - 1] and s[i] == s[j]
+        
+        return is_palindrome
+        
