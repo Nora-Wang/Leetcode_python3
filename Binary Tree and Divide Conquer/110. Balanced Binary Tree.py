@@ -94,7 +94,28 @@ class Solution:
         
         return True, max(l_h, r_h) + 1
 
-
+# Solution 2 simplify
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        res, _ = self.helper(root)
+        return res
+    
+    def helper(self, root):
+        if not root:
+            return True, 0
+        
+        left, l_depth = self.helper(root.left)
+        right, r_depth = self.helper(root.right)
+        
+        return left and right and abs(l_depth - r_depth) <= 1, max(r_depth, l_depth) + 1
+        
+        
     
     
     
