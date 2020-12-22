@@ -93,3 +93,40 @@ class Solution:
             right -= 1
         
         return True
+
+       
+       
+# Version 3: Version 2 + memo
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        res = []
+        
+        self.memo = {}
+        self.helper(s, 0, [], res)
+        
+        return res
+    
+    def helper(self, s, index, temp, res):
+        if index == len(s):
+            res.append(list(temp))
+            return
+        
+        for i in range(index, len(s)):
+            if self.is_palindrome(s, index, i):
+                temp.append(s[index:i+1])
+                self.helper(s, i+1, temp, res)
+                temp.pop()
+    
+    def is_palindrome(self, s, start, end):
+        if (start, end) in self.memo:
+            return self.memo[(start, end)]
+        
+        while start < end:
+            if s[start] != s[end]:
+                self.memo[(start, end)] = False
+                return False
+            start += 1
+            end -= 1
+            
+        self.memo[(start, end)] = True
+        return True
