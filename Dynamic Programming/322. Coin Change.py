@@ -56,7 +56,12 @@ class Solution:
             return
         
         # prune
+        # 1. amount exceeded (pass 32)
+        # 2. curt coins count is larger that curt_min_count/self.res (pass 62)
+        # 3. rest coins are not enough for rest amount (pass 179/182)
         if amount < 0 or count >= self.res:
+            return
+        if amount // coins[index] > self.res - count:
             return
         
         self.helper(coins, index, count + 1, amount - coins[index])
