@@ -34,7 +34,7 @@ Constraints:
 0 <= amount <= 10^4
 
 
-# Version 1: DFS TLE
+# Version 1: DFS
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         if not coins:
@@ -48,11 +48,13 @@ class Solution:
         return self.res if self.res != float('inf') else -1
     
     def helper(self, coins, index, count, amount):
-        if index == len(coins):
-            return
-        
+        # 这个要写在index == len(coins)前面，因为可能当index == len(coins)时，当前amount刚好为0，若index == len(coins)写在前面则这种情况将不被算在内
+        # eg: [1,2,5], 11 -> 5 + 5 + 1, 最后一层recursion时, index = len(coins), count = 3，amount = 1
         if amount == 0:
             self.res = min(self.res, count)
+            return
+        
+        if index == len(coins):
             return
         
         # prune
@@ -64,6 +66,5 @@ class Solution:
         if amount // coins[index] > self.res - count:
             return
         
-        self.helper(coins, index, count + 1, amount - coins[index])
-        self.helper(coins, index + 1, count + 1, amount - coins[index])
-        self.helper(coins, index + 1, count, amount)
+        for i in range(amount // coins[index], -1, -1):
+            self.helper(coins, index + 1, count + i, amount - coins[index] * i)
