@@ -66,5 +66,6 @@ class Solution:
         if amount // coins[index] > self.res - count:
             return
         
+        # 从当前coins[index]能取到的最大count开始 -> 尽快的得到一个较小的self.res -> 其余部分能通过prune 2和3剪枝掉
         for i in range(amount // coins[index], -1, -1):
             self.helper(coins, index + 1, count + i, amount - coins[index] * i)
