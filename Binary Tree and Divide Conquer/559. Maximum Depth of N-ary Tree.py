@@ -52,3 +52,18 @@ class Solution:
                     queue.append(c)
         
         return depth
+
+       
+       
+# DFS
+# time: O(n), space: O(1) not include recursion
+class Solution:
+    def maxDepth(self, root: 'Node') -> int:
+        if not root:
+            return 0
+        
+        res = 1
+        for c in root.children:
+            res = max(res, self.maxDepth(c) + 1)
+            
+        return res
