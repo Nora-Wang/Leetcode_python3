@@ -21,6 +21,45 @@ The flattened tree should look like:
          \
           6
 
+# 12/24/2020
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        self.helper(root)
+        
+        return root
+    
+    # return last node in curt Linked List
+    def helper(self, root):
+        if not root:
+            return None
+        
+        # end case 2
+        if not root.left and not root.right:
+            return root
+        
+        left_tail = self.helper(root.left)
+        right_tail = self.helper(root.right)
+        
+        if left_tail:
+            left_tail.right = root.right
+            root.right = root.left
+            root.left = None
+        
+        # 注意，右边可能没有node，因此需要判断一下
+        return right_tail if right_tail else left_tail
+            
+            
+            
+            
             
             
 #反向postroder
