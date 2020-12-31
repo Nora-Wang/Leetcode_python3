@@ -18,6 +18,41 @@ Output: 3
 Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
 
+# time: O(n), space: O(n)
+'''
+s = '2' -> 1
+s = '22' -> 2
+s = '226' -> '2' + '26' or '22' + '6' -> 3
+              dp['2']       dp['22']
+
+dp[i]: how many decode methods for s[:i] 0 ~ i - 1
+if dp[i - 2] exist and 10 <= int(s[i - 2:i]) <= 26 -> dp[i] += dp[i - 2]
+if 1 <= int(s[i - 1]) <= 9 -> dp[i] += dp[i - 1]
+
+'''
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if not s:
+            return 0
+
+        dp = [0] * (len(s) + 1)
+        dp[0] = 1
+
+        for i in range(1, len(s) + 1):
+            if dp[i - 2] and 10 <= int(s[i - 2:i]) <= 26:
+                dp[i] += dp[i - 2]
+            
+            if 1 <= int(s[i - 1]) <= 9:
+                dp[i] += dp[i - 1]
+        
+        return dp[-1]
+    
+    
+    
+    
+    
+    
+    
 
 思路：
 参考DP经典题目上楼梯问题：n节楼梯从第0层开始，每次只能1层或2层，问上到第n层有 多少种方法?
