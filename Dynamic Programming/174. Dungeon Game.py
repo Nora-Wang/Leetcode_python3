@@ -24,15 +24,19 @@ Any room can contain threats or power-ups, even the first room the knight enters
 
 
 # Link: https://leetcode.com/problems/dungeon-game/discuss/698271/Python-Short-DP-7-lines-O(mn)-top-down-explained
+'''
+dp[i][j]: min health we need to reach (i,j) from the end point
+dp[i][j] = max(min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j], 1)
+                min health from bottom or left to reach (i,j), min health = 1
+'''
 class Solution:
     def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
         n, m = len(dungeon), len(dungeon[0])
-        
         dp = [[float('inf') for _ in range(m + 1)] for _ in range(n + 1)]
         
-        dp[n - 1][m] = 1
-        dp[n][m - 1] = 1
-        
+        # min health is 1 -> 至少有一条命
+        dp[n - 1][m], dp[n][m - 1] = 1, 1
+            
         for i in range(n - 1, -1, -1):
             for j in range(m - 1, -1, -1):
                 dp[i][j] = max(min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j], 1)
