@@ -30,6 +30,7 @@ class Solution:
         
         
 # Array
+# Version 1
 class Solution:
     def canPermutePalindrome(self, s: str) -> bool:
         map = [0] * 128
@@ -40,5 +41,15 @@ class Solution:
                 count += 1
             else:
                 count -= 1
+        
+        return count <= 1
+# Version 2
+class Solution:
+    def canPermutePalindrome(self, s: str) -> bool:
+        map = [0] * 128
+        count = 0
+        for c in s:
+            map[ord(c)] += 1
+            count += 1 if map[ord(c)] % 2 else -1
         
         return count <= 1
