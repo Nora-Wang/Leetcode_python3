@@ -30,6 +30,36 @@ Constraints:
 All the elements of nums are unique.
 At most 5 * 104 calls will be made to reset and shuffle.
 
+
+# 经典的洗牌算法Fisher-Yates
+# 思路是在前i - 1张牌洗好的情况下，第i张牌随机与nums[i:]的其中一张牌j交换，或者不换，即是随机洗牌
+class Solution:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+
+    def reset(self) -> List[int]:
+        """
+        Resets the array to its original configuration and return it.
+        """
+        return self.nums
+        
+
+    def shuffle(self) -> List[int]:
+        """
+        Returns a random shuffling of the array.
+        """
+        new_nums = list(self.nums) # create a new array
+        
+        # 从new_nums[:i+1]随机取一个数，与new_nums[i]进行shuffling
+        for i in range(len(new_nums)):
+            j = random.randrange(i, len(new_nums))
+            new_nums[i], new_nums[j] = new_nums[j], new_nums[i]
+            
+        return new_nums
+
+
+
 # Utilize random
 class Solution:
 
