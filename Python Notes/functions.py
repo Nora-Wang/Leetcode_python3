@@ -27,7 +27,7 @@ sorted_w = sorted(f_count.items(), key=lambda x:x[1]) #以value为标准
 
 # 随机取值
 import random
-random.randint(start, last)
+random.randint(start, last) # including last
 random.sample(序列a，n):从序列a(str/list/set)中随机抽取n个元素，并将n个元素生以list形式返回
   
 # 平方根 square root of num
