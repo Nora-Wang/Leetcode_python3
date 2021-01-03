@@ -39,6 +39,22 @@ res = max(res, curt_sum)
 
 time: O(n), space: O(1)
 '''
+# dp array
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+
+        res = nums[0]
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
+
+        for i in range(1, len(nums)):
+            dp[i] = max(dp[i - 1], 0) + nums[i]
+            res = max(res, dp[i])
+        
+        return res
+# optimal: save space
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         if not nums:
