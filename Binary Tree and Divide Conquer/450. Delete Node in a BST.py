@@ -34,7 +34,47 @@ Another valid answer is [5,2,6,null,4,null,7].
   2   6
    \   \
     4   7
+
     
+# 1/3/2021
+# Best solution
+# time: O(logn), space: O(1)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        if not root:
+            return root
+
+        # BST to find the key node
+        if key > root.val:
+            root.right = self.deleteNode(root.right, key)
+        elif key < root.val:
+            root.left = self.deleteNode(root.left, key)
+        # Found key node
+        else:
+            # no left or right subtree -> direct return right or left subtree
+            if not root.left:
+                return root.right
+            if not root.right:
+                return root.left
+            
+            # connect root.left to the most left node in root.right subtree
+            right_smallest = root.right
+            while right_smallest.left:
+                right_smallest = right_smallest.left
+            right_smallest.left = root.left
+
+            # after deleted key node, left subtree connnected to right subtree
+            # -> root.right is the new_subtree's root
+            return root.right
+        
+        return root
+        
     
     
 # 1/2/2021
