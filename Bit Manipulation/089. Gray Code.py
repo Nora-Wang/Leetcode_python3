@@ -57,24 +57,20 @@ Explanation: We define the gray code sequence to begin with 0.
 class Solution:
     def grayCode(self, n: int) -> List[int]:
         res = []
-        
-        self.helper(n, res)
-        
+
+        self.dfs(n, res)
+
         return res
-    
-    def helper(self, n, res):
-        # base case
+
+    def dfs(self, n, res):
         if n == 0:
             res.append(0)
-            return res
-        
-        # 先拿到n - 1的res
-        self.helper(n - 1, res)
-        
-        # 将n - 1的res的第n - 1加入1 -> 得到n的res
-        move = 1 << (n - 1)
+            return
+
+        self.dfs(n - 1, res)
+
         for i in range(len(res) - 1, -1, -1):
-            res.append(res[i] | move)
+            res.append(res[i] + (1 << (n - 1)))
              
              
              
