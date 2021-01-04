@@ -38,6 +38,21 @@ Constraints:
 s contains English letters (upper-case and lower-case), digits, and spaces ' '.
 There is at least one word in s.
 
+
+# Version 1
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        return ' '.join(reversed(s.split()))
+   
+# Version 2
+
+
+
+
+
+
+
+
 '''
 clarification
 input: string, None?, ''?, only lowercase letters and space?
