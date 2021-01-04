@@ -80,7 +80,7 @@ item = list.pop(0) pop出list中的第一个值
 2.添加:
 list.append(item) #O(1)
 list1 + list2 = list1.extend(list2) extend直接在list1的基础上改变,不会新建一个list
-list.inset(index, item) #time:O(n). insert不会产生新list，但效率低
+list.insert(index, item) #time:O(n). insert不会产生新list，但效率低
 
 3.查找index:
 list.index(x[, start[, end]]),x为可查找对象;该方法返回查找对象的索引位置，如果没有找到对象则抛出异常。
