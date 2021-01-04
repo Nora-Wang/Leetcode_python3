@@ -40,13 +40,73 @@ There is at least one word in s.
 
 
 # Version 1
+# split之后将单词顺序reverse
 class Solution:
     def reverseWords(self, s: str) -> str:
         return ' '.join(reversed(s.split()))
    
 # Version 2
+# 不用split，用while loop找到每个单词，最后将单词顺序reverse
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        res = []
 
+        index = 0
+        while index < len(s):
+            if s[index] == ' ':
+                index += 1
+                continue
+            
+            start = index
+            while index < len(s) and s[index].isalnum():
+                index += 1
+            
+            res.append(s[start:index])
+        
+        return ' '.join(reversed(res))
 
+       
+ # Version 3
+ # 不用split，用while loop找到每个单词
+ # 先将整个string reverse，然后再将每个单词reverse
+ class Solution:
+    def reverseWords(self, s: str) -> str:
+        s = s[::-1]
+
+        res = []
+        index = 0
+        while index < len(s):
+            if s[index] == ' ':
+                index += 1
+                continue
+            
+            start = index
+            while index < len(s) and s[index].isalnum():
+                index += 1
+            res.append(s[start:index][::-1])
+        
+        return ' '.join(res)
+
+# Version 4
+# 不用split，用while loop找到每个单词
+# 用deque.appendleft将每个单词加入deque的头部（相当于将单词顺序reverse的操作）
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        deque = collections.deque()
+
+        index = 0
+        while index < len(s):
+            if s[index] == ' ':
+                index += 1
+                continue
+            
+            start = index
+            while index < len(s) and s[index].isalnum():
+                index += 1
+            
+            deque.appendleft(s[start:index])
+
+        return ' '.join(deque)
 
 
 
