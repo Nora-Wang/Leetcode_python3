@@ -29,3 +29,41 @@ class Solution:
                     res += 1
         
         return res
+
+    
+    
+# insert sort + binary search
+class Solution:
+    def reversePairs(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+
+        sorted_prefix = [nums[0]] # decreasing
+        res = 0
+
+        for i in range(1, len(nums)):
+            # find first element <= nums[i]
+            index = self.find(sorted_prefix, nums[i])
+            res += index
+            sorted_prefix.insert(index, nums[i])
+        
+        return res
+
+    def find(self, sorted_prefix, num):
+        if num >= sorted_prefix[0]:
+            return 0
+        if num < sorted_prefix[-1]:
+            return len(sorted_prefix)
+
+        start, end = 0, len(sorted_prefix) - 1
+
+        while start + 1 < end:
+            mid = (start + end) // 2
+
+            if sorted_prefix[mid] <= num:
+                end = mid
+            else:
+                start = mid
+        
+        return start if sorted_prefix[start] <= num else end
+
