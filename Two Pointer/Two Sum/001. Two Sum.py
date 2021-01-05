@@ -26,3 +26,27 @@ class Solution(object):
             if target - nums[i] in hash:
                 return [hash[target - nums[i]], i]
             hash[nums[i]] = i
+
+            
+            
+# two pointer
+# time: O(nlogn), space: O(n)
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        if not nums:
+            return []
+
+        for i in range(len(nums)):
+            nums[i] = (nums[i], i)
+
+        nums.sort(key=lambda x:x[0])
+        start, end = 0, len(nums) - 1
+        while start < end:
+            if nums[start][0] + nums[end][0] == target:
+                return [nums[start][1], nums[end][1]]
+            
+            if nums[start][0] + nums[end][0] < target:
+                start += 1
+            else:
+                end -= 1
+        
