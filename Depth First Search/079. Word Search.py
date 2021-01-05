@@ -28,9 +28,7 @@ class Solution(object):
         for i in range(len(board)):
             for j in range(len(board[0])):
                 if board[i][j] == word[0]:
-                    visited = set()
-                    visited.add((i,j))
-                    if self.dfs(board, word, 1, i, j, visited):
+                    if self.dfs(board, word, 1, i, j, set([(i,j)])):
                         return True
         
         return False
