@@ -13,6 +13,40 @@ Follow up:
 
 Could you optimize your algorithm to use only O(k) extra space?
 
+'''
+# 二维DP
+dp[i][j]: sum for i + 1 row, j + 1 col 
+dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
+dp = [[1] * row for row in range(1, rowIndex + 1)]
+
+# 一维DP
+dp_prev[i]: sum for last row, i col
+dp_curt[j]: sum for curt row, j col
+for row:
+    for j: 
+        dp_curt[j] = dp_prev[j - 1] + dp_prev[j]
+    dp_prev = dp_curt
+    
+dp_prev = dp_curt = [[1] * rowIndex]
+
+'''
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        dp_prev, dp_curt = [1] * (rowIndex + 1), [1] * (rowIndex + 1)
+
+        # dp_prev: [1,1,1,1], [1,2,1,1]
+        # dp_curt: [1,3,3,1], 
+        for i in range(2, rowIndex + 1): # 2;3
+            for j in range(1, i): # 1; 1,2
+                dp_curt[j] = dp_prev[j] + dp_prev[j - 1]
+
+            dp_prev = list(dp_curt)
+        
+        return dp_curt
+        
+        
+
+
 
 
 
