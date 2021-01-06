@@ -98,3 +98,31 @@ class Solution:
         
         memo[s] = False
         return False
+
+**********************************************************************       
+# DP
+# time: O(n*m*l), space: O(n), n = len(s), m = len(wordDict), l = max_length word
+'''
+dp[i]: for s[:i] true or false
+for i in range(len(s)):
+    for word in wordDict:
+        if len(word) <= i + 1 and s[i - len(word) + 1:i + 1] == word and (dp[i - len(word)] or i - len(word) == -1):
+            dp[i] = True
+'''
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        if not s:
+            return False
+        
+        dp = [False] * len(s)
+        
+        for i in range(len(s)):
+            for word in wordDict:
+                if len(word) <= i + 1 and s[i - len(word) + 1:i + 1] == word and (dp[i - len(word)] or i - len(word) == -1):
+                    dp[i] = True
+                    break
+        
+        return dp[-1]
+                
+        
+        
