@@ -13,6 +13,8 @@ Follow up:
 
 Could you optimize your algorithm to use only O(k) extra space?
 
+
+# 1/5/2021
 '''
 # 二维DP
 dp[i][j]: sum for i + 1 row, j + 1 col 
