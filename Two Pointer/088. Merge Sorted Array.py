@@ -12,6 +12,67 @@ nums2 = [2,5,6],       n = 3
 
 Output: [1,2,2,3,5,6]
 
+    
+# Version 1: merge two sorted array
+# time: O(n + m), space: O(n)
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        nums1_record = list(nums1[:m])
+        
+        i, j, = 0, 0
+        index = 0
+        while i < m and j < n:
+            if nums1_record[i] < nums2[j]:
+                nums1[index] = nums1_record[i]
+                i += 1
+            else:
+                nums1[index] = nums2[j]
+                j += 1
+            
+            index += 1
+            
+        while i < m:
+            nums1[index] = nums1_record[i]
+            i += 1
+            index += 1
+        while j < n:
+            nums1[index] = nums2[j]
+            j += 1
+            index += 1
+        
+        return
+    
+# Optimal
+# time: O(n + m), space: O(1)
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        i, j = m - 1, n - 1
+        index = n + m - 1
+        
+        while i >= 0 and j >= 0:
+            if nums1[i] < nums2[j]:
+                nums1[index] = nums2[j]
+                j -= 1
+            else:
+                nums1[index] = nums1[i]
+                i -= 1
+            index -= 1
+                
+        while j >= 0:
+            nums1[index] = nums2[j]
+            index -= 1
+            j -= 1
+        
+        return
+    
+    
+    
 
 双指针
 
