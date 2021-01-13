@@ -27,6 +27,8 @@ Note:
 1 <= people[i] <= limit <= 30000
 
 
+# two pointer + greedy
+# time: O(nlogn), space: O(1)
 class Solution:
     def numRescueBoats(self, people: List[int], limit: int) -> int:
         count = 0
