@@ -10,6 +10,45 @@ Output:
  [ 7, 6, 5 ]
 ]
 
+# 1/12/2021 iteration
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        matrix = [[0 for _ in range(n)] for _ in range(n)]
+        
+        start_row, end_row = 0, n - 1
+        start_col, end_col = 0, n - 1
+        num = 1
+        
+        while start_row <= end_row and start_col <= end_col:
+            # l -> r
+            for col in range(start_col, end_col + 1):
+                matrix[start_row][col] = num
+                num += 1
+            start_row += 1
+            
+            # t -> d
+            for row in range(start_row, end_row + 1):
+                matrix[row][end_col] = num
+                num += 1
+            end_col -= 1
+            
+            # r -> l
+            for col in range(end_col, start_col - 1, -1):
+                matrix[end_row][col] = num
+                num += 1
+            end_row -= 1
+            
+            # d -> t
+            for row in range(end_row, start_row - 1, -1):
+                matrix[row][start_col] = num
+                num += 1
+            start_col += 1
+        
+        return matrix
+
+       
+       
+
 # 12/07/2020
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
