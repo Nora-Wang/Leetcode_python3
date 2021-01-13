@@ -18,6 +18,49 @@ Input:
   [9,10,11,12]
 ]
 Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+ 
+ 
+ 
+ # iteration
+ class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        if not len(matrix) or not len(matrix[0]):
+            return []
+        
+        n = len(matrix)
+        m = len(matrix[0])
+        res = []
+        row_start, row_end = 0, n - 1
+        col_start, col_end = 0, m - 1
+            
+        while row_start <= row_end and col_start <= col_end:
+            # left -> right
+            for col in range(col_start, col_end + 1):
+                res.append(matrix[row_start][col])
+            row_start += 1
+            
+            # top -> down
+            for row in range(row_start, row_end + 1):
+                res.append(matrix[row][col_end])
+            col_end -= 1
+            
+            # right -> left
+            if row_start <= row_end:
+                for col in range(col_end, col_start - 1, -1):
+                    res.append(matrix[row_end][col])
+                row_end -= 1
+            
+            # down -> top
+            if col_start <= col_end:
+                for row in range(row_end, row_start - 1, -1):
+                    res.append(matrix[row][col_start])
+                col_start += 1
+        
+        return res
+ 
+ 
+ 
+ 
 
  # 12/07/2020
  # 方法类似59. Spiral Matrix II
