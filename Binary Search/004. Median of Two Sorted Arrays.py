@@ -62,6 +62,80 @@ class Solution:
 # time: O(log(min(n, m))), space: O(1)
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        if len(nums1) > len(nums2):
+            return self.findMedianSortedArrays(nums2, nums1)
+
+        n, m = len(nums1), len(nums2)
+        k = (n + m + 1) // 2
+
+        # l1 | r1
+        # l2 | r2
+        # r2 >= l1
+        # r1 >= l2
+        # l1 + l2 + 2 == k
+        start, end = 0, n
+        while start <= end:
+            curt1 = (start + end) // 2
+            curt2 = k - curt1
+            
+            l1 = nums1[curt1 - 1] if curt1 != 0 else float('-inf')
+            r1 = nums1[curt1] if curt1 != n else float('inf')
+            l2 = nums2[curt2 - 1] if curt2 != 0 else float('-inf')
+            r2 = nums2[curt2] if curt2 != m else float('inf')
+
+            if l1 > r2:
+                end = curt1 - 1
+            elif l2 > r1:
+                start = curt1 + 1
+            else:
+                # if odd return min(l1, l2)
+                # if even return (max(l1, l2) + min(r1, r2)) / 2
+                if (n + m) % 2:
+                    return max(l1, l2)
+                else:
+                    return (max(l1, l2) + min(r1, r2)) / 2
+        
+
+
+
+# 3. Heap: 基本上就是用最小堆与最大堆求中位数的模板 参考leetcode 295
+import heapq
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        self.min_heap = []
+        self.max_heap = []
+        
+        nums = nums1 + nums2
+        
+        for i in range(len(nums)):
+            self.heap_add(nums[i])
+        
+        return self.get_median()
+    
+    def heap_add(self, num):
+        if len(self.min_heap) < len(self.max_heap):
+            heapq.heappush(self.min_heap, num)
+        else:
+            heapq.heappush(self.max_heap, -num)
+        
+        if self.min_heap and self.min_heap[0] < -self.max_heap[0]:
+            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
+            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
+    
+    def get_median(self):
+        if not self.min_heap:
+            return -self.max_heap[0]
+        
+        if len(self.min_heap) == len(self.max_heap):
+            return float(self.min_heap[0] - self.max_heap[0]) / 2
+        
+        return -self.max_heap[0]
+
+    
+    
+# previous 2. binary search    
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         # 得到larger_median应该是sorted(nums1 + nums2)的第k个数
         k = (len(nums1) + len(nums2)) // 2 + 1
         
@@ -101,38 +175,3 @@ class Solution:
             return self.get_median(nums1, start1 + k // 2, nums2, start2, k - k // 2)
         else:
             return self.get_median(nums1, start1, nums2, start2 + k // 2, k - k // 2)
-
-
-
-# 3. Heap: 基本上就是用最小堆与最大堆求中位数的模板 参考leetcode 295
-import heapq
-class Solution:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        self.min_heap = []
-        self.max_heap = []
-        
-        nums = nums1 + nums2
-        
-        for i in range(len(nums)):
-            self.heap_add(nums[i])
-        
-        return self.get_median()
-    
-    def heap_add(self, num):
-        if len(self.min_heap) < len(self.max_heap):
-            heapq.heappush(self.min_heap, num)
-        else:
-            heapq.heappush(self.max_heap, -num)
-        
-        if self.min_heap and self.min_heap[0] < -self.max_heap[0]:
-            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
-            heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
-    
-    def get_median(self):
-        if not self.min_heap:
-            return -self.max_heap[0]
-        
-        if len(self.min_heap) == len(self.max_heap):
-            return float(self.min_heap[0] - self.max_heap[0]) / 2
-        
-        return -self.max_heap[0]
