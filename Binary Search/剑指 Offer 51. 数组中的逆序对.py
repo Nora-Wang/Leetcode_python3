@@ -32,38 +32,51 @@ class Solution:
 
     
     
-# insert sort + binary search
+# merge sort
+# time: O(nlogn), space: O(n)
 class Solution:
     def reversePairs(self, nums: List[int]) -> int:
-        if not nums:
+        if len(nums) < 2:
             return 0
 
-        sorted_prefix = [nums[0]] # decreasing
-        res = 0
+        temp = [0] * len(nums)
 
-        for i in range(1, len(nums)):
-            # find first element <= nums[i]
-            index = self.find(sorted_prefix, nums[i])
-            res += index
-            sorted_prefix.insert(index, nums[i])
+        return self.helper(nums, temp, 0, len(temp) - 1)
+    
+    def helper(self, nums, temp, start, end):
+        if start >= end:
+            return 0
         
-        return res
+        # 现在的nums为[start:mid] + [mid+1:end]，并且两段都为sorted
+        mid = (start + end) // 2
+        count = self.helper(nums, temp, start, mid) + self.helper(nums, temp, mid + 1, end)
 
-    def find(self, sorted_prefix, num):
-        if num >= sorted_prefix[0]:
-            return 0
-        if num < sorted_prefix[-1]:
-            return len(sorted_prefix)
-
-        start, end = 0, len(sorted_prefix) - 1
-
-        while start + 1 < end:
-            mid = (start + end) // 2
-
-            if sorted_prefix[mid] <= num:
-                end = mid
+        i, j, index = start, mid + 1, start
+        while i <= mid and j <= end:
+            # 若当前i的值小于j，则说明i比[mid+1:j-1]的值都大，因此把个数加入count
+            if nums[i] <= nums[j]:
+                temp[index] = nums[i]
+                i += 1
+                count += j - mid - 1
             else:
-                start = mid
+                temp[index] = nums[j]
+                j += 1
+            index += 1
         
-        return start if sorted_prefix[start] <= num else end
+        # 若i还有剩，则说明剩下的i都比[mid+1:end]大，即能构成逆序，此时end + 1 = j
+        while i <= mid:
+            temp[index] = nums[i]
+            index += 1
+            i += 1
+            count += j - mid - 1
+
+        while j <= end:
+            temp[index] = nums[j]
+            j += 1
+            index += 1
+        
+        # 记得赋值
+        nums[start:end+1] = temp[start:end+1]
+        return count
+
 
