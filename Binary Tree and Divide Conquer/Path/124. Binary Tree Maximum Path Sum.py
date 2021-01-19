@@ -14,6 +14,7 @@ Input: [1,2,3]
 Output: 6
        
 # 1/19/21
+# time: O(n), space: O(H)
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
