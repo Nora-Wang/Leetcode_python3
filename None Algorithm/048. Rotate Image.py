@@ -49,21 +49,18 @@ class Solution:
         """
         n = len(matrix)
         
-        # layer
-        for i in range((n + 1) // 2):
-            # Example 2:
-            # 1. [15,5,11,16]
-            # 2. [13,1,10,12]
-            # 3. [14,2,9,7]
-            # 4. [3,4,6,8]
-            for j in range(n // 2):
+        # 一共有n // 2层需要旋转
+        for i in range(n // 2):
+            # 每一层分为4个部分
+            # j代表这一层需要旋转的个数
+            for j in range(i, n - i - 1):
                 temp = matrix[i][j]
                 matrix[i][j] = matrix[n - 1 - j][i]
                 matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j]
                 matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i]
                 matrix[j][n - 1 - i] = temp
         
-        return matrix
+        return
             
 
 
