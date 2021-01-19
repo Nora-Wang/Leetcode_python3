@@ -16,6 +16,64 @@ Given the below binary tree and sum = 22,
 return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 
 
+
+# Recursion
+# time: O(n), space: O(logn) ~ O(n)(include recursion)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+        if not root:
+            return False
+        
+        targetSum -= root.val
+        
+        if not root.left and not root.right and targetSum == 0:
+            return True
+        
+        return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
+        
+
+# Iteration
+# time: O(n), space: O(logn) ~ O(n)(include recursion)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+        if not root:
+            return False
+        
+        stack = [[root, targetSum]]
+        
+        while stack:
+            node, target = stack.pop()
+            
+            if not node.left and not node.right and target == node.val:
+                return True
+            
+            if node.right:
+                stack.append([node.right, target - node.val])
+            if node.left:
+                stack.append([node.left, target - node.val])
+        
+        return False
+        
+
+
+
+
+
+
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
