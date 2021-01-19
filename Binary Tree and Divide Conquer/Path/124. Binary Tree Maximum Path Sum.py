@@ -12,6 +12,48 @@ Input: [1,2,3]
      2   3
 
 Output: 6
+       
+# 1/19/21
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        # 这里初始化直接设为root.val即可
+        self.res = root.val
+        self.helper(root)
+        
+        return self.res
+    
+    def helper(self, root):
+        if not root:
+            return 0
+        
+        left = self.helper(root.left)
+        right = self.helper(root.right)
+        
+        self.res = max(self.res, root.val + left, root.val + right, root.val + left + right, root.val)
+        
+        # 这里的写法导致end case可以return 0
+        # 因为这是一个path，因此要想将上面的node与下面的node连起来，就一定要将root算在内；另外，需要考虑全员负数的情况
+        return root.val + max(left, right, 0)
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
 # 12/07/2020
 # Definition for a binary tree node.
 # class TreeNode:
