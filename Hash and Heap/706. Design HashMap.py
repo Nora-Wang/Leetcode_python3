@@ -125,3 +125,86 @@ class MyHashMap:
 # obj.put(key,value)
 # param_2 = obj.get(key)
 # obj.remove(key)
+
+
+
+
+
+# 1/19/21
+# 尽量 从key 得到一个固定且无规律的整数
+# key = 'abc' = (a * 33^2 + b * 33^1 + c * 33^0) % hash_size -> index
+# why 33: 取值都是一样的，只是取得特别小的话（如1，2）冲突会很多，从经验得到31和33是最好的（magic number）
+
+# open hashing: [linkedList]，每次通过key得到index，然后将对应value放在linkedList的头部
+# close hashing: 要是当前位置index被占了，则将原有数据往后挪（依次挪到空位处），再把当前数据放入index处 
+#                close hashing不好的点：一旦发生冲突，可能需要挪动的数据很多，不好处理
+class ListNode:
+    def __init__(self, key, val) -> None:
+        self.key = key
+        self.val = val
+        self.next = None
+
+class HashMap:
+    def __init__(self) -> None:
+        self.capacity = 1000
+        self.list = [0] * self.capacity
+    
+    def put(self, key, value):
+        index = self.get_index(key)
+        
+        if self.list[index] == 0:
+            self.list[index] = ListNode(key, value)
+            return
+        
+        head = self.list[index]
+        while head:
+            if head.key == key:
+                head.val = value
+                return
+            head = head.next
+        
+        new_node = ListNode(key, value)
+        new_node.next = head
+        self.list[index] = new_node
+            
+    def get(self, key):
+        index = self.get_index(key)
+
+        if self.list[index] == 0:
+            return -1
+
+        head = self.list[index]
+        while head:
+            if head.key == key:
+                return head.val
+            head = head.next
+        
+        return -1
+
+    def remove(self, key):
+        index = self.get_index(key)
+
+        if self.list[index] == 0:
+            return
+        
+        dummy = prev = ListNode(None, None)
+        head = self.list[index]
+        while head:
+            if head.key == key:
+                prev.next = head.next
+                break
+            prev = head
+            head = head.next
+        
+        self.list[index] = dummy.next
+        return
+
+    def get_index(self, key):
+        index = 0
+        for c in key:
+            index = index * 33 + ord(c)
+            index %= self.capacity
+        return index
+
+    
+        
