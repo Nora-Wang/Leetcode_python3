@@ -17,6 +17,60 @@ Input: "226"
 Output: 3
 Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
+  
+# 1/19/21
+# time: O(n), space: O(n)
+'''
+s = '2' -> 1
+s = '22' -> 2
+s = '226' -> '2' + '26' or '22' + '6' -> 3
+              dp['2']       dp['22']
+              
+dp[i] += dp[i - 2] + dp[i - 1] if match the rules              
+'''              
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if not s:
+            return 0
+        
+        dp = [0] * len(s)
+        dp[0] = 1 if s[0] != '0' else 0
+        
+        for i in range(1, len(s)):
+            if 10 <= int(s[i-1:i+1]) <= 26:
+                dp[i] += dp[i - 2] if i >= 2 else 1
+            if s[i] != '0':
+                dp[i] += dp[i - 1]
+                
+        return dp[-1]
+  
+# space optimal
+# time: O(n), space: O(1)
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if not s:
+            return 0
+        
+        prev_prev = 1
+        prev = 1 if s[0] != '0' else 0
+        
+        for i in range(1, len(s)):
+            curt = 0
+            if 10 <= int(s[i-1:i+1]) <= 26:
+                curt += prev_prev
+            if s[i] != '0':
+                curt += prev
+                
+            prev_prev = prev
+            prev = curt
+                
+        return prev
+  
+  
+  
+  
+  
+  
 # DP
 # time: O(n), space: O(n)
 '''
