@@ -17,7 +17,7 @@ Input: "226"
 Output: 3
 Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
-
+# DP
 # time: O(n), space: O(n)
 '''
 s = '2' -> 1
@@ -48,7 +48,29 @@ class Solution:
         return dp[-1]
     
     
+# DFS (TLE)
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        if not s:
+            return 0
+        
+        self.res = 0
+        self.helper(s, 0, '')
+        
+        return self.res
     
+    def helper(self, s, index, last):
+        if index == len(s):
+            self.res += 1
+            return 
+        
+        # single
+        if s[index] != '0':
+            self.helper(s, index + 1, s[index])
+        
+        # two
+        if last and 10 <= int(last + s[index]) <= 26:
+            self.helper(s, index + 1, '')
     
     
     
