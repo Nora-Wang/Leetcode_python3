@@ -39,6 +39,35 @@ rotate the input matrix in-place such that it becomes:
   [16, 7,10,11]
 ]
 
+
+# 1/18/21
+# optimal: one loop with O(1) space
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        n = len(matrix)
+        
+        # layer
+        for i in range((n + 1) // 2):
+            # Example 2:
+            # 1. [15,5,11,16]
+            # 2. [13,1,10,12]
+            # 3. [14,2,9,7]
+            # 4. [3,4,6,8]
+            for j in range(n // 2):
+                temp = matrix[i][j]
+                matrix[i][j] = matrix[n - 1 - j][i]
+                matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j]
+                matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i]
+                matrix[j][n - 1 - i] = temp
+        
+        return matrix
+            
+
+
+
 题目中说了不能另开matrix,因此只能在原有matrix基础上改变
 两步翻转:
 1.上下翻转
