@@ -25,6 +25,67 @@ You may not alter the values in the list's nodes, only nodes itself may be chang
 
 
 
+# 1/21/21
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+'''
+prev -> curt -> ... -> curt_tail -> next_head
+prev -> curt_tail -> ... -> curt -> next_head
+
+'''
+class Solution:
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        if not head:
+            return None
+        
+        dummy = prev = ListNode()
+        curt = dummy.next = head
+        
+        while curt:
+            if not self.is_valid(curt, k):
+                return dummy.next
+            
+            # else
+            curt_tail, next_head = self.swap(curt, k)
+            
+            prev.next = curt_tail
+            curt.next = next_head
+            
+            prev = curt
+            curt = next_head
+        
+        return dummy.next
+    
+    # 这里注意：并没有将curt另外取名赋值，是因为在helper function中，对于linkedlist参数的改变并不会对原始数据进行改变
+    # 即，curt在经过了is_valid和swap function后，回到reverseKGroup函数中，还是原来的数据，不会因helper function的改变而改变 (局部和全局的差异)
+    def is_valid(self, curt, k):
+        length = 0
+        
+        while curt and length < k:
+            curt = curt.next
+            length += 1
+        
+        return length == k
+    
+    def swap(self, curt, k):
+        prev = None
+        
+        for _ in range(k):
+            temp = curt.next
+            curt.next = prev
+            prev = curt
+            curt = temp
+            
+        return prev, curt
+
+
+
+
+
+
 
 code:
 
