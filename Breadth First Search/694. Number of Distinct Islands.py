@@ -44,7 +44,8 @@ class Solution:
                 if grid[i][j] == 0:
                     continue
                 graph = self.get_graphs(grid, i, j)
-                graphs.add(graph)
+                # 这里graph是用的list做的，而set中不能存list，因此转化成tuple类型
+                graphs.add(tuple(graph))
         
         return len(graphs)
     
@@ -53,8 +54,8 @@ class Solution:
         
         grid[i][j] = 0
         
-        #这里的graph用tuple记录x和y的偏移量,因为之后要被加到graphs中,graphs是set,其key值不能是list
-        graph = ()
+        #这里的graph先用list存，等最后得到一个结果后，在转成tuple类型
+        graph = []
         
         while queue:
             x,y = queue.popleft()
@@ -66,8 +67,7 @@ class Solution:
                 if self.is_valid(grid, x_, y_):
                     queue.append((x_,y_))
                     grid[x_][y_] = 0
-                    #tuple添加值的方式:tup3 = tup1 + tup2
-                    graph += (x_ - i, y_ - j)
+                    graph.append((x_ - i, y_ - j))
         
         return graph
         
