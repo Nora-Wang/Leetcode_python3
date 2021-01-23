@@ -41,3 +41,46 @@ class Solution:
         
         return mat
         
+# 繁琐solution
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        n, m = len(mat), len(mat[0])
+        
+        # get info
+        col_record = [[] for _ in range(n)]
+        for row in range(n):
+            r, c = row, 0
+            while r < n and c < m:
+                col_record[row].append(mat[r][c])
+                r += 1
+                c += 1
+        
+        row_record = [[] for _ in range(m)]
+        for col in range(1, m):
+            r, c = 0, col
+            while r < n and c < m:
+                row_record[col].append(mat[r][c])
+                r += 1
+                c += 1
+        
+        # put it back
+        for row in range(n):
+            r, c = row, 0
+            temp = sorted(col_record[row])
+            for num in temp:
+                mat[r][c] = num
+                r += 1
+                c += 1
+        
+        for col in range(m):
+            r, c = 0, col
+            temp = sorted(row_record[col])
+            for num in temp:
+                mat[r][c] = num
+                r += 1
+                c += 1
+        
+        return mat
+        
+        
+        
