@@ -55,6 +55,39 @@ Constraints:
 All Nodes will have unique values.
 
 
+
+# 1/24/21
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+        self.parent = None
+"""
+class Solution:
+    def inorderSuccessor(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        
+        # 如果有右子树 -> 则为右子树的最左node
+        if node.right:
+            start = node.right
+            while start.left:
+                start = start.left
+        # 否则，直接往parent找即可
+        else:
+            start = node.parent
+            while start and start.val < node.val:
+                start = start.parent
+                
+        return start
+
+
+
+
+
 code:
 """
 # Definition for a Node.
