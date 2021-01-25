@@ -34,6 +34,38 @@ for (int i = 0; i < len; i++) {
 }
 
 
+# 1/24/21
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        
+        slow, quick = 0, 0
+        
+        while quick < len(nums):
+            count = 1
+            while quick + 1 < len(nums) and nums[quick + 1] == nums[quick]:
+                quick += 1
+                count += 1
+            
+            if count >= 2:
+                nums[slow] = nums[quick]
+                nums[slow + 1] = nums[quick]
+                slow += 2
+            else:
+                nums[slow] = nums[quick]
+                slow += 1
+            
+            quick += 1
+        
+        return slow
+
+
+
+
+
+
+
 # 12/11/2020
 # time: O(n), space: O(1)
 # slow: the last valid number -> valid nums: nums[:slow+1]
