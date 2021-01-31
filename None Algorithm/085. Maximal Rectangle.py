@@ -11,6 +11,48 @@ Input:
 ]
 Output: 6
 
+  
+class Solution:
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if not len(matrix) or not len(matrix[0]):
+            return 0
+        
+        n, m = len(matrix), len(matrix[0])
+        # 这里要注意heights的长度 -> 保证后续l_index不会超出index range
+        heights = [0] * (m + 2)
+        res = 0
+        
+        for row in range(n):
+            for j in range(m):
+                if matrix[row][j] == '1':
+                    heights[j + 1] += 1
+                else:
+                    heights[j + 1] = 0
+            
+            res = max(res, self.helper(heights))
+        
+        return res
+    
+    def helper(self, heights):
+        stack = []
+        res = 0
+        for r_index in range(len(heights)):
+            while stack and heights[stack[-1]] > heights[r_index]:
+                pop_index = stack.pop()
+                l_index = stack[-1]
+                
+                width = r_index - l_index - 1
+                res = max(res, width * heights[pop_index])
+            
+            stack.append(r_index)
+        
+        return res  
+  
+  
+  
+  
+  
+  
 
 code:
 class Solution:
