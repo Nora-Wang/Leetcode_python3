@@ -14,9 +14,12 @@
 
 Tree:
 Full Binary Tree: every node has 0 or 2 children. 
-Complete Binary Tree: all the levels are completely filled except possibly the last level and the last level has all keys as left as possible (只有最下面的两层结点度小于2，并且最下面一层的结点都集中在该层最左边的若干位置的二叉树。)
-Perfect Binary Tree: all the internal nodes have two children and all leaf nodes are at the same level. (除了叶结点外每一个结点都有左右子叶且叶结点都处在最底层的二叉树)
-Balanced Binary Tree (AVL): the height of the tree is O(Log n) where n is the number of nodes. (它是一棵空树或它的左右两个子树的高度差的绝对值不超过1)
+Complete Binary Tree: all the levels are completely filled except possibly the last level and the last level has all keys as left as possible. 
+                      (只有最下面的两层结点度小于2，并且最下面一层的结点都集中在该层最左边的若干位置的二叉树。)
+Perfect Binary Tree: all the internal nodes have two children and all leaf nodes are at the same level  
+                     (除了叶结点外每一个结点都有左右子叶且叶结点都处在最底层的二叉树)
+Balanced Binary Tree (AVL): the height of the tree is O(Log n) where n is the number of nodes.   
+                            (它是一棵空树或它的左右两个子树的高度差的绝对值不超过1)
 
 
 
