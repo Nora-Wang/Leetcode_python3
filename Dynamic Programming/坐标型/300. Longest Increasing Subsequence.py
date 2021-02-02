@@ -37,7 +37,46 @@ class Solution:
         
         return max(dp)
         
+# Optimal
+# Patience sorting Algo
+'''
+dp[i]: the smallest ending number of a subsequence that has length i+1
+initial: dp = []
+for every num:
+1. curt_num > all number in dp -> append in dp to extend the longest subsequence
+2. curt_num <= all number in dp -> replace a number to generate a better subsequence
 
+[3,4,1,2,8,5,6]
+[3]
+[3,4]:长度为1时，最优解是以3为结尾的情况；长度为2时，最优解是以4为结尾的情况
+[1,4]:长度为1时，最优解是以1为结尾的情况
+[1,2]:长度为2时，最优解是以2为结尾的情况
+[1,2,8]
+[1,2,5]:长度为3时，最优解是以5为结尾的情况
+[1,2,5,6]
+
+return len(dp)
+
+time: O(nlogn), space: O(n)
+time: 每次去找replace的位置时（找第一个大于当前数的index），都可以用binary search的方式 -> logn
+'''
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = []
+        
+        for num in nums:
+            index = bisect_left(dp, num)
+            
+            if index == len(dp):
+                dp.append(num)
+            else:
+                dp[index] = num
+        
+        return len(dp)        
+        
+        
+        
+        
 #输出path
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
