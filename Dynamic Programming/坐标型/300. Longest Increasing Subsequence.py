@@ -40,6 +40,7 @@ class Solution:
 # Optimal
 # Patience sorting Algo
 '''
+贪心思想：在保证长度一样的情况下，想让length为i+1的subsequence的最后一位尽量的小，这样能使得该subsequence更可能被extend
 dp[i]: the smallest ending number of a subsequence that has length i+1
 initial: dp = []
 for every num:
