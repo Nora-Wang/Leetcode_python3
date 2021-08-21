@@ -29,7 +29,7 @@ class Solution(object):
 
             
             
-# two pointer
+# two pointer -> 2D matrix
 # time: O(nlogn), space: O(n)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
@@ -50,3 +50,30 @@ class Solution:
             else:
                 end -= 1
         
+
+# two pointer -> hashtable {num:[index1, index2]}
+# time: O(nlogn), space: O(n)
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        record = collections.defaultdict(list)
+        for i in range(len(nums)):
+            record[nums[i]].append(i)
+        
+        nums.sort()
+        
+        l, r = 0, len(nums) - 1
+        
+        while l < r:
+            if nums[l] + nums[r] == target:
+                break
+            
+            if (nums[l] + nums[r]) > target:
+                r -= 1
+            else:
+                l += 1
+            
+        index1 = record[nums[l]][0]
+        index2 = record[nums[r]][0]
+        if index1 == index2:
+            index2 = record[nums[l]][1]
+        return [index1, index2]
