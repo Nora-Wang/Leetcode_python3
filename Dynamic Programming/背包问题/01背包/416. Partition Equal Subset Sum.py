@@ -66,3 +66,27 @@ class Solution:
                 dp[j] |= dp[j - nums[i]]
         
         return dp[target]
+
+
+'''
+DFS recursion code
+'''
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        total = sum(nums)
+    
+        if total % 2 != 0:
+            return False
+        
+        target = total // 2
+        
+        return self.help(nums, 0, target)
+    
+    def help(self, nums, index, target):
+        if index >= len(nums) or target < 0:
+            return False
+        
+        if target == 0:
+            return True
+        
+        return self.help(nums, index + 1, target) or self.help(nums, index + 1, target - nums[index])
