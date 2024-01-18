@@ -21,6 +21,26 @@ Explanation: There are three ways to climb to the top.
 3. 2 steps + 1 step
 
 
+#dfs -> TLE
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        self.count = 0
+        
+        self.dfs(n)
+        
+        return self.count
+    
+    def dfs(self, n):
+        if n == 0:
+            self.count += 1
+            return
+        if n < 0:
+            return
+        
+        self.dfs(n - 1)
+        self.dfs(n - 2)
+        
+
 
 #recursion -> TLE
 class Solution:
