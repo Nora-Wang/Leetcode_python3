@@ -69,6 +69,7 @@ class Solution:
     
 #dynamic programming
 #time: O(n), space: O(1)
+# V1
 class Solution:
     def climbStairs(self, n: int) -> int:
         if n <= 2:
@@ -86,5 +87,19 @@ class Solution:
             one = curt
         
         return curt
-
+#V2
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 2:
+            return n
+        
+        climb1 = 1
+        climb2 = 2
+        
+        for i in range(2, n):
+            temp = climb2
+            climb2 += climb1
+            climb1 = temp
+            
+        return climb2
     
