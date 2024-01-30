@@ -39,6 +39,41 @@ rotate the input matrix in-place such that it becomes:
   [16, 7,10,11]
 ]
 
+# 1/30/2024
+# More clear logistic for one loop with O(1) space
+# https://leetcode.com/problems/rotate-image/discuss/367514/python-beats-96-with-Image-helps-u-understand
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        if not len(matrix) or not len(matrix[0]):
+            return
+        
+        self.n = len(matrix)
+        if self.n <= 1:
+            return
+        
+        for i in range((self.n + 1) // 2):
+            # j就是从第i层开始的第一列到第i层结束的最后一列
+            for j in range(i, self.n - i - 1):
+                i_r, j_r = self.rotate_pos_clockwise(i, j)
+                i_b, j_b = self.rotate_pos_clockwise(i_r, j_r)
+                i_l, j_l = self.rotate_pos_clockwise(i_b, j_b)
+                
+                up = matrix[i][j]
+                matrix[i][j] = matrix[i_l][j_l]
+                matrix[i_l][j_l] = matrix[i_b][j_b]
+                matrix[i_b][j_b] = matrix[i_r][j_r]
+                matrix[i_r][j_r] = up
+        return
+
+    # 一行一共是n-i*2个node
+    # 1. 上下翻 i,j -> n-i-1,j
+    # 2. 对角翻 n-i-1,j -> j,n-i-1
+    def rotate_pos_clockwise(self, i, j):
+        return j, self.n - 1 - i
+
 
 # 1/18/21
 # optimal: one loop with O(1) space
