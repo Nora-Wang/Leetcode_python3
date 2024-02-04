@@ -10,6 +10,36 @@ For example, given n = 3, a solution set is:
   "()()()"
 ]
 
+# 02/04/2024
+# time: O(n * 2^n), space: O(n)
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        self.res = []
+        
+        self.helper(0, 0, n, [])
+        
+        return self.res
+    
+    def helper(self, left, right, n, cur):
+        if left > n or right > n:
+            return
+        
+        if left == right and right == n:
+            self.res.append(''.join(cur))
+            return
+        
+        if left < n:
+            cur.append("(")
+            self.helper(left+1, right, n, cur)
+            cur.pop()
+        
+        if right < n and right < left:
+            cur.append(")")
+            self.helper(left, right+1, n, cur)
+            cur.pop()
+        
+        return
+
 # 08/01/2020
 # DFS Version
                                 Empty
