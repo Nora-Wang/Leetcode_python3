@@ -41,6 +41,104 @@ Constraints:
 IP consists only of English letters, digits and the characters '.' and ':'.
 
 
+# 2024/02/08
+# Method 1
+class Solution:
+    def validIPAddress(self, queryIP: str) -> str:
+        if '.' in queryIP:
+            return self.validate_ipv4(queryIP.split('.'))
+        if ':' in queryIP:
+            return self.validate_ipv6(queryIP.split(':'))
+        
+        return "Neither"
+    
+    def validate_ipv4(self, ip_list):
+        if len(ip_list) != 4:
+            return "Neither"
+        
+        for x in ip_list:
+            if not x.isdigit():
+                return "Neither"
+            
+            if len(x) > 1 and x[0] == '0':
+                return "Neither"
+            
+            x_int = int(x)
+            if x_int < 0 or x_int > 255:
+                return "Neither"
+            
+        return "IPv4"
+    
+    def validate_ipv6(self, ip_list):
+        if len(ip_list) != 8:
+            return "Neither"
+        
+        valid_v = set()
+        for d in string.digits:
+            valid_v.add(d)
+        for a in string.ascii_lowercase[:6]:
+            valid_v.add(a)
+        for a in string.ascii_uppercase[:6]:
+            valid_v.add(a)
+            
+        for x in ip_list:
+            if len(x) > 4 or len(x) < 1:
+                return "Neither"
+            for v in x:
+                if v not in valid_v:
+                    return "Neither"
+            
+        return "IPv6"
+            
+# Method 2
+class Solution:
+    def validIPAddress(self, queryIP: str) -> str:
+        if '.' in queryIP:
+            return self.validate_ipv4(queryIP.split('.'))
+        if ':' in queryIP:
+            return self.validate_ipv6(queryIP.split(':'))
+        
+        return "Neither"
+    
+    def validate_ipv4(self, ip_list):
+        if len(ip_list) != 4:
+            return "Neither"
+        
+        for x in ip_list:
+            if not x.isdigit():
+                return "Neither"
+            
+            if len(x) > 1 and x[0] == '0':
+                return "Neither"
+            
+            x_int = int(x)
+            if x_int < 0 or x_int > 255:
+                return "Neither"
+            
+        return "IPv4"
+    
+    def validate_ipv6(self, ip_list):
+        if len(ip_list) != 8:
+            return "Neither"
+        
+        valid_v = '0123456789abcdefABCDEF'
+        valid_v = set(valid_v)
+            
+        for x in ip_list:
+            if len(x) > 4 or len(x) < 1:
+                return "Neither"
+            for v in x:
+                if v not in valid_v:
+                    return "Neither"
+            
+        return "IPv6"
+            
+
+
+
+
+
+
 class Solution:
     def validIPAddress(self, IP: str) -> str:
         if '.' in IP and self.is_IPv4(IP.split('.')):
