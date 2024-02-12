@@ -5,6 +5,48 @@ Your algorithm's runtime complexity must be in the order of O(log n).
 
 If the target is not found in the array, return [-1, -1].
 
+# 02/12/2024
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        if not len(nums):
+            return [-1,-1]
+        
+        start = self.helper_start(nums, target)
+        if start == -1:
+            return [-1,-1]
+        # pruning by using start index, not starting from 0
+        end = self.helper_end(nums, target, start)
+        
+        return [start, end]
+    
+    def helper_start(self, nums, target):
+        start, end = 0, len(nums) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if nums[mid] >= target:
+                end = mid
+            else:
+                start = mid
+        
+        if nums[start] == target:
+            return start
+        if nums[end] == target:
+            return end
+        return -1
+    
+    def helper_end(self, nums, target, start):
+        end = len(nums) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if nums[mid] > target:
+                end = mid
+            else:
+                start = mid
+        
+        return end if nums[end] == target else start
+        
 
 # 09/08/2020
 # time: O(logn), space: O(1)
