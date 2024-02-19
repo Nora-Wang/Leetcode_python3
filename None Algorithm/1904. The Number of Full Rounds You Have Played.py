@@ -50,7 +50,8 @@ class Solution:
         
         if in_time > out_time:
             out_time += 60 * 24
-            
+
+        # Edge case: "00:47", "00:57" -> the return is -1, so need max(0, return) to avoid.
         return max(0, (out_time // 15) - math.ceil(in_time / 15))
         
         
