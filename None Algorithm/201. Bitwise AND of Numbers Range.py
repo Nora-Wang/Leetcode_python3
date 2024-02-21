@@ -26,3 +26,11 @@ class Solution:
             shift += 1
         
         return n << shift
+
+# https://leetcode.com/problems/bitwise-and-of-numbers-range/discuss/593317/Simple-3-line-Java-solution-faster-than-100
+class Solution:
+    def rangeBitwiseAnd(self, left: int, right: int) -> int:
+        while right > left:
+            right &= (right - 1)
+        
+        return right
