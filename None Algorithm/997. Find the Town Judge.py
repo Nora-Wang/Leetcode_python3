@@ -91,3 +91,57 @@ class Solution(object):
                 return i
             
         return -1
+
+# Version2 优化版
+class Solution:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        # mapping[0] 改为set，优化时间复杂度 
+        mapping = {0: set()}
+        # 这里一定要给mapping[i]的值initial为0，否则对于input = 1,[]的case来说，mapping[1]不存在，就会直接返回-1了
+        for i in range(1,n+1):
+            mapping[i] = 0
+            
+        for a,b in trust:
+            mapping[b] += 1
+            mapping[0].add(a)
+        
+        for i in range(1, n+1):
+            if mapping[i] == n-1 and i not in mapping[0]:
+                return i
+        
+        return -1
+
+# 另一版本1.0
+class Solution:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        # 因为没有mapping.get(0, set()).add(a)写法，所以anyway都需要单独一行来设置mapping[0]的value为set的操作
+        mapping = {0:set()}
+            
+        for a,b in trust:
+            # 这么写可以少一层for loop
+            mapping[b] = mapping.get(b, 0) + 1
+            mapping[0].add(a)
+            
+        for i in range(1, n+1):
+            if i in mapping and mapping[i] == n-1 and i not in mapping[0]:
+                return i
+
+        # 针对input = 1,[]的case
+        return 1 if n == 1 else -1
+
+# 另一版本2.0
+class Solution:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        mapping = {}
+            
+        for a,b in trust:
+            mapping[b] = mapping.get(b, 0) + 1
+            # 另起一行写mapping[0]
+            mapping[0] = mapping.get(0, set())
+            mapping[0].add(a)
+        
+        for i in range(1, n+1):
+            if i in mapping and mapping[i] == n-1 and i not in mapping[0]:
+                return i
+        
+        return 1 if n == 1 else -1
