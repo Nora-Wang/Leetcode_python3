@@ -104,3 +104,90 @@ class Solution:
 
         # edge case that cannot find a path from src to dst, then return -1
         return min_price[dst] if min_price[dst] < float('inf') else -1
+
+# BFS 简化版
+'''
+min_price = {stop:min_price}: start to cur stop min price
+
+cur: cur path price
+queue = stop, cur, k+2
+
+hash_flights = {start:(end, price)}
+'''
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        if len(flights) == 0:
+            return -1
+        
+        hash_flights = {}
+        # set as a list for pruning
+        min_price = [float('inf')] * n
+        for start, end, price in flights:
+            if start not in hash_flights:
+                hash_flights[start] = []
+            hash_flights[start].append((end, price))
+        
+        queue = collections.deque([(src, 0)])
+        step = 0
+        
+        while queue:
+            # 一层queue，就是一个step
+            for _ in range(len(queue)):
+                stop, cur = queue.popleft()
+                min_price[stop] = min(cur, min_price[stop])
+                
+                if stop == dst:
+                    continue
+                if stop not in hash_flights:
+                    continue
+                    
+                for next_stop, price in hash_flights[stop]:
+                    # Pruning
+                    if min_price[next_stop] < cur + price:
+                        continue
+                     
+                    queue.append((next_stop, price + cur))
+
+            # 每一步，就是一个stop
+            if step > k:
+                break
+            step += 1
+        
+        return min_price[dst] if min_price[dst] < float('inf') else -1
+
+
+# DFS - TLE
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        hash_flights = {}
+        for start, end, price in flights:
+            if start not in hash_flights:
+                hash_flights[start] = []
+            hash_flights[start].append((end, price))
+            
+        self.res = [float('inf')] * n
+        self.dfs(hash_flights, src, dst, k+1, 0)
+        
+        return self.res[dst] if self.res[dst] < float('inf') else -1
+    
+    def dfs(self, flights, stop, dst, step, cur,):
+        if cur >= self.res[dst]:
+            return
+        
+        self.res[stop] = min(self.res[stop], cur)
+        if stop == dst:
+            return
+        
+        if step <= 0:
+            return
+        
+        if stop not in flights:
+            return
+        
+        for next_stop, price in flights[stop]:
+            if cur + price >= self.res[dst]:
+                continue
+            
+            self.dfs(flights, next_stop, dst, step - 1, cur + price)
+        
+        return
