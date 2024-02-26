@@ -31,6 +31,45 @@ Input:     1         1
 Output: false
 
 
+# BFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        queue_p = collections.deque([p])
+        queue_q = collections.deque([q])
+        
+        while queue_p and queue_q:
+            p, q = queue_p.popleft(), queue_q.popleft()
+
+            # 这里一定要先判断p和q不为None，否则在后续queue.add(None)，以及p/q.left会throw exception
+            if not p and not q:
+                continue
+            if not self.isSame(p, q):
+                return False
+            
+            queue_p.append(p.left)
+            queue_p.append(p.right)
+            queue_q.append(q.left)
+            queue_q.append(q.right)
+        
+        return not queue_p and not queue_q
+    
+    def isSame(self, p, q):
+        if not p or not q:
+            return False
+        
+        if p.val != q.val:
+            return False
+        
+        return True
+            
+
+
 #这道题不能用
 #return p == q
 #因为p和q只是一个指向地址而已,并不代表两棵树本身
