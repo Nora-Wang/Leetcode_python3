@@ -41,6 +41,38 @@ bank: ["AAAACCCC", "AAACCCCC", "AACCCCCC"]
 
 return: 3
 
+# 2024/03/02
+class Solution:
+    def minMutation(self, startGene: str, endGene: str, bank: List[str]) -> int:
+        bank = set(bank)
+        # edge case
+        if endGene not in bank:
+            return -1
+        
+        bank.add(startGene)
+        queue = collections.deque([startGene])
+        count = 0
+        visited = set([startGene])
+        
+        while queue:
+            # put count in there, the current level/mutate number is the real count number
+            count += 1
+            for _ in range(len(queue)):
+                word = queue.popleft()
+                for i in range(len(word)):
+                    left, right = word[:i], word[i+1:]
+
+                    for char in ['A', 'C', 'G', 'T']:
+                        new_word = left + char + right
+
+                        if new_word == endGene:
+                            return count
+
+                        if new_word not in visited and new_word in bank:
+                            visited.add(new_word)
+                            queue.append(new_word)
+                        
+        return -1
 
 code:
 import string
