@@ -26,6 +26,21 @@ nums is sorted in non-decreasing order.
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         return sorted([x**2 for x in nums])
+
+# Use heap
+# time: O(nlogn), space: O(n)
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        heap = []
+        
+        for num in nums:
+            heapq.heappush(heap, num**2)
+        
+        res = []
+        while heap:
+            res.append(heapq.heappop(heap))
+        
+        return res
         
         
 # two pointer
@@ -57,3 +72,33 @@ class Solution:
             positive += 1
         
         return res
+
+# Two Pointer V2
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        # index for first positive num
+        negative = 0
+        for i in range(len(nums)):
+            if nums[i] < 0:
+                negative = i
+        
+        left, right = negative, negative + 1
+        res = []
+        while left >= 0 and right < len(nums):
+            if abs(nums[left]) <= abs(nums[right]):
+                res.append(nums[left]**2)
+                left -= 1
+            else:
+                res.append(nums[right]**2)
+                right += 1
+        
+        while left >= 0:
+            res.append(nums[left]**2)
+            left -= 1
+        
+        while right < len(nums):
+            res.append(nums[right]**2)
+            right += 1
+        
+        return res
+                
