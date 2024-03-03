@@ -50,3 +50,31 @@ class Solution(object):
         slow.next = slow.next.next
         
         return dummy.next
+
+
+# 遍历两遍
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        count = 0
+        count_head = head
+        while count_head:
+            count += 1
+            count_head = count_head.next
+        
+        cur = dummy = ListNode(None)
+        dummy.next = head
+        step = 1
+        
+        for _ in range(count - n):
+            cur = cur.next
+        
+        cur.next = cur.next.next
+        
+        return dummy.next
+            
+            
