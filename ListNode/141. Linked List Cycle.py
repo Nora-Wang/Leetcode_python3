@@ -40,7 +40,8 @@ class Solution(object):
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-         
+
+            # 这个一定要放在后面，因为一开始setting的时候slow = fast = head，放在前面的话，anyway都会return True
             if fast == slow:
                 return True
            
