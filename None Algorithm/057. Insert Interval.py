@@ -35,3 +35,31 @@ class Solution(object):
                 result.append(interval)
                 
         return result
+
+
+
+# 分成3段去处理
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        res = []
+        i = 0
+
+        # 第一段，把原封不动要放进去的intervals给放进去
+        while i < len(intervals) and intervals[i][1] < newInterval[0]:
+            res.append([intervals[i][0], intervals[i][1]])
+            i += 1
+
+        # 第二段，把需要根据newInterval调整的final interval给找出来，然后放进去
+        while i < len(intervals) and newInterval[1] >= intervals[i][0]:
+            newInterval[0] = min(intervals[i][0], newInterval[0])
+            newInterval[1] = max(intervals[i][1], newInterval[1])
+            i += 1
+
+        res.append(newInterval)
+
+        # 第三段，把剩下的intervals放进去
+        while i < len(intervals):
+            res.append(intervals[i])
+            i += 1
+        
+        return res
