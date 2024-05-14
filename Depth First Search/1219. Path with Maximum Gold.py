@@ -30,6 +30,98 @@ Explanation:
  [9,0,20]]
 Path to get the maximum gold, 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7.
 
+# 2024/05/14
+# dfs
+# Time O(n*m), Space O(n*m)
+class Solution:
+    def getMaximumGold(self, grid: List[List[int]]) -> int:
+        queue = collections.deque([(0,0)])
+        self.res = 0
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] != 0:
+                    self.dfs(grid, i, j, set(), 0)
+        
+        return self.res
+    
+    def dfs(self, grid, x, y, visited, cur):
+        if self.isInvalid(grid, x, y, visited):
+            self.res = max(self.res, cur)
+            return
+        
+        cur += grid[x][y]
+        visited.add((x, y))
+        
+        for move_x,move_y in [(0,1),(1,0),(-1,0),(0,-1)]:
+            next_x, next_y = x + move_x, y + move_y
+            
+            self.dfs(grid, next_x, next_y, visited, cur)
+            
+        visited.remove((x, y))
+        
+        return
+            
+    def isInvalid(self, grid, x, y, visited):
+        if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]):
+            return True
+        
+        if grid[x][y] == 0:
+            return True
+        
+        if (x,y) in visited:
+            return True
+        
+        return False
+
+
+# DFS optimized for Space
+# Time O(n*m), Space O(1)
+class Solution:
+    def getMaximumGold(self, grid: List[List[int]]) -> int:
+        queue = collections.deque([(0,0)])
+        self.res = 0
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] != 0:
+                    self.dfs(grid, i, j, 0)
+        
+        return self.res
+    
+    def dfs(self, grid, x, y, cur):
+        if self.isInvalid(grid, x, y):
+            self.res = max(self.res, cur)
+            return
+        
+        cur += grid[x][y]
+        record = grid[x][y]
+        grid[x][y] = 0
+        
+        for move_x,move_y in [(0,1),(1,0),(-1,0),(0,-1)]:
+            next_x, next_y = x + move_x, y + move_y
+            
+            self.dfs(grid, next_x, next_y, cur)
+            
+        grid[x][y] = record
+        
+        return
+            
+    def isInvalid(self, grid, x, y):
+        if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]):
+            return True
+        
+        if grid[x][y] == 0:
+            return True
+        
+        return False
+
+
+
+
+
+
+
 
 DFS
 
