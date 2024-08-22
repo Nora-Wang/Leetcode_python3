@@ -33,6 +33,20 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 
+# 08/22/2024
+逻辑分析，count不是duplicate的次数，而是individual的个数
+# time: O(n), space: O(1)
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        count = 1
+        
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1]:
+                nums[count] = nums[i]
+                count += 1
+        
+        return count
+
 
 # 12/11/2020
 # time: O(n), space: O(1)
