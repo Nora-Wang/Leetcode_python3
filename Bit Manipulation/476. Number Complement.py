@@ -25,7 +25,7 @@ Constraints:
 Note: This question is the same as 1009: https://leetcode.com/problems/complement-of-base-10-integer/
 
 
-
+Solution 1:
 参考link: https://leetcode.com/problems/number-complement/discuss/5671548/100.0Easy-SolutionWith-Explanation
 class Solution:
     def findComplement(self, num: int) -> int:
@@ -34,3 +34,31 @@ class Solution:
         helper = (1 << bit_length) - 1
         
         return num ^ helper
+
+
+Solution 2:
+class Solution:
+    def findComplement(self, num: int) -> int:
+        return int((bin(num)[2:]).replace("1", "2").replace("0", "1").replace("2", "0"),2)
+
+
+Solution 3:
+class Solution:
+    def findComplement(self, num: int) -> int:
+        list_num = list(bin(num))
+        res = []
+        
+        for val in list_num[2:]:
+            res.append("1" if val == "0" else "0")
+        
+        return int(''.join(res), 2)
+
+ class Solution:
+    def findComplement(self, num: int) -> int:
+        str_num = bin(num)
+        res = []
+        
+        for i in range(2, len(str_num)):
+            res.append("1" if str_num[i] == "0" else "0")
+        
+        return int(''.join(res), 2)
