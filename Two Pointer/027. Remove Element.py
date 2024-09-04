@@ -38,6 +38,29 @@ for (int i = 0; i < len; i++) {
 }
 
 
+
+# 2024/09/04
+# 快慢指针 time O(n), space O(1)
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        if not len(nums):
+            return 0
+        
+        i, j = 0, 0
+        
+        while j < len(nums):
+            while j < len(nums) and nums[j] == val:
+                j += 1
+            
+            if j < len(nums):
+                nums[i] = nums[j]
+                j += 1
+                i += 1
+        
+        return i
+
+
+
 用相向双指针做
 
 code:
