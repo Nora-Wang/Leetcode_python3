@@ -34,6 +34,26 @@ for (int i = 0; i < len; i++) {
 }
 
 
+# 2024/09/04
+# time O(n), space O(1)
+# similar question: 26, 27
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) <= 2:
+            return len(nums)
+        
+        count = 2
+        
+        for i in range(2, len(nums)):
+            if nums[i] != nums[count - 2]:
+                nums[count] = nums[i]
+                count += 1
+        
+        return count
+        
+        
+
+
 # 1/24/21
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
