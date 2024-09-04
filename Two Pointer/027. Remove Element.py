@@ -40,7 +40,8 @@ for (int i = 0; i < len; i++) {
 
 
 # 2024/09/04
-# 快慢指针 time O(n), space O(1)
+# 快慢指针 + replace
+# time O(n), space O(1)
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         if not len(nums):
