@@ -30,6 +30,26 @@ class Solution:
         # return max(nums_map.items(), key=lambda x:x[1])[0]
         return max(nums_map, key=nums_map.get)
 
+
+# Heap
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        count_nums = collections.Counter(nums)
+        # 1. Regular max heap
+        heap = []
+        for key, value in count.items():
+            heap.append((-value, key))
+        
+        heapq.heapify(heap)
+        
+        return heapq.heappop(heap)[1]
+
+        # 2. Use heapq.nlargest
+        return heapq.nlargest(1, count_nums, key=count_nums.get)[0]
+
+
+        
+
 # Sort
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
@@ -69,6 +89,7 @@ class Solution:
                 count -= 1
         
         return cur
+
 
 
 
