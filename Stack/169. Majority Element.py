@@ -26,8 +26,8 @@ class Solution:
         nums_map = collections.Counter(nums)
 
         # 3种return的方法
-        # return max(nums_map, key=lambda num:nums_map[num])
-        # return max(nums_map.items(), key=lambda x:x[1])[0]
+        return max(nums_map, key=lambda num:nums_map[num])
+        return max(nums_map.items(), key=lambda x:x[1])[0]
         return max(nums_map, key=nums_map.get)
 
 
@@ -44,6 +44,7 @@ class Solution:
         
         return heapq.heappop(heap)[1]
 
+        
         # 2. Use heapq.nlargest
         return heapq.nlargest(1, count_nums, key=count_nums.get)[0]
 
