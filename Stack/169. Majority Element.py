@@ -12,6 +12,59 @@ Input: [2,2,1,1,1,2,2]
 Output: 2
 
 
+
+# 2024/09/05
+# Solutions:
+# 1. hashmap      time O(n) space O(n)
+# 2. map heapq    time O(n) space O(n)
+# 3. sort         time O(nlogn) space O(1)
+# 4. 摩尔选举      time O(n) space O(1)
+
+# Hashmap
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        nums_map = collections.Counter(nums)
+
+        # 3种return的方法
+        # return max(nums_map, key=lambda num:nums_map[num])
+        # return max(nums_map.items(), key=lambda x:x[1])[0]
+        return max(nums_map, key=nums_map.get)
+
+# Sort
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        nums.sort()
+        
+        count, result = 0, nums[0]
+        i, j = 0, 0
+        
+        while j < len(nums):
+            while j < len(nums) and nums[i] == nums[j]:
+                j += 1
+            
+            
+            gap = j - i
+            if gap > count:
+                result = nums[i]
+                count = gap
+            
+            i = j
+        
+        return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 code:
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
