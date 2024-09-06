@@ -51,7 +51,8 @@ The input is generated such that there is at least one node in the linked list t
 
 
 
-# Time O(n), Space O(1)
+# Time O(m), Space O(n)
+# m = length of head, n = len(nums)
 
 # Definition for singly-linked list.
 # class ListNode:
