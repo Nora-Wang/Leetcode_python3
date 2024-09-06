@@ -115,6 +115,18 @@ class Solution:
             heapq.heappop(heap)
         
         return heapq.heappop(heap)
+
+
+
+# heapify the whole nums with O(n), and heappop n-k element from the heap to the the `n-k`th smallest element with O((n-k)logn)
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heapq.heapify(nums)
+        
+        for _ in range(len(nums) - k):
+            heapq.heappop(nums)
+        
+        return heapq.heappop(nums)
     
 ************************************************************************************************************
 #5. Python内置函数 nlargest -> 将前k个largest nums单减的放在一个array里
