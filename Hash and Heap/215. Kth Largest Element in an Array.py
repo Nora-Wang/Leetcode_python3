@@ -96,6 +96,8 @@ class Solution:
         
         #get the kth largest elements
         return -heapq.heappop(nums)
+# 这里要注意一点，max_heap不能像min_heap那样去构建一个 n-k length的max_heap，然后去push+pop k次得到element，因为我们要的是第k大的指，
+# 存在一种逻辑是当前push的指就应该是第k大的值，但因为其在max_heap里是目前最大的值，就直接给pop出来了，这样后续就不可能找到这个值了
 
 ************************************************************************************************************
 #4. min_heap
