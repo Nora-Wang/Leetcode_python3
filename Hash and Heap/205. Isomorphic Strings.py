@@ -51,6 +51,27 @@ class Solution:
         #                 这部分是为了避免"badc","baba" case，即b、d都对应b，这不符合要求
         return s == t and len(mapping_s) == len(mapping_t)
 
+
+# 2024/09/07 Map
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        record_s2t = {}
+        record_t2s = {}
+        
+        for i in range(len(s)):
+            char_s, char_t = s[i], t[i]
+            if char_s not in record_s2t and char_t not in record_t2s:
+                record_s2t[char_s] = char_t
+                record_t2s[char_t] = char_s
+                continue
+            
+            if char_s in record_s2t and record_s2t[char_s] != char_t:
+                return False
+            if char_t in record_t2s and record_t2s[char_t] != char_s:
+                return False
+                
+        return True
+
 # Array
 # https://leetcode.com/problems/isomorphic-strings/discuss/57796/My-6-lines-solution
 class Solution:
