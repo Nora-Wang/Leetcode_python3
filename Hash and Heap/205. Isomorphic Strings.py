@@ -27,6 +27,71 @@ t.length == s.length
 s and t consist of any valid ascii character.
 
 
+
+# 2024/09/07 
+# Map
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        record_s2t = {}
+        record_t2s = {}
+        
+        for i in range(len(s)):
+            char_s, char_t = s[i], t[i]
+            if char_s not in record_s2t and char_t not in record_t2s:
+                record_s2t[char_s] = char_t
+                record_t2s[char_t] = char_s
+                continue
+            
+            if char_s in record_s2t and record_s2t[char_s] != char_t:
+                return False
+            if char_t in record_t2s and record_t2s[char_t] != char_s:
+                return False
+                
+        return True
+
+# Array
+# Solution 1
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        s_record = [-1] * 256
+        t_record = [-1] * 256
+        
+        for i in range(len(s)):
+            ord_s, ord_t = ord(s[i]), ord(t[i])
+            
+            if s_record[ord_s] == -1 and t_record[ord_t] == -1:
+                s_record[ord_s] = ord_t
+                t_record[ord_t] = ord_s
+                continue
+            
+            if s_record[ord_s] != -1 and s_record[ord_s] != ord_t:
+                return False
+            if t_record[ord_t] != -1 and t_record[ord_t] != ord_s:
+                return False
+        
+        return True
+
+# Solution 2 Optimization
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        s_record = [-1] * 256
+        t_record = [-1] * 256
+        
+        for i in range(len(s)):
+            ord_s, ord_t = ord(s[i]), ord(t[i])
+            
+            if s_record[ord_s] != t_record[ord_t]:
+                return False
+            
+            s_record[ord_s] = i
+            t_record[ord_t] = i
+        
+        return True
+
+
+
+ 
+
 # Map
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
@@ -51,26 +116,6 @@ class Solution:
         #                 这部分是为了避免"badc","baba" case，即b、d都对应b，这不符合要求
         return s == t and len(mapping_s) == len(mapping_t)
 
-
-# 2024/09/07 Map
-class Solution:
-    def isIsomorphic(self, s: str, t: str) -> bool:
-        record_s2t = {}
-        record_t2s = {}
-        
-        for i in range(len(s)):
-            char_s, char_t = s[i], t[i]
-            if char_s not in record_s2t and char_t not in record_t2s:
-                record_s2t[char_s] = char_t
-                record_t2s[char_t] = char_s
-                continue
-            
-            if char_s in record_s2t and record_s2t[char_s] != char_t:
-                return False
-            if char_t in record_t2s and record_t2s[char_t] != char_s:
-                return False
-                
-        return True
 
 # Array
 # https://leetcode.com/problems/isomorphic-strings/discuss/57796/My-6-lines-solution
