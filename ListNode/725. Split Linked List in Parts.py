@@ -80,3 +80,42 @@ class Solution:
             result.append(None)
         
         return result
+
+
+# 写法上的optimize
+# https://leetcode.com/problems/split-linked-list-in-parts/discuss/5752989/Beats-100-Explained-with-Video-C%2B%2BJavaPython-O(n)-Time-O(k)-Space-Explained-in-Detail
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
+        result = [None] * k
+        
+        cur = head
+        length = 0
+        while cur:
+            length += 1
+            cur = cur.next
+        
+        quotient, remainder = length // k, length % k
+        
+        cur = head
+        for i in range(k):
+            result[i] = cur
+            current_size = quotient + 1 if remainder > 0 else quotient
+            remainder -= 1
+            
+            for _ in range(current_size - 1):
+                if cur:
+                    cur = cur.next
+            
+            if cur:
+                temp = cur.next
+                cur.next = None
+                cur = temp
+        
+        return result
+            
+            
