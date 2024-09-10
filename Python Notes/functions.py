@@ -112,3 +112,18 @@ python中切片会创建一个新的容器，新容器对原容器的每个指�
 十进制 -> 二进制   bin(10)
 十进制 -> 八进制   oct(10) 
 十进制 -> 十六进制 hex(10)
+
+# 最大公约数 Greatest Common Divisor, GCD
+# 最大公倍数 Least Common Multiple, LCM
+1. math.gcd(a, b)
+2. def gcd(a, b):
+      """
+      使用欧几里德算法计算两个整数的最大公约数
+      """
+      while b:
+          a, b = b, a % b
+      return a
+# 使用了 abs(a * b) 来确保结果为正数，因为在某些情况下，a 和 b 的乘积可能为负数
+lcm = abs(a * b) // gcd(a, b)
+
+
