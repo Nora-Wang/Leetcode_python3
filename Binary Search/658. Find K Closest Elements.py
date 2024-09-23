@@ -23,6 +23,51 @@ The arr parameter had been changed to an array of integers (instead of a list of
 然后使用两根指针从该位置开始向两端遍历, 每次把差值比较小的元素放入答案中然后将该指针向边界方向移动一下即可.
 
 
+# 23/09/2024
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        index = self.binary_search(arr, x)
+        
+        left, right = index - 1, index + 1
+        for _ in range(k - 1):
+            if left < 0:
+                right += 1
+                continue
+                
+            if right >= len(arr):
+                left -= 1
+                continue
+            
+            if abs(arr[left] - x) > abs(arr[right] - x):
+                right += 1
+            else:
+                left -= 1
+        
+        return arr[left + 1:right]
+    
+    def binary_search(self, arr, target):
+        start, end = 0, len(arr) - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            
+            if arr[mid] == target:
+                return mid
+            
+            if arr[mid] < target:
+                start = mid
+            else:
+                end = mid
+                
+        if arr[start] == target:
+            return start
+        if arr[end] == target:
+            return end
+        
+        return end if abs(arr[start] - target) > abs(arr[end] - target) else start
+                
+
+
 #06/15/2020
 #time: O(logn + k), space: O(1)
 class Solution:
