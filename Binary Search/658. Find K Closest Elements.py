@@ -24,6 +24,7 @@ The arr parameter had been changed to an array of integers (instead of a list of
 
 
 # 23/09/2024
+# Time O(logn + k), Space O(1)
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
         index = self.binary_search(arr, x)
