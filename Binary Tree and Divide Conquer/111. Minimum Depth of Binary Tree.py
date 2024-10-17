@@ -31,6 +31,9 @@ brute force:
 time: O(n^2)
 space: O(1)
 
+#Divide and Concur
+
+
 optimized:
 #BFS
 1. analyze: use a queue to record the nodes; use a for loop to separate and count level; if root.left or root.right is the leaf node, return curt depth; if one of left/right is None, not append it to the queue
@@ -60,6 +63,27 @@ class Solution:
         
         self.dfs(root.left, level + 1)
         self.dfs(root.right, level + 1)
+
+# Divide and Concur
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        if not root.left and not root.right:
+            return 1
+        
+        left = self.minDepth(root.left)
+        right = self.minDepth(root.right)
+
+        # The depth means for leaf node, if left or right, it's not depth
+        # Sample input: [2,null,3,null,4,null,5,null,6], output: 5
+        if not left:
+            return right + 1
+        if not right:
+            return left + 1
+        
+        return min(left, right) + 1
 
 #BFS
 # Definition for a binary tree node.
