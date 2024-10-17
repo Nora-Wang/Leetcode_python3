@@ -32,6 +32,7 @@ time: O(n^2)
 space: O(1)
 
 #Divide and Concur
+Similar like Recursion, but Recursion is BottomnToTop, and Divide and Concur is TopToBottom
 
 
 optimized:
