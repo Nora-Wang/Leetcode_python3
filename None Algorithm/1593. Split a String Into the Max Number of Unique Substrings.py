@@ -53,3 +53,32 @@ class Solution:
                 visited.remove(char)
         
         return
+
+
+# Backtracking + Pruning
+class Solution:
+    def maxUniqueSplit(self, s: str) -> int:
+        self.res = 1
+        
+        self.helper(s, 0, set())
+        
+        return self.res
+    
+    def helper(self, s, left, visited):
+        if left == len(s):
+            self.res = max(self.res, len(visited))
+            return
+
+        # Pruning: if current unique chars + the lenght of rest string chara <= self.res
+        if len(visited) + len(s) - left <= self.res:
+            return
+        
+        for right in range(left + 1, len(s) + 1):
+            char = s[left:right]
+            
+            if char not in visited:
+                visited.add(char)
+                self.helper(s, right, visited)
+                visited.remove(char)
+        
+        return
