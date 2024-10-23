@@ -91,3 +91,50 @@ class Solution:
         
         return root
             
+# DFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        self.dfs([root])
+        
+        root.val = 0
+        return root
+    
+    def dfs(self, level):
+        if not len(level):
+            return
+        
+        level_sum = 0
+        for node in level:
+            if not node:
+                continue
+            if node.left:
+                level_sum += node.left.val
+            if node.right:
+                level_sum += node.right.val
+        
+        next_level = []
+        for node in level:
+            cur_sum = 0
+            if node.left:
+                cur_sum += node.left.val
+            if node.right:
+                cur_sum += node.right.val
+                
+            if node.left:
+                node.left.val = level_sum - cur_sum
+                next_level.append(node.left)
+            if node.right:
+                node.right.val = level_sum - cur_sum
+                next_level.append(node.right)
+        
+        self.dfs(next_level)
+        
+        return
+            
+            
