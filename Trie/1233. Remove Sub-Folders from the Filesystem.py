@@ -32,7 +32,7 @@ folder[i] always starts with the character '/'.
 Each folder name is unique.
 
 
-# Trie
+# Trie Tree
 class TrieNode:
     def __init__(self):
         self.children = {}
@@ -61,6 +61,7 @@ class Trie:
         node = self.root
         
         for char in folder:
+            # Change the find function for specific use case
             if char not in node.children:
                 return False
             
