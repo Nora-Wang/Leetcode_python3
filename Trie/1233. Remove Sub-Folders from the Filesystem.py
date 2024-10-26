@@ -95,4 +95,33 @@ class Solution:
         
         return res
         
+
+# Math
+# https://leetcode.com/problems/remove-sub-folders-from-the-filesystem/discuss/5964641/Explained-step-by-step-or-Beats-100-or-Working-25.10.2024
+class Solution:
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        if not folder:
+            return []
+        
+        folder.sort()
+        
+        res = []
+        res.append(folder[0])
+        
+        for i in range(1, len(folder)):
+            # 1. prev should use res[-1] not folder[i - 1], because we need to compare with lastest result folder, not the lastest folder
+            # Sample: ["/a","/a/b/c","/a/b/d"]
+            # folder[i - 1] = "/a/b/c" -> "/a/b/d" is not sub-folder
+            # res[-1] = "/a" -> "/a/b/d" is sub-folder
+            # Wrong output: ["/a","/a/b/d"]; Expected output: ["/a"]
+
+            # 2. need to ' + '/'' when comparing 
+            # Edge case: ["/a/b/c","/a/b/ca","/a/b/d"]
+            # If not add '/', "/a/b/ca" will be the sub-folder of "/a/b/c"
+            prev, curt = res[-1] + '/', folder[i]
+            
+            if not curt.startswith(prev):
+                res.append(curt)
+            
+        return res
         
