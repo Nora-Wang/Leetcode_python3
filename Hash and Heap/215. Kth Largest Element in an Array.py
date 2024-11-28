@@ -11,6 +11,38 @@ Output: 4
 Note: 
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 
+
+# 2024/11/28
+# min_heap
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heap = []
+        
+        for n in nums:
+            heapq.heappush(heap, n)
+            
+            if len(heap) > k:
+                heapq.heappop(heap)
+            
+        return heapq.heappop(heap)
+
+
+# max_heap
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heap = []
+        l = len(nums)
+        
+        for n in nums:
+            heapq.heappush(heap, -n)
+            
+            if len(heap) > l - k + 1:
+                heapq.heappop(heap)
+            
+        return -heapq.heappop(heap)
+
+
+
 #clarification
 what's the relationship between k and n?
 if k >= n -> return nums
