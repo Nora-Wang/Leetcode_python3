@@ -96,3 +96,19 @@ class Solution:
                 return True
         
         return False
+
+
+# utilze ASCII data to calculate 
+class Solution:
+    def canMakeSubsequence(self, str1: str, str2: str) -> bool:
+        j = 0
+        
+        for char in str1:
+            if (ord(str2[j]) - ord(char) + 26) % 26 <= 1:
+                j += 1
+            
+            if j == len(str2):
+                return True
+            
+        return False
+        
