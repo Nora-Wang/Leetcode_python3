@@ -35,6 +35,10 @@ n == start.length == target.length
 start and target consist of the characters 'L', 'R', and '_'.
 
 
+
+# Same question
+# LC 777: https://leetcode.com/problems/swap-adjacent-in-lr-string/
+
 # Tow pointer
 # https://leetcode.com/problems/move-pieces-to-obtain-a-string/discuss/6114530/2-pointers-nested-loopororbeats-100
 # time O(n), space O(1)
