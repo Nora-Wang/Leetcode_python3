@@ -33,6 +33,21 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 
+# 2025/05/19
+# Only need to care about the k - 2 num, for k - 1, it's same as i or not, it doesn't matter
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) <= 2:
+            return len(nums)
+        
+        k = 2
+        for i in range(2, len(nums)):
+            if nums[i] != nums[k - 2]:
+                nums[k] = nums[i]
+                k += 1
+        
+        return k
+
 
 # 2024/09/04
 # time O(n), space O(1)
