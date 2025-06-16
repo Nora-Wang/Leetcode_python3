@@ -43,6 +43,41 @@ The number of nodes will not exceed 1000.
 
 
 
+# 2025/6/16
+# time: O(n), space: O(n)
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        record = {}
+    
+        # copy node to map
+        old = head
+        while old:
+            record[old] = Node(old.val)
+            old = old.next
+        
+        # copy random
+        old = head
+        while old:
+            if old.next:
+                record[old].next = record[old.next]
+            if old.random:
+                record[old].random = record[old.random]
+            
+            old = old.next
+        
+        return record[head]
+
+
+    
+
 """
 # Definition for a Node.
 class Node:
