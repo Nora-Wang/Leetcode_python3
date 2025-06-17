@@ -18,6 +18,28 @@ Note:
 -100.0 < x < 100.0
 n is a 32-bit signed integer, within the range [−2^31, 2^31 − 1]
 
+
+
+# 2025/6/17
+# Recursion
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n == 0:
+            return 1
+        if n == 1:
+            return x
+        
+        if n < 0:
+            return self.myPow(1 / x, -n)
+        
+        if n % 2:
+            return self.myPow(x * x, n // 2) * x
+        else:
+            return self.myPow(x * x, n // 2)
+
+
+
+
 code:
 leetcode version
 class Solution(object):
