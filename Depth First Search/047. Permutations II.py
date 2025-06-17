@@ -10,6 +10,38 @@ Output:
   [2,1,1]
 ]
 
+# 2025/6/17
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+
+        self.helper(nums, set(), [], res)
+
+        return res
+
+    def helper(self, nums, visited, temp, res):
+        if len(temp) == len(nums):
+            res.append((list(temp)))
+            return
+
+        for i in range(len(nums)):
+            if i in visited:
+                continue
+
+            # 这里的逻辑是，如果nums[i]的值与nums[i-1]一样，并且nums[i-1]已经在visited里面了，
+            # 那就说明在当前这个level的recursion里，没必要再往下走了，因为同样value的recursion，及同样temp的结果已经在nums[i-1]那一层里生成过了
+            if i > 0 and nums[i] == nums[i - 1] and (i - 1) in visited:
+                continue
+            
+            visited.add(i)
+            temp.append(nums[i])
+            self.helper(nums, visited, temp, res)
+            temp.pop()
+            visited.remove(i)
+    
+        return
+
 
 
 # 10/14/2020
