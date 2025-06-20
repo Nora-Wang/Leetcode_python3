@@ -13,6 +13,36 @@ Input:
 Output: 7
 Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 
+# 2025/06/20
+# DFS - TLE
+  class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        if not len(grid) or not len(grid[0]):
+            return 0
+
+        self.res = float('inf')
+        record = {(0,0):grid[0][0]}
+        self.dfs(grid, 0, 0, grid[0][0], record)
+
+        return self.res
+
+    def dfs(self, grid, i, j, temp, record):
+        if i == len(grid) - 1 and j == len(grid[0]) - 1:
+            self.res = min(self.res, temp)
+            return
+        
+        for d_i, d_j in [(0,1), (1,0)]:
+            i_, j_ = i + d_i, j + d_j
+
+            if i_ < len(grid) and j_ < len(grid[0]):
+                if (i_,j_) in record and record[(i_,j_)] < temp + grid[i_][j_]:
+                    continue
+                
+                record[(i_,j_)] = temp + grid[i_][j_]
+                self.dfs(grid, i_, j_, temp + grid[i_][j_], record)
+        
+        return
+
   
 06/02/2020
 '''
