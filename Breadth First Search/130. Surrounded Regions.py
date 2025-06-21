@@ -18,6 +18,61 @@ Explanation:
 
 Surrounded regions shouldn’t be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
 
+# 2025/06/21
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        if not len(board) or not len(board[0]):
+            return
+
+        for i in range(len(board)):
+            self.bfs(board, i, len(board[0]) - 1)
+            self.bfs(board, i, 0)
+        
+        for j in range(len(board[0])):
+            self.bfs(board, len(board) - 1, j)
+            self.bfs(board, 0, j)
+        
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == 'O':
+                    board[i][j] = 'X'
+                if board[i][j] == 'M':
+                    board[i][j] = 'O'
+        
+        return
+    
+    def bfs(self, board, x, y):
+        if board[x][y] != 'O':
+            return
+        
+        board[x][y] = 'M'
+        queue = collections.deque([(x,y)])
+        while queue:
+            i,j = queue.popleft()
+
+            for i_d, j_d in [(0,1),(0,-1),(1,0),(-1,0)]:
+                i_, j_ = i + i_d, j + j_d
+                if self.is_valid(board, i_, j_):
+                    queue.append((i_,j_))
+                    board[i_][j_] = 'M'
+        
+        return
+    
+    def is_valid(self, board, x, y):
+        if x < 0 or y < 0 or x >= len(board) or y >= len(board[0]):
+            return False
+        
+        if board[x][y] != 'O':
+            return False
+        
+        return True
+
+
+
+
 
 # time: O(n * m), space: O(n * m)
 # BFS Version
