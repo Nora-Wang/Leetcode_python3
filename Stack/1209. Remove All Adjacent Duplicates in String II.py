@@ -34,6 +34,49 @@ Constraints:
 s only contains lower case English letters.
 
 
+# 01/04/2026
+# Solution 1: Stack
+# Time O(n), Space O(n)
+ class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        record = []
+
+        for char in s:
+            if not len(record) or char != record[-1][0]:
+                record.append([char, 1])
+                continue
+            
+            record[-1][1] += 1
+            
+            if record[-1][1] == k:
+                record.pop()
+
+        return ''.join(char * count for char, count in record)
+            
+
+
+# Solution 2: Two Pointer
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        s = list(s)
+        n = len(s)
+        i, count = 0, [0] * n
+
+        for j in range(n):
+            s[i] = s[j]
+
+            if i > 0 and s[i] == s[i - 1]:
+                count[i] = count[i - 1] + 1
+            else:
+                count[i] = 1
+            
+            if count[i] == k:
+                i -= k
+            
+            i += 1
+        
+        return ''.join(s[:i])
+ 
 
 #brute force
 #time: O(k*n), space: O(n)
