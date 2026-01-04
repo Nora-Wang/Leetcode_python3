@@ -33,6 +33,41 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 
+# 01/04/2026
+# 快慢指针，time O(n), space O(1)
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) <= 1:
+            return len(nums)
+
+        i, j = 0, 1
+        while j < len(nums):
+            while j < len(nums) and nums[i] == nums[j]:
+                j += 1
+            
+            if j == len(nums):
+                break
+            
+            i += 1
+            nums[i] = nums[j]
+            j += 1
+        
+        return i + 1
+
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) <= 1:
+            return len(nums)
+        
+        count = 1
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1]:
+                nums[count] = nums[i]
+                count += 1
+        
+        return count
+        
+
 # 08/22/2024
 逻辑分析，count不是duplicate的次数，而是individual的个数
 # time: O(n), space: O(1)
