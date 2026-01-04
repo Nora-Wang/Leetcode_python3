@@ -24,7 +24,7 @@ Constraints:
 s consists of lowercase English letters.
 
 
-
+# Solution 1: Array
 class Solution:
     def removeDuplicates(self, s: str) -> str:
         record = []
@@ -54,3 +54,18 @@ class Solution:
         return ''.join(record)
             
 
+# Solution 2: Two Pointer
+class Solution:
+    def removeDuplicates(self, s: str) -> str:
+        list_s = list(s)
+        i = 0
+
+        for j in range(len(list_s)):
+            list_s[i] = list_s[j]
+
+            if i > 0 and list_s[i] == list_s[i - 1]:
+                i -= 2
+            
+            i += 1
+        
+        return ''.join(list_s[:i])
