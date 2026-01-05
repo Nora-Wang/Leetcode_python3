@@ -16,6 +16,25 @@ Given binary tree [3,9,20,null,null,15,7],
 return its minimum depth = 2.
 
 
+# 01/05/2026
+# Divide and Concur
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        left = self.minDepth(root.left)
+        right = self.minDepth(root.right)
+
+        # 这里逻辑比较tricky，当不是叶子结点，但没有左结点或右结点的时候，取的应该是最大值，因为没有结点的那边必然比有结点的depth小
+        return max(left, right) + 1 if not left or not right else min(left, right) + 1
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
