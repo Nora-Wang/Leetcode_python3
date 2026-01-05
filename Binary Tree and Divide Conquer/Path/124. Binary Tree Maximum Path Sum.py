@@ -37,7 +37,7 @@ class Solution:
         # Tricky 1: 这里在做比较的时候一定要带上root.val其本身
         self.result = max(self.result, root.val, root.val + left, root.val + right, root.val + left + right)
 
-        # Tricky 2: 这里由于是recursion回到上一层去，那么必须带上当前的root.val
+        # Tricky 2: 这里由于是Divide and Concur回到上一层去，那么必须带上当前的root.val
         return max(root.val + left, root.val + right, root.val)
 
         
