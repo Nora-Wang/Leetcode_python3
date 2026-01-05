@@ -11,13 +11,99 @@ Explanation:
 2     3         <---
  \     \
   5     4       <---
-  
+
+
+# 01/05/2026
+# BFS
+# Time O(logn ~ n), Space O(logn ~ n)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+
+        queue = collections.deque([root])
+        result = []
+
+        while queue:
+            result.append(queue[0].val)
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                if node.right:
+                    queue.append(node.right)
+                if node.left:
+                    queue.append(node.left)
+        
+        return result
+            
+# DFS
+# Recursion
+# Time O(n), Space O(1)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        result = []
+
+        self.dfs(root, 0, result)
+
+        return result
+    
+    def dfs(self, root, depth, result):
+        if not root:
+            return
+        
+        if depth >= len(result):
+            result.append(root.val)
+        
+        self.dfs(root.right, depth + 1, result)
+        self.dfs(root.left, depth + 1, result)
+        
+# Stack
+# Time O(n), Space O(n)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+
+        stack = [[root, 0]]
+        result = []
+
+        while stack:
+            node, depth = stack.pop()
+
+            if depth == len(result):
+                result.append(node.val)
+            
+            if node.left:
+                stack.append([node.left, depth + 1])
+            if node.right:
+                stack.append([node.right, depth + 1])
+            
+        return result
+
+
 
 哇，这题很有意思啊。
 主体思路就是level order traverse。
 常规直接用BFS，但其实还有4种DFS解法。
 DFS主要分为recursion和stack两种类型，每种又能分为从左到右的遍历还是从右到左的遍历，区别主要是空间复杂度。
-BFS无论从左到右的遍历还是从右到左的遍历都是O(1)的空间，所以无所谓左右。
+BFS无论从左到右的遍历还是从右到左的遍历都是O(n)的空间，所以无所谓左右。
 
 
   
