@@ -17,6 +17,68 @@ Given binary tree [3,9,20,null,null,15,7],
    15   7
 return its depth = 3.
 
+
+
+# 01/06/2026
+# BFS
+# Time O(n), Space O(n)
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        res = 0
+        queue = collections.deque([root])
+
+        while queue:
+            res += 1
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            
+        return res
+
+# DFS
+# Divide and Concur
+# Time O(logn ~ n), Space O(1)
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        if not root.left and not root.right:
+            return 1
+        
+        left = self.maxDepth(root.left)
+        right = self.maxDepth(root.right)
+    
+        return max(left, right) + 1
+
+# Recursion
+# Time O(logn ~ n), Space O(1)
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        self.res = 0
+        self.dfs(root, 0)
+
+        return self.res
+
+    def dfs(self, root, depth):
+        if not root:
+            return
+        
+        if not root.left and not root.right:
+            self.res = max(self.res, depth + 1)
+            return
+        
+        self.dfs(root.left, depth + 1)
+        self.dfs(root.right, depth + 1)
+
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -46,6 +108,7 @@ Divide and conquer
 4.time: O(n), space:O(1)
 '''
 
+                                                                     
 
 #BFS
 class Solution:
