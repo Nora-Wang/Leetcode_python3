@@ -18,6 +18,64 @@ return its level order traversal as:
   [15,7]
 ]
 
+# 01/06/2026
+# BFS
+# Time O(n), Space O(n)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+
+        res = []
+        queue = collections.deque([root])
+
+        while queue:
+            temp = []
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                temp.append(node.val)
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            
+            res.append(list(temp))
+        
+        return res
+                
+# DFS
+# Use a hashmap to record the nodes in every level with depth {depth : [list of node value]}
+# Time O(logn ~ n), Space O(n)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        self.record = collections.defaultdict(list) # {depth : [list of node value]}
+
+        self.dfs(root, 0)
+
+        return [value for key, value in sorted(self.record.items(), key = lambda item:item[0])]
+    
+    def dfs(self, root, depth):
+        if not root:
+            return
+        
+        self.record[depth].append(root.val)
+        self.dfs(root.left, depth + 1)
+        self.dfs(root.right, depth + 1)
+
+
 
 思路：
 直接就用BFS的模版,利用二叉树的特性（只有左右两个子树）
