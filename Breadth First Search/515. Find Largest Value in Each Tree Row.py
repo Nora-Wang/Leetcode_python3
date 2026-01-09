@@ -33,6 +33,76 @@ The number of nodes in the tree will be in the range [0, 104].
 -231 <= Node.val <= 231 - 1
 
 
+# 01/09/2026
+# BFS
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+
+        queue = collections.deque([root])
+        res = []
+
+        while queue:
+            cur = -float('inf')
+            for _ in range(len(queue)):
+                node = queue.popleft()
+
+                if cur < node.val:
+                    cur = node.val
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+        
+            res.append(cur)
+        
+        return res
+
+# DFS
+# HashMap
+# Time O(n), Space O(logn ~ n)
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        # 这里不能用collections.defaultdict，因为这个在initial的时候，会直接赋值为0，而题目里-231 <= Node.val <= 231 - 1
+        self.record = {}
+        self.helper(root, 0)
+
+        return [value for _,value in sorted(self.record.items())]
+    
+    def helper(self, node, depth):
+        if not node:
+            return
+        
+        self.record[depth] = max(node.val, self.record[depth]) if depth in self.record else node.val
+
+        self.helper(node.left, depth + 1)
+        self.helper(node.right, depth + 1)
+
+# List Index
+# Time O(n), Space O(1)
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        self.helper(root, 0, res)
+
+        return res
+
+    def helper(self, root, depth, res):
+        if not root:
+            return
+        
+        if depth == len(res):
+            res.append(root.val)
+        
+        if root.val > res[depth]:
+            res[depth] = root.val
+        
+        self.helper(root.left, depth + 1, res)
+        self.helper(root.right, depth + 1, res)
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
