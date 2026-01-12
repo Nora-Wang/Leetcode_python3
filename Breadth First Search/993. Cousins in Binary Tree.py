@@ -32,6 +32,90 @@ The number of nodes in the tree will be between 2 and 100.
 Each node has a unique integer value from 1 to 100.
 
 
+# 2026/01/12
+# DFS
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
+        if not root or root.val == x or root.val == y:
+            return False
+        
+        self.x_depth, self.y_depth, self.x_parent, self.y_parent = None, None, None, None
+
+        self.helper(root.left, 1, x, y, root)
+        self.helper(root.right, 1, x, y, root)
+
+        return self.x_depth and self.y_depth and self.x_depth == self.y_depth and self.x_parent != self.y_parent
+
+    def helper(self, node, depth, x, y, parent):
+        if not node:
+            return
+        
+        if self.x_depth and self.y_depth:
+            return
+
+        if node.val == x:
+            self.x_depth = depth
+            self.x_parent = parent
+        if node.val == y:
+            self.y_depth = depth
+            self.y_parent = parent
+        
+        self.helper(node.left, depth + 1, x, y, node)
+        self.helper(node.right, depth + 1, x, y, node)
+
+# BFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
+        if not root or root.val == x or root.val == y:
+            return False
+
+        queue = collections.deque()
+        if root.left:
+            queue.append((root.left, root))
+        if root.right:
+            queue.append((root.right, root))
+
+        while queue:
+            parent_x, parent_y = None, None
+            for _ in range(len(queue)):
+                node, parent = queue.popleft()
+
+                if node.val == x:
+                    parent_x = parent
+                if node.val == y:
+                    parent_y = parent
+
+                if node.left:
+                    queue.append((node.left, node))
+                if node.right:
+                    queue.append((node.right, node))
+            
+            if parent_x and parent_y and parent_x != parent_y:
+                return True
+        
+        return False
+
+
+
+
+
+
+
+
+
 code:
 # Definition for a binary tree node.
 # class TreeNode:
