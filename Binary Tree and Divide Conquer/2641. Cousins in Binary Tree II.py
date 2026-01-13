@@ -38,6 +38,155 @@ The number of nodes in the tree is in the range [1, 105].
 
 
 
+# 2026/01/13
+# BFS
+
+# level traversal for two round
+# 1. get levelSum
+# 2. queue = [node, cousinSum], queue start from root.left and root.right -> cousinSum = 0, if node.left: cousinSum += node.left.val, if node.right: cousinSum += node.right.val
+# 3. in the end of every level traversal, modified tree with every node value = levelSum - cousinSum
+# Time O(n), Space O(n)
+
+class Solution:
+    def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+        
+        levelSum = self.helper(root)
+
+        root.val, cousinSum, level = 0, 0, 1
+        cousinSum += root.left.val if root.left else 0
+        cousinSum += root.right.val if root.right else 0
+
+        queue = collections.deque()
+        if root.left:
+            queue.append((root.left, cousinSum))
+        if root.right:
+            queue.append((root.right, cousinSum))
+
+        while queue:
+            for _ in range(len(queue)):
+                node, cousinSum = queue.popleft()
+                node.val = levelSum[level] - cousinSum
+
+                curCousinSum = 0
+                curCousinSum += node.left.val if node.left else 0
+                curCousinSum += node.right.val if node.right else 0
+
+                if node.left:
+                    queue.append((node.left, curCousinSum))
+                if node.right:
+                    queue.append((node.right, curCousinSum))
+            
+            level += 1
+        
+        return root
+    
+    def helper(self, root):
+        levelSum = []
+
+        queue = collections.deque([root])
+        while queue:
+            cur = 0
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                cur += node.val
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            
+            levelSum.append(cur)
+        
+        return levelSum
+
+
+# # level traversal for one round  
+
+class Solution:
+    def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+
+        root.val, cousinSum = 0, 0
+        cousinSum += root.left.val if root.left else 0
+        cousinSum += root.right.val if root.right else 0
+
+        queue = collections.deque()
+        if root.left:
+            queue.append((root.left, cousinSum))
+        if root.right:
+            queue.append((root.right, cousinSum))
+
+        while queue:
+            levelSum = 0
+            levelRecord = []
+            for _ in range(len(queue)):
+                node, cousinSum = queue.popleft()
+                levelRecord.append((node, cousinSum))
+                levelSum += node.val
+
+                curCousinSum = 0
+                curCousinSum += node.left.val if node.left else 0
+                curCousinSum += node.right.val if node.right else 0
+
+                if node.left:
+                    queue.append((node.left, curCousinSum))
+                if node.right:
+                    queue.append((node.right, curCousinSum))
+            
+            for node, cousinSum in levelRecord:
+                node.val = levelSum - cousinSum
+            
+        return root
+
+        
+
+# DFS
+# levelSum {depth : levelSum}
+# record {node : (depth, cousinSum)}
+# recursion helper(node, depth, cousinSum)
+class Solution:
+    def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+
+        self.levelSum, self.record = collections.defaultdict(int), collections.defaultdict()
+
+        self.helper(root, 0, root.val)
+
+        for node, value in self.record.items():
+            depth, cousinSum = value[0], value[1]
+            node.val = self.levelSum[depth] - cousinSum
+        
+        return root
+    
+    def helper(self, node, depth, cousinSum):
+        if not node:
+            return
+        
+        self.levelSum[depth] += node.val
+        self.record[node] = (depth, cousinSum)
+
+        nextCousinSum = 0
+        nextCousinSum += node.left.val if node.left else 0
+        nextCousinSum += node.right.val if node.right else 0
+        
+        self.helper(node.left, depth + 1, nextCousinSum)
+        self.helper(node.right, depth + 1, nextCousinSum)
+
+
+
+
+
+
+
+
+
+
+
+
 Analysis:
 1. get the sum of the depth level nodes - level_sum
 2. when traverse the tree, get cur_sum=node.left.val+node.right.val, then use level_sum-cur_sum to get cousins_sum
