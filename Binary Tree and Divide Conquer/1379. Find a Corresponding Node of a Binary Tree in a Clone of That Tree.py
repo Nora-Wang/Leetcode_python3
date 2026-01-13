@@ -45,6 +45,63 @@ The values of the nodes of the tree are unique.
 target node is a node from the original tree and is not null.
 
 
+
+# 2026/01/13
+# DFS
+# Recursion
+class Solution:
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        self.res = None
+
+        self.helper(original, cloned, target)
+
+        return self.res
+
+    def helper(self, original, cloned, target):
+        # end case + pruning
+        if not original or self.res:
+            return
+        
+        if original.val == target.val:
+            self.res = cloned
+            return
+        
+        self.helper(original.left, cloned.left, target)
+        self.helper(original.right, cloned.right, target)
+
+# Divide and concur
+class Solution:
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        if not original:
+            return None
+        
+        if original.val == target.val:
+            return cloned
+        
+        left = self.getTargetCopy(original.left, cloned.left, target)
+        right = self.getTargetCopy(original.right, cloned.right, target)
+
+        return left if left else right
+
+# BFS
+class Solution:
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        queue = collections.deque([(original, cloned)])
+
+        while queue:
+            original, cloned = queue.popleft()
+
+            if original.val == target.val:
+                return cloned
+            
+            if original.left:
+                queue.append((original.left, cloned.left))
+            if original.right:
+                queue.append((original.right, cloned.right))
+        
+        return None
+
+
 # BFS
 # time: O(n), space: O(n)
 # Definition for a binary tree node.
