@@ -30,6 +30,47 @@ Input:     1         1
 
 Output: false
 
+# 2026/01/14
+# BFS
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        queue = collections.deque([(p, q)])
+
+        while queue:
+            p, q = queue.popleft()
+            if not p and not q:
+                continue
+            if not self.valid(p, q):
+                return False
+            
+            queue.append((p.left, q.left))
+            queue.append((p.right, q.right))
+        
+        return True
+    
+    def valid(self, p, q):
+        if not p or not q:
+            return False
+        
+        return p.val == q.val
+
+# DFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
+            return True
+        
+        if not p or not q:
+            return False
+        
+        return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
 
 # BFS
 # Definition for a binary tree node.
