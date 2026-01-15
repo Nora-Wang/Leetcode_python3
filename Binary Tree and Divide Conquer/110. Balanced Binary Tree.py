@@ -17,6 +17,42 @@ Given the following tree [3,9,20,null,null,15,7]:
 Return true.
 
 
+
+# 2026/01/15
+# Divide and concur
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        _, result = self.helper(root)
+        return result
+    
+    def helper(self, root):
+        if not root:
+            return 0, True
+        
+        leftDepth, leftIsBalanced = self.helper(root.left)
+        rightDepth, rightIsBalanced = self.helper(root.right)
+
+        return max(leftDepth, rightDepth) + 1, leftIsBalanced and rightIsBalanced and abs(leftDepth - rightDepth) <= 1
+
+# Recursion
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+        return abs(self.getDepth(root.left) - self.getDepth(root.right)) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right)
+    
+    def getDepth(self, root):
+        if not root:
+            return 0
+        
+        left = self.getDepth(root.left)
+        right = self.getDepth(root.right)
+        
+        return max(left, right) + 1
+
+
+
+
 brute force:
 utilize root.left and root.right to count the left/right subtrees depth for every node
 time: O(n^2), space: O(n)
