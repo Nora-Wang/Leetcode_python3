@@ -17,6 +17,43 @@ Output:
  / \   / \
 9   6 3   1
 
+# 2026/01/16
+# Recursion - top to down
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        self.helper(root)
+        return root
+    
+    def helper(self, root):
+        if not root:
+            return
+        
+        if not root.left and not root.right:
+            return
+        
+        root.left, root.right = root.right, root.left
+        self.helper(root.left)
+        self.helper(root.right)
+        return
+        
+# Divide and Concur - down to top
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        
+        if not root.left and not root.right:
+            return root
+        
+        left = self.invertTree(root.left)
+        right = self.invertTree(root.right)
+
+        root.left, root.right = right, left
+
+        return root
+
+
+
 
 # Definition for a binary tree node.
 # class TreeNode:
